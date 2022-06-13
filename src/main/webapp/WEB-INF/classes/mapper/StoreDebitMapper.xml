@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreDebitMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreDebit" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="obligor_id" property="obligorId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="creditor_id" property="creditorId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="creditor_store_id" property="creditorStoreId" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="return_time" property="returnTime" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, type, obligor_id, creditor_id, creditor_store_id, money, state, create_time, 
+    return_time, memo, reserved1, reserved2, reserved3, reserved4, reserved5
+  </sql>
+  
+  <!-- 插入店铺欠款信息，与欠款单表结构一样 -->
+  <insert id="insert" parameterType="com.jingc.busi.common.table.StoreDebit" >
+    insert into store_debit (id, type, obligor_id, 
+      creditor_id, creditor_store_id, money, 
+      state, create_time, return_time, 
+      memo, reserved1, reserved2, 
+      reserved3, reserved4, reserved5
+      )
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{obligorId,jdbcType=INTEGER}, 
+      #{creditorId,jdbcType=INTEGER}, #{creditorStoreId,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, 
+      #{state,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, #{returnTime,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}
+      )
+  </insert>
+ 
+  <update id="update" parameterType="com.jingc.busi.common.table.StoreDebit" >
+    update store_debit
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="obligorId != null" >
+        obligor_id = #{obligorId,jdbcType=INTEGER},
+      </if>
+      <if test="creditorId != null" >
+        creditor_id = #{creditorId,jdbcType=INTEGER},
+      </if>
+      <if test="creditorStoreId != null" >
+        creditor_store_id = #{creditorStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null and state != ''" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTime != null" >
+        return_time = #{returnTime,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+ <!-- 根据参数对象查询对应的欠款单记录——包含用户名、欠款单开始结束时间、还款开始结束时间、状态、欠款单类别 -->
+ <select id="selectByParamObject" resultMap="BaseResultMap">
+ 	select 
+ 	store_debit.id, store_debit.type, store_debit.obligor_id,store.store_name, store_debit.creditor_id, store_user.user_name, store_debit.creditor_store_id, store_debit.money, store_debit.state, store_debit.create_time, 
+    store_debit.return_time, store_debit.memo, store_debit.reserved1, store_debit.reserved2, store_debit.reserved3, store_debit.reserved4, store_debit.reserved5 
+    from store_debit 
+    left join store on store.store_id = store_debit.obligor_id 
+    left join store_user on store_user.user_id = store_debit.creditor_id
+ 	<where>
+ 		<if test="param.type != null and param.type != ''"> store_debit.type = #{param.type}</if>
+ 		<if test="param.creditorStoreId != null and param.creditorStoreId !=''"> and store_debit.creditor_store_id = #{param.creditorStoreId}</if>
+ 		<if test="param.state != null and param.state !=''"> and store_debit.state = #{param.state}</if>
+ 		<if test="param.obligorId != null and param.obligorId !=''"> and store_debit.obligor_id = #{param.obligorId}</if>
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 			and store_debit.create_time between #{param.createTimeBegin} and #{param.createTimeEnd}
+ 		</if>
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 			and store_debit.create_time &gt; #{param.createTimeBegin}
+ 		</if>
+ 		<if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		 	and store_debit.create_time &lt; #{param.createTimeEnd}
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and store_debit.return_time between #{param.returnTimeBegin} and #{param.returnTimeEnd}
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd == null or param.returnTimeEnd =='')">
+ 			and store_debit.return_time &gt; #{param.returnTimeBegin}
+ 		</if>
+ 		<if test="(param.returnTimeBegin == null or param.returnTimeBegin =='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and store_debit.return_time &lt; #{param.returnTimeEnd}
+ 		</if>
+ 	</where>
+ 	order by store_debit.id desc
+ 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') or (param.createTimeEnd != null and param.createTimeEnd != '')">
+ 	 ,store_debit.create_time desc
+ 	</if>
+ 	<if test="(param.returnTimeBegin != null and param.returnTimeBegin != '') or (param.returnTimeEnd != null and param.returnTimeEnd != '')">
+ 	 ,store_debit.return_time desc
+ 	</if>
+ 	 limit #{pagination.firstResult},#{pagination.pageSize}
+ </select>
+ 
+ <!-- 根据参数对象查询对应的欠款单记录条目数——包含用户名、欠款单开始结束时间、还款开始结束时间、状态、欠款单类别 -->
+ <select id="selectWaitCountByParamObject" resultType="java.lang.Integer">
+ 	select count(*) from store_debit 
+ 	<where>
+ 		<if test="param.type != null and param.type != ''"> type = #{param.type}</if>
+ 		<if test="param.creditorStoreId != null and param.creditorStoreId !=''"> and creditor_store_id = #{param.creditorStoreId}</if>
+ 		<if test="param.state != null and param.state !=''"> and state = #{param.state}</if>
+ 		<if test="param.obligorId != null and param.obligorId !=''"> and obligor_id = #{param.obligorId}</if>
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 			and create_time between #{param.createTimeBegin} and #{param.createTimeEnd}
+ 		</if>
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 			and create_time &gt; #{param.createTimeBegin}
+ 		</if>
+ 		<if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		 	and create_time &lt; #{param.createTimeEnd}
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and return_time between #{param.returnTimeBegin} and #{param.returnTimeEnd}
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd == null or param.returnTimeEnd =='')">
+ 			and return_time &gt; #{param.returnTimeBegin}
+ 		</if>
+ 		<if test="(param.returnTimeBegin == null or param.returnTimeBegin =='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and return_time &lt; #{param.returnTimeEnd}
+ 		</if>
+ 	</where>
+ </select>
+ 
+ 
+ <!-- 根据参数对象查询对应的欠款单记录——店铺查询用 -->
+ <select id="selectByObject2" resultMap="BaseResultMap">
+ 	select <include refid="Base_Column_List"/> from store_debit 
+ 	<where>
+ 		<if test="param.obligorId != null and param.obligorId !=''"> and obligor_id = #{param.obligorId}</if>
+ 		<if test="param.state != null and param.state !=''"> and state = #{param.state}</if> 		
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 			and (create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+ 		</if>
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 			and create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+ 		</if>
+ 		<if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		 	and create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and (return_time between CONCAT(#{param.returnTimeBegin}," 00:00:00") and CONCAT(#{param.returnTimeEnd}," 23:59:59"))
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd == null or param.returnTimeEnd =='')">
+ 			and return_time &gt; CONCAT(#{param.returnTimeBegin}," 00:00:00")
+ 		</if>
+ 		<if test="(param.returnTimeBegin == null or param.returnTimeBegin =='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and return_time &lt; CONCAT(#{(param.returnTimeEnd}," 23:59:59")
+ 		</if>
+ 	</where>
+ 	order by id desc
+ 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') or (param.createTimeEnd != null and param.createTimeEnd != '')">
+ 	 ,create_time desc
+ 	</if>
+ 	<if test="(param.returnTimeBegin != null and param.returnTimeBegin != '') or (param.returnTimeEnd != null and param.returnTimeEnd != '')">
+ 	 ,return_time desc
+ 	</if>
+ 	<if test="pagination != null"><!-- pagination 传入null时，表示不需要分页，要查询所有数据 -->
+  	limit #{pagination.firstResult},#{pagination.pageSize}
+  </if>     
+ </select>
+ 
+ <!-- 根据参数对象查询对应的欠款单记录条目数——店铺查询用 -->
+ <select id="selectWCountByObject2" resultType="java.lang.Integer">
+ 	select count(*) from store_debit 
+ 	<where>
+ 		<if test="param.obligorId != null and param.obligorId !=''"> and obligor_id = #{param.obligorId}</if>
+ 		<if test="param.state != null and param.state !=''"> and state = #{param.state}</if> 		
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 			and (create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+ 		</if>
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 			and create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+ 		</if>
+ 		<if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		 	and create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and (return_time between CONCAT(#{param.returnTimeBegin}," 00:00:00") and CONCAT(#{param.returnTimeEnd}," 23:59:59"))
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd == null or param.returnTimeEnd =='')">
+ 			and return_time &gt; CONCAT(#{param.returnTimeBegin}," 00:00:00")
+ 		</if>
+ 		<if test="(param.returnTimeBegin == null or param.returnTimeBegin =='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and return_time &lt; CONCAT(#{(param.returnTimeEnd}," 23:59:59")
+ 		</if>
+ 	</where>
+ </select>
+ 
+ <!-- 根据店铺和时间统计欠款还款金额 -->
+ <select id="totalMoneyByParamObject" resultType="java.lang.Double">
+  	select count(money) from store_debit 
+  	<where>
+  		<if test="param.type != null and param.type != ''">
+  			type = #{param.type}
+  		</if>
+  		<if test="param.creditorStoreId != null and param.creditorStoreId != ''">
+  			and creditor_store_id = #{param.creditorStoreId}
+  		</if>
+  		<if test="param.state != null and param.state != ''">
+  			and state = #{param.state}
+  		</if>
+  		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 			and create_time between #{param.createTimeBegin} and #{param.createTimeEnd}
+ 		</if>
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 			and create_time &gt; #{param.createTimeBegin}
+ 		</if>
+ 		<if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		 	and create_time &lt; #{param.createTimeEnd}
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and return_time between #{param.returnTimeBegin} and #{param.returnTimeEnd}
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd == null or param.returnTimeEnd =='')">
+ 			and return_time &gt; #{param.returnTimeBegin}
+ 		</if>
+ 		<if test="(param.returnTimeBegin == null or param.returnTimeBegin =='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and return_time &lt; #{param.returnTimeEnd}
+ 		</if>
+  	</where>
+  </select>
+  
+  <update id="updateArrearsOperationList">
+  update store_debit
+    <set >
+      <if test="param.state != null" >
+        state = #{param.state}
+      </if>
+    </set>
+    where id = #{param.id}
+  </update>
+</mapper>

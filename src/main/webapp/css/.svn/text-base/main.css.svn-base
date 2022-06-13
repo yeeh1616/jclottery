@@ -1,0 +1,3199 @@
+body,ul,form {
+	margin: 0;
+	padding: 0;
+}
+
+h1,h2,h3,h4,h5 {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial;
+}
+
+ul {
+	list-style: none;
+}
+
+img {
+	border: 0px;
+}
+
+body,td,th {
+	font-size: 12px;
+}
+
+body {
+	color: #21366D;
+}
+
+.clear {
+	clear: both;
+	font-size: 0px;
+	height: 0px;
+	line-height: 0px;
+	visibility: hidden;
+}
+
+p {
+	margin: 0px;
+	padding: 0px;
+}
+
+a:link,a:visited {
+	color: #21366D
+}
+
+a:hover,a:active {
+	color: #FF0000
+}
+
+.wrap {
+	width: 968px;
+	margin: 10px auto 0 auto;
+}
+
+/*字体颜色*/
+.cyellow {
+	color: #FFff00
+}
+
+a.cyellow:link,a.cyellow:visited {
+	color: #FFff00
+}
+
+.cyellow a:link,.cyellow a:visited {
+	color: #FFff00
+}
+
+.cblue {
+	color: #0000FF;
+	font-family: Arial;
+}
+
+a.cblue:link,a.cblue:visited {
+	color: #0000FF
+}
+
+a.cblue:hover,a.cblue:active {
+	color: #FF0000
+}
+
+.cblue a:link,.cblue a:visited {
+	color: #0000FF
+}
+
+.cblue a:hover,.cblue a:active {
+	color: #FF0000
+}
+
+.cred,a.cred:link,a.cred:visited,.cred a:link,.cred a:visited {
+	color: #FF0000
+}
+
+.cfont1 {
+	color: #FF0000;
+	font-weight: bold;
+}
+
+a.cfont1:link,a.cfont1:visited {
+	color: #FF0000
+}
+
+.cfont1 a:link,.cfont1 a:visited {
+	color: #FF0000
+}
+
+.cfont2 {
+	color: #FF0000;
+	font-size: 14px;
+}
+
+a.cfont2:link,a.cfont2:visited {
+	color: #FF0000;
+	font-size: 14px;
+}
+
+.cfont2 a:link,.cfont2 a:visited {
+	color: #FF0000;
+	font-size: 14px;
+}
+
+.cfont3 {
+	color: #fe6601;
+	font-weight: bold;
+}
+
+a.cfont3:link,a.cfont3:visited {
+	color: #fe6601;
+	font-weight: bold;
+}
+
+.cfont3 a:link,.cfont3 a:visited {
+	color: #fe6601;
+	font-weight: bold;
+}
+
+.cfont4,.cfont4 td {
+	color: #545454;
+}
+
+a.cfont4:link,a.cfont4:visited {
+	color: #545454;
+}
+
+.cfont4 a:link,.cfont4 a:visited {
+	color: #545454;
+}
+
+.cfont5 {
+	color: #FF0000;
+	font-weight: bold;
+}
+
+a.cfont5:link,a.cfont5:visited {
+	color: #FF0000;
+	font-weight: bold;
+}
+
+.cfont5 a:link,.cfont5 a:visited {
+	color: #FF0000;
+	font-weight: bold;
+}
+
+.cfont6 {
+	color: #fff;
+}
+
+a.cfont6:link,a.cfont6:visited {
+	color: #fff;
+}
+
+.cfont6 a:link,.cfont6 a:visited {
+	color: #fff;
+}
+
+.cfont7,a.cfont7:link,a.cfont7:visited {
+	font-size: 14px;
+	font-weight: bold;
+	color: #990000
+}
+
+a.cfont7:hover,a.cfont7:active {
+	color: #ff0000
+}
+
+.t_l {
+	text-align: left
+}
+
+.t_r {
+	text-align: right
+}
+
+.t_c {
+	text-align: center
+}
+
+.kong10 {
+	height: 10px;
+	font-size: 0px;
+	line-height: 0px;
+}
+
+.input {
+	border: #d0e4ff solid 1px;
+	color: #004d9d;
+	font-family: Verdana, Arial;
+}
+
+.focus {
+	float: left;
+	width: 391px;
+	height: 239px;
+	padding: 1px;
+	margin-left: 10px;
+	border: #8bc0e7 solid 1px;
+}
+
+.news {
+	float: left;
+	width: 320px;
+	height: 241px;
+	background: url(http://www.500.com/images/info/public/img_04.gif)
+		repeat-x bottom;
+	margin-left: 10px;
+	border: #8bc0e7 solid 1px;
+	overflow: hidden;
+}
+
+.topnews {
+	text-align: center;
+	margin-top: 8px;
+	line-height: 24px;
+}
+
+.topnews h1 {
+	font-size: 16px;
+	font-family: "黑体";
+	font-weight: normal;
+}
+
+.topnews h1 a:link,.topnews h1 a:visited {
+	color: #FF0000;
+}
+
+.topnews .list1 {
+	margin: 8px 0 0 10px;
+}
+
+.list1 li {
+	background: url(http://www.500.com/images/info/public/dot1.gif)
+		no-repeat 0 8px;
+	padding-left: 12px;
+	line-height: 22px;
+	text-align: left;
+}
+
+.list1 .line,.list2 .line,.list3 .line {
+	background: url(http://www.500.com/images/info/public/line_01.gif)
+		repeat-x;
+	height: 1px;
+	font-size: 1px;
+	line-height: 1px;
+	margin: 7px 0px 7px 0;
+}
+
+.ad1 {
+	float: left;
+}
+
+.new_zhongjiang {
+	float: left;
+	margin-left: 10px;
+	width: 725px;
+	overflow: hidden;
+	border: 1px solid #8bc0e7;
+}
+
+.new_zhongjiang .new_roll {
+	width: 610px;
+	float: right;
+	background-color: #ebf4fd;
+}
+
+.new_zhongjiang .new_roll .news_rolling {
+	float: left;
+	height: 59px;
+	width: 462px;
+}
+
+.new_zhongjiang .new_roll .news_rolling ul {
+	width: 462px;
+	margin: 5px 0 0 5px;
+	background: url(http://www.500.com/images/info/public/img_62.gif)
+		no-repeat right 0px;
+}
+
+.new_zhongjiang .new_roll .news_rolling ul li {
+	line-height: 18px;
+	margin-right: 18px;
+	color: #000099;
+	margin: 0;
+	padding: 5px 0 0 10px;
+	background: url(http://www.500.com/images/info/public/bon.gif) no-repeat
+		left 8px;
+}
+
+.news_rolling a:link,.news_rolling a:visited {
+	text-decoration: none;
+}
+
+.news_rolling a:hover {
+	text-decoration: underline
+}
+
+.new_zhongjiang .new_roll .rt {
+	float: right;
+	width: 95px;
+	line-height: 22px;
+	margin: 8px 10px 0 0;
+	font-weight: bold;
+	_padding-left: 20px;
+}
+
+.mane_blue {
+	font-size: 12px;
+	font-weight: bold;
+	color: #000099;
+}
+
+.mtr_01 {
+	background-color: #edf5f8;
+	text-align: left;
+	text-indent: 10px;
+}
+
+.mtr_02 {
+	background-color: #f9f9fb;
+	text-align: left;
+	text-indent: 10px;
+}
+
+.zhongjiang {
+	float: left;
+	margin-left: 10px;
+	height: 65px;
+	width: 727px;
+	background: url(http://www.500.com/images/info/public/img_05.gif);
+	overflow: hidden;
+}
+
+.zhongjiang .tab {
+	float: left;
+	margin-top: 6px;
+}
+
+.zhongjiang .tab1 {
+	width: 53px;
+	height: 26px;
+	line-height: 26px;
+	font-weight: bold;
+	background: #ecf5fe;
+	text-align: center;
+	cursor: pointer;
+}
+
+.zhongjiang .tab2 {
+	width: 51px;
+	height: 24px;
+	line-height: 24px;
+	color: #fff;
+	border: #fff solid 1px;
+	border-right: 0;
+	margin-top: 1px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.zhongjiang .content {
+	float: left;
+	width: 445px;
+	height: 49px;
+	padding: 5px 0 0 20px;
+	background: #ecf5fe;
+	overflow: hidden;
+	margin-top: 6px;
+	line-height: 22px;
+}
+
+.zhongjiang .content li {
+	background: url(http://www.500.com/images/info/public/dot1.gif)
+		no-repeat 1px center;
+	text-indent: 12px;
+}
+
+.zhongjiang .r {
+	float: right;
+	line-height: 22px;
+	margin: 13px;
+	_margin-right: 8px;
+	font-weight: bold;
+	color: #fff;
+}
+
+.zhongjiang .r a:link,.zhongjiang .r a:visited {
+	color: #fff;
+}
+
+.zhongjiang .r a:hover,.zhongjiang .r a:active {
+	color: #FFFF00;
+}
+
+.kaijiang {
+	float: left;
+	width: 228px;
+	min-height: 431px;
+	_height: 431px;
+	border: #8bc0e7 solid 1px;
+	background: #ebf4fd;
+	overflow: hidden;
+}
+
+.titlebar1 {
+	background: url(http://www.500.com/images/info/public/img_07.gif);
+	height: 29px;
+}
+
+.titlebar2 {
+	background: url(http://www.500.com/images/info/public/img_020.gif);
+	height: 29px;
+}
+
+.titlebar1 h1,.titlebar2 h1 {
+	font-size: 14px;
+	background: url(http://www.500.com/images/info/public/img_02.gif)
+		no-repeat;
+	padding-left: 15px;
+	padding-top: 2px;
+	color: #000;
+	float: left;
+	margin: 5px 0 0 8px;
+	_margin-left: 4px;
+}
+
+.kaijiang .tab {
+	float: right;
+	margin-right: 0;
+}
+
+.kaijiang .tab li {
+	float: left;
+	width: 59px;
+	margin-top: 2px;
+	text-align: center;
+	cursor: pointer;
+	margin-right: 2px;
+}
+
+.kaijiang .tab1 {
+	background: url(http://www.500.com/images/info/public/img_08.gif);
+	height: 32px;
+	line-height: 30px;
+	color: #fff;
+	font-weight: bold;
+}
+
+.kaijiang .tab2 {
+	background: url(http://www.500.com/images/info/public/img_09.gif);
+	height: 27px;
+	line-height: 29px;
+}
+
+#kaijiangdatalist {
+	width: 228px;
+}
+
+.xinwen {
+	float: left;
+	width: 393px;
+	height: 431px;
+	border: #8bc0e7 solid 1px;
+	overflow: hidden;
+	margin-left: 10px;
+}
+
+.xinwen .titlebar {
+	height: 29px;
+	line-height: 29px;
+	background: url(http://www.500.com/images/info/public/img_010.gif);
+	overflow: hidden;
+	clear: both;
+}
+
+.zc .titlebar h1 {
+	float: left;
+	width: 115px;
+	height: 29px;
+	background: url(http://www.500.com/images/info/public/img_011.gif)
+		no-repeat;
+	text-indent: -9999px;
+}
+
+.szc .titlebar h1 {
+	float: left;
+	width: 115px;
+	height: 29px;
+	background: url(http://www.500.com/images/info/public/img_012.gif)
+		no-repeat;
+	text-indent: -9999px;
+}
+
+.titlebar span {
+	float: right;
+	margin-right: 10px;
+}
+
+.titlebar span a:link,.titlebar span a:visited {
+	color: #FFF;
+}
+
+.titlebar span a:hover,.titlebar span a:active {
+	color: #FFFF00;
+}
+
+.xinwen .list2 {
+	margin: 5px 5px 5px 10px;
+}
+
+.list2 li {
+	background: url(http://www.500.com/images/info/public/dot1.gif)
+		no-repeat 0 8px;
+	text-indent: 12px;
+	line-height: 22px;
+	clear: both;
+}
+
+.list3 li {
+	background: url(http://www.500.com/images/info/public/dot3.gif)
+		no-repeat 0 8px;
+	text-indent: 12px;
+	line-height: 22px;
+	clear: both;
+}
+
+.list2 li .t {
+	float: left
+}
+
+.list2 li .date {
+	float: right;
+	color: #999;
+	width: 35px;
+	text-indent: 0;
+}
+
+.kjbox {
+	width: 280px;
+	border-top: #8cc0e8 solid 1px;
+	margin-top: 5px;
+}
+
+.kjbox div {
+	width: 280px;
+	line-height: 22px;
+}
+
+.nJiang_1 {
+	background: url(http://www.500.com/images/info/public/npic_gc_xuhao.gif)
+		no-repeat 0 3px;
+	text-indent: 18px;
+	margin-left: 7px;
+}
+
+.nJiang_2 {
+	background: url(http://www.500.com/images/info/public/npic_gc_xuhao.gif)
+		no-repeat 0 -18px;
+	text-indent: 18px;
+	margin-left: 7px;
+}
+
+.nJiang_R {
+	background: url(http://www.500.com/images/info/public/npic_gc_xuhao.gif)
+		no-repeat 0 -40px;
+	text-indent: 18px;
+	margin-left: 7px;
+}
+
+.nJiang_G {
+	background: url(http://www.500.com/images/info/public/npic_gc_xuhao.gif)
+		no-repeat 0 -62px;
+	text-indent: 18px;
+	margin-left: 7px;
+}
+
+.cz {
+	background: #d0e4ff
+		url(http://www.500.com/images/info/public/img_013.gif) no-repeat 10px
+		8px;
+	text-indent: 25px;
+	background-color: #d9ebf9;
+	border-bottom: solid #fff 1px;
+}
+
+.cz a {
+	font-weight: bold;
+}
+
+.kaijiang .number {
+	background: #ecf5fe;
+	height: 26px;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 14px;
+	color: #FF0000;
+	text-indent: 25px;
+	padding-top: 2px;
+}
+
+.kaijiang .number span {
+	color: #21366D;
+}
+
+.gc {
+	background: #ecf5fe url(http://www.500.com/images/info/public/zs.gif)
+		no-repeat 5px 3px;
+	text-indent: 25px;
+}
+
+.jmoney {
+	background: #ecf5fe
+		url(http://www.500.com/images/info/public/jmoney.gif) no-repeat 5px
+		3px;
+	text-indent: 25px;
+}
+
+.sjh {
+	text-indent: 25px;
+}
+
+.scroll {
+	width: 228px;
+	height: 25px;
+	line-height: 25px;
+	overflow: hidden;
+	border-top: #8bc0e7 solid 1px;
+	margin-top: 5px;
+}
+
+.scroll a {
+	display: block;
+	float: left;
+	width: 113px;
+	height: 25px;
+}
+
+.scroll a.s1:link,.scroll a.s1:visited {
+	background: url(http://www.500.com/images/info/public/img_014.gif);
+	border-right: #8bc0e7 solid 1px;
+}
+
+.scroll a.s1:hover,.scroll a.s1:active {
+	background: url(http://www.500.com/images/info/public/img_014.gif) 0
+		-25px;
+}
+
+.scroll a.s2:link,.scroll a.s2:visited {
+	background: url(http://www.500.com/images/info/public/img_015.gif);
+}
+
+.scroll a.s2:hover,.scroll a.s2:active {
+	background: url(http://www.500.com/images/info/public/img_015.gif) 0
+		-25px;
+}
+
+/*.right { float:left; width:322px; margin-left:10px;}*/
+.rbox {
+	width: 320px;
+	border: #8bc0e7 solid 1px;
+	overflow: hidden;
+}
+
+.rbox .titlebar1 .tab {
+	float: left;
+}
+
+.rbox .titlebar1 .tab li {
+	float: left;
+	width: 81px;
+	margin-top: 2px;
+	text-align: center;
+	cursor: pointer;
+	margin-left: 2px;
+}
+
+.rbox .titlebar1 .tab1 {
+	background: url(http://www.500.com/images/info/public/img_016.gif);
+	height: 32px;
+	line-height: 30px;
+	color: #fff;
+	font-weight: bold;
+}
+
+.rbox .titlebar1 .tab2 {
+	background: url(http://www.500.com/images/info/public/img_017.gif);
+	height: 27px;
+	line-height: 29px;
+}
+
+.rbox .titlebar1 .more,.rbox .titlebar2 .more {
+	float: right;
+	height: 28px;
+	line-height: 29px;
+	margin-right: 10px;
+}
+
+.rjfa {
+	height: 204px;
+	overflow: hidden;
+}
+
+.rjfa .titlebar1 .tab {
+	float: right;
+}
+
+.rjfa .titlebar1 .tab li {
+	width: 100px;
+	line-height: 29px;
+}
+
+.rjfa .titlebar1 .tab1 {
+	background: url(http://www.500.com/images/info/public/img_08.gif);
+	height: 32px;
+	line-height: 30px;
+	color: #fff;
+	font-weight: bold;
+}
+
+.rjfa .titlebar1 .tab2 {
+	background: url(http://www.500.com/images/info/public/img_09.gif);
+	height: 27px;
+	line-height: 29px;
+}
+
+.cj {
+	margin: 0 10px 0 10px;
+}
+
+.cj li {
+	background: url(http://www.500.com/images/info/public/img_019.gif)
+		no-repeat 0 6px;
+	padding-left: 25px;
+	border-bottom: #bcdaf2 solid 1px;
+	line-height: 22px;
+	padding-top: 4px;
+	padding-bottom: 5px;
+	margin-bottom: 3px;
+}
+
+.datebar {
+	height: 27px;
+	line-height: 27px;
+	text-align: right;
+	background: url(http://www.500.com/images/info/public/img_021.gif)
+		#ebf3fe repeat-x;
+	padding-right: 20px;
+	border-bottom: 1px solid #8bbfe6;
+}
+
+* html .datebar {
+	height: 31px;
+	line-height: 31px;
+}
+
+.calendar {
+	float: left;
+}
+
+.calendar li {
+	width: 61px;
+	height: 48px;
+	line-height: 48px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.calendar .tab1 {
+	background: #fff;
+	font-weight: bold;
+	width: 62px;
+	border-bottom: #8bbfe6 solid 1px;
+}
+
+.calendar .tab2 {
+	border-bottom: #8bbfe6 solid 1px;
+	border-right: #8bbfe6 solid 1px;
+	background: #EBF4FD
+}
+
+.c_content {
+	float: left;
+	width: 244px;
+	padding: 7px;
+	padding-bottom: 0;
+	overflow: hidden;
+}
+
+.td_dady {
+	line-height: 23px;
+	clear: both;
+	height: 23px;
+}
+
+.td_dady li {
+	float: left;
+	text-align: center;
+	display: block;
+	line-height: 23px
+}
+
+.td_dady .c1 {
+	width: 75px;
+}
+
+.td_dady .c2 {
+	width: 42px;
+}
+
+.td_dady .c3 {
+	width: 50px;
+}
+
+.td_dady .c4 {
+	width: 42px;
+}
+
+.td_dady .c5 {
+	width: 35px;
+}
+
+.td_dady .c6 {
+	width: 84px;
+}
+
+.td_dady .c7 {
+	width: 100px;
+}
+
+.td_dady .c8 {
+	width: 60px;
+	text-align: left;
+}
+
+.bigbox {
+	width: 636px;
+	float: left;
+	overflow: hidden;
+}
+
+.bigbox .zc {
+	width: 634px;
+	height: 528px;
+	border: #8bc0e7 solid 1px;
+	overflow: hidden;
+}
+
+.bigbox .zc .titlebar,.bigbox .bd .titlebar {
+	height: 29px;
+	line-height: 29px;
+	background: url(http://www.500.com/images/info/public/img_025.gif);
+	overflow: hidden;
+	clear: both;
+}
+
+.bigbox .zc .titlebar h1 {
+	float: left;
+	width: 115px;
+	height: 29px;
+	background: url(http://www.500.com/images/info/public/img_023.gif)
+		no-repeat;
+	text-indent: -9999px;
+}
+
+.bigbox .tab {
+	float: right;
+}
+
+.bigbox .zc .tab li {
+	float: left;
+	width: 90px;
+	height: 29px;
+	line-height: 29px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.bigbox .zc .tab .tab1 {
+	background: url(http://www.500.com/images/info/public/img_024.gif);
+	color: #000;
+}
+
+.bigbox .tab .tab1 a:link,.bigbox .tab .tab1 a:visited {
+	color: #000;
+	text-decoration: none;
+}
+
+.bigbox .tab .tab1 a:hover,.bigbox .tab .tab1 a:active {
+	color: #FF0000;
+	text-decoration: none;
+}
+
+.bigbox .zc .tab .tab2 {
+	background: url(http://www.500.com/images/info/public/img_026.gif)
+		no-repeat right;
+	color: #fff;
+	margin-right: -2px;
+}
+
+.bigbox .tab .tab2 a:link,.bigbox .tab .tab2 a:visited {
+	color: #fff;
+	text-decoration: none;
+}
+
+.bigbox .tab .tab2 a:hover,.bigbox .tab .tab2 a:active {
+	color: #FFFF00;
+	text-decoration: none;
+}
+
+.bigbox .zc table .nav li {
+	float: left;
+	margin-right: -1px;
+	height: 22px;
+	text-align: center;
+	line-height: 22px;
+	font-weight: bold;
+	cursor: pointer;
+	position: relative;
+}
+
+.bigbox .zc table .nav1 {
+	width: 89px;
+	background: url(http://www.500.com/images/info/public/img_027.gif);
+	color: #e96100;
+	font-size: 14px;
+	z-index: 1000;
+}
+
+.bigbox .zc table .nav2 {
+	width: 83px;
+	background: url(http://www.500.com/images/info/public/img_028.gif);
+	color: #2966b7;
+}
+
+.bigbox .jkx {
+	width: 634px;
+	height: 300px;
+	border: #f29700 solid 1px;
+	overflow: hidden;
+}
+
+.bigbox .jkx .titlebar,.bigbox .sz .titlebar {
+	height: 29px;
+	line-height: 29px;
+	background: url(http://www.500.com/images/info/public/img_042.gif);
+	overflow: hidden;
+	clear: both;
+}
+
+.bigbox .jkx .titlebar h1 {
+	float: left;
+	width: 130px;
+	height: 29px;
+	background: url(http://www.500.com/images/info/public/img_041b.gif)
+		no-repeat;
+	text-indent: -9999px;
+}
+
+.bigbox .jkx .tab li,.bigbox .sz .tab li {
+	float: left;
+	width: 90px;
+	height: 29px;
+	line-height: 29px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.bigbox .jkx .tab .tab1,.bigbox .sz .tab .tab1 {
+	background: url(http://www.500.com/images/info/public/img_043.gif);
+	color: #000;
+}
+
+.bigbox .jkx .tab .tab2,.bigbox .sz .tab .tab2 {
+	background: url(http://www.500.com/images/info/public/img_044.gif)
+		no-repeat right;
+	color: #fff;
+	margin-right: -2px;
+}
+
+.bigbox .sz {
+	width: 634px;
+	height: 419px;
+	border: #f29700 solid 1px;
+	overflow: hidden;
+}
+
+.bigbox .sz .titlebar h1 {
+	float: left;
+	width: 130px;
+	height: 29px;
+	background: url(http://www.500.com/images/info/public/img_056.gif)
+		no-repeat;
+	text-indent: -9999px;
+}
+
+.bigbox .bd {
+	width: 634px;
+	height: 224px;
+	border: #8bc0e7 solid 1px;
+	overflow: hidden;
+}
+
+.bigbox .bd .titlebar h1 {
+	float: left;
+	width: 115px;
+	height: 29px;
+	background: url(http://www.500.com/images/info/public/img_036.gif)
+		no-repeat;
+	text-indent: -9999px;
+}
+
+.bd .help {
+	float: left;
+	width: 325px;
+	height: 180px;
+	background: #eceff4;
+	overflow: hidden;
+	margin: 8px;
+	_margin-left: 4px;
+}
+
+.bd .help ul {
+	width: 330px;
+	margin-bottom: 35px; *
+	margin-bottom: -1px;
+	position: relative;
+	z-index: 1000;
+}
+
+.bd .help li {
+	float: left;
+	width: 105px;
+	height: 34px;
+	margin-right: 5px;
+	line-height: 34px;
+	text-align: center;
+	font-weight: bold;
+	color: #000;
+	cursor: pointer;
+}
+
+.bd .help li span {
+	padding: 5px 5px 2px 30px;
+}
+
+.bd .help li .h1 {
+	background: url(http://www.500.com/images/info/public/icon_4.gif)
+		no-repeat;
+}
+
+.bd .help li .h2 {
+	background: url(http://www.500.com/images/info/public/icon_5.gif)
+		no-repeat;
+}
+
+.bd .help li .h3 {
+	background: url(http://www.500.com/images/info/public/icon_6.gif)
+		no-repeat;
+}
+
+.bd .help li .h4 {
+	background: url(http://www.500.com/images/info/public/icon_7.gif)
+		no-repeat;
+}
+
+.bd .help li .h5 {
+	background: url(http://www.500.com/images/info/public/icon_8.gif)
+		no-repeat;
+}
+
+.bd .help .li1 {
+	background: url(http://www.500.com/images/info/public/img_037.gif)
+}
+
+.bd .help .li_1 {
+	background: url(http://www.500.com/images/info/public/img__037.gif);
+}
+
+.bd .help .li2 {
+	background: url(http://www.500.com/images/info/public/img_038.gif)
+}
+
+.bd .help .li3 {
+	background: url(http://www.500.com/images/info/public/img_039b.gif)
+		no-repeat;
+	text-indent: -9999px;
+}
+
+.bd .help .li3 a {
+	display: block;
+	width: 105px;
+	height: 34px;
+}
+
+.bd .help .content {
+	width: 302px;
+	height: 87px;
+	border: #8095aa solid 1px;
+	border-bottom: 0;
+	background: #fff;
+	position: relative;
+	line-height: 22px;
+	padding: 10px;
+	color: #545454;
+}
+
+.ylph li {
+	float: left;
+	width: 79px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.ylph .tab1 {
+	font-weight: bold;
+	border: #8bc1e7 solid;
+	border-width: 0 1px 0 0;
+}
+
+.ylph .tab2 {
+	background: #EBF4FD;
+	border: #8bc1e7 solid;
+	border-width: 0 1px 1px 0;
+}
+
+.y_content {
+	padding: 1px;
+}
+
+.y_content table {
+	background: #d1e5ff
+		url(http://www.500.com/images/info/public/img_031.gif) no-repeat
+}
+
+.y_content .calendar_table {
+	background: none;
+	border: 0;
+}
+
+.y_content .name1 {
+	text-indent: 5px;
+	background: #fff url(http://www.500.com/images/info/public/name1.gif)
+		no-repeat 80px center;
+}
+
+.y_content .name2 {
+	text-indent: 5px;
+	background: #fff url(http://www.500.com/images/info/public/name2.gif)
+		no-repeat 80px center;
+}
+
+.y_content .name3 {
+	text-indent: 5px;
+	background: #fff url(http://www.500.com/images/info/public/name3.gif)
+		no-repeat 80px center;
+}
+
+.mrscroll1 {
+	width: 30px;
+	height: 4px;
+	font-size: 1px;
+	line-height: 1px;
+	background: url(http://www.500.com/images/info/public/img_034.gif);
+}
+
+.mrscroll2 {
+	width: 30px;
+	height: 4px;
+	font-size: 1px;
+	line-height: 1px;
+	background: url(http://www.500.com/images/info/public/img_034.gif) 0
+		-4px;
+}
+
+.mrscroll3 {
+	width: 30px;
+	height: 4px;
+	font-size: 1px;
+	line-height: 1px;
+	background: url(http://www.500.com/images/info/public/img_034.gif) 0
+		-8px;
+}
+
+.zcmr .list1 {
+	margin: 8px 0 0 10px;
+	_margin-top: 5px;
+}
+
+#zcmr_div {
+	width: 320px;
+	height: 90px;
+	overflow: hidden;
+}
+
+.zcmr_pic li {
+	float: left;
+	text-align: center;
+	margin: 10px 3px 0 11px;
+	_margin: 10px 8px 0 6px
+}
+
+.zcmr_pic li img {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.mrfd {
+	width: 320px;
+	height: 33px;
+	background: url(http://www.500.com/images/info/public/img_035.gif);
+	text-indent: -9999px;
+	margin-top: 7px;
+	_margin-top: 8px;
+	padding: 0;
+}
+
+.bigbox_r {
+	float: right;
+	width: 285px;
+	_width: 290px;
+	margin: 8px 8px 0 0;
+	_margin: 8px 3px 0 0;
+}
+
+.bigbox h1 {
+	height: 23px;
+	line-height: 23px;
+	font-size: 14px;
+	color: #000;
+	background: #eff6fe
+		url(http://www.500.com/images/info/public/img_040.gif) no-repeat 10px
+		6px;
+	text-indent: 30px;
+}
+
+.bigbox h1 .t {
+	float: left;
+}
+
+.bigbox h1 .m {
+	float: right;
+	font-size: 12px;
+	font-weight: normal;
+	margin-right: 10px;
+}
+
+.bigbox_r .list1,.bigbox_r .list2 {
+	margin: 5px;
+	margin-right: 0;
+}
+
+.bigbox_r .list1 li,.bigbox_r .list2 li {
+	line-height: 20px;
+}
+
+.tjfx .list1 {
+	margin: 10px 10px 15px 10px;
+}
+
+.czinfo {
+	width: 322px;
+	height: 85px;
+	background: #fdf2de
+		url(http://www.500.com/images/info/public/img_045.gif) repeat-x;
+	border: #f8cb88 solid 1px;
+	margin: 0 0 7px 5px;
+}
+
+.czinfo .number,.xq_kj .number {
+	font-family: Arial;
+	color: #FF0000;
+	font-weight: bold;
+	background: url(http://www.500.com/images/info/public/number.gif)
+		no-repeat;
+	padding: 0 5px 1px 4px;
+	margin-right: 2px;
+}
+
+.jkx .help {
+	width: 322px;
+	height: 59px;
+	border: #badcff solid 1px;
+	background: #eff6fe
+		url(http://www.500.com/images/info/public/img_046.gif) repeat-x;
+	margin: 7px 0 7px 5px;
+}
+
+.jkx .zxzj {
+	width: 324px;
+	margin: 7px 0 0 5px;
+}
+
+.jkx .zxzj .list2 {
+	margin: 5px 0 0 10px;
+}
+
+.clock {
+	background: #000;
+	color: #00FF00;
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 1px 5px;
+}
+
+.ssc .czinfo table {
+	background: url(http://www.500.com/images/info/public/logo_cai5.gif)
+		no-repeat 257px 8px;
+}
+
+.yxb {
+	margin-top: 8px;
+	border: #badcff solid 1px;
+	border- right: 0;
+	background: url(http://www.500.com/images/info/public/img_049.gif)
+		no-repeat
+}
+
+.yxb td {
+	border- right: #badcff solid 1px;
+	height: 20px;
+	line-height: 20px;
+	padding: 0 5px;
+}
+
+.yxb th {
+	border- right: #badcff solid 1px;
+	background: #5ec2f4
+		url(http://www.500.com/images/info/public/img_048.gif) repeat-x;
+	font-weight: normal;
+	color: #fff;
+	height: 19px;
+	line-height: 19px;
+}
+
+.yxb .tr1 {
+	background: #fff
+}
+
+.yxb .tr2 {
+	background: #f5f5f5
+}
+
+.yxb .td1 {
+	background-image: url(http://www.500.com/images/info/public/img_049.gif)
+		;
+	background-repeat: no-repeat;
+	background-position: center;
+	color: #fff;
+}
+
+.yxb .td2 {
+	background-image: url(http://www.500.com/images/info/public/img_050.gif)
+		;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.tubiao {
+	background: url(http://www.500.com/images/info/public/img_054.gif)
+		repeat-x 0 22px;
+	height: 23px;
+	line-height: 23px;
+	margin: 10px;
+	margin-top: 15px;
+}
+
+.tubiao h1 {
+	float: left;
+	background: url(http://www.500.com/images/info/public/img_040.gif)
+		no-repeat 10px 6px;
+	text-indent: 30px;
+	font-size: 14px;
+	color: #000;
+}
+
+.tubiao .tab {
+	float: right;
+	border-right: #8cc0e7 solid 1px;
+}
+
+.tubiao .tab li {
+	float: left;
+	width: 45px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.tubiao .tab1 {
+	background: #ecf5fe;
+	font-weight: bold;
+	border: #8bc0e8 solid;
+	border-width: 1px 0 0 1px;
+	height: 22px;
+	line-height: 22px;
+}
+
+.tubiao .tab2 {
+	background: #fff;
+	border: #8bc0e8 solid;
+	border-width: 1px 0 1px 1px;
+	height: 21px;
+	line-height: 21px;
+}
+
+.ssq_tubiao {
+	line-height: 22px;
+	background: url(http://www.500.com/images/info/public/img_055a.gif)
+		no-repeat 12px 0;
+	padding-left: 78px;
+}
+
+.dlt_tubiao {
+	line-height: 22px;
+	background: url(http://www.500.com/images/info/public/img_055b.gif)
+		no-repeat 12px 0;
+	padding-left: 78px;
+}
+
+.pls_tubiao {
+	line-height: 22px;
+	background: url(http://www.500.com/images/info/public/img_055c.gif)
+		no-repeat 12px 0;
+	padding-left: 78px;
+}
+
+.sd_tubiao {
+	line-height: 22px;
+	background: url(http://www.500.com/images/info/public/img_055d.gif)
+		no-repeat 12px 0;
+	padding-left: 78px;
+}
+
+.softintro {
+	line-height: 22px;
+	padding: 5px;
+	margin: 10px;
+	border: #bcdaf4 solid 1px;
+}
+
+.hudong .list1 {
+	margin: 10px 0 10px 10px;
+}
+
+.kefu {
+	background: url(http://www.500.com/images/info/public/img_058.gif);
+	width: 322px;
+	height: 117px;
+	overflow: hidden
+}
+
+.ball_r {
+	height: 20px;
+	width: 15px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 14px;
+	color: #464646;
+	cursor: pointer;
+	border: solid 1px;
+	border-color: #ccc;
+	background: #e9e9e9;
+}
+
+.ball_b {
+	height: 20px;
+	width: 15px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	cursor: pointer;
+	border: solid 1px;
+	border-color: #fff;
+	background: #FF9900;
+}
+
+/*分页页码09.12.07 hejw*/
+.page {
+	width: 458px;
+	margin: 0px auto;
+	clear: both;
+}
+
+.page ul {
+	padding: 9px 0;
+	height: 20px;
+}
+
+.page li {
+	font-family: tahoma, Arial, 宋体;
+	padding: 0px 7px;
+	float: left;
+	border: 1px solid #B5C5DC;
+	margin-right: 4px;
+	text-align: center;
+	text-decoration: none;
+	height: 20px;
+	line-height: 20px;
+	display: block;
+	cursor: pointer;
+}
+
+.page li a,.page li a:link,.page li a:visited {
+	text-decoration: none;
+}
+
+.page ul li img {
+	border: 0px;
+	display: block;
+	padding: 6px 0
+}
+
+.page .pa_aq,.page .pa_aq a {
+	background-color: #48AEDF;
+	color: #FFF;
+}
+
+/*08.5.7 by miao*/
+.calendar_table {
+	border-top: #8BC0E7 solid 1px;
+	padding: 5px;
+	text-align: center;
+}
+
+.calendar_table th {
+	font-weight: normal;
+	background: #D0E4FF;
+}
+
+.calendar_table .tr1 {
+	background: #F9F9FB;
+}
+
+.calendar_table .tr2 {
+	background: #EDF5F8;
+}
+
+.rjfa {
+	width: 321px;
+}
+
+.rjfa li {
+	float: left;
+	width: 79px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.rjfa .tab1 {
+	font-weight: bold;
+	border: #8bc1e7 solid;
+	border-width: 0 1px 0 0;
+	width: 80px;
+}
+
+.rjfa .tab2 {
+	background: #EBF4FD;
+	border: #8bc1e7 solid;
+	border-width: 0 1px 1px 0;
+}
+
+.writing {
+	writing-mode: tb-rl;
+}
+
+/*二级页面搜索框*/
+.isearch {
+	border: #79bbdd solid 1px;
+	background: #fff
+}
+
+.isearch .bg {
+	height: 37px;
+	line-height: 37px;
+	_padding-top: 7px;
+	_height: 30px;
+	text-indent: 10px;
+	background: url(http://www.500.com/images/info/public/ieaarchbg.gif)
+}
+
+.isearchBtn {
+	width: 22px;
+	height: 21px;
+	background: url(http://www.500.com/images/info/public/ieaarchBtn.gif);
+	text-indent: -9999px;
+	border: 0;
+}
+
+.isearch .n {
+	color: #999;
+	width: 100px;
+}
+
+.isearch .keyword {
+	height: 37px;
+	line-height: 37px;
+	_padding-top: 12px;
+	_height: 25px;
+	text-indent: 12px;
+}
+
+/*数字彩冷热号码*/
+.pslr1 {
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFF;
+	background: url(http://www.500.com/images/info/public/q3.gif) no-repeat;
+	text-align: center;
+	line-height: 25px;
+	width: 23px;
+	float: left;
+	background-position: center center;
+}
+
+.pslr2 {
+	color: #000;
+	background: url(http://www.500.com/images/info/public/ps_open.gif)
+		no-repeat;
+	background-position: center center;
+	line-height: 25px;
+	width: 26px;
+	float: left;
+	text-align: center;
+	text-indent: 6px;
+}
+
+.pslr3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFF;
+	background: url(http://www.500.com/images/info/public/q2.gif) no-repeat;
+	text-align: center;
+	line-height: 25px;
+	width: 23px;
+	float: left;
+	background-position: center center;
+}
+
+.pslr {
+	margin: auto;
+	width: 50px;
+}
+
+/*数字彩开奖长条*/
+.d_zxzj {
+	border: #8bc0e7 solid 1px;
+	margin: 10px 0;
+	background: #ebf4fd;
+	padding: 1px;
+	height: 29px;
+}
+
+.d_zxzj .l {
+	float: left;
+	width: 88px;
+	height: 29px;
+	line-height: 29px;
+	text-align: center;
+	color: #fff;
+	font-weight: bold;
+	font-size: 14px;
+	background: url(http://www.500.com/images/info/dlt/zxzj_01.gif)
+}
+
+.d_zxzj .r {
+	float: left;
+	line-height: 29px;
+	padding-left: 10px;
+	font-weight: bold;
+}
+
+.d_zxzj .t {
+	float: left;
+	width: 280px;
+	text-align: center;
+	background: url(http://www.500.com/images/info/dlt/zxzj_02.gif)
+		no-repeat right center
+}
+
+/*08.05.20 by lee (开奖公用小球)*/
+.ball_red {
+	background-image:
+		url(http://www.500.com/images/info/public/ball/ball_red.gif);
+	height: 25px;
+	width: 25px;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	line-height: 25px;
+}
+
+.ball_blue {
+	background-image:
+		url(http://www.500.com/images/info/public/ball/ball_blue.gif);
+	height: 25px;
+	width: 25px;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	line-height: 25px;
+}
+
+.ball_orange {
+	background-image:
+		url(http://www.500.com/images/info/public/ball/ball_orange.gif);
+	height: 25px;
+	width: 25px;
+	color: #520002;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	line-height: 25px;
+}
+
+.ball_box01 {
+	
+}
+
+.ball_box01 li {
+	float: left;
+	height: 25px;
+	line-height: 25px;
+	margin-right: 5px;
+}
+
+.ball_box01 .li_ay01 {
+	margin-right: 10px;
+	color: #0000FF
+}
+
+.wz_nav01 {
+	border: #3876B6 1px solid;
+	height: 20px;
+	background-image:
+		url(http://www.500.com/images/info/public/wz_nav01_bg.gif);
+	color: #FFFFFF;
+	padding: 6px 10px 0px 10px;
+}
+
+.wz_nav01 a:link,.wz_nav01 a:visited {
+	color: #FFFFFF
+}
+
+.wz_nav01 a:hover {
+	color: #FFFF00
+}
+
+/* 足彩名人 */
+.blk_18 p {
+	margin: 0;
+	padding: 0;
+}
+
+.blk_18 fieldset,img {
+	border: 0;
+}
+
+.blk_18 ul,ol {
+	list-style: none;
+}
+
+.blk_18 a {
+	color: #0449be;
+	text-decoration: underline;
+	font-size: 12px;
+}
+
+.blk_18 a:visited {
+	color: #800080;
+	text-decoration: underline;
+}
+
+.blk_18 {
+	margin: 0 1px;
+	padding: 6px 0 0;
+	overflow: hidden;
+	zoom: 1;
+}
+
+.blk_18 .Cont {
+	width: 320px;
+	height: 79px;
+	float: left;
+	overflow: hidden;
+}
+
+.blk_18 .ScrCont {
+	width: 32766px;
+	zoom: 1;
+}
+
+.blk_18 #List1_1,.blk_18 #List1_2 {
+	float: left;
+}
+
+.blk_18 .box {
+	width: 106px;
+	text-align: center;
+	float: left;
+	_width: 80px;
+}
+
+.blk_18 .box img {
+	padding: 2px;
+	display: block;
+	margin: 0 6px;
+}
+
+.blk_18 .box p {
+	line-height: 20px;
+	text-align: center;
+	width: 112px;
+	_width: auto;
+}
+
+.blk_18 a:link,.blk_18 a:visited {
+	text-decoration: none;
+}
+
+.q_subnav_t {
+	width: 783px; *
+	width: auto
+}
+
+.q_subnav_tb img {
+	position: relative;
+	top: 1px;
+	_top: 4px;
+}
+
+.table_tz001 {
+	
+}
+
+.table_tz001 td {
+	padding: 5px 5px;
+}
+
+.table_tz001 .bg_t01 {
+	background-color: #D4E4F0
+}
+
+.table_tz001 .bg01 {
+	background-color: #F5F5F5
+}
+
+.table_tz001 .bg02 {
+	background-color: #FFFFFF
+}
+
+/*许可证 */
+.xukeboxw {
+	border: 1px solid #8CC0E8;
+	padding: 15px;
+	margin: 20px auto;
+}
+
+.xukeboxn {
+	border: 2px solid #8CC0E8;
+	background: url(http://www.500.com/images/info/public/xukebg01.gif)
+		repeat-x
+}
+
+.xukeboxn1 {
+	background: url(http://www.500.com/images/info/public/xukebg02.jpg)
+		no-repeat top right
+}
+
+/*短信代购提示层*/
+.smsdg_alert {
+	position: absolute;
+	top: 1561px;
+	left: 169px;
+	border: #8bc0e7 solid 3px;
+	background: #f6fbff;
+	width: 440px;
+	height: 200px;
+	overflow: hidden
+}
+
+.smsdg_alert2 {
+	left: 115px;
+	top: 2615px;
+}
+
+.smsdg_alert .t {
+	height: 22px;
+	line-height: 22px;
+	margin: 1px;
+	background: #d0e4ff;
+	color: #010199;
+	font-weight: bold;
+	font-family: Arial;
+	padding: 0 10px;
+}
+
+.smsdg_alert .t .l {
+	float: left;
+}
+
+.smsdg_alert .t .r {
+	float: right;
+	margin-top: 2px;
+	cursor: pointer
+}
+
+.smsdg_alert .sms {
+	float: left;
+	width: 155px;
+	height: 155px;
+	background: url(http://www.500.com/images/info/public/bg_sms.gif);
+	margin: 10px 0 0 10px;
+	_margin-left: 5px;
+	overflow: hidden;
+}
+
+.smsdg_alert .sms .n {
+	padding: 10px 5px;
+	word-break: break-all;
+	margin-top: 35px;
+	line-height: 20px;
+	font-family: Arial;
+	color: #000;
+}
+
+.smsdg_alert .info {
+	float: left;
+	margin: 10px 15px 0 15px;
+	color: #333;
+	line-height: 20px;
+	width: 245px;
+}
+
+.sms_text {
+	font-size: 12px;
+	background-color: transparent;
+	border: 0;
+	width: 143px;
+	height: 80px;
+	line-height: 20px;
+}
+
+/*单场模块最新修改09.5.26 hejw*/
+.clear {
+	clear: both;
+}
+
+ul,li,p,h3,h4,h5,dl {
+	margin: 0px;
+	padding: 0px;
+}
+
+#ball_info ul li {
+	list-style-type: none;
+}
+
+dl,dt,dd {
+	margin: 0px;
+	padding: 0px;
+}
+
+#ball_info {
+	width: 968px;
+	margin: 10px auto 0 auto;
+}
+
+#ball_single,#ball_plan {
+	float: left
+}
+
+#ball_single {
+	width: 634px;
+	height: 214px;;
+	border: 1px solid #8bc0e7;
+	overflow: hidden;
+}
+
+#ball_plan {
+	width: 320px;
+	height: 214px;
+	border: 1px solid #8bc0e7;
+	overflow: hidden;
+}
+
+#ball_single .titlebar h1 {
+	font-size: 14px;
+	font-weight: bold;
+	width: 92px;
+	height: 29px;
+	float: left;
+	text-indent: -999999px;
+	background: url(http://www.500.com/images/info/public/dc_title.gif)
+		no-repeat
+}
+
+#ball_single .titlebar {
+	background: url(http://www.500.com/images/info/public/img_025.gif)
+		no-repeat;
+	width: 634px;
+	height: 29px;
+	overflow: hidden;
+}
+
+#ball_single .titlebar span {
+	float: right;
+	font-size: 12px;
+	font-weight: normal;
+	color: #fff;
+	padding-top: 8px;
+	margin-right: 4px;
+}
+
+#ball_single .titlebar span a {
+	padding: 0 6px;
+}
+
+#ball_single .titlebar span a:link,#ball_single .titlebar span a:visited
+	{
+	color: #fff;
+	text-decoration: underline
+}
+
+#ball_single .titlebar span a:hover {
+	color: #ffff00
+}
+
+.single_cont {
+	height: 185px;
+	background: url(http://www.500.com/images/info/public/line.jpg)
+		no-repeat 320px center;
+}
+
+.single_cont .win,.single_cont .ball_time {
+	float: left
+}
+
+.win {
+	width: 290px;
+	height: 165px;
+	margin: 10px 0 0 14px;
+	display: inline
+}
+
+.win_top {
+	height: 111px;
+	width: 290px;
+}
+
+.vin_bottom {
+	border-top: 1px dashed #c1c1fe;
+	width: 285px;
+	padding: 10px 0 0 5px;
+	height: 53px;
+}
+
+.vin_bottom .b {
+	background: url(http://www.500.com/images/info/public/titlebg.gif)
+		no-repeat;
+	width: 36px;
+	height: 18px;
+	line-height: 20px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #333;
+	padding-left: 6px;
+}
+
+.vin_bottom dl {
+	clear: both;
+	height: 22px;
+}
+
+.vin_bottom dt,.vin_bottom dd {
+	float: left;
+}
+
+.vin_bottom dt {
+	
+}
+
+.vin_bottom dd {
+	line-height: 20px;
+	height: 20px;
+}
+
+.vin_bottom a {
+	padding-left: 6px;
+}
+
+.vin_bottom a:link,.vin_bottom a:visited {
+	color: #21366d;
+	text-decoration: underline;
+}
+
+.vin_bottom a:hover {
+	color: red;
+}
+
+.vin_bottom .r {
+	color: red;
+	background: url(http://www.500.com/images/info/public/new.gif) no-repeat
+		right top;
+	padding-right: 25px;
+	height: 20px;
+}
+
+.vin_bottom .r a:link,.vin_bottom .r a:visited {
+	color: red;
+}
+
+#ball_plan h5 {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#ball_plan ul li {
+	float: left
+}
+
+.win_top span {
+	float: right;
+}
+
+h5 {
+	height: 20px;
+	line-height: 21px;
+	font-size: 12px;
+	font-weight: bold;
+	width: 280px;
+	margin-bottom: 6px;
+	background: url(http://www.500.com/images/info/public/dc_h4bg.gif)
+		no-repeat;
+	padding-left: 10px;
+	color: #333
+}
+
+.win_top ul {
+	width: 275px;
+	padding-left: 8px;
+	height: 88px;
+}
+
+.win_top ul li {
+	line-height: 20px;
+	padding-left: 10px;
+	background: url(http://www.500.com/images/info/public/dot1.gif)
+		no-repeat left 7px;
+}
+
+.win_top ul li a:link,.win_top ul li a:visited {
+	color: #21366d;
+	text-decoration: underline;
+}
+
+.win_top ul li a:hover {
+	color: red;
+}
+
+.win_top h5 span {
+	font-style: normal;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+.win_top h5 span a {
+	color: #21366d;
+}
+
+.win_top span a:link,.win_top span a:visited {
+	color: #21366d;
+	text-decoration: underline;
+}
+
+.win_top span a:hover {
+	color: red
+}
+
+.rjfa1 {
+	height: 185px;
+	overflow: hidden;
+	width: 321px;
+}
+
+.rjfa1 ul {
+	width: 350px;
+}
+
+.rjfa1 li {
+	float: left;
+	padding: 0 10px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.rjfa1 .tab1 {
+	font-weight: bold;
+	border: #8bc1e7 solid;
+	border-width: 0 1px 0 0;
+}
+
+.rjfa1 .tab2 {
+	background: #EBF4FD;
+	border: #8bc1e7 solid;
+	border-width: 0 1px 1px 0;
+}
+
+.y_content .calendar_table1 {
+	background: none;
+	border: 0;
+	padding: 0px;
+	margin: 0
+}
+
+.calendar_table1 {
+	border-top: #8BC0E7 solid 1px;
+	padding: 0 5px;
+	text-align: center;
+}
+
+.calendar_table1 .leftp {
+	text-align: left;
+	padding: 0 6px;
+}
+
+.calendar_table1 .leftp a:link,.calendar_table1 .leftp a:visited {
+	color: #21366d;
+	text-decoration: underline;
+}
+
+.calendar_table1 .leftp a:hover {
+	color: red;
+}
+
+.calendar_table1 tr {
+	height: 24px;
+}
+
+.calendar_table1 th {
+	font-weight: normal;
+	background: #D0E4FF;
+	height: 24px;
+}
+
+.calendar_table1 .tr1 {
+	background: #F9F9FB;
+}
+
+.calendar_table1 .tr2 {
+	background: #EDF5F8;
+}
+
+.calendar_table1 a:link,.calendar_table1 a:visited {
+	color: red;
+	text-decoration: underline;
+}
+
+.notextline a:link,.notextline a:visited,.notextline a:hover {
+	text-decoration: none;
+}
+
+/*拍拍手机充值09.12.22 hejw*/
+.recharge {
+	background: #edf7ff;
+	border: 1px solid #8cc0e7;
+	width: 634px;
+	height: 68px;
+	float: left;
+}
+
+.ad3 {
+	float: left;
+	margin-left: 10px;
+}
+
+/*from-footer.html-2010-2-25-ldh*/
+.wrap_footer {
+	font-size: 12px;
+	color: #666666;
+	margin: 0px auto;
+	width: 968px;
+}
+
+.wrap_footer a:link,.wrap_footer a:visited {
+	color: #666666;
+	text-decoration: none;
+}
+
+.wrap_footer a:hover {
+	color: #FF0000;
+}
+
+.link_box {
+	border: #CCCCCC 1px solid;
+	background:
+		url(http://www.500.com/images/info/public/footernew/linkrow.jpg)
+		no-repeat left top #f6f6f6;
+	height: 44px;
+	padding: 8px 12px 0px 75px;
+	line-height: 160%;
+}
+
+.footer_nav01 {
+	border: #52A7DD 1px solid;
+	border-bottom: 0px;
+	background:
+		url(http://www.500.com/images/info/public/footernew/footer_01.gif)
+		repeat-x;
+	height: 27px;
+	text-align: center;
+	color: #FFFFFF;
+	line-height: 27px;
+	padding: 0px 10px;
+}
+
+.footer_nav01 a:link,.footer_nav01 a:visited {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+.footer_nav01 a:hover {
+	color: #FFFF00;
+}
+
+.footer_nav02 {
+	background:
+		url(http://www.500.com/images/info/public/footernew/footer_02.gif)
+		no-repeat;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	padding: 0px 10px;
+}
+
+.copy_new {
+	text-align: center;
+	line-height: 150%;
+	padding: 8px 10px;
+}
+
+.copy_new p img {
+	margin: 10px 16px 0 0;
+}
+
+.copy_new p img.last {
+	margin-right: 0;
+}
+
+/*move end*/ /*首页热点推荐 10.4.1 peipei*/
+.hotcz {
+	margin: 6px 8px;
+	height: 60px;
+	overflow: hidden;
+}
+
+.hotcz .L {
+	float: left;
+	width: 75px;
+	height: 60px;
+}
+
+.hotcz .R {
+	float: left;
+	padding: 15px 0 0 8px;
+	width: 210px
+}
+
+.hotcz .titleh {
+	font-weight: bold;
+	clear: both
+}
+
+.hotcz .texth {
+	margin-top: 10px;
+	clear: both;
+	width: 160px
+}
+
+.hotcz .numberh {
+	margin-top: 3px;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 22px;
+	color: #FF0000;
+}
+
+.rjfa .line {
+	background: url(http://www.500.com/images/info/public/line_02.gif)
+		repeat-x;
+	height: 1px;
+	font-size: 1px;
+	line-height: 1px;
+	margin: 0 8px;
+}
+
+.hotcz .bonh {
+	position: relative;
+	z-index: 3;
+}
+
+.hotcz .bon_h {
+	position: absolute;
+	top: -15px;
+	width: 218px;
+	text-align: right
+}
+
+.hotnews {
+	margin: 3px 0px 0px 16px;
+	line-height: 22px;
+	clear: both
+}
+
+.hotnews dd {
+	float: left;
+	margin-right: 14px;
+	line-height: 22px;
+	width: 138px
+}
+
+/*首页开奖增加链接 10.4.1 peipei*/
+.gclink {
+	text-indent: 115px;
+}
+
+/*SEO标题加链接样式 10.5.28 lila*/
+h1 a {
+	text-decoration: none;
+}
+
+/* 必发数据 10.6.7 j */
+.bfdata_leftbox {
+	float: left;
+	width: 152px;
+}
+
+.bfdata_leftbox .bfoot_info {
+	line-height: 20px;
+	padding: 10px;
+	text-indent: 15px;
+	border: solid #B4D9F8 1px;
+	background: #E7F1FD url(http://www.500.com/images/info/sfc/bf_boxbg.gif)
+		repeat-x;
+}
+
+.bfdata_leftbox .yingyong {
+	margin-top: 10px;
+	border: solid #B4D9F8 1px;
+	background: #E3F2FF
+		url(http://www.500.com/images/info/sfc/bf_titlebg.jpg) no-repeat
+		center top;
+}
+
+.bfdata_leftbox .yingyong h3 {
+	height: 25px;
+	line-height: 25px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #1E5082;
+	text-indent: 30px;
+}
+
+.bfdata_leftbox .yingyong ul {
+	padding: 6px 0;
+}
+
+.bfdata_leftbox .yingyong li {
+	height: 24px;
+	line-height: 24px;
+	padding: 0 8px;
+}
+
+.bfdata_leftbox .yingyong .gengd {
+	height: 20px;
+	line-height: 20px;
+	text-align: right;
+	padding: 0 10px 10px 0;
+}
+
+.yingyong .gengd a:link,.yingyong .gengd a:visited {
+	color: #0341CD;
+}
+
+.bfdata_rightbox {
+	float: right;
+	width: 806px;
+}
+
+.bfdata_rightbox .slect_date {
+	padding: 0 15px;
+	height: 40px;
+	background: url(http://www.500.com/images/info/sfc/tt_bg.gif) repeat-x;
+}
+
+.bfdata_rightbox .slect_date .rq {
+	float: left;
+	display: block;
+	padding-top: 10px;
+	color: #1E5082;
+	font-weight: bold;
+}
+
+.rq input,.vcenter {
+	vertical-align: middle;
+}
+
+.red {
+	color: #f00;
+}
+
+.bfdata_rightbox .datalist {
+	padding-top: 9px;
+	height: 703px;
+	overflow: auto;
+	overflow-x: hidden;
+	text-align: center;
+}
+
+.bfdata_rightbox .datalist iframe {
+	overflow: visible;
+}
+
+.bfdata_rightbox .slect_date .download_r {
+	float: right;
+	display: block;
+	padding-top: 9px;
+}
+
+.bfdata_rightbox .databox {
+	border: solid #87AFD3 1px;
+}
+
+.bfdata_rightbox .news_listbox {
+	float: left;
+}
+
+.bfdata_rightbox .j_r_boxwidth {
+	float: left;
+	width: 396px;
+	margin: 10px 0 0 0;
+}
+
+.bfdata_rightbox .pleft {
+	margin-left: 10px;
+}
+
+/* 收藏 J 2010-06-17 */
+.shoucang span {
+	display: block;
+	padding-top: 10px;
+}
+
+.shouc_box {
+	float: left;
+	display: block;
+	width: 420px;
+}
+
+.shouc_box span {
+	display: block;
+	float: left;
+	margin-right: 15px;
+	height: 18px;
+	line-height: 18px;
+}
+
+.shouc_box .ttitle {
+	margin: 0;
+}
+
+.shouc_box a {
+	display: block;
+	text-indent: 22px;
+	height: 18px;
+	line-height: 18px;
+}
+
+.shouc_box .d2 a {
+	background: url(http://www.500.com/images/info/public/sc/d2.gif)
+		no-repeat;
+}
+
+.shouc_box .d3 a {
+	background: url(http://www.500.com/images/info/public/sc/d3.gif)
+		no-repeat;
+}
+
+.shouc_box .d4 a {
+	background: url(http://www.500.com/images/info/public/sc/d4.gif)
+		no-repeat;
+}
+
+.shouc_box .d5 a {
+	background: url(http://www.500.com/images/info/public/sc/d5.gif)
+		no-repeat;
+}
+
+.shouc_box .d6 a {
+	background: url(http://www.500.com/images/info/public/sc/d6.gif)
+		no-repeat;
+}
+
+.shouc_box .d7 a {
+	background: url(http://www.500.com/images/info/public/sc/d7.gif)
+		no-repeat;
+}
+
+.shouc_box .d8 a {
+	background: url(http://www.500.com/images/info/public/sc/d8.gif)
+		no-repeat;
+}
+
+.shouc_box .d9 a {
+	background: url(http://www.500.com/images/info/public/sc/d9.gif)
+		no-repeat;
+}
+
+.shouc_box .d10 a {
+	background: url(http://www.500.com/images/info/public/sc/d10.gif)
+		no-repeat;
+}
+
+.shouc_box .d11 a {
+	background: url(http://www.500.com/images/info/public/sc/d11.gif)
+		no-repeat;
+}
+
+.shouc_box .d12 a {
+	background: url(http://www.500.com/images/info/public/sc/d12.gif)
+		no-repeat;
+}
+
+.shouc_box .d13 a {
+	background: url(http://www.500.com/images/info/public/sc/d13.gif)
+		no-repeat;
+}
+
+.shouc_box .d14 a {
+	background: url(http://www.500.com/images/info/public/sc/d14.gif)
+		no-repeat;
+}
+
+.shouc_box .d15 a {
+	background: url(http://www.500.com/images/info/public/sc/d15.gif)
+		no-repeat;
+}
+
+.shouc_box .d16 a {
+	background: url(http://www.500.com/images/info/public/sc/d16.gif)
+		no-repeat;
+}
+
+.shouc_box .d17 a {
+	background: url(http://www.500.com/images/info/public/sc/d17.gif)
+		no-repeat;
+}
+
+.shouc_box .d18 a {
+	background: url(http://www.500.com/images/info/public/sc/d18.gif)
+		no-repeat;
+}
+
+.shouc_box .d19 a {
+	background: url(http://www.500.com/images/info/public/sc/d19.gif)
+		no-repeat;
+}
+
+.shouc_box .d20 a {
+	background: url(http://www.500.com/images/info/public/sc/d20.gif)
+		no-repeat;
+}
+
+.shouc_box .d21 a {
+	background: url(http://www.500.com/images/info/public/sc/d21.gif)
+		no-repeat;
+}
+
+.shouc_box .d22 a {
+	background: url(http://www.500.com/images/info/public/sc/d20.gif)
+		no-repeat;
+}
+
+.shouc_box .more a {
+	background: url(http://www.500.com/images/info/public/sc/more.gif)
+		no-repeat;
+}
+
+.shouc_box .bwidth1 {
+	width: 58px;
+}
+
+.shouc_box .bwidth2 {
+	width: 70px;
+}
+
+.shouc_box .bwidth3 {
+	width: 47px;
+}
+
+.bwidth1,.jtico_renren,.jtico_qzone {
+	width: 58px;
+	overflow: hidden;
+}
+
+.bwidth2,.jtico_tsina {
+	width: 70px;
+	overflow: hidden;
+}
+
+.bwidth3 {
+	width: 47px;
+	overflow: hidden;
+}
+
+/*footer-2010-7-20-xmg*/
+.copy_new p {
+	color: #545454;
+	line-height: 22px;
+	clear: both;
+	margin-bottom: 10px;
+}
+
+.copy_new p .engfont {
+	font-family: Tahoma;
+}
+
+.copy_new a:link,.copy_new a:visited {
+	color: #545454;
+	text-decoration: none;
+}
+
+.copy_new a:hover {
+	color: #f00;
+	text-decoration: none;
+}
+
+.copy_new ul {
+	width: 858px;
+	margin: 0 auto;
+	height: 48px;
+	padding: 10px 0;
+}
+
+.copy_new ul li {
+	width: 125px;
+	height: 46px;
+	border: 1px solid #c3c3c3;
+	float: left;
+	margin-right: 19px;
+}
+
+.copy_new ul li.lastli {
+	margin-right: 0;
+}
+
+.copy_new ul li a {
+	display: block;
+	color: #999;
+	padding: 3px 0 3px 46px;
+	_padding: 3px 0 2px 46px;
+	height: 40px;
+	line-height: 20px;
+	line-height: 21px\9;
+	background:
+		url(http://www.500.com/images/info/public/link/footer_ico.png)
+		no-repeat;
+}
+
+.copy_new ul li a.foot_a1 {
+	background-position: 0 0;
+}
+
+.copy_new ul li a.foot_a2 {
+	background-position: 0 -46px;
+}
+
+.copy_new ul li a.foot_a3 {
+	background-position: 0 -92px;
+}
+
+.copy_new ul li a.foot_a4 {
+	background-position: 0 -138px;
+}
+
+.copy_new ul li a.foot_a5 {
+	background-position: -2px -184px;
+}
+
+.copy_new ul li a.foot_a6 {
+	background-position: 0 -230px;
+}
+
+/**/
+.link_box2 {
+	border: #CCCCCC 1px solid;
+	background:
+		url(http://www.500.com/images/info/public/footernew/linkrow2.gif)
+		no-repeat left top #f6f6f6;
+	height: 61px;
+	padding: 6px 0 0px 70px;
+	line-height: 160%;
+}
+
+.link_box2 .link_word .word_sroll a,.link_box2 .link_pic .pic_sroll a {
+	display: block;
+	width: 88px;
+	height: 14px;
+	margin: 2px 10px 2px 0;
+	text-align: center;
+	float: left;
+}
+
+.link_box2 .link_word .word_sroll {
+	height: 18px;
+	overflow: hidden;
+}
+
+.clearf {
+	clear: both;
+	height: 0;
+	font-size: 0px;
+	line-height: 0px;
+}
+
+.link_box2 span {
+	display: block;
+}
+
+.link_box2 .link_pic .pic_sroll a {
+	margin: 5px 10px 5px 0;
+	_margin: 4px 10px 4px 0;
+	height: 31px;
+}
+
+#list_bonus {
+	overflow: hidden;
+	height: 365px;
+	width: 100%;
+}
+
+/*友情链接*/
+.h_links .links_l {
+	background:
+		url(http://www.500cache.com/public/images/public/home_ico.png)
+		no-repeat;
+}
+
+.h_links .links_l2 {
+	background: url(http://www.500cache.com/public/images/public/firend.gif)
+		no-repeat;
+}
+
+.h_links {
+	border: 1px solid #c1d3e7;
+	height: 53px;
+	background: #f3f6fc;
+}
+
+.h_links .links_l {
+	background-position: -249px -44px;
+	width: 87px;
+	height: 53px;
+	float: left;
+	text-indent: -9999em;
+}
+
+.h_links .links_l2 {
+	background-position: 0px 0px;
+	width: 87px;
+	height: 53px;
+	float: left;
+	text-indent: -9999em;
+}
+
+.h_links .links_m {
+	float: left;
+	width: 848px;
+	height: 40px;
+	padding: 7px 0 6px 12px;
+	line-height: 20px;
+	color: #ccc;
+}
+
+.h_links .links_m a {
+	color: #333;
+	text-decoration: none;
+}
+
+.h_links .links_m a:hover {
+	color: #f00;
+}
+
+/*友情链接 add by sunhh 2012/1/10*/
+.f-links {
+	margin-top: 10px;
+	padding: 8px 10px;
+	border: 1px solid #E4E4E4;
+}
+
+.f-links strong {
+	color: #999999;
+	margin-right: 5px;
+}
+
+.f-links a {
+	margin-right: 12px;
+	color: #999999;
+	text-decoration: none;
+}
+
+.f-links a:hover {
+	color: #FF3300;
+}
+
+/*图表首页 最新开奖 begin*/
+#scroll_con {
+	overflow: hidden;
+	height: 382px;
+}
+
+.r_content2 {
+	background: none repeat scroll 0 0 #F6F9FE;
+	overflow: hidden;
+	padding: 0;
+	width: 100%;
+}
+
+#scroll_con {
+	height: 366px;
+	overflow: hidden;
+}
+
+.kj_sort {
+	margin-top: 14px;
+}
+
+.kj_sort dl dd.kj_bg {
+	background: none repeat scroll 0 0 #F1F1F1;
+	border-bottom: 1px solid #D5E1F2;
+	border-top: 1px solid #E8E8E8;
+	line-height: 20px;
+	margin-bottom: 5px;
+	padding: 5px 0;
+}
+
+.kj_sort dl dt {
+	background: none repeat scroll 0 0 #E4EDF8;
+	border-top: 1px solid #D5E1F2;
+	height: 23px;
+	line-height: 22px;
+	padding-left: 10px;
+}
+
+.kj_sort dl dd {
+	padding-left: 10px;
+}
+
+.kj_sort dl dd.kj_num {
+	background: none repeat scroll 0 0 #FFFFFF;
+	color: #FF0000;
+	font-size: 14px;
+	font-weight: bold;
+	height: 28px;
+	line-height: 28px;
+	margin-top: 1px;
+}
+
+.kj_sort dl dd.kj_info {
+	border-top: 1px solid #EAF0FA;
+	line-height: 20px;
+	padding: 5px 0;
+}
+
+.kj_sort dl dd p {
+	padding-left: 10px;
+}
+
+.kj_sort dl dd p.gc {
+	background: url("../images/zs.gif") no-repeat scroll 8px 3px transparent
+		;
+	padding-left: 28px;
+}
+
+.kj_sort dl dd p.jm {
+	background: url("../images/jmoney.gif") no-repeat scroll 8px 3px
+		transparent;
+	padding-left: 28px;
+}
+
+.kj_sort dl dd.kj_link {
+	padding-right: 10px;
+	text-align: right;
+}
+
+.scroll_btn {
+	border-top: 1px solid #BDD8F5;
+	height: 25px;
+	overflow: hidden;
+}
+
+/*图表首页 最新开奖 end*/ /*购买提示层*/
+#show .tips_m {
+	width: 500px;
+}
+
+#show .tips_b {
+	background: none repeat scroll 0 0 rgba(94, 133, 178, 0.6);
+	padding: 4px;
+}
+
+#show .tips_box .tips_title {
+	background: url("/images/info/datachart/tips_ico.png") repeat-x scroll 0
+		0 #B6D0EB;
+	border-bottom: 1px solid #87B0DE;
+	height: 28px;
+	overflow: hidden;
+	padding-left: 10px;
+	padding-right: 6px;
+}
+
+#show .tips_box h2 {
+	color: #000000;
+	float: left;
+	font: bold 14px/ 28px simsun;
+}
+
+#show .tips_box {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid #5E85B2;
+	overflow: hidden;
+	position: relative;
+}
+
+#show .tips_box .tips_title .close a,#show .dl_err,.kbq,#show .jr_cnt .close a
+	{
+	background: url("/images/info/datachart/tips_ico.png") no-repeat scroll
+		0 0 transparent;
+}
+
+#show .tips_box .tips_title .close a,#show .jr_cnt .close a {
+	background-position: 0 -30px;
+	float: right;
+	height: 22px;
+	margin-top: 3px;
+	overflow: hidden;
+	text-indent: -99999em;
+	width: 23px;
+}
+
+#show .tips_box .tips_title .close a:hover,#show .jr_cnt .close a:hover
+	{
+	background-position: 0 -54px;
+}
+
+#show .tips_box .tips_text {
+	padding: 10px 12px;
+}
+
+#show p.pd_l {
+	padding: 20px 0;
+}
+
+#show .tips_sbt {
+	padding: 15px 0;
+	text-align: center;
+}
+
+#show .tips_sbt input {
+	vertical-align: middle;
+	margin-right: 30px;
+}
+
+#show .btn_Dora_b,#show  a.btn_Dora_b,#show a.btn_Dora_b:hover {
+	background-position: -220px -64px;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+	height: 30px;
+	line-height: 32px;
+	text-decoration: none;
+	width: 100px;
+}
+
+#show .btn_Dblue_l,#show a.btn_Dblue_l,#show .btn_Dblue_s,#show a.btn_Dblue_s,#show .btn_Dblue_m,#show a.btn_Dblue_m,#show .btn_Dblue_b,#show a.btn_Dblue_b,#show .btn_Lblue_l,#show a.btn_Lblue_l,.btn_Lblue_s,a.btn_Lblue_s,.btn_Lblue_m,a.btn_Lblue_m,.btn_Lblue_b,a.btn_Lblue_b,.btn_Dora_l,a.btn_Dora_l,.btn_Dora_s,a.btn_Dora_s,.btn_Dora_m,a.btn_Dora_m,.btn_Dora_b,a.btn_Dora_b,.btn_Dora_bs,a.btn_Dora_bs,.btn_Lora_l,a.btn_Lora_l,.btn_Lora_s,a.btn_Lora_s,.btn_Lora_m,a.btn_Lora_m,.btn_Lora_b,a.btn_Lora_b,.btn_Dred_s,a.btn_Dred_s,.btn_Dred_b,a.btn_Dred_b,.btn_buy_m,a.btn_buy_m,.btn_buy_hm,a.btn_buy_hm,.btn_buy_b,a.btn_buy_b,.btn_addList,a.btn_addList,.btn_gray_s,a.btn_gray_s,.btn_gray_m,a.btn_gray_m,.btn_gray_b,a.btn_gray_b,.btn_modify,a.btn_modify,.btn_gray_a,a.btn_gray_a
+	{
+	background: url("/images/info/datachart/sprite_btn.png") no-repeat
+		scroll 0 0 transparent;
+	border: 0 none;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 12px;
+	overflow: hidden;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+}
+
+#show a {
+	color: #0F3F94;
+	text-decoration: none;
+}
+
+#show .f14 {
+	font-size: 14px;
+}
+
+#show .tc {
+	text-align: center;
+}
+
+#show :focus {
+	outline: 0 none;
+}
+
+#show .btn_Dora_b,#show a.btn_Dora_b,a.btn_Dora_b:hover {
+	background-position: -220px -64px;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+	height: 30px;
+	line-height: 32px;
+	text-decoration: none;
+	width: 100px;
+}
+
+#show .btn_Lora_b,#show a.btn_Lora_b,a.btn_Lora_b:hover {
+	background-position: -330px -64px;
+	color: #DA4901;
+	font-size: 14px;
+	font-weight: bold;
+	height: 30px;
+	line-height: 32px;
+	text-decoration: none;
+	width: 100px;
+}
+
+.qycodl {
+	padding-top:10px;
+	padding-bottom:10px;
+	width: 998px;
+	margin: auto;
+	background-color: #ecf5ff;
+	border: 1px solid #dee8f3;
+	border_bottom: none; z
+	color: #0f3f94;
+}
+
+.qycodl a {
+   color: #0f3f94;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+    margin-left: 10px;
+    min-width: 110px;
+    max-width:130px;
+}
+
+.qycodl a:hover {
+	text-decoration: none;
+}
+
+.cur {
+	font-weight: bold;
+}

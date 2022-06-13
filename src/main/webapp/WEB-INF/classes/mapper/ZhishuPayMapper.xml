@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.ZhishuPayMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.ZhishuPay" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="pay_type" property="payType" jdbcType="INTEGER" />
+    <result column="pay_time" property="payTime" jdbcType="CHAR" />
+    <result column="pay_money" property="payMoney" jdbcType="DOUBLE" />
+    <result column="stop_time" property="stopTime" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="pay_state" property="payState" jdbcType="INTEGER" />
+    <result column="pay_channel" property="payChannel" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, member_id, store_id, pay_type, pay_time, pay_money, stop_time, remarks, pay_state, 
+    pay_channel
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from zhishu_pay
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from zhishu_pay
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.ZhishuPay" useGeneratedKeys="true" keyProperty="id">
+   insert into zhishu_pay (id, member_id, store_id, 
+      pay_type, pay_time, pay_money, 
+      stop_time, remarks, pay_state, 
+      pay_channel)
+    values (#{id,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{payType,jdbcType=INTEGER}, #{payTime,jdbcType=CHAR}, #{payMoney,jdbcType=DOUBLE}, 
+      #{stopTime,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, #{payState,jdbcType=INTEGER}, 
+      #{payChannel,jdbcType=INTEGER})
+  </insert>
+  
+  <select id="selectMemberPay" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from zhishu_pay where member_id=#{memberId} and #{dateTime} >= pay_time and #{dateTime} <![CDATA[<=]]> stop_time limit 0,1
+  </select>
+  
+  <select id="selectLastMemberPay" resultMap="BaseResultMap">
+  	SELECT 
+    <include refid="Base_Column_List" /> 
+    from zhishu_pay WHERE stop_time != 'null' AND member_id = #{memberId} ORDER BY id DESC LIMIT 0,1;
+  </select>
+  
+  <update id="updateByPrimaryKey" parameterType="com.jingc.busi.common.table.ZhishuPay" >
+    update zhishu_pay
+    set member_id = #{memberId,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      pay_type = #{payType,jdbcType=INTEGER},
+      pay_time = #{payTime,jdbcType=CHAR},
+      pay_money = #{payMoney,jdbcType=DOUBLE},
+      stop_time = #{stopTime,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      pay_state = #{payState,jdbcType=INTEGER},
+      pay_channel = #{payChannel,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER} and pay_state&lt;&gt;#{payState,jdbcType=INTEGER}
+  </update>
+</mapper>

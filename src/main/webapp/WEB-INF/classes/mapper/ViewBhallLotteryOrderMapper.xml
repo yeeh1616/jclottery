@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.ViewBhallLotteryOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.LotteryOrder" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="storeid" property="storeid" jdbcType="INTEGER" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="play_type" property="playType" jdbcType="VARCHAR" />
+    <result column="pass_type" property="passType" jdbcType="VARCHAR" />
+    <result column="single_flag" property="singleFlag" jdbcType="VARCHAR" />
+    <result column="bet_code" property="betCode" jdbcType="LONGVARCHAR" />
+    <result column="order_date" property="orderDate" jdbcType="VARCHAR" />
+    <result column="bet_num" property="betNum" jdbcType="INTEGER" />
+    <result column="multiple" property="multiple" jdbcType="INTEGER" />
+    <result column="bet_price" property="betPrice" jdbcType="INTEGER" />
+    <result column="bet_state" property="betState" jdbcType="VARCHAR" />
+    <result column="issue" property="issue" jdbcType="VARCHAR" />
+    <result column="order_odds" property="orderOdds" jdbcType="VARCHAR" />
+    <result column="sch_info" property="schInfo" jdbcType="VARCHAR" />
+    <result column="mult_info" property="multInfo" jdbcType="VARCHAR" />
+    <result column="bet_from" property="betFrom" jdbcType="VARCHAR" />
+    <result column="bet_type" property="betType" jdbcType="VARCHAR" />
+    <result column="partner_no" property="partnerNo" jdbcType="INTEGER" />
+    <result column="ticket_oper" property="ticketOper" jdbcType="VARCHAR" />
+    <result column="bonus_oper" property="bonusOper" jdbcType="VARCHAR" />
+    <result column="init_bonus" property="initBonus" jdbcType="DOUBLE" />
+    <result column="fini_bonus" property="finiBonus" jdbcType="DOUBLE" />
+    <result column="auto_flag" property="autoFlag" jdbcType="VARCHAR" />
+    <result column="fetch_flag" property="fetchFlag" jdbcType="VARCHAR" />
+    <result column="zj_flag" property="zjFlag" jdbcType="VARCHAR" />
+    <result column="is_result_status" property="isResultStatus" jdbcType="INTEGER" />
+    <result column="center_bonus" property="centerBonus" jdbcType="DOUBLE" />
+    <result column="center_bonus_state" property="centerBonusState" jdbcType="INTEGER" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+    <result column="reserved11" property="reserved11" jdbcType="VARCHAR" />
+    <result column="reserved12" property="reserved12" jdbcType="VARCHAR" />
+    <result column="reserved13" property="reserved13" jdbcType="VARCHAR" />
+    <result column="reserved14" property="reserved14" jdbcType="VARCHAR" />
+    <result column="reserved15" property="reserved15" jdbcType="VARCHAR" />
+    <result column="reserved16" property="reserved16" jdbcType="VARCHAR" />
+    <result column="reserved17" property="reserved17" jdbcType="VARCHAR" />
+    <result column="reserved18" property="reserved18" jdbcType="VARCHAR" />
+    <result column="reserved19" property="reserved19" jdbcType="VARCHAR" />
+    <result column="reserved20" property="reserved20" jdbcType="VARCHAR" />
+    <result column="bonus_date" property="bonusDate" jdbcType="VARCHAR" />
+    <result column="ticket_date" property="ticketDate" jdbcType="VARCHAR" />
+    <result column="expiry_date" property="expiryDate" jdbcType="VARCHAR" />
+    <result column="del_date" property="delDate" jdbcType="VARCHAR" />
+    <result column="bonus_type" property="bonusType" jdbcType="INTEGER" />
+    <result column="member_from" property="memberFrom" jdbcType="INTEGER" />
+    <result column="ticket_total_num" property="ticketTotalNum" jdbcType="INTEGER" />
+    <result column="ticketed_num" property="ticketedNum" jdbcType="INTEGER" />
+    <result column="ticketed_price" property="ticketedPrice" jdbcType="INTEGER" />
+    <result column="theory_bonus" property="theoryBonus" jdbcType="DOUBLE" />
+    <result column="getticket_date" property="getticketDate" jdbcType="VARCHAR" />
+    <result column="getticket_commons" property="getticketCommons" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="SaleTotalMap" type="com.jingc.busi.common.table.SaleTotal" >
+  	<result column="userid" jdbcType="INTEGER" property="memberId" />
+  	<result column="license_id" jdbcType="INTEGER" property="licenseId" />
+  	<result column="saleMoney" jdbcType="DOUBLE" property="saleMoney" />
+  	<result column="bouns" jdbcType="DOUBLE" property="bouns" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    id, userid, username, storeid, license_id, play_type, pass_type, single_flag, order_date, 
+    bet_num, multiple, bet_price, bet_state, issue, order_odds, sch_info, mult_info, bet_from, 
+    bet_type, partner_no, ticket_oper, bonus_oper, init_bonus, fini_bonus, auto_flag, 
+    fetch_flag, zj_flag, is_result_status, center_bonus, center_bonus_state, reserved1, 
+    reserved2, reserved3, reserved4, reserved5, reserved6, reserved7, reserved8, reserved9, 
+    reserved10, reserved11, reserved12, reserved13, reserved14, reserved15, reserved16, 
+    reserved17, reserved18, reserved19, reserved20, bonus_date, ticket_date, expiry_date, 
+    del_date, bonus_type, member_from, ticket_total_num, ticketed_num, ticketed_price, 
+    theory_bonus, getticket_date, getticket_commons,bet_code
+  </sql>
+  
+  <sql id="Base_Column_List2" ><!-- 不包含大字段betCode -->
+    id, userid, username, storeid, license_id, play_type, pass_type, single_flag,bonus_date,expiry_date,ticket_date, order_date, del_date,
+    bet_code, bet_num, multiple, bet_price,ticketed_price, bet_state, issue,sch_info, mult_info, 
+    bet_from, bet_type, partner_no, ticket_oper, bonus_oper, init_bonus, fini_bonus,member_from,ticket_total_num, ticketed_num,
+    theory_bonus,getticket_date,getticket_commons,
+    auto_flag, fetch_flag, zj_flag, is_result_status, center_bonus, center_bonus_state,bonus_type, reserved2, reserved3, reserved11, reserved13, reserved19
+  </sql>
+  
+  <!-- 关联Member表查询时，需要指定表字段 -->
+  <sql id="Base_Column_List3" >
+    lottery_order.id, lottery_order.userid, lottery_order.username, lottery_order.storeid, lottery_order.license_id, lottery_order.play_type, 
+    lottery_order.pass_type,  lottery_order.single_flag, lottery_order.bonus_date, lottery_order.expiry_date, lottery_order.ticket_date, 
+    lottery_order.order_date, lottery_order.del_date, lottery_order.bet_code, lottery_order.bet_num, lottery_order.multiple, lottery_order.bet_price, 
+    lottery_order.ticketed_price, lottery_order.bet_state, lottery_order.issue,lottery_order.sch_info, lottery_order.mult_info, 
+    lottery_order.bet_from, lottery_order.bet_type, lottery_order.partner_no, lottery_order.ticket_oper, lottery_order.bonus_oper, 
+    lottery_order.init_bonus, lottery_order.fini_bonus,lottery_order.member_from,lottery_order.ticket_total_num, lottery_order.ticketed_num,
+    lottery_order.theory_bonus,lottery_order.getticket_date,lottery_order.getticket_commons,lottery_order.auto_flag, lottery_order.fetch_flag, 
+    lottery_order.zj_flag, lottery_order.is_result_status, lottery_order.center_bonus, lottery_order.center_bonus_state, lottery_order.bonus_type, 
+    lottery_order.reserved2, lottery_order.reserved3, lottery_order.reserved11, lottery_order.reserved13
+  </sql>
+  
+  <sql id="sByPConditionSQL">
+  	<where> 1 = 1
+    	<if test="param.id != null">and id = #{param.id}</if>
+    	<if test="param.fetchFlag != null and param.fetchFlag !=''"> and fetch_flag=#{param.fetchFlag}</if> 	
+    	<if test="param.userid != null and param.userid != ''"> and userid = #{param.userid}</if>
+    	<if test="param.storeid != null and param.storeid !=''"> and storeid = #{param.storeid}</if>
+    	<if test="param.licenseId != null and param.licenseId != ''"> and license_id = #{param.licenseId}</if>
+    	<if test="param.partnerNo != null and param.partnerNo != ''"> and partner_no = #{param.partnerNo}</if>
+    	<if test="param.betFrom != null and param.betFrom != ''"> and bet_from = #{param.betFrom}</if>
+    	<if test="param.betType != null and param.betType != ''"> and bet_type = #{param.betType}</if>
+    	<if test="param.isResultStatus != null"> and is_result_status = #{param.isResultStatus}</if>
+    	<!--在构建查询参数时，根据实际情况， betType和betTypeList只能给其中一个赋值，否则最终SQL会不正确 -->
+    	<if test="param.betType != null and param.betType != ''"> and bet_type = #{param.betType}</if>
+    	<if test="param.betTypeList != null and param.betTypeList.size() > 0"> 
+    		and bet_type in 
+    		<foreach collection="param.betTypeList" item="item" index="index" open="(" close=")" separator=",">
+    		 #{item}
+    		</foreach>
+    	</if>
+    	<!--在构建查询参数时，根据实际情况， betState和betStateList只能给其中一个赋值，否则最终SQL会不正确 -->
+    	<if test="param.betState != null and param.betState != ''"> and bet_state = #{param.betState}</if>
+    	<if test="param.betStateList != null and param.betStateList.size() > 0"> 
+    		and bet_state in 
+    		<foreach collection="param.betStateList" item="item" index="index" open="(" close=")" separator=",">
+    		 #{item}
+    		</foreach>
+    	</if>
+    	<if test="param.autoFlag != null and param.autoFlag != ''"> and auto_flag = #{param.autoFlag}</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+    	 </if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and order_date &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and order_date &lt; CONCAT(#{param.endTime}," 23:59:59") 
+    	</if>
+    	<if test="(param.expirybeginTime != null and param.expirybeginTime !='') and (param.expiryendTime != null and param.expiryendTime !='')">
+    	 	and (expiry_date between CONCAT(#{param.expirybeginTime}," 00:00:00") and CONCAT(#{param.expiryendTime}," 23:59:59")) 
+    	 </if>
+    	<if test="(param.expirybeginTime != null and param.expirybeginTime !='') and (param.expiryendTime == null or param.expiryendTime =='')"> 
+    		and expiry_date &gt; CONCAT(#{param.expirybeginTime}," 00:00:00") 
+    	</if>
+    	<if test="(param.expirybeginTime == null or param.expirybeginTime =='') and (param.expiryendTime != null and param.expiryendTime !='')">
+    	 	and expiry_date &lt; CONCAT(#{param.expiryendTime}," 23:59:59") 
+    	</if>
+    	<if test="(param.ticketbeginTime != null and param.ticketbeginTime !='') and (param.ticketendTime != null and param.ticketendTime !='')">
+    	 	and (ticket_date between CONCAT(#{param.ticketbeginTime}," 00:00:00") and CONCAT(#{param.ticketendTime}," 23:59:59"))
+    	 </if>
+    	<if test="(param.ticketbeginTime != null and param.ticketbeginTime !='') and (param.ticketendTime == null or param.ticketendTime =='')"> 
+    		and ticket_date &gt; CONCAT(#{param.ticketbeginTime}," 00:00:00") 
+    	</if>
+    	<if test="(param.ticketbeginTime == null or param.ticketbeginTime =='') and (param.ticketendTime != null and param.ticketendTime !='')">
+    	 	and ticket_date &lt; CONCAT(#{param.ticketendTime}," 23:59:59")
+    	</if>
+    	<if test="(param.delbeginTime != null and param.delbeginTime !='') and (param.delendTime != null and param.delendTime !='')">
+    	 	and (del_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+    	 </if>
+    	<if test="(param.delbeginTime != null and param.delbeginTime !='') and (param.delendTime == null or param.delendTime =='')"> 
+    		and del_date &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+    	</if>
+    	<if test="(param.delbeginTime == null or param.delbeginTime =='') and (param.delendTime != null and param.delendTime !='')">
+    	 	and del_date &lt; CONCAT(#{param.endTime}," 23:59:59") 
+    	</if>
+    </where>
+  </sql>
+  
+  <!-- 查询单个对象 -->
+  <select id="selectByParam" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List2"/> from view_bhall_lottery_order
+  	<where>
+  		<if test="param.id != null"> id = #{param.id,jdbcType=INTEGER}</if>
+  		<if test="param.storeid != null"> AND storeid = #{param.storeid,jdbcType=INTEGER}</if>
+  		<if test="param.partnerNo != null"> AND partner_no = #{param.partnerNo,jdbcType=INTEGER}</if>
+  		<if test="param.betType != null"> AND bet_type = #{param.betType,jdbcType=VARCHAR}</if>
+  	</where>
+  </select>
+  
+  <!-- 根据传入的参数对象查询购彩记录条目数 [营业厅]-->
+  <select id="selectCountByParam" resultType="java.lang.Integer">
+  	select count(id) from view_bhall_lottery_order <include refid="sByPConditionSQL"/>
+  </select>
+  
+  <!-- 根据传入的参数对象查询购彩记录，对象中包含状态、采种、开始时间、结束时间、ID、用户ID、取票标识、追号和合买单号(不查彩票上的对应金额)-->
+  <select id="selectPaginationByParam"  resultMap="BaseResultMap">
+ 	select <include refid="Base_Column_List"/> from view_bhall_lottery_order  <include refid="sByPConditionSQL"/>
+ 	order by ""
+ 	<if test="(param.beginTime != null and param.beginTime !='') or (param.endTime != null or param.endTime !='')"> 
+    	,order_date desc 
+    </if>
+    <if test="(param.ticketbeginTime != null and param.ticketbeginTime !='') or (param.ticketendTime != null and param.ticketendTime !='')">
+    	,ticket_date desc 
+    </if>
+    <if test="(param.delbeginTime != null and param.delbeginTime !='') or (param.delendTime != null and param.delendTime !='')">
+    	 ,del_date desc 
+   	</if>
+   	<if test="(param.expirybeginTime != null and param.expirybeginTime !='') or (param.expiryendTime != null and param.expiryendTime !='')">
+   	 	,expiry_date desc   
+   	</if>
+   	   ,id desc 
+ 	<if test="pin != null"><!-- pin 传入null时，表示不需要分页，要查询所有数据 -->
+    	limit #{pin.firstResult},#{pin.pageSize}
+    </if>
+  </select>
+	
+  <!-- 购彩记录查询，不查询大字段。比如：bet_code -->
+  <select id="selectOrderListByParam"  resultMap="BaseResultMap">
+	select <include refid="Base_Column_List2"/> from view_bhall_lottery_order  <include refid="sByPConditionSQL"/>
+ 	order by order_date desc 
+ 	<if test="pin != null">
+    	limit #{pin.firstResult},#{pin.pageSize}
+    </if>
+  </select>  
+  
+  <!-- ********************************************************购彩记录(关联member) start *************************************************** -->
+   
+   <sql id="sByPConditionSQL2">
+    	<if test="param.id != null and param.id !=''">and lottery_order.id = #{param.id}</if>
+    	<if test="param.fetchFlag != null and param.fetchFlag !=''"> and lottery_order.fetch_flag=#{param.fetchFlag}</if>    	
+    	<if test="param.userid != null and param.userid != ''"> and lottery_order.userid = #{param.userid}</if>
+    	<if test="param.storeid != null and param.storeid !=''"> and lottery_order.storeid = #{param.storeid}</if>
+    	<if test="param.licenseId != null and param.licenseId != ''"> and lottery_order.license_id = #{param.licenseId}</if>
+    	<if test="param.partnerNo != null and param.partnerNo != ''"> and lottery_order.partner_no = #{param.partnerNo}</if>
+    	<if test="param.betFrom != null and param.betFrom != ''"> and lottery_order.bet_from = #{param.betFrom}</if>
+    	<if test="param.betType != null and param.betType != ''"> and lottery_order.bet_type = #{param.betType}</if>
+    	<if test="param.isResultStatus != null"> and lottery_order.is_result_status = #{param.isResultStatus}</if>
+    	<!--在构建查询参数时，根据实际情况， betState和betStateList只能给其中一个赋值，否则最终SQL会不正确 -->
+    	<if test="param.betState != null and param.betState != ''"> and lottery_order.bet_state = #{param.betState}</if>
+    	<if test="param.betStateList != null and param.betStateList.size() > 0"> 
+    	and lottery_order.bet_state in 
+    		<foreach collection="param.betStateList" item="item" index="index" open="(" close=")" separator=",">
+    		 #{item}
+    		</foreach>
+    	</if>
+    	<if test="param.autoFlag != null and param.autoFlag != ''"> and lottery_order.auto_flag = #{param.autoFlag}</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (lottery_order.order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+    	 </if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and lottery_order.order_date &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and lottery_order.order_date &lt; CONCAT(#{param.endTime}," 23:59:59") 
+    	</if>
+    	<if test="(param.expirybeginTime != null and param.expirybeginTime !='') and (param.expiryendTime != null and param.expiryendTime !='')">
+    	 	and (lottery_order.expiry_date between CONCAT(#{param.expirybeginTime}," 00:00:00") and CONCAT(#{param.expiryendTime}," 23:59:59")) 
+    	 </if>
+    	<if test="(param.expirybeginTime != null and param.expirybeginTime !='') and (param.expiryendTime == null or param.expiryendTime =='')"> 
+    		and lottery_order.expiry_date &gt; CONCAT(#{param.expirybeginTime}," 00:00:00") 
+    	</if>
+    	<if test="(param.expirybeginTime == null or param.expirybeginTime =='') and (param.expiryendTime != null and param.expiryendTime !='')">
+    	 	and lottery_order.expiry_date &lt; CONCAT(#{param.expiryendTime}," 23:59:59") 
+    	</if>
+    	<if test="memberParam != null and memberParam != ''">			
+ 			<if test="memberParam.reserved4 != null and memberParam.reserved4 !=''">
+   	 			and member.reserved4 = #{memberParam.reserved4} 
+   			</if>
+    	</if>
+   </sql>
+   
+   <!-- 购彩记录-->
+   <select id="selectOrderByParamAndMember"  resultMap="BaseResultMap">
+		select <include refid="Base_Column_List3"/> from view_bhall_lottery_order AS lottery_order,member 
+		 where lottery_order.userid = member.id <include refid="sByPConditionSQL2"/> 
+		 order by lottery_order.order_date desc
+		  <if test="pin != null">
+		  	limit #{pin.firstResult},#{pin.pageSize}
+		  </if>
+   </select>
+   
+   <!-- 购彩记录总条数-->
+   <select id="selectOrderCountByParamAndMember"  resultType="java.lang.Integer">
+		select count(lottery_order.id) from view_bhall_lottery_order AS lottery_order,member 
+			where lottery_order.userid = member.id <include refid="sByPConditionSQL2"/> 
+   </select>
+   
+   <!-- ********************************************************购彩记录(关联member) end ***************************************************** -->
+  
+</mapper>

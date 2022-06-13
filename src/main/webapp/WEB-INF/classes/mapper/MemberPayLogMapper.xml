@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MemberPayLogMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MemberPayLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="back_time" property="backTime" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="pay_id" property="payId" jdbcType="VARCHAR" />
+    <result column="comments" property="comments" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, member_id, store_id, type, money, create_time, back_time, state, pay_id, comments, 
+    reserved1, reserved2, reserved3, reserved4, reserved5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_pay_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="selectByReserved3" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_pay_log
+    where reserved3 = #{reserved3,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_pay_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MemberPayLog" useGeneratedKeys="true" keyProperty="id">
+    insert into member_pay_log (id, member_id, store_id, 
+      type, money, create_time, 
+      back_time, state, pay_id, 
+      comments, reserved1, reserved2, 
+      reserved3, reserved4, reserved5
+      )
+    values (#{id,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, #{createTime,jdbcType=VARCHAR}, 
+      #{backTime,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{payId,jdbcType=VARCHAR}, 
+      #{comments,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.MemberPayLog" >
+    update member_pay_log
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="backTime != null" >
+        back_time = #{backTime,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="payId != null" >
+        pay_id = #{payId,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        comments = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateNoStateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.MemberPayLog" >
+    update member_pay_log
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="backTime != null" >
+        back_time = #{backTime,jdbcType=VARCHAR},
+      </if>
+      <if test="payId != null" >
+        pay_id = #{payId,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        comments = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ <!-- 查询彩民充值记录 --> 
+ <select id="selectByParamObject" resultMap="BaseResultMap">
+ select <include refid="Base_Column_List" /> ,
+ 	(select member_name from member where id=member_pay_log.member_id) member_name,
+ 	(select store_name from store where store.store_id = member_pay_log.store_id ) store_name 
+  from member_pay_log
+ <where>
+ 	<if test="param.id != null">id = #{param.id}</if>
+ 	<if test="param.memberId != null and param.memberId != ''">member_id = #{param.memberId}</if>
+ 	<if test="param.storeId != null and param.storeId != ''"> and store_id = #{param.storeId}</if> 	
+ 	<if test="param.type != null and param.type != ''"> and type = #{param.type}</if>
+ 	<if test="param.state != null"> and state = #{param.state}</if>
+ 	<if test="param.stateList != null and param.stateList.size() > 0">
+ 		and state in
+ 		<foreach collection="param.stateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+ 	</if>
+ 	<if test="param.payId != null and param.payId != ''"> and pay_id = #{param.payId}</if>
+ 	<if test="param.typeList != null and param.typeList.size() > 0">
+ 		and type in
+ 		<foreach collection="param.typeList" item="item" open="(" separator="," close=")">#{item}</foreach>
+ 		<!-- type是查询一种类型，typeList是查询多种类型(用于线下和网上这样的大分类查询)，type和typeList只能有一个有值，否则没意义 -->
+ 	</if>
+ 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and (create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+ 	</if>
+ 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 		and create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+ 	</if>
+ 	<if test="(param.createTimeBegin == null or param.createTimeBegin == '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+ 	</if>
+ 	
+ 	<if test="(param.backTimeBegin != null and param.backTimeBegin != '') and (param.backTimeEnd != null and param.backTimeEnd !='')">
+ 		and (back_time between CONCAT(#{param.backTimeBegin}," 00:00:00") and CONCAT(#{param.backTimeEnd}," 23:59:59"))
+ 	</if>
+ 	<if test="(param.backTimeBegin != null and param.backTimeBegin != '') and (param.backTimeEnd == null or param.backTimeEnd =='')">
+ 		and back_time &gt; CONCAT(#{param.backTimeBegin}," 00:00:00")
+ 	</if>
+ 	<if test="(param.backTimeBegin == null or param.backTimeBegin == '') and (param.backTimeEnd != null and param.backTimeEnd !='')">
+ 		and back_time &lt; CONCAT(#{param.backTimeEnd}," 23:59:59")
+ 	</if>
+ </where>
+      order by create_time desc,back_time desc
+      <if test="(pagination != null)">
+       limit #{pagination.firstResult},#{pagination.pageSize}
+      </if>
+ </select>
+ 
+ <!-- 查询彩民充值记录条目数 --> 
+ <select id="selectWaitCountByParamObject" resultType="java.lang.Integer">
+ select count(*) from member_pay_log
+ <where>
+ 	<if test="param.id != null">id = #{param.id}</if>
+ 	<if test="param.memberId != null and param.memberId != ''">member_id = #{param.memberId}</if>
+ 	<if test="param.storeId != null and param.storeId != ''"> and store_id = #{param.storeId}</if> 	
+ 	<if test="param.type != null and param.type != ''"> and type = #{param.type}</if>
+ 	<if test="param.state != null">and state = #{param.state}</if>
+ 	<if test="param.stateList != null and param.stateList.size() > 0">
+ 		and state in
+ 		<foreach collection="param.stateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+ 	</if>
+  	<if test="param.payId != null and param.payId != ''"> and pay_id = #{param.payId}</if>
+ 	<if test="param.typeList != null and param.typeList.size() > 0">
+ 		and type in
+ 		<foreach collection="param.typeList" item="item" open="(" separator="," close=")">#{item}</foreach>
+ 		<!-- type是查询一种类型，typeList是查询多种类型(用于线下和网上这样的大分类查询)，type和typeList只能有一个有值，否则没意义 -->
+ 	</if>
+ 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and (create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+ 	</if>
+ 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 		and create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+ 	</if>
+ 	<if test="(param.createTimeBegin == null or param.createTimeBegin == '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+ 	</if>
+ 	
+ 	<if test="(param.backTimeBegin != null and param.backTimeBegin != '') and (param.backTimeEnd != null and param.backTimeEnd !='')">
+ 		and (back_time between CONCAT(#{param.backTimeBegin}," 00:00:00") and CONCAT(#{param.backTimeEnd}," 23:59:59"))
+ 	</if>
+ 	<if test="(param.backTimeBegin != null and param.backTimeBegin != '') and (param.backTimeEnd == null or param.backTimeEnd =='')">
+ 		and back_time &gt; CONCAT(#{param.backTimeBegin}," 00:00:00")
+ 	</if>
+ 	<if test="(param.backTimeBegin == null or param.backTimeBegin == '') and (param.backTimeEnd != null and param.backTimeEnd !='')">
+ 		and back_time &lt; CONCAT(#{param.backTimeEnd}," 23:59:59")
+ 	</if>
+ </where>
+ </select>
+ 
+ <!-- 统计充值总额 -->
+ <select id="selectTMoneyByParamObject" resultType="java.lang.Double">
+ 	select sum(money) from member_pay_log
+ 	<where>
+ 		<if test="param.id != null">id = #{param.id}</if>
+ 		<if test="param.memberId != null and param.memberId != ''">member_id = #{param.memberId}</if>
+ 		<if test="param.storeId != null and param.storeId != ''"> and store_id = #{param.storeId}</if> 
+ 		<if test="param.state != null"> and state = #{param.state}</if> 		
+ 		<if test="param.type != null and param.type != ''"> and type = #{param.type}</if>
+ 		<if test="param.payId != null and param.payId != ''"> and pay_id = #{param.payId}</if>
+ 		<if test="param.typeList != null and param.typeList.size() > 0">
+ 			and type in
+ 			<foreach collection="list" item="param.typeList" open="(" separator="," close=")">#{param.typeList}</foreach>
+ 			<!-- type是查询一种类型，typeList是查询多种类型(用于线下和网上这样的大分类查询)，type和typeList只能有一个有值，否则没意义 -->
+ 		</if>
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		  and (create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+	 	</if>
+	 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+	 		and create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+	 	</if>
+	 	<if test="(param.createTimeBegin == null or param.createTimeBegin == '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+	 		and create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+	 	</if>
+	 	
+	 	<if test="(param.backTimeBegin != null and param.backTimeBegin != '') and (param.backTimeEnd != null and param.backTimeEnd !='')">
+	 		and (back_time between CONCAT(#{param.backTimeBegin}," 00:00:00") and CONCAT(#{param.backTimeEnd}," 23:59:59"))
+	 	</if>
+	 	<if test="(param.backTimeBegin != null and param.backTimeBegin != '') and (param.backTimeEnd == null or param.backTimeEnd =='')">
+	 		and back_time &gt; CONCAT(#{param.backTimeBegin}," 00:00:00")
+	 	</if>
+	 	<if test="(param.backTimeBegin == null or param.backTimeBegin == '') and (param.backTimeEnd != null and param.backTimeEnd !='')">
+	 		and back_time &lt;= CONCAT(#{param.backTimeEnd}," 23:59:59")
+	 	</if>
+	 </where>
+<!--  	group by store_id -->
+ </select>
+  
+  <!--从第三方支付返回后修改订单状态-->  
+  <update id="updateByPrimaryKeyAndState" parameterType="com.jingc.busi.common.table.MemberPayLog" >
+    update member_pay_log
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="backTime != null" >
+        back_time = #{backTime,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="payId != null" >
+        pay_id = #{payId,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        comments = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} and state&lt;&gt;4 and state&lt;&gt;#{state,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectStoreRecharge" resultType="com.jingc.busi.common.table.query.OneDayQueryObject"> 
+  	select sum(money) as money,substr(create_time,1,10) as day from member_pay_log where store_id=#{storeId} and state=2 GROUP BY substr(create_time,1,10)
+  </select>
+  <select id="selectOneStoreRecharge" resultType="com.jingc.busi.common.table.query.OneDayQueryObject"> 
+  	select sum(IFNULL(money,0)) as money from member_pay_log where store_id=#{storeId} and state=2 and create_time like #{day}
+  </select>
+  
+   <sql id="Base_Column_List2" >
+    member_pay_log.id, member_pay_log.member_id, member_pay_log.store_id, member_pay_log.type, member_pay_log.money, 
+    member_pay_log.create_time, member_pay_log.back_time, member_pay_log.state, member_pay_log.pay_id, member_pay_log.comments, 
+    member_pay_log.reserved1, member_pay_log.reserved2, member_pay_log.reserved3, member_pay_log.reserved4, member_pay_log.reserved5
+  </sql>
+  
+  <!-- 查询彩民充值记录条目数  根据我的团队--> 
+ <select id="selectPayLogCountByMyTeam" resultType="java.lang.Integer">
+ 	select count(member_pay_log.id) from member_pay_log,member  
+	 	where member_pay_log.member_id = member.id 
+	 	and member.reserved4 = ${agentId}
+		<if test="param.memberName != null and  param.memberName !=''"> and member.member_name = #{param.memberName}</if>
+	 	<if test="param.state != null"> and member_pay_log.state = #{param.state}</if>
+	 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+	 		and (member_pay_log.create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+	 	</if>
+	 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+	 		and member_pay_log.create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+	 	</if>
+	 	<if test="(param.createTimeBegin == null or param.createTimeBegin == '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+	 		and member_pay_log.create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+	 	</if>
+ </select>
+  
+ <!-- 查询彩民充值记录 根据我的团队 --> 
+ <select id="selectPayLogByMyTeam" resultMap="BaseResultMap">
+	 select <include refid="Base_Column_List2" /> ,
+	    member.member_name, 
+	 	(select store_name from store where store.store_id = member_pay_log.store_id ) store_name 
+	  from member_pay_log,member 
+	  where member_pay_log.member_id = member.id 
+	 	and member.reserved4 = ${agentId}
+		<if test="param.memberName != null and  param.memberName !=''"> and member.member_name = #{param.memberName}</if>
+	 	<if test="param.state != null"> and member_pay_log.state = #{param.state}</if>
+	 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+	 		and (member_pay_log.create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+	 	</if>
+	 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+	 		and member_pay_log.create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+	 	</if>
+	 	<if test="(param.createTimeBegin == null or param.createTimeBegin == '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+	 		and member_pay_log.create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+	 	</if>
+	  order by member_pay_log.create_time,member_pay_log.back_time desc
+	  <if test="(pagination != null)">
+	       limit #{pagination.firstResult},#{pagination.pageSize}
+      </if>
+ </select>
+  
+  <!--批量更新状态，店铺-->
+  <update id="updateBachByPrimaryKeyAndState" parameterType="com.jingc.busi.common.table.MemberPayLog" >
+    update member_pay_log
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="backTime != null" >
+        back_time = #{backTime,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="payId != null" >
+        pay_id = #{payId,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        comments = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where state=2 and type=#{type,jdbcType=INTEGER} and store_id = #{storeId,jdbcType=INTEGER} and back_time &lt;= CONCAT(#{backTimeEnd}," 23:59:59")
+  </update>
+  
+  <!--店铺批量集合-->
+  <select id="selectPayLogByStore" resultMap="BaseResultMap">
+	   select store_id ,count(1) reserved1 from member_pay_log where 1=1
+	  <if test="type != null" > and type = #{type,jdbcType=INTEGER}</if>
+	 	<if test="state != null"> and state = #{state}</if>
+	 	<!--<if test="(backTimeBegin != null and backTimeBegin != '') and (backTimeBegin != null and backTimeBegin !='')">
+	 		and (back_time between CONCAT(#{backTimeBegin}," 00:00:00") and CONCAT(#{backTimeBegin}," 23:59:59"))
+	 	</if>-->
+	 	<if test="(backTimeBegin == null or backTimeBegin == '') and (backTimeEnd != null and backTimeEnd !='')">
+	 		and back_time &lt;= CONCAT(#{backTimeEnd}," 23:59:59")
+	 	</if>
+	 	group by store_id
+ </select>
+ 
+  <!--批量更新状态，彩民-->
+  <update id="updateBachByPrimaryKeyAndStateAndMember" parameterType="com.jingc.busi.common.table.MemberPayLog" >
+    update member_pay_log set state = 3,back_time = #{backTime,jdbcType=VARCHAR},reserved5 = #{reserved5,jdbcType=VARCHAR}
+    where state=1 and member_id=#{memberId,jdbcType=INTEGER} and type=#{type,jdbcType=INTEGER} and store_id = #{storeId,jdbcType=INTEGER} 
+    and create_time &lt;= CONCAT(#{createTime}," 23:59:59")
+  </update>
+</mapper>

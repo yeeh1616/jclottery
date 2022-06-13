@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.AuthMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.AuthMenu" >
+    <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="parent_menu_id" property="parentMenuId" jdbcType="INTEGER" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="menu_des" property="menuDes" jdbcType="VARCHAR" />
+    <result column="menu_sort" property="menuSort" jdbcType="INTEGER" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <!--关联角色权限表-->
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    menu_id, parent_menu_id, menu_name, menu_url, menu_des, menu_sort, reserved1, reserved2, 
+    reserved3, reserved4, reserved5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from auth_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAuthMenuListByParentMenuId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from auth_menu
+    where parent_menu_id = #{menuId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from auth_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="menuId" parameterType="com.jingc.busi.common.table.AuthMenu" >
+    insert into auth_menu (menu_id, parent_menu_id, menu_name, 
+      menu_url, menu_des, menu_sort, 
+      reserved1, reserved2, reserved3, 
+      reserved4, reserved5)
+    values (#{menuId,jdbcType=INTEGER}, #{parentMenuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, 
+      #{menuUrl,jdbcType=VARCHAR}, #{menuDes,jdbcType=VARCHAR}, #{menuSort,jdbcType=INTEGER}, 
+      #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, 
+      #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.AuthMenu" >
+    update auth_menu
+    <set >
+      <if test="parentMenuId != null" >
+        parent_menu_id = #{parentMenuId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null" >
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        menu_url = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDes != null" >
+        menu_des = #{menuDes,jdbcType=VARCHAR},
+      </if>
+      <if test="menuSort != null" >
+        menu_sort = #{menuSort,jdbcType=INTEGER},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getAuthMenuList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from auth_menu
+    order by menu_sort asc
+  </select>
+  
+  <select id="getRoleMenu" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.AuthMenu" >
+    select auth_menu.menu_id,parent_menu_id,menu_name,menu_url,role_id 
+    from auth_menu,role_menu	
+    where auth_menu.menu_id = role_menu.menu_id 
+    and role_id = #{roleId,jdbcType=INTEGER}
+    order by menu_sort asc
+  </select>
+  
+  <select id="getRoleMenuByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select auth_menu.menu_id,parent_menu_id,menu_name,menu_url,user_id 
+    from auth_menu,user_menu 	
+    where auth_menu.menu_id = user_menu.menu_id 
+    and user_id = #{userId,jdbcType=INTEGER} 
+    order by menu_sort asc
+  </select>
+  
+  <!-- 查询一个菜单的交集，一个店主添加店员，店员的菜单应该是：店主拥有的菜单与店员角色拥有的菜单的交集 -->
+  <select id="getMenuIntersection" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select b.menu_id as menu_id,parent_menu_id,menu_name,menu_url,user_id 
+    from user_menu a left join auth_menu b on a.menu_id = b.menu_id
+    where user_id = #{userId,jdbcType=INTEGER} and EXISTS(select menu_id from role_menu where role_menu.menu_id
+    = b.menu_id and role_id = #{roleId})
+    order by menu_sort asc
+  </select>
+  
+</mapper>

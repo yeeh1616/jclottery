@@ -1,0 +1,750 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.Member" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="alias_name" property="aliasName" jdbcType="VARCHAR" />
+    <result column="login_pass" property="loginPass" jdbcType="VARCHAR" />
+    <result column="account_pass" property="accountPass" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="certi_type" property="certiType" jdbcType="VARCHAR" />
+    <result column="certi_name" property="certiName" jdbcType="VARCHAR" />
+    <result column="certi_number" property="certiNumber" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_user_name" property="bankUserName" jdbcType="VARCHAR" />
+    <result column="bank_account" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="pass_question" property="passQuestion" jdbcType="VARCHAR" />
+    <result column="pass_answer" property="passAnswer" jdbcType="VARCHAR" />
+    <result column="member_from" property="memberFrom" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="close_time" property="closeTime" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+    <result column="sumLotteryAmount" property="sumLotteryAmount" jdbcType="DOUBLE"/>
+    <result column="moneyAccount" property="moneyAccount" jdbcType="DOUBLE"/> 
+    <result column="givenAccount" property="givenAccount" jdbcType="DOUBLE"/>
+    <result column="frozenAccount" property="frozenAccount" jdbcType="DOUBLE"/>
+    <result column="can_drawals_account" property="canDrawalsAccount" jdbcType="DOUBLE"/>
+    <result column="bonus_account" property="bonusAccount" jdbcType="DOUBLE"/>
+    <result column="accountState" property="accountState" jdbcType="INTEGER" />
+  </resultMap>
+  
+   <!-- 根据id查询彩民信息——包含账户各项余额 -->
+  <select id="selectIncludeAccountMoneyById" resultMap="BaseResultMap">
+  select member.id, member.member_name, member.nick_name, member.alias_name, member.login_pass, member.account_pass, member.store_id, member.province, 
+  member.city, member.gender, member.qq, member.phone, member.email, member.certi_type, member.certi_name, member.certi_number, member.bank_name, 
+  member.bank_user_name, member.bank_account, member.state, member.level, member.pass_question, member.pass_answer, member.member_from, 
+  member.create_time, member.close_time, member.reserved1, member.reserved2, member.reserved3, member.reserved4, member.reserved5, member.reserved6, 
+  member.reserved7, member.reserved8, member.reserved9, member.reserved10,
+  member_account.money_account as moneyAccount,member_account.given_account as givenAccount,member_account.frozen_account as frozenAccount,
+		member_account.score_account as scoreAccount,member_account.can_drawals_account as canDrawalsAccount,member_account.bonus_account as bonusAccount 
+		from member left join member_account on member.id = member_account.member_id
+		<where>
+		<if test="id != null and id !='' ">member.id = #{id}</if>
+	</where>
+	order by member.id desc
+  </select>
+  
+  <!-- 查询彩民信息——包含账户各项余额(可以区分营业厅用户和彩民) -->
+  <select id="selectIncludeAccountMoney" resultMap="BaseResultMap">
+ 	select member.id,member.member_name,member.alias_name,member.nick_name,member.reserved1,member.create_time,member.state,member.level,member_account.state as accountState,
+		member.close_time,member_account.money_account as moneyAccount,member_account.given_account as givenAccount,member_account.frozen_account as frozenAccount,
+		member_account.score_account as scoreAccount,member_account.can_drawals_account as canDrawalsAccount,member_account.bonus_account as bonusAccount,member.reserved3 as reserved3
+		from member left join member_account on member.id = member_account.member_id 		
+	<where>
+		<if test="memberParam.id != null and memberParam.id !='' ">member.id = #{memberParam.id}</if>
+		<if test="memberParam.storeId != null and memberParam.storeId !='' ">and member.store_id = #{memberParam.storeId}</if>
+ 		<if test="memberParam.storeType != null and memberParam.storeType != ''">
+  			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+  				<when test="memberParam.storeType == 2">
+  			 		and member.member_from = #{memberParam.memberFrom}
+  				</when>
+				<otherwise>and member.member_from != #{memberParam.memberFrom}</otherwise>
+  			</choose>
+  		</if>
+  		<!-- 此处注意：state 和stateList只能有一个有值，否则拼出来SQL语句会有问题 -->
+  		<if test="memberParam.state != null and memberParam.state != ''"> and member.state = #{memberParam.state}</if>
+  		<if test="memberParam.stateList != null and memberParam.stateList.size() > 0">
+  			and member.state in 
+  			<foreach collection="memberParam.stateList" item="item" open="(" close=")" separator=",">#{item}</foreach>
+  		</if> 
+  		<if test="memberParam.reserved3 != null and memberParam.reserved3 != ''"> and member.reserved3 = #{memberParam.reserved3}</if>
+  		<if test="memberParam.reserved4 != null and memberParam.reserved4 != ''"> and member.reserved4 = #{memberParam.reserved4}</if>
+	</where>
+	order by member.id	desc <if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if> 
+  </select>
+  
+  <!-- 查询彩民信息-->
+  <select id="selectMemberByUserId" resultMap="BaseResultMap">
+ 	select <include refid="Base_Column_List" /> from member 
+ 	where member.id = #{userId}	and member.store_id = #{storeId}
+  </select>
+  
+  <!-- 查询彩民信息-->
+  <select id="selectMemberByObject" resultMap="BaseResultMap">
+ 	select <include refid="Base_Column_List" /> from member 		
+	<where>
+		<if test="param.storeId != null and param.storeId !='' ">store_id = #{param.storeId}</if>
+ 		<if test="param.storeType != null and param.storeType != ''">
+  			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+  				<when test="param.storeType == 2">
+  			 		and member_from = #{param.memberFrom}
+  				</when>
+				<otherwise>and member_from != #{param.memberFrom}</otherwise>
+  			</choose>
+  		</if>
+  		<!-- 此处注意：state 和stateList只能有一个有值，否则拼出来SQL语句会有问题 -->
+  		<if test="param.state != null and param.state != ''"> and state = #{param.state}</if>
+  		<if test="param.stateList != null and param.stateList.size() > 0">
+  			and state in 
+  			<foreach collection="param.stateList" item="item" open="(" close=")" separator=",">#{item}</foreach>
+  		</if>
+  		<if test="param.createTime != null and param.createTime !='' ">create_time = #{param.createTime}</if>
+  		<if test="param.memberName != null and param.memberName !='' ">member_name = #{param.memberName}</if> 
+	</where>
+	order by member.id
+	<if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>	 
+  </select>
+  
+  <!-- 查询彩民信息条目数-->
+  <select id="selectWCountMemberByObject" resultType="java.lang.Integer">
+ 	select count(*) from member 		
+	<where>
+		<if test="param.storeId != null and param.storeId !='' ">store_id = #{param.storeId}</if>
+ 		<if test="param.storeType != null and param.storeType != ''">
+  			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+  				<when test="param.storeType == 2">
+  			 		and member_from = #{param.memberFrom}
+  				</when>
+				<otherwise>and member_from != #{param.memberFrom}</otherwise>
+  			</choose>
+  		</if>
+  		<!-- 此处注意：state 和stateList只能有一个有值，否则拼出来SQL语句会有问题 -->
+  		<if test="param.state != null and param.state != ''"> and state = #{param.state}</if>
+  		<if test="param.stateList != null and param.stateList.size() > 0">
+  			and state in 
+  			<foreach collection="param.stateList" item="item" open="(" close=")" separator=",">#{item}</foreach>
+  		</if> 
+	</where> 
+  </select>
+  
+  <!-- 根据登录名查询用户，用户名是手机号或用户名(手机登录) -->
+  <select id="selectByLoginName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from member where
+  	 member_name = #{loginName} 
+  </select>
+  
+  <!-- 查询店铺下的营业厅用户 -->
+  <select id="selectBOfficeMemberByStoreid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" />
+    from member where store_id = #{storeId} and member_from = '5'
+  </select>
+  
+  <!-- 查询彩民信息——包含购彩金额和账户余额 -->
+  <select id="selectIncludeMoneyOld" resultMap="BaseResultMap">
+ 	select member.id as id,member.member_name as member_name,member.nick_name as nick_name,member.alias_name as alias_name,member.reserved1 as reserved1,member.create_time as create_time,member.close_time as close_time,member.state as state,member.level as level,
+		sum(lottery_order.bet_price) as sumLotteryAmount,member_account.money_account as moneyAccount,member_account.given_account as givenAccount,member_account.frozen_account as frozenAccount
+		,member_account.state as accountState,member.province as province,member.city as city,member.gender as gender,member.qq as qq,member.phone as phone,member.email as email,member.member_from as member_from 
+		from member left join member_account on member.id = member_account.member_id 
+		left join lottery_order on member.id = lottery_order.userid
+	<where>
+	<if test="param.storeId != null and param.storeId !=''">member.store_id = #{param.storeId}</if>
+		<!-- state 和  stateList 只能给一个赋值，否则结果SQL不对 -->
+		<if test="param.state != null and param.state !=''"> and member.state = #{param.state}</if>
+		<if test="param.stateList != null and param.stateList.size() > 0">
+			and member.state in 
+			<foreach collection="param.stateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+		</if>
+		<if test="param.id != null and param.id !=''"> and member.id = #{param.id}</if>
+		<if test="param.storeType != null and param.storeType != ''">
+  			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+  				<when test="param.storeType == 2">
+  			 		and member.member_from = #{param.memberFrom}
+  				</when>
+				<otherwise>and member.member_from != #{param.memberFrom}</otherwise>
+  			</choose>
+  		</if>
+		<if test="(param.cTimeBegin != null and param.cTimeBegin !='') and (param.cTimeEnd != null and param.cTimeEnd !='')">
+			and (member.create_time between CONCAT(#{param.cTimeBegin},' 00:00:00') and CONCAT(#{param.cTimeEnd},' 23:59:59'))
+		</if>
+		<if test="(param.cTimeBegin != null and param.cTimeBegin !='') and (param.cTimeEnd == null or param.cTimeEnd =='')">
+			and member.create_time &gt; CONCAT(#{param.cTimeBegin},' 00:00:00')
+		</if>
+		<if test="(param.cTimeBegin == null or param.cTimeBegin =='') and (param.cTimeEnd != null and param.cTimeEnd !='')">
+			and member.create_time &lt; CONCAT(#{param.cTimeEnd},' 23:59:59')
+		</if>
+	</where>
+	 group by id,member_name,nick_name,alias_name,reserved1,create_time,close_time,state,level,
+		moneyAccount,givenAccount,frozenAccount,accountState,province,city,gender,qq,phone,email,member_from 
+	 order by member.create_time desc limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+  <!-- 查询彩民信息——包含购彩金额和账户余额 -->
+  <select id="selectIncludeMoney" resultMap="BaseResultMap">
+ 	select member.id as id,member.member_name as member_name,member.nick_name as nick_name,member.alias_name as alias_name,member.reserved1 as reserved1,member.create_time as create_time,member.close_time as close_time,member.state as state,member.level as level,
+		sum(lottery_order.bet_price) as sumLotteryAmount,member_account.money_account as moneyAccount,member_account.given_account as givenAccount,member_account.frozen_account as frozenAccount
+		,member_account.state as accountState,member.province as province,member.city as city,member.gender as gender,member.qq as qq,member.phone as phone,member.email as email,member.member_from as member_from 
+		from member left join member_account on member.id = member_account.member_id 
+		left join lottery_order on member.id = lottery_order.userid
+	<where>
+	<if test="param.storeId != null and param.storeId !=''">member.store_id = #{param.storeId}</if>
+		<!-- state 和  stateList 只能给一个赋值，否则结果SQL不对 -->
+		<if test="param.state != null and param.state !=''"> and member.state = #{param.state}</if>
+		<if test="param.stateList != null and param.stateList.size() > 0">
+			and member.state in 
+			<foreach collection="param.stateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+		</if>
+		<if test="order.betStateList != null and order.betStateList.size() > 0">
+			and lottery_order.bet_state in 
+			<foreach collection="order.betStateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+		</if>
+		<if test="param.id != null and param.id !=''"> and member.id = #{param.id}</if>
+		<if test="param.storeType != null and param.storeType != ''">
+  			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+  				<when test="param.storeType == 2">
+  			 		and member.member_from = #{param.memberFrom}
+  				</when>
+				<otherwise>and member.member_from != #{param.memberFrom}</otherwise>
+  			</choose>
+  		</if>
+		<if test="(param.cTimeBegin != null and param.cTimeBegin !='') and (param.cTimeEnd != null and param.cTimeEnd !='')">
+			and (member.create_time between CONCAT(#{param.cTimeBegin},' 00:00:00') and CONCAT(#{param.cTimeEnd},' 23:59:59'))
+		</if>
+		<if test="(param.cTimeBegin != null and param.cTimeBegin !='') and (param.cTimeEnd == null or param.cTimeEnd =='')">
+			and member.create_time &gt; CONCAT(#{param.cTimeBegin},' 00:00:00')
+		</if>
+		<if test="(param.cTimeBegin == null or param.cTimeBegin =='') and (param.cTimeEnd != null and param.cTimeEnd !='')">
+			and member.create_time &lt; CONCAT(#{param.cTimeEnd},' 23:59:59')
+		</if>
+	</where>
+	 group by id,member_name,nick_name,alias_name,reserved1,create_time,close_time,state,level,
+		moneyAccount,givenAccount,frozenAccount
+		,accountState,province,city,gender,qq,phone,email,member_from 
+	 order by member.create_time desc limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+   <!-- 查询彩民信息条目数——包含购彩金额和账户余额 -->
+  <select id="selectWaitCountIncludeMoney" resultType="java.lang.Integer">
+  	select count(*) from member 
+	<where>
+	<if test="param.storeId != null and param.storeId !=''">member.store_id = #{param.storeId}</if>
+		<!-- state 和  stateList 只能给一个赋值，否则结果SQL不对 -->
+		<if test="param.state != null and param.state !=''"> and member.state = #{param.state}</if>
+		<if test="param.stateList != null and param.stateList.size() > 0">
+			and member.state in 
+			<foreach collection="param.stateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+		</if>
+		<if test="param.id != null and param.id !=''"> and member.id = #{param.id}</if>
+		<if test="param.storeType != null and param.storeType != ''">
+  			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+  				<when test="param.storeType == 2">
+  			 		and member.member_from = #{param.memberFrom}
+  				</when>
+				<otherwise>and member.member_from != #{param.memberFrom}</otherwise>
+  			</choose>
+  		</if>
+		<if test="(param.cTimeBegin != null and param.cTimeBegin !='') and (param.cTimeEnd != null and param.cTimeEnd !='')">
+			and (member.create_time between CONCAT(#{param.cTimeBegin},' 00:00:00') and CONCAT(#{param.cTimeEnd},' 23:59:59'))
+		</if>
+		<if test="(param.cTimeBegin != null and param.cTimeBegin !='') and (param.cTimeEnd == null or param.cTimeEnd =='')">
+			and member.create_time &gt; CONCAT(#{param.cTimeBegin},' 00:00:00')
+		</if>
+		<if test="(param.cTimeBegin == null or param.cTimeBegin =='') and (param.cTimeEnd != null and param.cTimeEnd !='')">
+			and member.create_time &lt; CONCAT(#{param.cTimeEnd},' 23:59:59')
+		</if>
+		<if test="param.reserved3 != null and param.reserved3 !=''"> and member.reserved3 = #{param.reserved3}</if>
+		<if test="param.reserved4 != null and param.reserved4 !=''"> and member.reserved4 = #{param.reserved4}</if>
+	</where>
+  </select>
+  
+  <sql id="Base_Column_List" >
+    id, member_name, nick_name, alias_name, login_pass, account_pass, store_id, province, 
+    city, gender, qq, phone, email, certi_type, certi_name, certi_number, bank_name, 
+    bank_user_name, bank_account, state, level, pass_question, pass_answer, member_from, 
+    create_time, close_time, reserved1, reserved2, reserved3, reserved4, reserved5, reserved6, 
+    reserved7, reserved8, reserved9, reserved10
+  </sql>
+  
+   <sql id="Base_Column_List1" >
+    member.id, member.member_name, member.nick_name, member.alias_name, member.login_pass, member.account_pass, member.store_id, member.province, 
+    member.city, member.gender, member.qq, member.phone, member.email, member.certi_type, member.certi_name, member.certi_number, member.bank_name, 
+    member.bank_user_name, member.bank_account, member.state, member.level, member.pass_question, member.pass_answer, member.member_from, 
+    member.create_time, member.close_time, member.reserved1, member.reserved2, member.reserved3, member.reserved4 
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.Member" useGeneratedKeys="true" keyProperty="id">
+    insert into member (id, member_name, nick_name, 
+      alias_name, login_pass, account_pass, 
+      store_id, province, city, 
+      gender, qq, phone, 
+      email, certi_type, certi_name, 
+      certi_number, bank_name, bank_user_name, 
+      bank_account, state, level, 
+      pass_question, pass_answer, member_from, 
+      create_time, close_time, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5, reserved6, reserved7, 
+      reserved8, reserved9, reserved10
+      )
+    values (#{id,jdbcType=INTEGER}, #{memberName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{aliasName,jdbcType=VARCHAR}, #{loginPass,jdbcType=VARCHAR}, #{accountPass,jdbcType=VARCHAR}, 
+      #{storeId,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=INTEGER}, #{qq,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{certiType,jdbcType=VARCHAR}, #{certiName,jdbcType=VARCHAR}, 
+      #{certiNumber,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{bankUserName,jdbcType=VARCHAR}, 
+      #{bankAccount,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{passQuestion,jdbcType=VARCHAR}, #{passAnswer,jdbcType=VARCHAR}, #{memberFrom,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=VARCHAR}, #{closeTime,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR}, #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, 
+      #{reserved8,jdbcType=VARCHAR}, #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR}
+      )
+  </insert>
+ 
+ <!-- 开通和注销营业厅账户 -->
+ <update id="endisableBUser">
+ 	update member 
+ 	<set>
+ 		<if test="param.loginPass != null and param.loginPass != ''">
+ 		login_pass = #{param.loginPass},
+ 		</if>
+ 		<if test="param.level != null and param.level != ''">
+ 		level = #{param.level},
+ 		</if>
+ 		<if test="param.state != null and param.state != ''">
+ 		state = #{param.state},
+ 		</if>
+ 		<if test="param.aliasName != null and param.aliasName != ''">
+ 		alias_name = #{param.aliasName},
+ 		</if>
+ 		<if test="param.reserved1 != null and param.reserved1 != ''">
+ 		reserved1 = #{param.reserved1},
+ 		</if>
+ 	</set>
+ 	<where>
+ 		<if test="param.id != null and param.id != ''"> id = #{param.id}</if>
+ 	</where>
+ </update>
+ 
+ <update id="enableBUser">
+ 	update member set login_pass = #{param.loginPass},level = #{param.level},
+ 	state = #{param.state},alias_name = #{param.aliasName},reserved1 = #{param.reserved1}
+ 	where id = #{param.id}
+ </update>
+ 
+ <update id="disableBUser">
+ 	update member set state = #{param.state},alias_name = nick_name where id = #{param.id}
+ </update>
+ 
+ <!-- 店员修改彩民的登陆密码或财务密码 -->
+ <update id="updateMemberPass">
+ update member
+ <set>
+  <if test="param.loginPass != null and param.loginPass != ''">
+  login_pass = #{param.loginPass},
+  </if>
+  <if test="param.accountPass != null and param.accountPass != ''">
+  account_pass = #{param.accountPass},
+  </if>
+ </set>
+ where id = #{param.id}
+ </update>
+ 
+ <!-- 修改彩民的信息 -->
+ <update id="updateMemberInfo">
+ 	update member
+    <set >
+      <if test="param.memberName != null and param.memberName != ''" >
+        member_name = #{param.memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="param.accountPass != null and param.accountPass != ''" >
+        account_pass = #{param.accountPass,jdbcType=VARCHAR},
+      </if>
+      <if test="param.nickName != null and param.nickName != ''">
+        nick_name = #{param.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="param.aliasName != null and param.aliasName != ''">
+        alias_name = #{param.aliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="param.province != null and param.province != ''">
+        province = #{param.province,jdbcType=VARCHAR},
+      </if>
+      <if test="param.city != null and param.city != ''">
+        city = #{param.city,jdbcType=VARCHAR},
+      </if>
+      <if test="param.gender != null and param.gender != ''">
+        gender = #{param.gender,jdbcType=INTEGER},
+      </if>
+      <if test="param.qq != null and param.qq != ''">
+        qq = #{param.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="param.phone != null and param.phone != ''">
+        phone = #{param.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="param.email != null and param.email != ''">
+        email = #{param.email,jdbcType=VARCHAR},
+      </if>
+      <if test="param.certiType != null and param.certiType != ''">
+        certi_type = #{param.certiType,jdbcType=VARCHAR},
+      </if>
+      <if test="param.certiName != null and param.certiName != ''">
+        certi_name = #{param.certiName,jdbcType=VARCHAR},
+      </if>
+      <if test="param.certiNumber != null and param.certiNumber != ''" >
+        certi_number = #{param.certiNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="param.bankName != null and param.bankName != ''">
+        bank_name = #{param.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="param.bankUserName != null and param.bankUserName != ''">
+        bank_user_name = #{param.bankUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="param.bankAccount != null and param.bankAccount != ''">
+        bank_account = #{param.bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="param.level != null and param.level != ''">
+        level = #{param.level,jdbcType=INTEGER},
+      </if>
+      <if test="param.passQuestion != null and param.passQuestion != ''">
+        pass_question = #{param.passQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="param.passAnswer != null and param.passAnswer != ''">
+        pass_answer = #{param.passAnswer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{param.id,jdbcType=INTEGER}
+ </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.Member" >
+    update member
+    <set >
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="aliasName != null" >
+        alias_name = #{aliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPass != null" >
+        login_pass = #{loginPass,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPass != null" >
+        account_pass = #{accountPass,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="certiType != null" >
+        certi_type = #{certiType,jdbcType=VARCHAR},
+      </if>
+      <if test="certiName != null" >
+        certi_name = #{certiName,jdbcType=VARCHAR},
+      </if>
+      <if test="certiNumber != null" >
+        certi_number = #{certiNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankUserName != null" >
+        bank_user_name = #{bankUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="passQuestion != null" >
+        pass_question = #{passQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="passAnswer != null" >
+        pass_answer = #{passAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="memberFrom != null" >
+        member_from = #{memberFrom,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="closeTime != null" >
+        close_time = #{closeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null" >
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null" >
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null" >
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null" >
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ 
+ <!-- 根据用店铺id、户名和密码查询彩民条目数(用于用户名检测) --> 
+ <select id="selectMemberNameExist" resultType="java.lang.Integer">
+ select count(*) from member
+ <where>
+ <if test="memberName != null">member_name = #{memberName}</if>
+ 
+   <!-- 验证用户名不需要店铺ID（避免不同的店铺有相同的用户名）
+   <if test="storeId != null">and store_id = #{storeId}</if>-->
+ </where>
+ </select>
+ 
+ <!-- 查询所有未被删除的用户信息——用于加载界面下拉框的默认值(可以区分彩民和营业厅用户) --> 
+ <select id="selectByStoreIdTypeState" resultMap="BaseResultMap">
+ 	select id, member_name from member
+ 	<where>
+ 		<if test="memberParam.storeId != null and memberParam.storeId !='' ">store_id = #{memberParam.storeId}</if>
+ 		<if test="memberParam.storeType != null and memberParam.storeType != ''">
+  			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+  				<when test="memberParam.storeType == 2">
+  			 		and member_from = #{memberParam.memberFrom}
+  				</when>
+				<otherwise>and member_from != #{memberParam.memberFrom}</otherwise>
+  			</choose>
+  		</if>
+  		<!-- 此处注意：state 和stateList只能有一个有值，否则拼出来SQL语句会有问题 -->
+  		<if test="memberParam.state != null and memberParam.state != ''"> and state = #{memberParam.state}</if>
+  		<if test="memberParam.stateList != null and memberParam.stateList.size() > 0">
+  			and state in 
+  			<foreach collection="memberParam.stateList" item="item" open="(" close=")" separator=",">#{item}</foreach>
+  		</if> 		
+ 	</where>
+ 	order by id asc
+ </select>
+ 
+ <!-- 查询店铺彩民，前台登录 --> 
+ <select id="selectStoreMember" resultMap="BaseResultMap">
+ select <include refid="Base_Column_List" /> from member
+ where member_name = #{username} and store_id = #{storeid}
+ <if test="password != null">
+      and UPPER(login_pass) = UPPER(#{password}) 
+ </if>
+ </select>
+ 
+ <!-- 查询彩民，前台登录 --> 
+ <select id="selectMember" resultMap="BaseResultMap">
+ select <include refid="Base_Column_List" /> from member
+ where member_name = #{username}
+ <if test="password != null">
+      and UPPER(login_pass) = UPPER(#{password}) 
+ </if>
+ limit 0,1
+ </select>
+ 
+  <!--注册校验重名-->
+ <select id="selectMemberReg" resultMap="BaseResultMap">
+ select <include refid="Base_Column_List" /> from member
+ where member_name = #{username}
+ <if test="storeid != null">
+      and store_id = #{storeid}
+ </if>
+ <if test="password != null">
+      and UPPER(login_pass) = UPPER(#{password}) 
+ </if>
+ </select>
+ 
+ <!-- 找回密码-重置密码,ChenXin -->
+ <update id="updateLoginPass">
+ update member
+ <set>
+ login_pass = #{param.loginPass}
+ </set>
+ <where>
+ id = #{param.id}
+ </where>
+ </update>
+ 
+ <select id="selectLastSeq" resultType="java.lang.Long">
+  	SELECT LAST_INSERT_ID()
+  </select>
+  
+  <!-- 当前店铺下的所有id(去掉发起人id和已指定的id) -->
+  <select id="selectCountAppointMember" resultType="java.lang.Integer">
+  	select count(*)
+	from member
+	where store_id=#{param.storeId} and id!=#{param.memberId} and id not in
+	(select appoint_member_id
+	from merger_appoint
+	where member_id=#{param.memberId} and license_id=#{param.licenseId}) and id not in
+	(select id from member where member_from = 5) and id not in
+	(select customizing_member_id from merger_custom
+	 where license_id = #{param.licenseId} and store_id = #{param.storeId} and customized_member_id = #{param.memberId})
+  </select>
+  <!-- 当前店铺下的所有id(去掉（1）发起人id （2）已指定的id （3）已定制的id) -->
+  <select id="selectAppointMember" resultMap="BaseResultMap">
+ 	select <include refid="Base_Column_List" />
+	from member
+	where store_id=#{param.storeId} and id!=#{param.memberId} and id not in
+	(select appoint_member_id
+	from merger_appoint
+	where member_id=#{param.memberId} and license_id=#{param.licenseId}) and id not in
+	(select id from member where member_from = 5) and id not in
+	(select customizing_member_id from merger_custom
+	 where license_id = #{param.licenseId} and store_id = #{param.storeId} and customized_member_id = #{param.memberId})
+	order by member.id
+	<if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>	 
+  </select>
+  
+  <!-- 查询彩民信息-->
+  <select id="selectAgentMemberList" resultMap="BaseResultMap">
+	 	select <include refid="Base_Column_List" /> from member 
+	 	where reserved3+0 > 0 and store_id = #{storeId}
+  </select>
+  
+  <select id="selectByTeamObject" resultMap="BaseResultMap">
+	 	select <include refid="Base_Column_List" /> from member 
+	 	where reserved4+0 = #{agentId} 
+	 	<if test="memberName != null and memberName !='' ">and member_name = #{memberName}</if>
+	 	order by id desc
+	 	<if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>	 
+  </select>
+  
+  <select id="selectMyteamCountByParamObject" resultType="java.lang.Integer">
+  	select count(id) from member where reserved4+0 = #{agentId} 
+  	<if test="memberName != null and memberName !='' ">and member.member_name = #{memberName}</if>
+  </select>
+  
+   <!-- 查询所有彩民信息-->
+  <select id="selectMemberAll" resultMap="BaseResultMap">
+ 	select <include refid="Base_Column_List" /> from member 
+  </select>
+
+<!-- 查询彩民信息和店铺名称-->
+  <select id="selectMemberByStore" resultMap="BaseResultMap">
+ 	select <include refid="Base_Column_List1" />,store_name as reserved5 from member,store 		
+	<where>
+		member.store_id=store.store_id
+		<if test="param.storeId != null and param.storeId !='' ">
+		 and member.store_id = #{param.storeId}
+		</if>
+ 		<if test="param.storeType != null and param.storeType != ''">
+  			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+  				<when test="param.storeType == 2">
+  			 		and member_from = #{param.memberFrom}
+  				</when>
+				<otherwise>and member_from != #{param.memberFrom}</otherwise>
+  			</choose>
+  		</if>
+  		<!-- 此处注意：state 和stateList只能有一个有值，否则拼出来SQL语句会有问题 -->
+  		<if test="param.state != null and param.state != ''"> and state = #{param.state}</if>
+  		<if test="param.stateList != null and param.stateList.size() > 0">
+  			and state in 
+  			<foreach collection="param.stateList" item="item" open="(" close=")" separator=",">#{item}</foreach>
+  		</if>
+  		<if test="param.createTime != null and param.createTime !='' ">and member.create_time &gt; #{param.createTime}</if>
+  		<if test="param.closeTime != null and param.closeTime !='' ">and member.create_time &lt; #{param.closeTime}</if>
+  		<if test="param.memberName != null and param.memberName !='' ">and member.member_name = #{param.memberName}</if>  
+	</where>
+	order by member.id
+	<if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>	 
+  </select>
+  
+  <!-- 查询关联后的彩民信息条目数-->
+  <select id="selectMemberByStoreObject" resultType="java.lang.Integer">
+ 	select count(member.store_id) from member,store 		
+	<where>
+		member.store_id=store.store_id 
+		<if test="param.storeId != null and param.storeId !='' ">and member.store_id = #{param.storeId}</if>
+ 		<if test="param.storeType != null and param.storeType != ''">
+  			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+  				<when test="param.storeType == 2">
+  			 		and member_from = #{param.memberFrom}
+  				</when>
+				<otherwise>and member_from != #{param.memberFrom}</otherwise>
+  			</choose>
+  		</if>
+  		<!-- 此处注意：state 和stateList只能有一个有值，否则拼出来SQL语句会有问题 -->
+  		<if test="param.state != null and param.state != ''"> and state = #{param.state}</if>
+  		<if test="param.stateList != null and param.stateList.size() > 0">
+  			and state in 
+  			<foreach collection="param.stateList" item="item" open="(" close=")" separator=",">#{item}</foreach>
+  		</if>
+  		<if test="param.createTime != null and param.createTime !='' ">and member.create_time &gt; #{param.createTime}</if>
+  		<if test="param.closeTime != null and param.closeTime !='' ">and member.create_time &lt; #{param.closeTime}</if>
+  		<if test="param.memberName != null and param.memberName !='' ">and member.member_name = #{param.memberName}</if> 
+	</where> 
+  </select>
+  
+  <!-- 查询彩民信息id与用户名根据所属集团) -->
+  <select id="selectIdUserName" resultMap="BaseResultMap">
+ 	select id,member_name from member where reserved3 = '1'		
+  </select>
+</mapper>

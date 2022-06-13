@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.RdSysConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.RdSysConfig" >
+    <result column="min_mid_value" property="minMidValue" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    min_mid_value
+  </sql>
+
+  <select id="selectMinId" resultType="java.lang.Integer">
+    select min_mid_value from rd_sys_config
+  </select>
+  <insert id="insert" parameterType="com.jingc.busi.common.table.RdSysConfig" >
+    insert into rd_sys_config (min_mid_value)
+    values (#{minMidValue,jdbcType=INTEGER})
+  </insert>
+  <update id="updateIdAdd">
+    update rd_sys_config set min_mid_value = min_mid_value+1
+  </update>
+</mapper>

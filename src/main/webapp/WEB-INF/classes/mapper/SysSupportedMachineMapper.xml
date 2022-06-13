@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.SysSupportedMachineMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.SysSupportedMachine" >
+    <id column="machine_code" property="machineCode" jdbcType="VARCHAR" />
+    <result column="machine_name" property="machineName" jdbcType="VARCHAR" />
+    <result column="machine_type" property="machineType" jdbcType="VARCHAR" />
+  	<result column="machine_type_name" property="machineTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+     machine_code, machine_name, machine_type, machine_type_name
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_supported_machine
+    where machine_code = #{machineCode,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectAllSysSupportedMachine" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from sys_supported_machine
+   <if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>
+  </select>
+	<select id="getMachineCount" resultType="java.lang.Integer">
+	 select count(machine_code) 
+	 from sys_supported_machine
+   </select>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.SysSupportedMachine" >
+    insert into sys_supported_machine (machine_code, machine_name, machine_type,machine_type_name )
+    values (#{machineCode,jdbcType=VARCHAR}, 
+		    #{machineName,jdbcType=VARCHAR}, 
+		    #{machineType,jdbcType=VARCHAR}, 
+		    #{machineTypeName,jdbcType=VARCHAR})
+  </insert>
+  
+   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_supported_machine
+    where machine_code = #{machineCode,jdbcType=VARCHAR}
+  </delete>
+  
+   <update id="update" parameterType="com.jingc.busi.common.table.SysSupportedMachine" >
+    update sys_supported_machine
+    <set >
+      <if test="machineCode != null" >
+        machine_code = #{machineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="machineName != null" >
+        machine_name = #{machineName,jdbcType=VARCHAR},
+      </if>
+      <if test="machineType != null" >
+        machine_type = #{machineType,jdbcType=VARCHAR},
+      </if>
+	  <if test="machineTypeName != null" >
+        machine_type_name = #{machineTypeName,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where machine_code = #{machineCode,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 获取彩机名称 用于下拉框显示选择彩机名称-->
+  <select id="selectMachineNameList" resultMap="BaseResultMap">
+  	SELECT distinct machine_code,machine_name FROM sys_supported_machine
+  </select>
+  
+</mapper>

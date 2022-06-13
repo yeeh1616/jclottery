@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.GameZcAgainstMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.GameZcAgainst" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="game_id" property="gameId" jdbcType="INTEGER" />
+    <result column="issue" property="issue" jdbcType="VARCHAR" />
+    <result column="league_name" property="leagueName" jdbcType="VARCHAR" />
+    <result column="guest_team" property="guestTeam" jdbcType="VARCHAR" />
+    <result column="host_team" property="hostTeam" jdbcType="VARCHAR" />
+    <result column="race_start_time" property="raceStartTime" jdbcType="VARCHAR" />
+    <result column="average_odds" property="averageOdds" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    id, license_id, game_id, issue, league_name, guest_team, host_team, race_start_time, 
+    average_odds, reserved1, reserved2, reserved3, reserved4, reserved5, reserved6, reserved7, 
+    reserved8, reserved9, reserved10
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_zc_against
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from game_zc_against
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.jingc.busi.common.table.GameZcAgainst" >
+    insert into game_zc_against (license_id, game_id, 
+      issue, league_name, guest_team, 
+      host_team, race_start_time, average_odds, 
+      reserved1, reserved2, reserved3, 
+      reserved4, reserved5, reserved6, 
+      reserved7, reserved8, reserved9, 
+      reserved10)
+    values (#{licenseId,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, 
+      #{issue,jdbcType=VARCHAR}, #{leagueName,jdbcType=VARCHAR}, #{guestTeam,jdbcType=VARCHAR}, 
+      #{hostTeam,jdbcType=VARCHAR}, #{raceStartTime,jdbcType=VARCHAR}, #{averageOdds,jdbcType=VARCHAR}, 
+      #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, 
+      #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}, #{reserved6,jdbcType=VARCHAR}, 
+      #{reserved7,jdbcType=VARCHAR}, #{reserved8,jdbcType=VARCHAR}, #{reserved9,jdbcType=VARCHAR}, 
+      #{reserved10,jdbcType=VARCHAR})
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.GameZcAgainst" >
+    update game_zc_against
+    <set >
+      <if test="licenseId != null" >
+        license_id = #{licenseId,jdbcType=INTEGER},
+      </if>
+      <if test="gameId != null" >
+        game_id = #{gameId,jdbcType=INTEGER},
+      </if>
+      <if test="issue != null" >
+        issue = #{issue,jdbcType=VARCHAR},
+      </if>
+      <if test="leagueName != null" >
+        league_name = #{leagueName,jdbcType=VARCHAR},
+      </if>
+      <if test="guestTeam != null" >
+        guest_team = #{guestTeam,jdbcType=VARCHAR},
+      </if>
+      <if test="hostTeam != null" >
+        host_team = #{hostTeam,jdbcType=VARCHAR},
+      </if>
+      <if test="raceStartTime != null" >
+        race_start_time = #{raceStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="averageOdds != null" >
+        average_odds = #{averageOdds,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null" >
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null" >
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null" >
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null" >
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getGameZcAgainst" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_zc_against
+    where game_id = #{gameId,jdbcType=INTEGER}
+    order by id asc
+  </select>
+  
+  <select id="selectByIssueAndGameId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_zc_against
+    where license_id = #{licenseId} and game_id = #{gameId} and issue = #{issue}
+  </select>
+  
+  <select id="getGameZcAgainstByLicenseAndIssue" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_zc_against
+    where license_id = #{licenseId} and issue = #{issue}
+    order by id asc
+  </select>
+  
+    <select id="getGameZcAgainstByLicenseAndIssueOrderByGameId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_zc_against
+    where license_id = #{licenseId} and issue = #{issue}
+    order by game_id asc
+  </select>
+</mapper>

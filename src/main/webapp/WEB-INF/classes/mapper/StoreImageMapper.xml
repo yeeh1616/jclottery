@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreImageMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreImage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="image_name" property="imageName" jdbcType="VARCHAR" />
+    <result column="image_uri" property="imageUri" jdbcType="VARCHAR" />
+    <result column="upload_time" property="uploadTime" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, store_id, image_name, image_uri, upload_time
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_image
+    where id = #{Id,jdbcType=INTEGER} 
+  </select>
+  
+   <select id="selectListByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_image
+    where store_id = #{storeId,jdbcType=INTEGER} order by upload_time DESC limit 10
+  </select>
+  
+  <!-- 获取支付宝对象图片 -->
+  <select id="selectListByStoreIdZhiFu" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_image
+    where store_id = #{storeId,jdbcType=INTEGER} and image_name like '%_alipay.jpg' order by upload_time DESC limit 10
+    </select>
+    
+  <!-- 获取微信对象图片 -->
+  <select id="selectListByStoreIdWx" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_image
+    where store_id = #{storeId,jdbcType=INTEGER} and image_name like '%_wechat.jpg' order by upload_time DESC limit 10
+    </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from store_image
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+    <delete id="deleteByimagename" parameterType="String" >
+    delete from store_image
+    where image_name = #{imageName,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.StoreImage" >
+    insert into store_image (id, store_id, image_name, 
+      image_uri, upload_time)
+    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{imageName,jdbcType=VARCHAR}, 
+      #{imageUri,jdbcType=VARCHAR}, #{uploadTime,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectidBypicturename" resultType="java.lang.Integer" parameterType="String" >
+    select 
+    	id
+    from store_image
+    where image_name = #{imageName,jdbcType=VARCHAR} 
+  </select>
+  
+    <!-- 修改上传图片 -->
+  <update id="updateByImageid" parameterType="com.jingc.busi.common.table.StoreImage" >
+  	update store_image
+  	<set>
+  			  <if test="imageName != null" >
+      			  image_name = #{imageName,jdbcType=VARCHAR},
+     		 </if>
+     		 <if test="imageUri != null" >
+      			  image_uri = #{imageUri,jdbcType=VARCHAR},
+     		 </if>
+     		  <if test="uploadTime != null" >
+      			  upload_time = #{uploadTime,jdbcType=VARCHAR},
+     		 </if>
+  	</set>
+  	<where>
+  	 where id = #{id,jdbcType=INTEGER}
+  	</where>
+  </update>
+  
+</mapper>

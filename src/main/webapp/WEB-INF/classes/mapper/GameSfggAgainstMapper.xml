@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingc.busi.common.mapper.GameSfggAgainstMapper">
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.GameSfggAgainst">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="issue" property="issue" jdbcType="VARCHAR" />
+    <result column="race_time" property="raceTime" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="league_type" property="leagueType" jdbcType="VARCHAR" />
+    <result column="league_name" property="leagueName" jdbcType="VARCHAR" />
+    <result column="guest_team" property="guestTeam" jdbcType="VARCHAR" />
+    <result column="host_team" property="hostTeam" jdbcType="VARCHAR" />
+    <result column="race_start_time" property="raceStartTime" jdbcType="VARCHAR" />
+    <result column="bet_end_time" property="betEndTime" jdbcType="VARCHAR" />
+    <result column="rq" property="rq" jdbcType="VARCHAR" />
+    <result column="odds" property="odds" jdbcType="VARCHAR" />
+    <result column="average_odds" property="averageOdds" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="all_score" property="allScore" jdbcType="VARCHAR" />
+    <result column="half_score" property="halfScore" jdbcType="VARCHAR" />
+    <result column="leaguage_id" property="leaguageId" jdbcType="INTEGER" />
+    <result column="host_team_id" property="hostTeamId" jdbcType="INTEGER" />
+    <result column="guest_team_id" property="guestTeamId" jdbcType="INTEGER" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    id, uuid, issue, race_time, number, league_type, league_name, guest_team, host_team, 
+    race_start_time, bet_end_time, rq, odds, average_odds, state, all_score, half_score, 
+    leaguage_id, host_team_id, guest_team_id, reserved1, reserved2, reserved3, reserved4, 
+    reserved5, reserved6, reserved7, reserved8, reserved9, reserved10
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game_sfgg_against
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from game_sfgg_against
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingc.busi.common.table.GameSfggAgainst" >
+    insert into game_sfgg_against (id, uuid, issue, 
+      race_time, number, league_type, 
+      league_name, guest_team, host_team, 
+      race_start_time, bet_end_time, rq, 
+      odds, average_odds, state, 
+      all_score, half_score, leaguage_id, 
+      host_team_id, guest_team_id, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5, reserved6, reserved7, 
+      reserved8, reserved9, reserved10
+      )
+    values (#{id,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
+      #{raceTime,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{leagueType,jdbcType=VARCHAR}, 
+      #{leagueName,jdbcType=VARCHAR}, #{guestTeam,jdbcType=VARCHAR}, #{hostTeam,jdbcType=VARCHAR}, 
+      #{raceStartTime,jdbcType=VARCHAR}, #{betEndTime,jdbcType=VARCHAR}, #{rq,jdbcType=VARCHAR}, 
+      #{odds,jdbcType=VARCHAR}, #{averageOdds,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{allScore,jdbcType=VARCHAR}, #{halfScore,jdbcType=VARCHAR}, #{leaguageId,jdbcType=INTEGER}, 
+      #{hostTeamId,jdbcType=INTEGER}, #{guestTeamId,jdbcType=INTEGER}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR}, #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, 
+      #{reserved8,jdbcType=VARCHAR}, #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <select id="selectByIssueAndNumber" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from game_sfgg_against where issue = #{issue} and number = #{number}
+  </select>
+  
+  <select id="selectList2Calc" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.GameSfggAgainst" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_sfgg_against
+    where race_time > #{raceTime} 
+  </select>
+  
+  <update id="updateScore" parameterType="com.jingc.busi.common.table.GameSfggAgainst">
+  	update game_sfgg_against set all_score = #{allScore}, half_score = #{halfScore},reserved10 = #{reserved10} where issue = #{issue} and number = #{number}
+  </update>
+  
+  <!-- Added by zh for 生成竞彩开奖号码调用 at 2014/09/21 -->
+  <select id="getDayList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game_sfgg_against
+    where race_time = #{day} order by race_time desc,number desc
+  </select>
+  
+  <!-- 对阵总条目数查询 -->
+  <select id="getSfggListByParamCount" resultType="java.lang.Integer">
+	select count(id) from game_sfgg_against 
+    <where>
+	    <if test="param.raceTime != null and param.raceTime != ''">
+	    	and race_time = #{param.raceTime}
+	    </if>
+    </where>
+  </select>
+  
+   <!-- 对阵列表查询, -->
+  <select id="getSfggListByParam" resultMap="BaseResultMap" >
+    select   <include refid="Base_Column_List" />
+    	from game_sfgg_against
+    <where>
+	    <if test="param.raceTime != null and param.raceTime != ''">
+	   	 and race_time = #{param.raceTime}
+	    </if>
+    </where>
+   	order by id DESC,number ASC
+   	limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+  
+  
+  <!-- 根据ID修改北京单场对阵  -->
+  <update id="setSfggInfoByParam">
+    update game_sfgg_against
+    <set>
+      <if test="param.guestTeam != null and param.guestTeam != ''">
+        guest_team = #{param.guestTeam},
+      </if>
+      <if test="param.hostTeam != null and param.hostTeam != ''">
+        host_team = #{param.hostTeam},
+      </if>
+      <if test="param.rq != null and param.rq != ''">
+        rq = #{param.rq},
+      </if>
+      <if test="param.raceStartTime != null and param.raceStartTime != ''">
+        race_start_time = #{param.raceStartTime},
+      </if>
+      <if test="param.betEndTime != null and param.betEndTime != ''">
+        bet_end_time = #{param.betEndTime},
+      </if>
+      <if test="param.allScore != null and param.allScore != ''">
+        all_score = #{param.allScore},
+      </if>
+      <if test="param.reserved10 != null and param.reserved10 != ''">
+        reserved10 = #{param.reserved10}
+      </if>
+    </set>
+    where id = #{param.id}
+  </update>
+  
+  
+</mapper>

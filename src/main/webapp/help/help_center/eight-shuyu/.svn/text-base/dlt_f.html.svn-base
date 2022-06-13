@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0077)http://lisi.cp020.com/help/help_center/ten-other/other-answer/five-other.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="shortcut icon" href="http://lisi.cp020.com/help/help_center/ten-other/other-answer/images/top_logo.ico">
+<title>大乐透缩水</title>
+<link type="text/css" rel="stylesheet" href="../../css/base.css"/>
+<link type="text/css" rel="stylesheet" href="../../css/columns_blue2.css"/>
+<link type="text/css" rel="stylesheet" href="../../css/other.css"/>
+<script type="text/javascript" src="../../js/jquery-1.8.2.js"></script>
+<script type="text/javascript" src="../../js/include.js"></script>
+</head>
+
+<body>
+<!--顶部-->
+<div class="header_top">
+  <div class="top common_w">
+
+  </div>
+</div>
+<!--顶部 end--> 
+<!--header-->
+
+<!--header end-->
+<div class="layout">
+  
+  </div>
+<!--帮助中心开始-->
+<div class="help-list">
+<iframe src='../helpleft.html' class="help-listl" style="overflow:hidden; border:0px !important;"></iframe>
+<div class="help-listr">
+ <h1>大乐透缩水投注</h1>
+ <p><span>什么是AC值？
+</span></p>
+  <p>&nbsp;&nbsp;AC值也称作“数字复杂指数”，它是引自国外乐透型彩票分析研究的一个概念，是评估乐透型彩票号码价值的重要参数。</p>
+  <p>&nbsp;&nbsp;在乐透型彩票中，一组号码中所有两个号码相减，然后对所得的差求绝对值，如果有相同的数字，则只保留一个，得到不同差值个数D(t)，然后，用个数值D(t)减去(r-1)（其中r为投注号码数），这个数值就是AC值。</p>
+  <p>&nbsp;&nbsp;AC值 = D(t) － (r －1)</p>
+  <p>&nbsp;&nbsp;例如，大乐透玩法（不包含后区），则有r=5（即投注结果包含5个号码），</p>
+  <p>&nbsp;&nbsp;例如一注投注结果为 01, 15 ,20, 21, 30 + 01,12。</p>
+  <p>&nbsp;&nbsp;这一注内各数之间的10个差值为：</p>
+  <p>&nbsp;&nbsp;15-01=14，20-01=19，21-01=20，30-01=29；</p>
+  <p>&nbsp;&nbsp;20-15=5，21-15=6，30-15=15；</p>
+  <p>&nbsp;&nbsp;21-20=1，30-20=10；</p>
+  <p>&nbsp;&nbsp;30-21=9；</p>
+  <p>&nbsp;&nbsp;其中，有10个不同的值：14、19、20、29、5、6、15、1、10、9。</p>
+  <p>&nbsp;&nbsp;所以D(t)=10，AC值 = D(t) － (r － 1) = 10－(5－1) = 6。</p>
+  <p>大乐透玩法，不包含后区总共不会超过 10 个差值，当所有差值都不同的时候，D(t)得到最大值10，AC值最大为10-(5-1)=6。</p>
+  <p>&nbsp;&nbsp;双色球玩法，不包含蓝球总共不会超过 15 个差值，当所有差值都不同的时候，D(t)得到最大值15，AC值最大为15 - (6 - 1)=10。</p>
+   <p><span>什么是和值？</span></p>
+  <p>&nbsp;&nbsp;一个投注结果中所有号码之和。以大乐透为例，如投注结果 05, 11, 12, 13, 27 + 01,10 的号码和（不包含后区）为 5+11+12+13+27=68。
+   <p><span>什么是质合？</span></p>
+  <p>&nbsp;&nbsp;质号是只能被 1 和它本身整除的数。1既不是质数，也不是合数。但我们特别规定，把1当作质数处理。</p>
+  <p>&nbsp;&nbsp;除1,0以外不是质数的正整数就是合数。</p>
+  <p>&nbsp;&nbsp;质号个数是指一个投注结果中的质号个数。以大乐透为例（不含后区），如投注结果 05,11,12,13,27 +01,10 的质数个数为4，合数个数为1。</p>
+   <p><span>什么是连号组数？</span></p>
+  <p>&nbsp;&nbsp;即开奖前区号码中连号的组数。以大乐透为例，如01,02,08,09,10,31,33+01,11，共有2组连号，分别为2连号01,02，3连号08,09,10。</p>
+</div>
+<div class="clear"></div>
+</div>
+    
+
+<!--帮助中心结束-->
+<!--footer-->
+<div class="footer_bg">
+  <div class="footer_bangzhu"><img src="../../images/f_logo.png" width="85" height="104" />
+    <div class="footer_list">
+      <h1>新手上路</h1>
+      <ul>
+        <li> <a href="#"><i class="cube"></i>注册充值</a> </li>
+        <li> <a href="#"><i class="cube"></i>购彩流程</a> </li>
+        <li> <a href="#"><i class="cube"></i>领奖流程</a> </li>
+      </ul>
+    </div>
+    <div class="footer_list">
+      <h1>帮助中心</h1>
+      <ul>
+        <li> <a href="#"><i class="cube"></i>常见问题 </a> </li>
+        <li> <a href="#"><i class="cube"></i>功能指引</a> </li>
+        <li> <a href="#"><i class="cube"></i>彩种介绍</a> </li>
+      </ul>
+    </div>
+    <div class="footer_list">
+      <h1>支付方式 </h1>
+      <ul>
+        <li> <a href="#"><i class="cube"></i>支付宝支付 </a> </li>
+        <li> <a href="#"><i class="cube"></i>微信支付</a> </li>
+        <li> <a href="#"><i class="cube"></i>网银支付</a> </li>
+      </ul>
+    </div>
+    <div class="footer_list">
+      <h1>中奖福地 </h1>
+      <ul>
+        <li> <a href="#"><i class="cube"></i>大奖回顾 </a> </li>
+        <li> <a href="#"><i class="cube"></i>中奖英雄榜</a> </li>
+        <li> <a href="#"><i class="cube"></i>超级合买人</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer_bangzhub"> <a href="#"><img src="../../images/1.jpg" /></a> <a href="#"><img src="../../images/2.jpg" /></a> <a href="#"><img src="../../images/3.jpg" /></a> <a href="#"><img src="../../images/4.jpg" /></a> <a href="#"><img src="../../images/5.jpg" /></a>
+    <div class="clear"></div>
+    <div class="wenzicai">北京彩游天下网络科技有限责任公司 客服热线：400-110-3310 备案：京ICP备14043026号-3 </div>
+    <div class="wenzits"><span class="red">郑重提示：</span>彩票有风险,购买要适度,禁止18岁以下的未成年人购买彩票。 </div>
+  </div>
+</div>
+<!--footer end-->
+
+
+</body></html>

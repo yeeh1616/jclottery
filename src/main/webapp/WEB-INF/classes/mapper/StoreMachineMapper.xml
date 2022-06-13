@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreMachineMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreMachine" >
+    <result column="terminal_number" property="terminalNumber" jdbcType="VARCHAR" />
+    <result column="machine_name" property="machineName" jdbcType="VARCHAR" />
+    <result column="machine_code" property="machineCode" jdbcType="VARCHAR" />
+    <result column="machine_type" property="machineType" jdbcType="VARCHAR" />
+    <result column="com_name" property="comName" jdbcType="VARCHAR" />
+    <result column="com_baudrate" property="comBaudrate" jdbcType="INTEGER" />
+    <result column="com_databits" property="comDatabits" jdbcType="INTEGER" />
+    <result column="com_stopbits" property="comStopbits" jdbcType="VARCHAR" />
+    <result column="com_parity" property="comParity" jdbcType="VARCHAR" />
+    <result column="is_feed_back" property="isFeedBack" jdbcType="INTEGER" />
+    <result column="speed_level" property="speedLevel" jdbcType="INTEGER" />
+    <result column="big_ticket_amount" property="bigTicketAmount" jdbcType="INTEGER" />
+    <result column="big_ticket_pass" property="bigTicketPass" jdbcType="VARCHAR" />
+    <result column="is_auto_ticket" property="isAutoTicket" jdbcType="INTEGER" />
+    <result column="is_continuous_ticket" property="isContinuousTicket" jdbcType="INTEGER" />
+    <result column="is_compl_auto_stop" property="isComplAutoStop" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    terminal_number,machine_name,machine_code,machine_type,com_name,com_baudrate,com_databits,com_stopbits,
+    com_parity,is_feed_back,speed_level,big_ticket_amount,big_ticket_pass,is_auto_ticket,is_continuous_ticket,
+    is_compl_auto_stop,store_id 
+  </sql>
+
+  <!-- 获取店铺彩机信息           根据终端编号 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from store_machine
+	    where terminal_number = #{terminalNumber,jdbcType=VARCHAR}
+	</select>
+  
+  <select id="selectStoreMachineListByStoreId"  resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  	SELECT
+  	 <include refid="Base_Column_List" /> 
+  	FROM store_machine 
+  	WHERE store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 分页查询   计算总数  -->
+	<select id="selectStoreMachineListCount" resultType="java.lang.Integer"  >
+		select  count(sm.terminal_number)  from store_machine sm left join store s on sm.store_id = s.store_id 
+		 <include refid="sByPConditionSQL"/> 
+	</select>
+	
+	<!-- 查询彩种列表 -->
+	<select id="selectStoreMachineList" resultMap="BaseResultMap" >
+		select 
+		 	sm.terminal_number, sm.machine_name, sm.machine_code, sm.machine_type, sm.com_name, sm.com_baudrate, 
+		    sm.com_databits, sm.com_stopbits, sm.com_parity, sm.is_feed_back, sm.speed_level, sm.big_ticket_amount, 
+		    sm.big_ticket_pass, sm.is_auto_ticket, sm.is_continuous_ticket, sm.is_compl_auto_stop, 
+		    sm.store_id, s.store_name 
+		from store_machine sm left join store s 
+			on sm.store_id = s.store_id <include refid="sByPConditionSQL"/> 
+			order by terminal_number,store_id,machine_code  
+   		<if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>
+	</select>
+	
+	<sql id="sByPConditionSQL">
+		<where>
+			<if test="param.storeId != null">and s.store_id = #{param.storeId,jdbcType = INTEGER}</if>
+			<if test="param.machineCode != null and param.machineCode  != ''">and sm.machine_code = #{param.machineCode,jdbcType=VARCHAR}</if>
+			<if test="param.machineName != null and param.machineName != ''">and sm.machine_name = #{param.machineName,jdbcType=VARCHAR}</if>
+			<if test="param.machineType != null and param.machineType != ''">and sm.machine_type = #{param.machineType,jdbcType=CHAR}</if>
+			<if test="param.terminalNumber != null and param.terminalNumber != ''">and sm.terminal_number = #{terminalNumber,jdbcType=VARCHAR}</if>
+		</where>
+	</sql>
+  
+  <!-- 店铺彩机添加 -->
+	<insert id="insert" parameterType="com.jingc.busi.common.table.StoreMachine" >
+	    insert into store_machine (terminal_number, machine_name, machine_code, 
+	      machine_type, com_name, com_baudrate, 
+	      com_databits, com_stopbits, com_parity, 
+	      is_feed_back, speed_level, big_ticket_amount, 
+	      big_ticket_pass, is_auto_ticket, is_continuous_ticket, 
+	      is_compl_auto_stop, store_id)
+	    values (#{terminalNumber,jdbcType=VARCHAR}, #{machineName,jdbcType=VARCHAR}, #{machineCode,jdbcType=VARCHAR}, 
+	      #{machineType,jdbcType=VARCHAR}, 'COM0', 9600, 8, 1,'None', #{isFeedBack,jdbcType=INTEGER}, #{speedLevel,jdbcType=INTEGER},
+	      500,111111, 0, 0, 0, #{storeId,jdbcType=INTEGER})
+  </insert>
+  
+  <!-- 修改彩机信息 -->
+  <update id="updateByExampleSelective"  parameterType="com.jingc.busi.common.table.StoreMachine" >
+    update store_machine
+    <set >
+      <if test="record.machineName != null" >
+        machine_name = #{record.machineName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.machineCode != null" >
+        machine_code = #{record.machineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.machineType != null" >
+        machine_type = #{record.machineType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comName != null" >
+        com_name = #{record.comName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comBaudrate != null" >
+        com_baudrate = #{record.comBaudrate,jdbcType=INTEGER},
+      </if>
+      <if test="record.comDatabits != null" >
+        com_databits = #{record.comDatabits,jdbcType=INTEGER},
+      </if>
+      <if test="record.comStopbits != null" >
+        com_stopbits = #{record.comStopbits,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comParity != null" >
+        com_parity = #{record.comParity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isFeedBack != null" >
+        is_feed_back = #{record.isFeedBack,jdbcType=INTEGER},
+      </if>
+      <if test="record.speedLevel != null" >
+        speed_level = #{record.speedLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.bigTicketAmount != null" >
+        big_ticket_amount = #{record.bigTicketAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.bigTicketPass != null" >
+        big_ticket_pass = #{record.bigTicketPass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAutoTicket != null" >
+        is_auto_ticket = #{record.isAutoTicket,jdbcType=INTEGER},
+      </if>
+      <if test="record.isContinuousTicket != null" >
+        is_continuous_ticket = #{record.isContinuousTicket,jdbcType=INTEGER},
+      </if>
+      <if test="record.isComplAutoStop != null" >
+        is_compl_auto_stop = #{record.isComplAutoStop,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where terminal_number = #{record.terminalNumber,jdbcType=VARCHAR}
+  </update>
+
+
+	<!-- 删除店铺彩机信息，根据终端编号 -->
+	<delete id="deleteStoreMachine" parameterType="java.lang.String" >
+	    delete from store_machine where terminal_number = #{terminalNumber,jdbcType=VARCHAR}
+	 </delete>
+	 
+	 <!-- 所有终端编号获取 -->
+	 <select id="getTerminalList" resultMap="BaseResultMap">
+	 	select distinct terminal_number from store_machine
+	 </select>
+  
+</mapper>

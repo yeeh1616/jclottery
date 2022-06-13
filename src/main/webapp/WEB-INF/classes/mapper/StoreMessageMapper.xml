@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="send_user_id" property="sendUserId" jdbcType="INTEGER" />
+    <result column="accept_user_id" property="acceptUserId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="send_time" property="sendTime" jdbcType="VARCHAR" />
+    <result column="read_time" property="readTime" jdbcType="VARCHAR" />
+    <result column="remove_time" property="removeTime" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, send_user_id, accept_user_id, title, content, type, state, send_time, read_time, 
+    remove_time, reserved1, reserved2, reserved3, reserved4, reserved5
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from store_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.StoreMessage" >
+    insert into store_message (id, send_user_id, accept_user_id, 
+      title, content, type, 
+      state, send_time, read_time, 
+      remove_time, reserved1, reserved2, 
+      reserved3, reserved4, reserved5
+      )
+    values (#{id,jdbcType=INTEGER}, #{sendUserId,jdbcType=INTEGER}, #{acceptUserId,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{sendTime,jdbcType=VARCHAR}, #{readTime,jdbcType=VARCHAR}, 
+      #{removeTime,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.StoreMessage" >
+    update store_message
+    <set >
+      <if test="sendUserId != null" >
+        send_user_id = #{sendUserId,jdbcType=INTEGER},
+      </if>
+      <if test="acceptUserId != null" >
+        accept_user_id = #{acceptUserId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null" >
+        send_time = #{sendTime,jdbcType=VARCHAR},
+      </if>
+      <if test="readTime != null" >
+        read_time = #{readTime,jdbcType=VARCHAR},
+      </if>
+      <if test="removeTime != null" >
+        remove_time = #{removeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 根据条件查询店铺站内信——条件包含发件人编号、收件人编号、开始时间、结束时间、标题 -->
+  <select id="selectByParamObject" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> from store_message
+  <where>
+  	<if test="param.sendUserId != null and param.sendUserId !=''"> send_user_id = #{param.sendUserId}</if>
+  	<if test="param.acceptUserId != null and param.acceptUserId !=''"> and accept_user_id = #{param.acceptUserId}</if>
+  	<if test="param.title != null and param.title !=''"> and title = #{param.title}</if>
+  	<if test="param.state != null and param.state !=''"> and state = #{param.state}</if>
+  	<if test="param.reserved1 != null and param.reserved1 !=''"> and reserved1 = #{param.reserved1}</if>
+  	<if test="param.reserved2 != null and param.reserved2 !=''"> and reserved2 = #{param.reserved2}</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+  		and (send_time between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59"))
+  	</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')">
+  		and send_time &gt; CONCAT(#{param.beginTime}," 00:00:00")
+  	</if>
+  	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+  		and send_time &lt; CONCAT(#{param.endTime}," 23:59:59")
+  	</if>
+  	<if test="param.id != null and param.id !=''">and id = #{param.id}</if>  	  	
+  </where>
+  order by send_time desc limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+  <!-- 根据条件查询店铺站内信条目数——条件包含发件人编号、收件人编号、开始时间、结束时间、标题 -->
+  <select id="selectWaitCountByParamObject" resultType="java.lang.Integer">
+  select count(*) from store_message
+  <where>
+  	<if test="param.sendUserId != null and param.sendUserId !=''"> send_user_id = #{param.sendUserId}</if>
+  	<if test="param.acceptUserId != null and param.acceptUserId !=''"> and accept_user_id = #{param.acceptUserId}</if>
+  	<if test="param.title != null and param.title !=''"> and title = #{param.title}</if>
+  	<if test="param.state != null and param.state !=''"> and state = #{param.state}</if>
+  	<if test="param.reserved1 != null and param.reserved1 !=''"> and reserved1 = #{param.reserved1}</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+  		and (send_time between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59"))
+  	</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')">
+  		and send_time &gt; CONCAT(#{param.beginTime}," 00:00:00")
+  	</if>
+  	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+  		and send_time &lt; CONCAT(#{param.endTime}," 23:59:59")
+  	</if>
+  		and reserved2 = '0'
+  </where>
+  </select>
+  
+  <!-- 单个或是批量删除 -->
+  <update id="deleteOneOrBatch">
+  	update store_message
+  	<set>
+  		<if test="param.reserved1 != null and param.reserved1 !=''">reserved1 = #{param.reserved1},</if>
+  		<if test="param.reserved3 != null and param.reserved3 !=''">reserved3 = #{param.reserved3},</if>
+  		<!-- 下面两个字段为收件人删除用，上面两个字段为发件人删除用 -->
+  		<if test="param.reserved2 != null and param.reserved2 !=''">reserved2 = #{param.reserved2},</if>
+  		<if test="param.removeTime != null and param.removeTime !=''">remove_time = #{param.removeTime},</if>
+  		<if test="param.title != null and param.title != ''">title = #{param.title},</if>
+  		<if test="param.content != null and param.content != ''">content = #{param.content},</if>
+        <if test="param.state != null and param.state != ''" >state = #{param.state,jdbcType=INTEGER},</if>
+  	</set>
+  	<where>
+  	<!-- id和idList只能有一个有值，分别用于单个删除和批量删除 -->
+  		<if test="param.id != null and param.id !=''">
+  			id =#{param.id}
+  		</if>
+  		<if test="param.idList != null and param.idList.size()>0">
+  			id in <foreach collection="param.idList" item="item" index="index" open="(" close=")" separator=",">#{item}</foreach>
+  		</if> 
+  		<if test="param.ceptIdList != null and param.ceptIdList.size()>0">
+  			accept_user_id in <foreach collection="param.ceptIdList" item="item" index="index" open="(" close=")" separator=",">#{item}</foreach>
+  			and type = 2 
+  		</if>
+  		<if test="param.reserved4 != null and param.reserved4 !=''">and reserved4 = #{param.reserved4}</if>  		
+  	</where>
+  </update>
+  
+  <!-- 发送公司公告给多个店主 -->
+  <insert id="insertCompany" parameterType="com.jingc.busi.common.table.StoreMessage" >
+    insert into store_message (id, send_user_id, accept_user_id, 
+      title, content, type, 
+      state, send_time, read_time, 
+      remove_time, reserved1, reserved2, 
+      reserved3, reserved4, reserved5
+      )
+    values 
+    <foreach collection="param.smList" item="item" index="index" open="" close="" separator=",">
+    (#{item.id,jdbcType=INTEGER}, #{item.sendUserId,jdbcType=INTEGER}, #{item.acceptUserId,jdbcType=INTEGER}, 
+      #{item.title,jdbcType=VARCHAR}, #{item.content,jdbcType=VARCHAR}, #{item.type,jdbcType=INTEGER}, 
+      #{item.state,jdbcType=INTEGER}, #{item.sendTime,jdbcType=VARCHAR}, #{item.readTime,jdbcType=VARCHAR}, 
+      #{item.removeTime,jdbcType=VARCHAR}, #{item.reserved1,jdbcType=VARCHAR}, #{item.reserved2,jdbcType=VARCHAR}, 
+      #{item.reserved3,jdbcType=VARCHAR}, #{item.reserved4,jdbcType=VARCHAR}, #{item.reserved5,jdbcType=VARCHAR}
+      )
+      </foreach>
+  </insert>
+  
+  <!-- 根据标题和内容查出当前发送公告的id -->
+    <select id="selectByContentTitle" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from store_message
+	    where title = #{title,jdbcType=VARCHAR} and content = #{content,jdbcType=VARCHAR}
+	 </select>
+</mapper>

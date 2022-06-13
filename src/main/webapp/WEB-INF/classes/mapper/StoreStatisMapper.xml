@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreStatisMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreStatis" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="sales" property="sales" jdbcType="DOUBLE" />
+    <result column="recharge" property="recharge" jdbcType="DOUBLE" />
+    <result column="draw" property="draw" jdbcType="DOUBLE" />
+    <result column="arrears" property="arrears" jdbcType="DOUBLE" />
+    <result column="repayment" property="repayment" jdbcType="DOUBLE" />
+    <result column="cash" property="cash" jdbcType="DOUBLE" />
+    <result column="day" property="day" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, store_id, sales, recharge, draw, arrears, repayment, cash, day
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_statis
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectStoreStatis" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_statis
+    where store_id = #{storeId} and day = #{day}
+  </select>
+  <select id="selectTotalStoreStatis" resultMap="BaseResultMap" >
+    select sum(IFNULL(sales,0)) as sales
+    from store_statis
+    where store_id = #{storeId} 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from store_statis
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.StoreStatis" >
+    insert into store_statis (id, store_id, sales, 
+      recharge, draw, arrears, 
+      repayment, cash, day)
+    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{sales,jdbcType=DOUBLE}, 
+      #{recharge,jdbcType=DOUBLE}, #{draw,jdbcType=DOUBLE}, #{arrears,jdbcType=DOUBLE}, 
+      #{repayment,jdbcType=DOUBLE}, #{cash,jdbcType=DOUBLE}, #{day,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  <update id="updateStoreStatis" parameterType="com.jingc.busi.common.table.StoreStatis" >
+    update store_statis
+    <set >
+      <if test="sales != null" >
+        sales = #{sales,jdbcType=DOUBLE},
+      </if>
+      <if test="recharge != null" >
+        recharge = #{recharge,jdbcType=DOUBLE},
+      </if>
+      <if test="draw != null" >
+        draw = #{draw,jdbcType=DOUBLE},
+      </if>
+      <if test="arrears != null" >
+        arrears = #{arrears,jdbcType=DOUBLE},
+      </if>
+      <if test="repayment != null" >
+        repayment = #{repayment,jdbcType=DOUBLE},
+      </if>
+      <if test="cash != null" >
+        cash = #{cash,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where store_id = #{storeId} and day = #{day}
+  </update>
+  
+</mapper>

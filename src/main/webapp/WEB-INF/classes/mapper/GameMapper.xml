@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.GameMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.Game" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="issue" property="issue" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="stop_time" property="stopTime" jdbcType="VARCHAR" />
+    <result column="dopay_time" property="dopayTime" jdbcType="VARCHAR" />
+    <result column="bonus_time" property="bonusTime" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="bonus_number" property="bonusNumber" jdbcType="VARCHAR" />
+    <result column="pay_des" property="payDes" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ 
+  <sql id="Base_Column_List" >
+    id, license_id, issue, start_time, stop_time, dopay_time, bonus_time, state, bonus_number, 
+    pay_des, reserved1, reserved2, reserved3, reserved4, reserved5, reserved6, reserved7, 
+    reserved8, reserved9, reserved10
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from game
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.jingc.busi.common.table.Game" >
+    insert into game (id, license_id, issue, 
+      start_time, stop_time, dopay_time, 
+      bonus_time, state, bonus_number, 
+      pay_des, reserved1, reserved2, 
+      reserved3, reserved4, reserved5, 
+      reserved6, reserved7, reserved8, 
+      reserved9, reserved10)
+    values (#{id,jdbcType=INTEGER}, #{licenseId,jdbcType=INTEGER}, #{issue,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=VARCHAR}, #{stopTime,jdbcType=VARCHAR}, #{dopayTime,jdbcType=VARCHAR}, 
+      #{bonusTime,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{bonusNumber,jdbcType=VARCHAR}, 
+      #{payDes,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}, 
+      #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, #{reserved8,jdbcType=VARCHAR}, 
+      #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.Game" >
+    update game
+    <set >
+      <if test="licenseId != null" >
+        license_id = #{licenseId,jdbcType=INTEGER},
+      </if>
+      <if test="issue != null" >
+        issue = #{issue,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="stopTime != null" >
+        stop_time = #{stopTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dopayTime != null" >
+        dopay_time = #{dopayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="bonusTime != null" >
+        bonus_time = #{bonusTime,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="bonusNumber != null" >
+        bonus_number = #{bonusNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payDes != null" >
+        pay_des = #{payDes,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null" >
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null" >
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null" >
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null" >
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getGameListByLicenseId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where license_id = #{licenseId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询期次列表,ChenXin -->
+  <select id="getGameListByParam" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    <where>
+    <if test="param.licenseId != null">
+    license_id = #{param.licenseId}
+    </if>
+    <if test="param.issue != null and param.issue != ''">
+    and issue = #{param.issue}
+    </if>
+    <if test="param.state != null and param.state != 0">
+    and state = #{param.state}
+    </if>
+    </where>
+    order by issue DESC
+    limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+  <!-- 查询期次列表总数,ChenXin -->
+  <select id="getGameListByParamCount" resultType="java.lang.Integer">
+    select count(id)
+    from game
+    <where>
+    <if test="param.licenseId != null">
+    license_id = #{param.licenseId}
+    </if>
+    <if test="param.issue != null and param.issue != ''">
+    and issue = #{param.issue}
+    </if>
+    <if test="param.state != null and param.state != 0">
+    and state = #{param.state}
+    </if>
+    </where>
+  </select>
+   
+  <update id="updateGameState" parameterType="com.jingc.busi.common.table.Game" >
+    update game
+    set state = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateBonusMessage" parameterType="com.jingc.busi.common.table.Game" >
+    update game
+     <set >
+     	state = #{state,jdbcType=INTEGER},
+     	bonus_time = #{bonusTime,jdbcType=VARCHAR},
+      <if test="bonusNumber != null" >
+        bonus_number = #{bonusNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payDes != null" >
+        pay_des = #{payDes,jdbcType=VARCHAR},
+      </if>
+     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getCurrentGame" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.Game" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where license_id = #{licenseId,jdbcType=INTEGER} 
+    and  stop_time > #{stopTime,jdbcType=VARCHAR}
+    order by issue asc LIMIT 0,1 
+  </select>
+  
+  <select id="getSaleGame" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where license_id = #{licenseId,jdbcType=INTEGER} 
+    and  stop_time > #{stopTime,jdbcType=VARCHAR}
+    order by issue asc LIMIT 0,3 
+  </select>
+  
+  <!-- 追号的期次 -->
+  <select id="getSaleGame2Chasing" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where license_id = #{licenseId,jdbcType=INTEGER} 
+    and  stop_time > #{stopTime,jdbcType=VARCHAR}
+    order by issue asc LIMIT 0,#{issueNum}
+  </select>
+  
+  <select id="getPreGame" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.Game" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where license_id = #{licenseId,jdbcType=INTEGER} 
+    and  stop_time <![CDATA[<]]> #{stopTime,jdbcType=VARCHAR}
+    order by issue desc LIMIT 0,1 
+  </select>
+  
+  <select id="getHistoryData" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where license_id = #{licenseId} 
+    and  bonus_number is not null 
+    order by id desc LIMIT 0,#{issueNum} 
+  </select>
+  
+  <select id="getPreGames" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where license_id = #{licenseId} 
+    and  stop_time <![CDATA[<]]> #{stopTime} and bonus_number is not null 
+    order by issue desc LIMIT 0,#{issueNum} 
+  </select>
+  
+  <select id="getPreGames2" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where license_id = #{licenseId} 
+    and  stop_time <![CDATA[<]]> #{stopTime}  
+    order by issue desc LIMIT 0,#{issueNum} 
+  </select>
+  
+  <select id="getCurrentGameList" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.Game" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where license_id = #{licenseId,jdbcType=INTEGER} 
+    and  stop_time > #{stopTime,jdbcType=VARCHAR}
+    order by issue asc LIMIT 0,3
+  </select>
+  
+  <select id="getGame2Calc" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.Game" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where license_id = #{licenseId,jdbcType=INTEGER} 
+    and issue = #{issue} limit 0,1
+  </select>
+  
+  <update id="updateResult" parameterType="com.jingc.busi.common.table.Game" >
+  	update game
+  	<set>
+  		<if test="dopayTime != null" >
+        dopay_time = #{dopayTime,jdbcType=VARCHAR},
+      	</if>
+      	<if test="state != null">
+      	state = #{state}, 
+      	</if>
+      	<if test="bonusNumber != null">
+      	bonus_number = #{bonusNumber}, 
+      	</if>
+      	<if test="payDes != null">
+      	pay_des = #{payDes} 
+      	</if>
+  	</set> 
+    where license_id = #{licenseId,jdbcType=INTEGER} and issue = #{issue}
+  </update>
+  
+  <!-- 根据id修改开奖信息, ChenXin -->
+  <update id="updateGameByParam">
+  	update game
+  	<set>
+  		<if test="param.state != null" >
+       	state = #{param.state},
+      	</if>
+      	<if test="param.bonusNumber != null and param.bonusNumber != ''">
+      	bonus_number = #{param.bonusNumber},
+      	</if>
+      	<if test="param.payDes != null and param.payDes != ''">
+      	pay_des = #{param.payDes} 
+      	</if>
+  	</set> 
+    where id = #{param.id}
+  </update>
+  
+  <select id="selectByIssueAndLicenseId" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.Game">
+  	select <include refid="Base_Column_List" /> from game where license_id = #{licenseId,jdbcType=INTEGER} and issue = #{issue,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getLastLotteryInformation" resultMap="BaseResultMap">
+  <!-- select <include refid="Base_Column_List" /> from (select * from game where state ='4' order by issue desc) as b group by b.license_id -->
+  select t.* from game t inner join (select max(id) as id from game where state ='4'  and  issue is not null and bonus_number is not null <!-- group by t.* -->) as g on t.id=g.id
+  </select>
+  
+  <select id="selectOpenWinDatails" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.Game">
+  	select <include refid="Base_Column_List" /> from game where license_id = #{licenseId,jdbcType=INTEGER} and issue = #{issue,jdbcType=VARCHAR} and state = 4
+  </select>
+  
+  <select id="selectIssueAndCount" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where license_id = #{licenseId,jdbcType=INTEGER} 
+    and  year(stop_time) = year(now()) and stop_time > now() order by issue
+  </select>
+</mapper>

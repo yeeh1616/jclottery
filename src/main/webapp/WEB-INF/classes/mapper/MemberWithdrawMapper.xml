@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MemberWithdrawMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MemberWithdraw" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="account_type" property="accountType" jdbcType="VARCHAR" />
+    <result column="account_card" property="accountCard" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="account_state" property="accountState" jdbcType="INTEGER" />
+     <result column="creat_time" property="creatTime" jdbcType="VARCHAR" />
+    <result column="close_time" property="closeTime" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, member_id, store_id, account_type, account_card,account_name, account_state, creat_time,close_time,reserved1, reserved2, 
+    reserved3, reserved4, reserved5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_withdraw
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectBymemberId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_withdraw
+    where member_id = #{memberId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_withdraw
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MemberWithdraw" >
+    insert into member_withdraw (id, member_id, store_id, 
+      account_type, account_card, account_name,account_state, creat_time,close_time,
+      reserved1, reserved2, reserved3, 
+      reserved4, reserved5)
+    values (#{id,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{accountType,jdbcType=VARCHAR}, #{accountCard,jdbcType=VARCHAR},  #{accountName,jdbcType=VARCHAR}, 
+      #{accountState,jdbcType=INTEGER}, 
+      #{creatTime,jdbcType=VARCHAR}, #{closeTime,jdbcType=VARCHAR},
+      #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, 
+      #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateStateBymemberId"  parameterType="java.lang.Integer" >
+    update member_withdraw
+    	<set >
+        	account_state = 0,
+        	close_time=#{accountTime}
+    	</set>
+    	<where>
+  	 		 id = #{id}
+  		</where> 		
+  </update>
+  
+    <update id="updateWithdrawById"  parameterType="java.lang.Integer" >
+    update member_withdraw
+    	<set >
+        	    account_type=#{accountType},
+        	    account_card=#{accountCard},
+        	    creat_time=#{accountTime}
+        	
+    	</set>
+    	<where>
+  	 		 id = #{id}
+  		</where> 		
+  </update>
+  
+  <!-- 更新取款信息 zh -->
+  <update id="updateBymemberIdAndAccountType">
+    update member_withdraw 
+    <set>
+    account_card=#{param.accountCard},account_state=#{param.accountState},account_name=#{param.accountName},reserved1=#{param.reserved1}
+    </set>
+     where member_id = #{param.memberId} and account_type=#{param.accountType}
+  </update>
+  
+  <!-- 修改取款方式状态 zh -->
+  <update id="updateStateBymember">
+    UPDATE member_withdraw SET account_state = #{param.accountState} WHERE member_id = #{param.memberId}
+	<if test="nowState != null and nowState != ''">AND account_state = #{nowState}</if>    
+    <if test="param.accountType != null">AND account_type = #{param.accountType}</if>
+  </update>
+  
+  <!-- 修改取款方式状态根据用户id zh -->
+  <update id="updateStateByMemberIdAndState">
+    UPDATE member_withdraw SET account_state = #{newState} WHERE member_id = #{memberId}
+    <if test="ifState != null"> AND account_state = #{ifState}</if>
+    <if test="id != null"> AND id = #{id}</if>
+  </update>
+  
+  <!-- 修改取款信息 zh -->
+  <update id="updateById">
+    update member_withdraw 
+    <set>
+    account_card=#{param.accountCard},account_name=#{param.accountName},reserved1=#{param.reserved1}
+    </set>
+     where id = #{id}
+  </update>
+  
+  <select id="selectByMember" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from member_withdraw where member_id = #{param.memberId}
+    <if test="param.accountType != null">AND account_type = #{param.accountType}</if>
+    <if test="param.accountState != null">AND account_state = #{param.accountState}</if>
+    <if test="param.storeId != null">AND store_id = #{param.storeId}</if>
+    <if test="param.creatTime != null">AND creat_time = #{param.creatTime}</if>
+    <if test="param.accountCard != null">AND account_card = #{param.accountCard}</if>
+     limit 0,1
+  </select>
+  
+  
+  <!-- ZhangHao -->
+   <select id="selectByDraw" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from member_withdraw where 1=1
+    <if test="param.memberId != null"> 		and member_id 		= #{param.memberId}</if>
+    <if test="param.accountType != null"> 	and account_type 	= #{param.accountType}</if>
+    <if test="param.accountState != null"> 	and account_state 	= #{param.accountState}</if>
+    <if test="param.storeId != null"> 		and store_id 		= #{param.storeId}</if>
+    <if test="param.creatTime != null"> 	and creat_time 		= #{param.creatTime}</if>
+    <if test="param.accountCard != null"> 	and account_card 	= #{param.accountCard}</if>
+  </select>
+</mapper>

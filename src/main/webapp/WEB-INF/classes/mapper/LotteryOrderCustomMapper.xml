@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.LotteryOrderCustomMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.LotteryOrderCustom" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="customing_id" property="customingId" jdbcType="INTEGER" />
+    <result column="customing_name" property="customingName" jdbcType="VARCHAR" />
+    <result column="customed_id" property="customedId" jdbcType="INTEGER" />
+    <result column="customed_name" property="customedName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="custom_time" property="customTime" jdbcType="VARCHAR" />
+    <result column="cancel_time" property="cancelTime" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, store_id, license_id, customing_id, customing_name, customed_id, customed_name, 
+    state, custom_time, cancel_time, reserved1, reserved2, reserved3, reserved4, reserved5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_order_custom
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lottery_order_custom
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.LotteryOrderCustom" >
+    insert into lottery_order_custom (id, store_id, license_id, 
+      customing_id, customing_name, customed_id, 
+      customed_name, state, custom_time, 
+      cancel_time, reserved1, reserved2, 
+      reserved3, reserved4, reserved5
+      )
+    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{licenseId,jdbcType=INTEGER}, 
+      #{customingId,jdbcType=INTEGER}, #{customingName,jdbcType=VARCHAR}, #{customedId,jdbcType=INTEGER}, 
+      #{customedName,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{customTime,jdbcType=VARCHAR}, 
+      #{cancelTime,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <select id="selectByLicAndCusingCusedId" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from lottery_order_custom
+    where license_id = #{licenseId} and customing_id = #{customingId} and customed_id = #{customedId}
+  </select>
+  
+  <select id="selectByLicAndCusedId" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from lottery_order_custom
+    where license_id = #{licenseId} and customed_id = #{customedId}
+  </select>
+  
+  <select id="selectCount2MyCust" resultType="java.lang.Integer" parameterType="com.jingc.busi.common.table.LotteryOrderCustom">
+  	select count(*) from lottery_order_custom where 1=1
+    <if test="licenseId != null"> and license_id = #{licenseId}</if>
+    <if test="customingId != null"> and customing_id = #{customingId}</if>
+    <if test="customedId != null"> and customed_id = #{customedId}</if>
+  </select>
+  <select id="selectList2MyCust" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_order_custom where 1=1 
+    <if test="param.licenseId != null"> and license_id = #{param.licenseId}</if>
+    <if test="param.customingId != null"> and customing_id = #{param.customingId}</if>
+    <if test="param.customedId != null"> and customed_id = #{param.customedId}</if>
+      order by id desc limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+</mapper>

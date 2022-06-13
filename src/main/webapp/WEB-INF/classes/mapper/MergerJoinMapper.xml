@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MergerJoinMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MergerJoin" >
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="join_userid" property="joinUserid" jdbcType="INTEGER" />
+    <result column="join_username" property="joinUsername" jdbcType="VARCHAR" />
+    <result column="join_num" property="joinNum" jdbcType="INTEGER" />
+    <result column="join_price" property="joinPrice" jdbcType="DOUBLE" />
+    <result column="join_date" property="joinDate" jdbcType="VARCHAR" />
+    <result column="cold_id" property="coldId" jdbcType="VARCHAR" />
+    <result column="bonus" property="bonus" jdbcType="DOUBLE" />
+    <result column="morder.storeid" property="storeid" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="part_detail" property="partDetail" jdbcType="VARCHAR" />
+    <result column="launch_num" property="launchNum" jdbcType="INTEGER" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+    <result column="bet_price" property="betPrice" jdbcType="INTEGER" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="bet_state" property="betState" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="issue" property="issue" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    order_id, join_userid, join_username, join_num, join_price, join_date, cold_id, bonus, 
+    reserved1, reserved2, reserved3, reserved4, reserved5, reserved6, reserved7, reserved8, 
+    reserved9, reserved10
+  </sql>
+  <sql id="Base_Column_List2" >
+    mjoin.order_id, mjoin.join_userid, mjoin.join_username, mjoin.join_num, mjoin.join_price, mjoin.join_date, mjoin.cold_id, mjoin.bonus, 
+    morder.storeid, morder.state, morder.part_detail, morder.launch_num, lorder.bet_price, lorder.license_id,lorder.issue, lorder.bet_state
+  </sql>
+ 
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MergerJoin" >
+    insert into merger_join (order_id, join_userid, join_username, 
+      join_num, join_price, join_date, 
+      cold_id, bonus, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5, reserved6, reserved7, 
+      reserved8, reserved9, reserved10
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{joinUserid,jdbcType=INTEGER}, #{joinUsername,jdbcType=VARCHAR}, 
+      #{joinNum,jdbcType=INTEGER}, #{joinPrice,jdbcType=DOUBLE}, #{joinDate,jdbcType=VARCHAR}, 
+      #{coldId,jdbcType=VARCHAR}, #{bonus,jdbcType=DOUBLE}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR}, #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, 
+      #{reserved8,jdbcType=VARCHAR}, #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <select id="getIsJoiner" resultType="java.lang.Integer">
+      select count(*) 
+      from merger_join
+      where join_userid = #{userId,jdbcType=INTEGER} and order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectCountOfMergerJoinRecords" resultType="java.lang.Integer">
+      select count(distinct order_id) 
+      from merger_join
+  </select>
+  
+  <select id="selectOrderList" resultMap="BaseResultMap">
+       select 
+    <include refid="Base_Column_List" />
+    from merger_join
+    where order_id = #{orderId,jdbcType=INTEGER}
+    order by join_date desc
+  </select>
+  
+  <delete id="deleteOneJoin" parameterType="com.jingc.busi.common.table.MergerJoin" >
+  	delete from merger_join where order_id = #{orderId} and join_userid = #{joinUserid} and join_date = #{joinDate}
+  </delete>
+  
+  <update id="updateOneJoin" parameterType="com.jingc.busi.common.table.MergerJoin" >
+  	update merger_join set join_num=#{joinNum}, join_price = #{joinPrice} where order_id = #{orderId} and join_userid = #{joinUserid} and join_date = #{joinDate}
+  </update>
+  
+  <select id="selectMergerJoinCountByParamObject" resultType="java.lang.Integer">
+    select count(*)
+    from merger_join
+    where order_id = #{param.orderId}
+  </select>
+  
+  <select id="selectMergerJoinByParamObject" resultMap="BaseResultMap">
+       select 
+    <include refid="Base_Column_List" />
+    from merger_join
+    where order_id = #{param.orderId}
+    order by join_date desc
+    <if test="pagination != null"><!-- pagination 传入null时，表示不需要分页，要查询所有数据 -->
+    	limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>  
+  </select>
+  
+  <update id="updateBonus" parameterType="com.jingc.busi.common.table.MergerJoin" >
+      update merger_join set bonus = #{bonus} where order_id = #{orderId} and join_userid = #{joinUserid} and join_date = #{joinDate}
+  </update>
+  
+  <select id="countByParam" resultType="java.lang.Integer">
+      select count(*) 
+      from merger_order morder left join lottery_order as lorder on lorder.partner_no = morder.id 
+      left join merger_join as mjoin on mjoin.order_id=morder.id 
+      where lorder.bet_type = '3'
+      <if test="param.joinUserid != null and param.joinUserid != ''"> and join_userid = #{param.joinUserid}</if>
+      <if test="param.storeid != null and param.storeid !=''"> and lorder.storeid=#{param.storeid} and morder.storeid = #{param.storeid}</if>
+      <if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (mjoin.join_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+      </if>
+      <if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and mjoin.join_date &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+      </if>
+      <if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and mjoin.join_date &lt; CONCAT(#{param.endTime}," 23:59:59") 
+      </if>
+      <if test="param.licenseId != null and param.licenseId != ''"> and license_id = #{param.licenseId}</if>
+  </select>
+  
+  <select id="selectByParam" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List2" /> 
+      from merger_order morder left join lottery_order as lorder on lorder.partner_no = morder.id 
+      left join merger_join as mjoin on mjoin.order_id=morder.id 
+      where lorder.bet_type = '3'
+      <if test="param.joinUserid != null"> and join_userid = #{param.joinUserid}</if>
+      <if test="param.storeid != null"> and lorder.storeid=#{param.storeid} and morder.storeid = #{param.storeid}</if>
+      <if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (mjoin.join_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+      </if>
+      <if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and mjoin.join_date &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+      </if>
+      <if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and mjoin.join_date &lt; CONCAT(#{param.endTime}," 23:59:59") 
+      </if>
+      <if test="param.licenseId != null and param.licenseId != ''"> and license_id = #{param.licenseId}</if>
+      order by mjoin.join_date desc
+      <if test="pagination != null"><!-- pagination 传入null时，表示不需要分页，要查询所有数据 -->
+    	    limit #{pagination.firstResult},#{pagination.pageSize}
+      </if>
+  </select>   
+  
+  <!-- 彩民销售统计 -->
+  <select id="selectMerberStatObject" resultType="com.jingc.busi.common.table.query.MemberStatObject"> 
+  	select sum(j.join_price) as buy,sum(j.bonus) as bonus from merger_join j, merger_order o, lottery_order l where join_userid=#{userid}  
+		and j.order_id=o.id and l.partner_no=o.id and l.bet_type='3' and l.bet_state in('8','9','10','11','12','13')
+  </select>
+  <select id="selectMerberStatObjects" resultType="com.jingc.busi.common.table.query.MemberStatObject"> 
+  	select sum(j.join_price) as buy,sum(j.bonus) as bonus from merger_join j, merger_order o, lottery_order l where join_userid=#{userid}  
+		and j.order_id=o.id and l.partner_no=o.id and l.bet_type='3' and l.bet_state in('8','9','10','11','12','13')
+	union select sum(j.join_price) as buy,sum(j.bonus) as bonus from merger_join j, merger_order o, lottery_order_history l where join_userid=#{userid}  
+		and j.order_id=o.id and l.partner_no=o.id and l.bet_type='3' and l.bet_state in('8','9','10','11','12','13')
+	union select sum(j.join_price) as buy,sum(j.bonus) as bonus from merger_join j, merger_order o, lottery_order_history_0 l where join_userid=#{userid}  
+		and j.order_id=o.id and l.partner_no=o.id and l.bet_type='3' and l.bet_state in('8','9','10','11','12','13')
+  </select>
+  
+  <!-- 店铺销售统计 -->
+  <select id="selectStoreStatObject" resultType="com.jingc.busi.common.table.query.MemberStatObject"> 
+  	select sum(j.join_price) as buy,sum(j.bonus) as bonus from merger_join j, merger_order o, lottery_order l where  l.storeid=#{storeid}  
+		and j.order_id=o.id and l.partner_no=o.id and l.bet_type='3' and l.bet_state in('8','9','10','11','12','13')
+  </select>
+  
+  <!-- 团队合买记录总条目获取 -->
+   <select id="myTeamMergerJoinCount" resultType="java.lang.Integer">
+      select count(morder.id) 
+      from merger_order morder 
+      left join lottery_order as lorder on lorder.partner_no = morder.id 
+      left join merger_join as mjoin on mjoin.order_id = morder.id 
+      	   join member on morder.userid = member.id 
+      where lorder.bet_type = 3
+        and member.reserved4 = #{agentId}
+	  <if test="param.storeid != null and param.storeid !=''"> and morder.storeid = #{param.storeid}</if>
+      <if test="param.username != null and param.username !=''"> and member.member_name = #{param.username}</if>
+       <if test="param.licenseId != null and param.licenseId != ''"> and license_id = #{param.licenseId}</if>
+      <if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (mjoin.join_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+      </if>
+      <if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and mjoin.join_date &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+      </if>
+      <if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and mjoin.join_date &lt; CONCAT(#{param.endTime}," 23:59:59") 
+      </if>
+  </select>
+  
+  <!-- 团队合买记录目获取 -->
+  <select id="myTeamMergerJoinList" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List2" />,member.member_name username    
+     	from merger_order morder 
+	      left join lottery_order as lorder on lorder.partner_no = morder.id 
+	      left join merger_join as mjoin on mjoin.order_id = morder.id 
+	      	   join member on morder.userid = member.id 
+	      where lorder.bet_type = 3
+	        and member.reserved4 = #{agentId}
+		  <if test="param.storeid != null and param.storeid !=''"> and morder.storeid = #{param.storeid}</if>
+	      <if test="param.username != null and param.username !=''"> and member.member_name = #{param.username}</if>
+	       <if test="param.licenseId != null and param.licenseId != ''"> and license_id = #{param.licenseId}</if>
+	      <if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+	    	 	and (mjoin.join_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+	      </if>
+	      <if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+	    		and mjoin.join_date &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+	      </if>
+	      <if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+	    	 	and mjoin.join_date &lt; CONCAT(#{param.endTime}," 23:59:59") 
+	      </if>
+	      order by mjoin.join_date desc 
+	      <if test="pagination != null">
+	    	    limit #{pagination.firstResult},#{pagination.pageSize}
+	      </if>
+  </select>
+</mapper>

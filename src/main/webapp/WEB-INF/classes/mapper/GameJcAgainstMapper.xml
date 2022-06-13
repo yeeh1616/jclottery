@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.GameJcAgainstMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.GameJcAgainst" >
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="license_id" jdbcType="INTEGER" property="licenseId" />
+    <result column="race_time" jdbcType="VARCHAR" property="raceTime" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="league_name" jdbcType="VARCHAR" property="leagueName" />
+    <result column="guest_team" jdbcType="VARCHAR" property="guestTeam" />
+    <result column="host_team" jdbcType="VARCHAR" property="hostTeam" />
+    <result column="gg_score" jdbcType="VARCHAR" property="ggScore" />
+    <result column="dg_score" jdbcType="VARCHAR" property="dgScore" />
+    <result column="race_start_time" jdbcType="VARCHAR" property="raceStartTime" />
+    <result column="bet_end_time" jdbcType="VARCHAR" property="betEndTime" />
+    <result column="average_odds" jdbcType="VARCHAR" property="averageOdds" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="against_state" jdbcType="INTEGER" property="againstState" />
+    <result column="allow_spf_gg" jdbcType="INTEGER" property="allowSpfGg" />
+    <result column="allow_spf_dg" jdbcType="INTEGER" property="allowSpfDg" />
+    <result column="allow_rqspf_gg" jdbcType="INTEGER" property="allowRqspfGg" />
+    <result column="allow_rqspf_dg" jdbcType="INTEGER" property="allowRqspfDg" />
+    <result column="allow_bfSfc_gg" jdbcType="INTEGER" property="allowBfsfcGg" />
+    <result column="allow_bfSfc_dg" jdbcType="INTEGER" property="allowBfsfcDg" />
+    <result column="allow_zjqDxf_gg" jdbcType="INTEGER" property="allowZjqdxfGg" />
+    <result column="allow_zjqDxf_dg" jdbcType="INTEGER" property="allowZjqdxfDg" />
+    <result column="allow_zc_bqc_gg" jdbcType="INTEGER" property="allowZcBqcGg" />
+    <result column="allow_zc_bqc_dg" jdbcType="INTEGER" property="allowZcBqcDg" />
+    <result column="all_score" jdbcType="VARCHAR" property="allScore" />
+    <result column="half_score" jdbcType="VARCHAR" property="halfScore" />
+    <result column="spf_dg_average" jdbcType="VARCHAR" property="spfDgAverage" />
+    <result column="rqspf_dg_average" jdbcType="VARCHAR" property="rqspfDgAverage" />
+    <result column="bfSfc_dg_average" jdbcType="VARCHAR" property="bfsfcDgAverage" />
+    <result column="zjqDxf_dg_average" jdbcType="VARCHAR" property="zjqdxfDgAverage" />
+    <result column="zc_bqc_dg_average" jdbcType="VARCHAR" property="zcBqcDgAverage" />
+    <result column="leaguage_id" jdbcType="INTEGER" property="leaguageId" />
+    <result column="host_team_id" jdbcType="INTEGER" property="hostTeamId" />
+    <result column="guest_team_id" jdbcType="INTEGER" property="guestTeamId" />
+    <result column="reserved1" jdbcType="VARCHAR" property="reserved1" />
+    <result column="reserved2" jdbcType="VARCHAR" property="reserved2" />
+    <result column="reserved3" jdbcType="VARCHAR" property="reserved3" />
+    <result column="reserved4" jdbcType="VARCHAR" property="reserved4" />
+    <result column="reserved5" jdbcType="VARCHAR" property="reserved5" />
+    <result column="reserved6" jdbcType="VARCHAR" property="reserved6" />
+    <result column="reserved7" jdbcType="VARCHAR" property="reserved7" />
+    <result column="reserved8" jdbcType="VARCHAR" property="reserved8" />
+    <result column="reserved9" jdbcType="VARCHAR" property="reserved9" />
+    <result column="reserved10" jdbcType="VARCHAR" property="reserved10" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    id, license_id, race_time, number, league_name, guest_team, host_team, gg_score, 
+    dg_score, race_start_time, bet_end_time, average_odds, state,against_state, allow_spf_gg, allow_spf_dg, 
+    allow_rqspf_gg, allow_rqspf_dg, allow_bfSfc_gg, allow_bfSfc_dg, allow_zjqDxf_gg, 
+    allow_zjqDxf_dg, allow_zc_bqc_gg, allow_zc_bqc_dg, all_score, half_score, spf_dg_average, 
+    rqspf_dg_average, bfSfc_dg_average, zjqDxf_dg_average, zc_bqc_dg_average, leaguage_id, 
+    host_team_id, guest_team_id, reserved1, reserved2, reserved3, reserved4, reserved5, 
+    reserved6, reserved7, reserved8, reserved9, reserved10
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_jc_against
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByScheduleId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_jc_against
+    where license_id = #{licenseId} and race_time = #{date} and number = #{sid}
+  </select>
+  
+  <select id="selectByScheduleId2" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_jc_against
+    where license_id = #{licenseId} and race_time = #{date} and number = #{sid} and state=#{state}
+  </select>
+  <!--
+  <update id="updateScore" parameterType="com.jingc.busi.common.table.GameJcAgainst">
+  	update game_jc_against set all_score = #{allScore}, half_score = #{halfScore}, spf_dg_average = #{spfDgAverage},
+  	rqspf_dg_average = #{rqspfDgAverage}, zjqDxf_dg_average = #{zjqdxfDgAverage}, zc_bqc_dg_average = #{zcBqcDgAverage}
+  	where license_id = #{licenseId} and race_time = ${raceTime} and number = #{number}
+  </update>-->
+  
+  <update id="updateScore" parameterType="com.jingc.busi.common.table.GameJcAgainst">
+  	update game_jc_against set all_score = #{allScore}, half_score = #{halfScore} ,state = #{state}
+  	where license_id = #{licenseId} and race_time = ${raceTime} and number = #{number}
+  </update>
+  
+  <select id="selectList2Calc" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.GameJcAgainst" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_jc_against
+    where race_time > #{raceTime} and license_id = #{licenseId}
+  </select>
+  
+  <!-- Added by luochang for 生成竞彩开奖号码调用 at 2014/07/16 -->
+  <select id="getDayList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from game_jc_against
+    where race_time = #{day} and license_id = #{licenseId} order by race_time desc,number desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from game_jc_against
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.GameJcAgainst" >
+    insert into game_jc_against (license_id, race_time, 
+      number, league_name, guest_team, 
+      host_team, gg_score, dg_score, 
+      race_start_time, bet_end_time, average_odds, 
+      state, allow_spf_gg, allow_spf_dg, 
+      allow_rqspf_gg, allow_rqspf_dg, allow_bfSfc_gg, 
+      allow_bfSfc_dg, allow_zjqDxf_gg, allow_zjqDxf_dg, 
+      allow_zc_bqc_gg, allow_zc_bqc_dg, all_score, 
+      half_score, spf_dg_average, rqspf_dg_average, 
+      bfSfc_dg_average, zjqDxf_dg_average, zc_bqc_dg_average, 
+      leaguage_id, host_team_id, guest_team_id, 
+      reserved1, reserved2, reserved3, 
+      reserved4, reserved5, reserved6, 
+      reserved7, reserved8, reserved9, 
+      reserved10)
+    values (#{licenseId,jdbcType=INTEGER}, #{raceTime,jdbcType=VARCHAR}, 
+      #{number,jdbcType=VARCHAR}, #{leagueName,jdbcType=VARCHAR}, #{guestTeam,jdbcType=VARCHAR}, 
+      #{hostTeam,jdbcType=VARCHAR}, #{ggScore,jdbcType=VARCHAR}, #{dgScore,jdbcType=VARCHAR}, 
+      #{raceStartTime,jdbcType=VARCHAR}, #{betEndTime,jdbcType=VARCHAR}, #{averageOdds,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{allowSpfGg,jdbcType=INTEGER}, #{allowSpfDg,jdbcType=INTEGER}, 
+      #{allowRqspfGg,jdbcType=INTEGER}, #{allowRqspfDg,jdbcType=INTEGER}, #{allowBfsfcGg,jdbcType=INTEGER}, 
+      #{allowBfsfcDg,jdbcType=INTEGER}, #{allowZjqdxfGg,jdbcType=INTEGER}, #{allowZjqdxfDg,jdbcType=INTEGER}, 
+      #{allowZcBqcGg,jdbcType=INTEGER}, #{allowZcBqcDg,jdbcType=INTEGER}, #{allScore,jdbcType=VARCHAR}, 
+      #{halfScore,jdbcType=VARCHAR}, #{spfDgAverage,jdbcType=VARCHAR}, #{rqspfDgAverage,jdbcType=VARCHAR}, 
+      #{bfsfcDgAverage,jdbcType=VARCHAR}, #{zjqdxfDgAverage,jdbcType=VARCHAR}, #{zcBqcDgAverage,jdbcType=VARCHAR}, 
+      #{leaguageId,jdbcType=INTEGER}, #{hostTeamId,jdbcType=INTEGER}, #{guestTeamId,jdbcType=INTEGER}, 
+      #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, 
+      #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}, #{reserved6,jdbcType=VARCHAR}, 
+      #{reserved7,jdbcType=VARCHAR}, #{reserved8,jdbcType=VARCHAR}, #{reserved9,jdbcType=VARCHAR}, 
+      #{reserved10,jdbcType=VARCHAR})
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.GameJcAgainst">
+    update game_jc_against
+    <set>
+      <if test="licenseId != null">
+        license_id = #{licenseId,jdbcType=INTEGER},
+      </if>
+      <if test="raceTime != null">
+        race_time = #{raceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="leagueName != null">
+        league_name = #{leagueName,jdbcType=VARCHAR},
+      </if>
+      <if test="guestTeam != null">
+        guest_team = #{guestTeam,jdbcType=VARCHAR},
+      </if>
+      <if test="hostTeam != null">
+        host_team = #{hostTeam,jdbcType=VARCHAR},
+      </if>
+      <if test="ggScore != null">
+        gg_score = #{ggScore,jdbcType=VARCHAR},
+      </if>
+      <if test="dgScore != null">
+        dg_score = #{dgScore,jdbcType=VARCHAR},
+      </if>
+      <if test="raceStartTime != null">
+        race_start_time = #{raceStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="betEndTime != null">
+        bet_end_time = #{betEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="averageOdds != null">
+        average_odds = #{averageOdds,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="allowZcSpfGg != null">
+        allow_zc_spf_gg = #{allowZcSpfGg,jdbcType=INTEGER},
+      </if>
+      <if test="allowZcSpfDg != null">
+        allow_zc_spf_dg = #{allowZcSpfDg,jdbcType=INTEGER},
+      </if>
+      <if test="allowZcRqspfGg != null">
+        allow_zc_rqspf_gg = #{allowZcRqspfGg,jdbcType=INTEGER},
+      </if>
+      <if test="allowZcRqspfDg != null">
+        allow_zc_rqspf_dg = #{allowZcRqspfDg,jdbcType=INTEGER},
+      </if>
+      <if test="allowZcBfGg != null">
+        allow_zc_bf_gg = #{allowZcBfGg,jdbcType=INTEGER},
+      </if>
+      <if test="allowZcBfDg != null">
+        allow_zc_bf_dg = #{allowZcBfDg,jdbcType=INTEGER},
+      </if>
+      <if test="allowZcBqcGg != null">
+        allow_zc_bqc_gg = #{allowZcBqcGg,jdbcType=INTEGER},
+      </if>
+      <if test="allowZcBqcDg != null">
+        allow_zc_bqc_dg = #{allowZcBqcDg,jdbcType=INTEGER},
+      </if>
+      <if test="allowZcZjqGg != null">
+        allow_zc_zjq_gg = #{allowZcZjqGg,jdbcType=INTEGER},
+      </if>
+      <if test="allowZcZjqDg != null">
+        allow_zc_zjq_dg = #{allowZcZjqDg,jdbcType=INTEGER},
+      </if>
+      <if test="allowLcSfGg != null">
+        allow_lc_sf_gg = #{allowLcSfGg,jdbcType=INTEGER},
+      </if>
+      <if test="allowLcSfDg != null">
+        allow_lc_sf_dg = #{allowLcSfDg,jdbcType=INTEGER},
+      </if>
+      <if test="allowLcRfsfGg != null">
+        allow_lc_rfsf_gg = #{allowLcRfsfGg,jdbcType=INTEGER},
+      </if>
+      <if test="allowLcRfsfDg != null">
+        allow_lc_rfsf_dg = #{allowLcRfsfDg,jdbcType=INTEGER},
+      </if>
+      <if test="allowLcSfcGg != null">
+        allow_lc_sfc_gg = #{allowLcSfcGg,jdbcType=INTEGER},
+      </if>
+      <if test="allowLcSfcDg != null">
+        allow_lc_sfc_dg = #{allowLcSfcDg,jdbcType=INTEGER},
+      </if>
+      <if test="allowLcDxfGg != null">
+        allow_lc_dxf_gg = #{allowLcDxfGg,jdbcType=INTEGER},
+      </if>
+      <if test="allowLcDxfDg != null">
+        allow_lc_dxf_dg = #{allowLcDxfDg,jdbcType=INTEGER},
+      </if>
+      <if test="allScore != null">
+        all_score = #{allScore,jdbcType=VARCHAR},
+      </if>
+      <if test="halfScore != null">
+        half_score = #{halfScore,jdbcType=VARCHAR},
+      </if>
+      <if test="dgAverage != null">
+        dg_average = #{dgAverage,jdbcType=VARCHAR},
+      </if>
+      <if test="leaguageId != null">
+        leaguage_id = #{leaguageId,jdbcType=INTEGER},
+      </if>
+      <if test="hostTeamId != null">
+        host_team_id = #{hostTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="guestTeamId != null">
+        guest_team_id = #{guestTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="reserved1 != null">
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null">
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null">
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null">
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null">
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null">
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null">
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null">
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询期次列表,ChenXin -->
+  <select id="getGameListByParam" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from game_jc_against
+    <where>
+    <if test="param.licenseId != null">
+    license_id = #{param.licenseId}
+    </if>
+    <if test="param.raceTime != null and param.raceTime != ''">
+    and race_time = #{param.raceTime}
+    </if>
+    </where>
+    order by race_time DESC,number ASC
+    limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+  <!-- 查询期次列表总数,ChenXin -->
+  <select id="getGameListByParamCount" resultType="java.lang.Integer">
+    select count(id)
+    from game_jc_against
+    <where>
+    <if test="param.licenseId != null">
+    license_id = #{param.licenseId}
+    </if>
+    <if test="param.raceTime != null and param.raceTime != ''">
+    and race_time = #{param.raceTime}
+    </if>
+    </where>
+  </select>
+  
+  <!-- 根据ID修改竞彩对阵 ,ChenXin -->
+  <update id="setGameInfoByParam">
+    update game_jc_against
+    <set>
+      <if test="param.raceTime != null and param.raceTime != ''">
+        race_time = #{param.raceTime},
+      </if>
+      <if test="param.number != null and param.number != ''">
+        number = #{param.number},
+      </if>
+      <if test="param.leagueName != null and param.leagueName != ''">
+        league_name = #{param.leagueName},
+      </if>
+      <if test="param.guestTeam != null and param.guestTeam != ''">
+        guest_team = #{param.guestTeam},
+      </if>
+      <if test="param.hostTeam != null and param.hostTeam != ''">
+        host_team = #{param.hostTeam},
+      </if>
+      <if test="param.ggScore != null and param.ggScore != ''">
+        gg_score = #{param.ggScore},
+      </if>
+      <if test="param.dgScore != null and param.dgScore != ''">
+        dg_score = #{param.dgScore},
+      </if>
+      <if test="param.raceStartTime != null and param.raceStartTime != ''">
+        race_start_time = #{param.raceStartTime},
+      </if>
+      <if test="param.betEndTime != null and param.betEndTime != ''">
+        bet_end_time = #{param.betEndTime},
+      </if>
+      <if test="param.averageOdds != null and param.averageOdds != ''">
+        average_odds = #{param.averageOdds},
+      </if>
+      <if test="param.state != null">
+        state = #{param.state},
+      </if>
+      <if test="param.againstState != null">
+        against_state = #{param.againstState},
+      </if>
+      <if test="param.allowSpfGg != null">
+        allow_spf_gg = #{param.allowSpfGg},
+      </if>
+      <if test="param.allowSpfDg != null">
+        allow_spf_dg = #{param.allowSpfDg},
+      </if>
+      <if test="param.allowRqspfGg != null">
+        allow_rqspf_gg = #{param.allowRqspfGg},
+      </if>
+      <if test="param.allowRqspfDg != null">
+        allow_rqspf_dg = #{param.allowRqspfDg},
+      </if>
+      <if test="param.allowBfsfcGg != null">
+        allow_bfSfc_gg = #{param.allowBfsfcGg},
+      </if>
+      <if test="param.allowBfsfcDg != null">
+        allow_bfSfc_dg = #{param.allowBfsfcDg},
+      </if>
+      <if test="param.allowZjqdxfGg != null">
+        allow_zjqDxf_gg = #{param.allowZjqdxfGg},
+      </if>
+      <if test="param.allowZjqdxfDg != null">
+        allow_zjqDxf_dg = #{param.allowZjqdxfDg},
+      </if>
+      <if test="param.allowZcBqcGg != null">
+        allow_zc_bqc_gg = #{param.allowZcBqcGg},
+      </if>
+      <if test="param.allowZcBqcDg != null">
+        allow_zc_bqc_dg = #{param.allowZcBqcDg},
+      </if>
+      <if test="param.allScore != null and param.allScore != ''">
+        all_score = #{param.allScore},
+      </if>
+      <if test="param.halfScore != null and param.halfScore != ''">
+        half_score = #{param.halfScore},
+      </if>
+      <if test="param.spfDgAverage != null">
+        spf_dg_average = #{param.spfDgAverage},
+      </if>
+      <if test="param.rqspfDgAverage != null">
+        rqspf_dg_average = #{param.rqspfDgAverage},
+      </if>
+      <if test="param.bfsfcDgAverage != null">
+        bfSfc_dg_average = #{param.bfsfcDgAverage},
+      </if>
+      <if test="param.zjqdxfDgAverage != null">
+        zjqDxf_dg_average = #{param.zjqdxfDgAverage},
+      </if>
+      <if test="param.zcBqcDgAverage != null">
+        zc_bqc_dg_average = #{param.zcBqcDgAverage},
+      </if>
+    </set>
+    where id = #{param.id}
+  </update>
+  
+  
+  <select id="getLastLotteryInformation" resultMap="BaseResultMap">
+  <!-- select <include refid="Base_Column_List" /> from (select * from game_jc_against where all_score is not null and all_score !='' order by race_time desc) as b group by b.license_id -->
+  select t.* from game_jc_against t inner join (select max(id) as id from game_jc_against where all_score is not null and all_score !='' group by license_id) as g on t.id=g.id
+  </select>
+ 
+ <!-- 取指定采种、指定日期之前最近的size天已开奖的对阵消息  ZLP_mobile--> 
+  <select id="getLastLInfoByDateLId" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> from game_jc_against where race_time in (
+  	select race_time from ( 
+  		select distinct(race_time) race_time from game_jc_against
+  		 where license_id = #{licenseId} and race_time &lt; #{raceTime} and all_score is not null and all_score !='' order by race_time desc limit 0,#{days}) as t1
+  	) and  license_id =#{licenseId} and all_score is not null and all_score !='' order by race_time asc,number desc
+  </select>
+  
+</mapper>

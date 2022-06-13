@@ -1,0 +1,116 @@
+a {color:#333;text-decoration:none;}
+a:hover, a:active, a:focus{color:#f00;text-decoration:underline;}
+img{border:0}
+body{margin:0px;font:12px "宋体";padding:0;center}
+.footer{width:1000px;line-height:22px;text-align:center;font-size:12px;color:#000000;margin-top:15px;}
+.wrap{width:1000px;margin:auto;}
+.d_Main{margin:0 auto;width:998px;border:1px #EEEEEE solid;border-top:none;border-bottom:none;background:#FAFBFD url(http://static.sporttery.cn/sinaimg/main/index_2010/images/MainBg.gif) repeat-x;background-position:top;padding-bottom:10px}
+ul{list-style-type:none}
+
+/*大标题*/
+.MainTitleBox{width:981px;height:27px;background:#F9FCFD url(http://static.sporttery.cn/info/football/info/images2/MainTitleBox.gif) repeat-x;margin:6px 0 0 7px;border:1px #99CDDB solid;background-position:0 50%}
+.YourPosition{float:left;color:#296CBD;margin:6px 0 0 13px;display:inline}
+.YourPosition a{color:#296CBD}
+.YourPosition a:hover{color:#FF0000}
+.OtherMatch{float:right;margin:4px 6px 0 0px}
+.YourPositionB{font-weight:bold}
+/*对阵*/
+.DuiZhenBox{width:981px;height:114px;background:url(http://static.sporttery.cn/info/football/info/images2/duizhenBg.gif) no-repeat;border:1px #2878C2 solid;margin:5px 0 6px 7px;display:inline;letter-spacing:1px;float:left}
+.HomeBox{height:114px;float:left;margin-left:24px;display:inline;width:307px;}
+.HomeBoxLogo{width:96px;height:96px;border:none;margin:8px 7px 0 0;float:left}
+.HomeBoxtext{margin:15px 7px 0 0;font:12px "微软雅黑";color:#FFFFFF;float:left;}
+.HomeBoxtext a,.GuestBoxtext a{color:#FFFFFF}
+.HomeBoxtext a:hover,.GuestBoxtext a:hover{color:#FF0000}
+.GuestBox{height:114px;float:right;margin-right:24px;display:inline;}
+.GuestBoxLogo{width:96px;height:96px;border:none;margin:8px 0px 0 0;float:right}
+.GuestBoxtext{margin:15px 7px 0 0px;font:12px "微软雅黑";color:#FFFFFF;float:right;text-align:right}
+.Center{text-align:center;font:12px "微软雅黑";float:left;width:321px;color:#FFFFFF;display:inline;letter-spacing:1px;height:87px;background:url(http://static.sporttery.cn/info/football/info/images2/MatchBoxBg.gif) no-repeat;margin:14px 0 0 0px;line-height:28px;padding-top:10px}
+.Centers{font:12px "微软雅黑";color:#F6FF00}
+.HomeName{color:#F8FF00;font-size:18px;line-height:32px}
+.CenterTit{font-size:18px;}
+/*赔率*/
+.PeiLvBg{width:415px;height:107px;background:url(http://static.sporttery.cn/info/football/info/images2/peilvBg.gif) no-repeat;float:left;margin:94px 0 0 292px}
+.PeiLvBg table{color:#FFFFFF;width:389px;height:90px;text-align:center;margin:8px auto auto auto;border-collapse:collapse}
+.PeiLvtr1{color:#D75453}
+.PeiLvtr2{color:#EEC90F}
+.ZhuanJiaTopText{font:bold 14px "宋体";float:left}
+.ZhuanJiaTopMore{float:right}
+.ZhuanJiaTopMore a{color:#840B0B}
+.ZhuanJiaTopMore a:hover{color:#FF0000}
+.spanR{float:right;color:#ACACAC;font-size:12px;margin-right:10px}
+.ZhuanJiaList ul{margin:5px 0 0 20px;font-size:14px;line-height:24px;padding:0} 
+.floatL{float:left}
+.floatR{float:right}
+/*查看受注赛程*/
+.shouzhu{width:963px;height:31px;background:url(http://static.sporttery.cn/sinaimg/main/index_2010/topics/images/chakanshouzhu.gif) no-repeat;float:inherit;;margin:10px 0 0 6px;font:normal 14px "宋体";line-height:31px;padding-left:25px}
+/*竞彩胜平负固定奖金*/
+.date6{width:964px;border:1px #D8D8D8 solid;margin:10px auto 0 auto;text-align:center;border-collapse:collapse;font-size:14px;letter-spacing:1px;}
+.date6Tr1{height:29px;background:url(http://static.sporttery.cn/info/football/info/images2/ZhuanJiaTop.gif) repeat-x;color:#0060B7;font:bold 14px "宋体";}
+.Tr2{font:bold 14px "宋体";color:#0060B7;line-height:26px}
+.Tr3{;line-height:26px;background:#FFFFFF}
+.Tr3 td{border:1px #D4D4D4 solid;}
+.ArrowUp{background:url(http://static.sporttery.cn/info/football/info/images2/ArrowUp.gif) no-repeat;width:100px;background-position:70px 7px;color:#FF7200}
+.ArrowDown{background:url(http://static.sporttery.cn/info/football/info/images2/ArrowDown.gif) no-repeat;width:100px;background-position:70px 7px;color:#0D8B00}
+.font12{font:normal 12px "宋体";color:#000000;text-align:right;margin-right:10px;letter-spacing:1px;}
+.font122{font:normal 12px "宋体";color:#000000;text-align:right;margin-right:10px;letter-spacing:0px;}
+/*两队往季对阵竞彩奖金及赛果*/
+.date62{width:964px;border:1px #D8D8D8 solid;margin:10px auto 0 auto;text-align:center;border-collapse:collapse;font-size:14px;letter-spacing:1px;}
+.Tr22{font:normal 12px "宋体";color:#0060B7;line-height:26px}
+.Tr33{line-height:26px;background:#FFFFFF;font-size:12px}
+.Tr33 td{border:1px #498FD0 solid;}
+/*页面顶部及导航*/
+.WebTopBox{height:104px;margin-bottom:8px}
+/*百家奖金*/
+.ButtonTag{width:88px;height:22px;background:url(http://static.sporttery.cn/info/football/info/images2/ButtonTag.gif) no-repeat;text-align:center;float:left;line-height:22px;margin:0px 3px;cursor:pointer;color:#E51E1E}
+.input1{width:40px;height:15px;border:1px #1F376D solid;margin:2px 3px 0 3px}
+.Tr333{;line-height:26px;background:#498FD0;font:bold 14px "宋体";color:#FFFFFF}
+.Tr333 td,.Tr334 td{border:1px #D4D4D4 solid;}
+.Tr334{;line-height:26px;background:#327CC0;font:normal 12px "宋体";color:#FFFFFF;height:26px}
+.zhuliu{background:url(http://static.sporttery.cn/info/football/info/images2/zhuliu.gif) no-repeat;background-position:10px 50%}
+.td1{background:#FEF9AD;color:#FF0000}
+.td2{background:#EEFFE2;color:#269803}
+.Tr331{letter-spacing:0px;line-height:28px;text-align:left;font-size:12px}
+.Tr331td{width:930px;margin:10px auto}
+/*弹出层*/
+/*返回顶部*/
+.TopImg{margin:0 0 100px 1220px}
+.OpenDivBox{width:290px;background:#A7D1F2;float:left;position:absolute}
+.OpenDivTop{width:100%;height:28px;background:url(http://static.sporttery.cn/info/football/info/images2/OpenDivBoxTop.gif) repeat-x;}
+.OpenDivMain{width:95%;height:95%;background:#FFFFFF;border:1px #E1F1FF solid;border-collapse:collapse;text-align:center;margin:0px auto 7px auto}
+.OpenDivMain td{border:1px #E1F1FF solid;line-height:24px}
+
+#portamento_container {float:left;margin-left:17px;display:inline}
+#portamento_container #foobar.fixed {position:fixed;}
+/*亚盘数据*/
+.ButtonTag{width:88px;height:22px;background:url(http://static.sporttery.cn/info/football/info/images2/ButtonTag.gif) no-repeat;text-align:center;float:left;line-height:22px;margin:3px 3px;cursor:pointer;color:#E51E1E}
+.input1{width:30px;height:15px;border:1px #1F376D solid;margin:2px 3px 0 3px}
+.Tr333{;line-height:26px;background:#498FD0;font:bold 14px "宋体";color:#FFFFFF}
+.Tr333 td,.Tr334 td{border:1px #D4D4D4 solid;}
+.Tr334{;line-height:26px;background:#327CC0;font:normal 12px "宋体";color:#FFFFFF;height:26px}
+.zhuliu{background:url(http://static.sporttery.cn/info/football/info/images2/zhuliu.gif) no-repeat;background-position:10px 50%}
+.td1{background:#FEF9AD;color:#FF0000}
+.td2{background:#EEFFE2;color:#269803}
+.td1_font{color:#FF0000}
+.td2_font{color:#269803}
+.Tr331{letter-spacing:0px;line-height:28px;text-align:left;font-size:12px}
+.Tr331td{width:930px;margin:10px auto}
+.td_show{ display:table-cell; text-decoration: underline;}
+.td_hide{ display: none;text-decoration: underline; }
+/*主客队近期盘路*/
+.Tr4{font:bold 12px "宋体";color:#0060B7;line-height:26px}
+.Box5-H{float:left;margin:10px 0 0 17px;display:inline;}
+.Home5Box{width:474px;border:1px #D8D8D8 solid;text-align:center;border-collapse:collapse;font-size:14px;letter-spacing:1px;background:#FFFFFF;letter-spacing:0}
+.Home5BoxTop{height:28px;background:url(http://static.sporttery.cn/info/football/info/images2/ZhuanJiaTop.gif) repeat-x;color:#0060B7;font:bold 14px "宋体";letter-spacing:1px}
+.Tr3{line-height:26px;background:#FFFFFF}
+.Tr3 td{border:1px #D4D4D4 solid;font-size:12px}
+.Home5BoxTop select{margin:0px 0 0 5px}
+.Home5BoxTop input{margin:-2px 3px 0 8px}
+.jq{border-collapse:collapse;}
+.td4{font:normal 12px "宋体";color:#FFFFFF;background:#4A8FD0;height:27px;text-align:left;line-height:27px}
+.td4 input{margin:0px 3px 0 8px}
+.RBlock{width:100%;height:100%}
+.RBlock img{margin:10px auto 5px auto}
+.PillarTab{margin:auto;width:100%}
+.td5{font-size:12px;text-align:center;height:24px}
+#portamento_container {float:left;margin-left:17px;display:inline}
+#portamento_container #foobar.fixed {position:fixed;}

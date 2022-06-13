@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MemberDrowMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MemberDrow" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="bank_account" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_user_name" property="bankUserName" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="operator_id" property="operatorId" jdbcType="INTEGER" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="operator_time" property="operatorTime" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="comments" property="comments" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, member_id, money, bank_account, bank_name, bank_user_name, store_id, operator_id, 
+    operator_name, create_time, operator_time, state, comments, reserved1, reserved2, 
+    reserved3, reserved4, reserved5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_drow
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_drow
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MemberDrow" >
+    insert into member_drow (id, member_id, money, 
+      bank_account, bank_name, bank_user_name, 
+      store_id, operator_id, operator_name, 
+      create_time, operator_time, state, 
+      comments, reserved1, reserved2, 
+      reserved3, reserved4, reserved5
+      )
+    values (#{id,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, 
+      #{bankAccount,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{bankUserName,jdbcType=VARCHAR}, 
+      #{storeId,jdbcType=INTEGER}, #{operatorId,jdbcType=INTEGER}, #{operatorName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{operatorTime,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{comments,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <!-- 处理或拒绝彩民取款 -->
+  <update id="proRefusedMemberDrow">
+  	update member_drow
+  	<set>
+  		<if test="param.operatorId != null and param.operatorId !=''" >
+        	operator_id = #{param.operatorId,jdbcType=INTEGER},
+      	</if>
+      	 <if test="param.operatorName != null and param.operatorName != ''" >
+        	operator_name = #{param.operatorName,jdbcType=VARCHAR},
+      	</if>
+      	 <if test="param.operatorTime != null and param.operatorTime !=''" >
+        	operator_time = #{param.operatorTime,jdbcType=VARCHAR},
+      	</if>
+      <if test="param.state != null and param.state !=''" >
+        state = #{param.state,jdbcType=INTEGER},
+      </if>
+      <if test="param.comments != null and param.comments != ''" >
+        comments = #{param.comments,jdbcType=VARCHAR},
+      </if>
+  	</set>
+  	where id = #{param.id,jdbcType=INTEGER} and state=#{oldState}
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.MemberDrow" >
+    update member_drow
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="bankAccount != null" >
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankUserName != null" >
+        bank_user_name = #{bankUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="operatorId != null" >
+        operator_id = #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="operatorName != null" >
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTime != null" >
+        operator_time = #{operatorTime,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="comments != null" >
+        comments = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询取款单记录——包含用户名、状态、开始时间、结束时间 -->
+  <select id="selectByMemberDrow" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />,( select member_name from member where member.id = member_drow.member_id
+    ) member_name from member_drow
+    <where>
+    	<if  test="param.state != null and param.state != ''">
+    	state = #{param.state}
+    	 </if>
+    	<if  test="param.stateList != null and param.stateList.size() > 0">
+    	state in 
+    		<foreach collection="param.stateList" item="item" index="index" open="(" close=")" separator=",">
+    		 #{item}
+    		</foreach>
+    	 </if>
+    	<if test="param.bankName != null and param.bankName !=''"> and bank_name = #{param.bankName}</if>
+    	<if test="param.memberId != null and param.memberId !=''"> and member_id = #{param.memberId}</if>
+    	<if test="param.storeId != null and param.storeId !=''"> and store_id = #{param.storeId}</if>
+    	<if test="(param.beginCreateTime != null and param.beginCreateTime !='') and (param.endCreateTime != null and param.endCreateTime !='')">
+    		and (create_time between CONCAT(#{param.beginCreateTime}," 00:00:00") and CONCAT(#{param.endCreateTime}," 23:59:59"))
+    	</if>
+    	<if test="(param.beginCreateTime != null and param.beginCreateTime!='') and (param.endCreateTime == null or param.endCreateTime =='')">
+    	and create_time &gt; CONCAT(#{param.beginCreateTime}," 00:00:00")
+    	</if>
+    	<if test="(param.beginCreateTime == null or param.beginCreateTime =='') and (param.endCreateTime != null and param.endCreateTime !='')">
+    	and create_time &lt; CONCAT(#{param.endCreateTime}," 23:59:59")
+    	</if>
+    	<if test="(param.beginOperatorTime != null and param.beginOperatorTime !='') and (param.endOperatorTime != null and param.endOperatorTime !='')">
+    		and (operator_time between CONCAT(#{param.beginOperatorTime}," 00:00:00") and CONCAT(#{param.endOperatorTime}," 23:59:59"))
+    	</if>
+    	<if test="(param.beginOperatorTime != null and param.beginOperatorTime!='') and (param.endOperatorTime == null or param.endOperatorTime =='')">
+    	and operator_time &gt; CONCAT(#{param.beginOperatorTime}," 00:00:00")
+    	</if>
+    	<if test="(param.beginOperatorTime == null or param.beginOperatorTime =='') and (param.endOperatorTime != null and param.endOperatorTime !='')">
+    	and operator_time &lt; CONCAT(#{param.endOperatorTime}," 23:59:59")
+    	</if>
+    </where>
+    order by create_time desc
+    <if test="(pagination != null)">
+     limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>
+  </select>
+  
+  <!-- 查询取款单记录条目数——包含用户名、状态、开始时间、结束时间、店铺编号 -->
+  <select id="selectWaitCountByMemberDrow" resultType="java.lang.Integer">
+    select count(*) from member_drow
+    <where>
+    	<if  test="param.state != null and param.state != ''">
+    		state = #{param.state}
+    	 </if>
+    	<if  test="param.stateList != null and param.stateList.size() > 0">
+    	state in 
+    		<foreach collection="param.stateList" item="item" index="index" open="(" close=")" separator=",">
+    		 #{item}
+    		</foreach>
+    	 </if>
+    	<if test="param.memberId != null and param.memberId !=''"> and member_id = #{param.memberId}</if>
+    	<if test="param.storeId != null and param.storeId !=''"> and store_id = #{param.storeId}</if>
+    	<if test="(param.beginCreateTime != null and param.beginCreateTime !='') and (param.endCreateTime != null and param.endCreateTime !='')">
+    		and (create_time between CONCAT(#{param.beginCreateTime}," 00:00:00") and CONCAT(#{param.endCreateTime}," 23:59:59"))
+    	</if>
+    	<if test="(param.beginCreateTime != null and param.beginCreateTime!='') and (param.endCreateTime == null or param.endCreateTime =='')">
+    	and create_time &gt; CONCAT(#{param.beginCreateTime}," 00:00:00")
+    	</if>
+    	<if test="(param.beginCreateTime == null or param.beginCreateTime =='') and (param.endCreateTime != null and param.endCreateTime !='')">
+    	and create_time &lt; CONCAT(#{param.endCreateTime}," 23:59:59")
+    	</if>
+    	<if test="(param.beginOperatorTime != null and param.beginOperatorTime !='') and (param.endOperatorTime != null and param.endOperatorTime !='')">
+    		and (operator_time between CONCAT(#{param.beginOperatorTime}," 00:00:00") and CONCAT(#{param.endOperatorTime}," 23:59:59"))
+    	</if>
+    	<if test="(param.beginOperatorTime != null and param.beginOperatorTime!='') and (param.endOperatorTime == null or param.endOperatorTime =='')">
+    	and operator_time &gt; CONCAT(#{param.beginOperatorTime}," 00:00:00")
+    	</if>
+    	<if test="(param.beginOperatorTime == null or param.beginOperatorTime =='') and (param.endOperatorTime != null and param.endOperatorTime !='')">
+    	and operator_time &lt; CONCAT(#{param.endOperatorTime}," 23:59:59")
+    	</if>
+    </where>
+  </select>
+  
+  <sql id="Base_Column_List2" >
+    member_drow.id, member_drow.member_id, member_drow.money, member_drow.bank_account, member_drow.bank_name, 
+    member_drow.bank_user_name, member_drow.store_id, member_drow.operator_id, 
+    member_drow.operator_name, member_drow.create_time, member_drow.operator_time, member_drow.state, 
+    member_drow.comments, member_drow.reserved1, member_drow.reserved2, 
+    member_drow.reserved3, member_drow.reserved4, member_drow.reserved5
+  </sql>
+  
+  <!-- 我的团队取款单记录总条目-->
+  <select id="myTeamDrowListCount" resultType="java.lang.Integer">
+  	select count(member_drow.id) from member_drow,member
+  	 where member_drow.member_id = member.id
+     and  member.reserved4 = #{agentId}
+     <if  test="param.reserved1 != null and param.reserved1 != ''">and member.member_name = #{param.reserved1}</if>
+     <if  test="param.state != null and param.state != ''">and member_drow.state = #{param.state}</if>
+   	 <if test="(param.beginCreateTime != null and param.beginCreateTime !='') and (param.endCreateTime != null and param.endCreateTime !='')">
+   		and (member_drow.create_time between CONCAT(#{param.beginCreateTime}," 00:00:00") and CONCAT(#{param.endCreateTime}," 23:59:59"))
+   	 </if>
+   	 <if test="(param.beginCreateTime != null and param.beginCreateTime!='') and (param.endCreateTime == null or param.endCreateTime =='')">
+   		and member_drow.create_time &gt; CONCAT(#{param.beginCreateTime}," 00:00:00")
+   	 </if>
+   	 <if test="(param.beginCreateTime == null or param.beginCreateTime =='') and (param.endCreateTime != null and param.endCreateTime !='')">
+   		and member_drow.create_time &lt; CONCAT(#{param.endCreateTime}," 23:59:59")
+   	 </if>
+  </select>
+  
+  <!-- 我的团队取款单记录-->
+  <select id="myTeamDrowList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List2" />,member.member_name as member_name
+    from member_drow,member  
+    where member_drow.member_id = member.id
+     and  member.reserved4 = #{agentId}
+     <if  test="param.reserved1 != null and param.reserved1 != ''">and member.member_name = #{param.reserved1}</if>
+     <if  test="param.state != null and param.state != ''">and member_drow.state = #{param.state}</if>
+   	 <if test="(param.beginCreateTime != null and param.beginCreateTime !='') and (param.endCreateTime != null and param.endCreateTime !='')">
+   		and (member_drow.create_time between CONCAT(#{param.beginCreateTime}," 00:00:00") and CONCAT(#{param.endCreateTime}," 23:59:59"))
+   	 </if>
+   	 <if test="(param.beginCreateTime != null and param.beginCreateTime!='') and (param.endCreateTime == null or param.endCreateTime =='')">
+   		and member_drow.create_time &gt; CONCAT(#{param.beginCreateTime}," 00:00:00")
+   	 </if>
+   	 <if test="(param.beginCreateTime == null or param.beginCreateTime =='') and (param.endCreateTime != null and param.endCreateTime !='')">
+   		and member_drow.create_time &lt; CONCAT(#{param.endCreateTime}," 23:59:59")
+   	 </if>
+    order by member_drow.create_time desc
+    <if test="(pagination != null)">
+     limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>
+  </select>
+  
+  <!-- 统计提款金额 -->
+  <select id="selectTMoneyByParamObject" resultType="java.lang.Double">
+  	select sum(money) from member_drow 
+  	<where>
+  		<if test="param.storeId != null and param.storeId != ''">store_id = #{param.storeId}</if>
+  		<if test="param.state != null and param.state != ''"> and state = #{param.state}</if>
+  		<if test="(param.beginOperatorTime != null and param.beginOperatorTime !='') and (param.endOperatorTime != null and param.endOperatorTime !='')">
+    		and (operator_time between CONCAT(#{param.beginOperatorTime}," 00:00:00") and CONCAT(#{param.endOperatorTime}," 23:59:59"))
+    	</if>
+    	<if test="(param.beginOperatorTime != null and param.beginOperatorTime!='') and (param.endOperatorTime == null or param.endOperatorTime =='')">
+    	and operator_time &gt; CONCAT(#{param.beginOperatorTime}," 00:00:00")
+    	</if>
+    	<if test="(param.beginOperatorTime == null or param.beginOperatorTime =='') and (param.endOperatorTime != null and param.endOperatorTime !='')">
+    	and operator_time &lt; CONCAT(#{param.endOperatorTime}," 23:59:59")
+    	</if>
+  </where>
+  </select>
+  
+  <!--彩民取款单汇总-->
+  <select id="totalDrowMoneyByMemberState" resultType="java.lang.Double">
+  	select COALESCE(SUM(money),0) from member_drow where member_id = #{param.memberId} and state = #{param.state}
+  </select>
+  
+  <select id="selectStoreDrow" resultType="com.jingc.busi.common.table.query.OneDayQueryObject"> 
+  	select sum(money) as money,substr(operator_time,1,10) as day from member_drow where store_id=#{storeId} and state=2 GROUP BY substr(operator_time,1,10)
+  </select>
+  <select id="selectOneStoreDrow" resultType="com.jingc.busi.common.table.query.OneDayQueryObject"> 
+  	select sum(IFNULL(money,0)) as money from member_drow where store_id=#{storeId} and operator_time like #{day} and state=2
+  </select>
+</mapper>

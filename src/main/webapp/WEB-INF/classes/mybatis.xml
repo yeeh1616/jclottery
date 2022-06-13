@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- 别名 -->
+	<typeAliases>
+		<typeAlias type="com.jingc.busi.common.table.AuthMenu" alias="AuthMenu" />
+		<typeAlias type="com.jingc.busi.common.table.ChasingOrder" alias="ChasingOrder" />
+		<typeAlias type="com.jingc.busi.common.table.Game" alias="Game" />
+		<typeAlias type="com.jingc.busi.common.table.GameJcAgainst" alias="GameJcAgainst" />
+		<typeAlias type="com.jingc.busi.common.table.GameZcAgainst" alias="GameZcAgainst" />
+		<typeAlias type="com.jingc.busi.common.table.LotteryOrder" alias="LotteryOrder" />
+		<typeAlias type="com.jingc.busi.common.table.LotteryTicket" alias="LotteryTicket" />
+		<typeAlias type="com.jingc.busi.common.table.Member" alias="Member" />
+		<typeAlias type="com.jingc.busi.common.table.MemberAccount" alias="MemberAccount" />
+		<typeAlias type="com.jingc.busi.common.table.MemberFrozenMoney" alias="MemberFrozenMoney" />
+		<typeAlias type="com.jingc.busi.common.table.MemberLog" alias="MemberLog" />
+		<typeAlias type="com.jingc.busi.common.table.MemberMessage" alias="MemberMessage" />
+		<typeAlias type="com.jingc.busi.common.table.MemberMoneyLog" alias="MemberMoneyLog" />
+		<typeAlias type="com.jingc.busi.common.table.MemberQuestion" alias="MemberQuestion" />
+		<typeAlias type="com.jingc.busi.common.table.MergerJoin" alias="MergerJoin" />
+		<typeAlias type="com.jingc.busi.common.table.MergerOrder" alias="MergerOrder" />
+		<typeAlias type="com.jingc.busi.common.table.Store" alias="Store" />
+		<typeAlias type="com.jingc.busi.common.table.StoreAccount" alias="StoreAccount" />
+		<typeAlias type="com.jingc.busi.common.table.StoreFrozenMoney" alias="StoreFrozenMoney" />
+		<typeAlias type="com.jingc.busi.common.table.StoreLicense" alias="StoreLicense" />
+		<typeAlias type="com.jingc.busi.common.table.StoreMessage" alias="StoreMessage" />
+		<typeAlias type="com.jingc.busi.common.table.StoreMoneyLog" alias="StoreMoneyLog" />
+		<typeAlias type="com.jingc.busi.common.table.StoreReceiv" alias="StoreReceiv" />
+		<typeAlias type="com.jingc.busi.common.table.StoreUser" alias="StoreUser" />
+		<typeAlias type="com.jingc.busi.common.table.UserLog" alias="UserLog" />
+		<typeAlias type="com.jingc.busi.common.table.UserMenu" alias="UserMenu" />
+	</typeAliases>
+	<!--<plugins>
+       <plugin interceptor="com.jingc.common.interceptor.MybatisInterceptor"></plugin>
+       <plugin interceptor="com.google.code.shardbatis.plugin.ShardPlugin">  
+                <property name="shardingConfig" value="shard_config.xml"/>  
+       </plugin> 
+    </plugins>--> 
+	</configuration>

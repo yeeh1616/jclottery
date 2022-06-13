@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreEquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreEquipment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="equipment_id" property="equipmentId" jdbcType="VARCHAR" />
+    <result column="equipment_code" property="equipmentCode" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="INTEGER" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, store_id, equipment_id,equipment_code, reserved1, reserved2, reserved3, reserved4, reserved5
+  </sql>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.StoreEquipment" >
+    insert into store_equipment (id, store_id, equipment_id,equipment_code, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5)
+    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{equipmentId,jdbcType=VARCHAR},
+      #{equipmentCode,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="update">
+    update store_equipment
+    <set >
+      <if test="param.equipmentCode != null" >
+        equipment_code = #{param.equipmentCode},
+      </if>
+       <if test="param.reserved1 != null" >
+        reserved1 = #{param.reserved1},
+      </if>
+       <if test="param.reserved2 != null" >
+        reserved2 = #{param.reserved2},
+      </if>
+      <if test="param.reserved3 != null" >
+        reserved3 = #{param.reserved3},
+      </if>
+       <if test="param.reserved4 != null" >
+        reserved4 = #{param.reserved4},
+      </if>
+      <if test="param.reserved5 != null" >
+        reserved5 = #{param.reserved5},
+      </if>
+    </set>
+    <where>
+    id = #{param.id}
+    </where>
+  </update>
+  
+  <!-- 店铺设备列表查询 -->
+  <select id="selectByParamObject" resultMap="BaseResultMap">
+  select 
+  store_equipment.id, store_equipment.store_id, store_equipment.equipment_id,
+  store_equipment.equipment_code, store_equipment.reserved1, store_equipment.reserved2, 
+  store_equipment.reserved3, store_equipment.reserved4, store_equipment.reserved5,
+  store.store_name  
+  from store_equipment left join store on store.store_id = store_equipment.store_id
+  <where>
+  <if test="param.storeId != null">
+  store_equipment.store_id = #{param.storeId}
+  </if>
+  <!-- storeId和storeName只能传一个 -->
+  <if test="param.storeName != null">
+  and store.store_name like CONCAT("%",#{param.storeName},"%")
+  </if>
+  </where>
+  order by store_equipment.store_id desc 
+  limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+  <!-- 店铺列表查询总数 -->
+  <select id="selectByParamObjectCount" resultType="java.lang.Integer">
+  select count(store_equipment.id) 
+  from store_equipment left join store on store.store_id = store_equipment.store_id 
+  <where>
+  <if test="param.storeId != null">
+  store_equipment.store_id = #{param.storeId}
+  </if>
+  <!-- storeId和storeName只能传一个 -->
+  <if test="param.storeName != null">
+  and store.store_name like CONCAT("%",#{param.storeName},"%")
+  </if>
+  </where>
+  </select>
+  
+  <select id="selectCodeCount" resultType="java.lang.Integer">
+  select count(equipment_code) 
+  from store_equipment
+  <where>
+  <if test="equipmentCode != null">
+  equipment_code = #{equipmentCode}
+  </if>
+  </where>
+  </select>
+  
+  <select id="selectEquipmentIdCount" resultType="java.lang.Integer">
+  select count(equipment_id) 
+  from store_equipment
+  <where>
+  <if test="equipmentId != null">
+  equipment_id = #{equipmentId}
+  </if>
+  </where>
+  </select>
+  
+  <select id="selectByEquipmentId" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from store_equipment
+    where equipment_id = #{equipmentId}
+  </select>
+  
+  <!-- 根据店铺查询设备列表 -->
+  <select id="selectByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select 
+    <include refid="Base_Column_List" />
+    from store_equipment where store_id = #{storeId}
+  </select>
+  
+  <delete id="deleteById">
+  delete from store_equipment
+  <where>
+    id = #{param.id}
+  </where>
+  </delete>
+  
+  <select id="selectAllEquipment" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from store_equipment
+  </select>
+  
+</mapper>

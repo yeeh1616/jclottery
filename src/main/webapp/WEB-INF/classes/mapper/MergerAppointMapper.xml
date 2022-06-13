@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MergerAppointMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MergerAppoint" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="appoint_member_id" property="appointMemberId" jdbcType="INTEGER" />
+    <result column="appont_member_name" property="appontMemberName" jdbcType="VARCHAR" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="appoint_date" property="appointDate" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="agree_date" property="agreeDate" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.jingc.busi.common.table.MergerAppoint" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="appoint_member_id" property="appointMemberId" jdbcType="INTEGER" />
+    <result column="appont_member_name" property="appontMemberName" jdbcType="VARCHAR" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="appoint_date" property="appointDate" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="agree_date" property="agreeDate" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="appointed_num" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, member_id, member_name, appoint_member_id, appont_member_name, license_id, store_id, 
+    appoint_date, state, agree_date, memo, reserved1, reserved2, reserved3, reserved4, 
+    reserved5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from merger_appoint
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- 查询我已经指定的跟单人人数 -->
+  <select id="selectAppointedNum" resultType="java.lang.Integer">
+  	select count(*)
+	from merger_appoint
+	<include refid="sByPConditionSQL"/>
+  </select>
+ <!-- 查询我指定的跟单人记录 (开始)-->
+  <select id="selectCountByParamObject" resultType="java.lang.Integer">
+  	select count(*)
+  	from merger_appoint <include refid="sByPConditionSQL"/>
+  </select>
+  <select id="selectByParamObject" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from merger_appoint <include refid="sByPConditionSQL"/>
+  	order by appoint_date desc
+  	<if test="pagination != null">
+  		limit #{pagination.firstResult},#{pagination.pageSize}
+  	</if>
+  </select>
+  <select id="selectCountWithoutBusinessHallAccountByParamObject" resultType="java.lang.Integer">
+  	select count(*)
+  	from merger_appoint
+	<include refid="sByPConditionSQL2"/>
+  </select>
+  <select id="selectWithoutBusinessHallAccountByParamObject" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from merger_appoint 
+  	<include refid="sByPConditionSQL2"/>
+  	order by appoint_date desc
+  	<if test="pagination != null">
+  		limit #{pagination.firstResult},#{pagination.pageSize}
+  	</if>
+  </select>
+  <sql id="sByPConditionSQL">
+  	<where>
+  		<if test="param.memberId !=null and param.memberId !=''"> and member_id = #{param.memberId}</if>
+		<if test="param.appointMemberId !=null and param.appointMemberId !=''"> and appoint_member_id = #{param.appointMemberId}</if>
+		<if test="param.licenseId !=null and param.licenseId !=''"> and license_id = #{param.licenseId}</if>
+		<if test="param.storeId !=null and param.storeId !=''"> and store_id = #{param.storeId}</if>
+		<if test="param.state !=null"> and state = #{param.state}</if>
+  	</where>
+  </sql>
+  <sql id="sByPConditionSQL2">
+  	<where>
+  		(appoint_member_id not in (select id from member where member_from = 5))
+  		<if test="param.memberId !=null and param.memberId !=''"> and member_id = #{param.memberId}</if>
+		<if test="param.appointMemberId !=null and param.appointMemberId !=''"> and appoint_member_id = #{param.appointMemberId}</if>
+		<if test="param.licenseId !=null and param.licenseId !=''"> and license_id = #{param.licenseId}</if>
+		<if test="param.storeId !=null and param.storeId !=''"> and store_id = #{param.storeId}</if>
+		<if test="param.state !=null"> and state = #{param.state}</if>
+  	</where>
+  </sql>
+   <!-- 查询我指定的跟单人记录 (结束)-->
+  <select id="getAppointedNumList" resultMap="BaseResultMap2">
+    SELECT <include refid="Base_Column_List" />,count(license_id) as appointed_num
+	FROM merger_appoint
+	WHERE member_id = #{param.memberId}
+	GROUP BY #{param.licenseId}
+	HAVING count(license_id)
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from merger_appoint
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MergerAppoint" >
+    insert into merger_appoint (id, member_id, member_name, 
+      appoint_member_id, appont_member_name, license_id, 
+      store_id, appoint_date, state, 
+      agree_date, memo, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5)
+    values (#{id,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{memberName,jdbcType=VARCHAR}, 
+      #{appointMemberId,jdbcType=INTEGER}, #{appontMemberName,jdbcType=VARCHAR}, #{licenseId,jdbcType=INTEGER}, 
+      #{storeId,jdbcType=INTEGER}, #{appointDate,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{agreeDate,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR})
+  </insert>
+  
+ <!-- 更新状态 -->
+ <update id="updateAppointState">
+ 	update merger_appoint 
+ 	set state = #{param.state}
+ 	<where>
+ 		<if test="param.memberId != null and param.memberId != ''"> and member_id = #{param.memberId}</if>
+ 		<if test="param.appointMemberId != null and param.appointMemberId != ''"> and appoint_member_id = #{param.appointMemberId}</if>
+ 		<if test="param.storeId != null and param.storeId != ''"> and store_id = #{param.storeId}</if>
+ 		<if test="param.licenseId != null and param.licenseId != ''"> and license_id = #{param.licenseId}</if>
+ 	</where>
+ </update>
+</mapper>

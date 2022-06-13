@@ -1,0 +1,81 @@
+a {color:#333;text-decoration:none;}
+a:hover, a:active, a:focus{color:#f00;text-decoration:underline;}
+img{border:0}
+body{margin:0px;font:12px "宋体";padding:0;background:no-repeat top center;}
+.footer{width:1000px;line-height:22px;text-align:center;font-size:12px;color:#000000;margin-top:15px;}
+.wrap{width:1000px;margin:auto;}
+.d_Main{margin:0 auto;width:998px;border:1px #EEEEEE solid;border-top:none;border-bottom:none;background:#FAFBFD url(http://static.sporttery.cn/sinaimg/main/index_2010/images/MainBg.gif) repeat-x;background-position:top;padding-bottom:10px}
+ul{list-style-type:none}
+/*大标题*/
+.MainTitleBox{width:981px;height:27px;background:#F9FCFD url(http://static.sporttery.cn/info/football/info/images2/MainTitleBox.gif) repeat-x;margin:6px 0 0 7px;border:1px #99CDDB solid;background-position:0 50%;}
+.YourPosition{float:left;color:#296CBD;margin:6px 0 0 13px;display:inline}
+.YourPosition a{color:#296CBD}
+.YourPosition a:hover{color:#FF0000}
+.YourPositionB{font-weight:bold}
+/*对阵*/
+.DuiZhenBox{width:981px;height:114px;background:url(http://static.sporttery.cn/info/football/info/images2/duizhenBg.gif) no-repeat;border:1px #2878C2 solid;margin:5px 0 6px 7px;display:inline;letter-spacing:1px;float:left}
+.HomeBox{height:114px;float:left;margin-left:24px;display:inline;width:307px;}
+.HomeBoxLogo{width:96px;height:96px;border:none;margin:8px 7px 0 0;float:left}
+.HomeBoxtext{margin:15px 7px 0 0;font:12px "微软雅黑";color:#FFFFFF;float:left;}
+.HomeBoxtext a,.GuestBoxtext a{color:#FFFFFF}
+.HomeBoxtext a:hover,.GuestBoxtext a:hover{color:#FF0000}
+.GuestBox{height:114px;float:right;margin-right:24px;display:inline;}
+.GuestBoxLogo{width:96px;height:96px;border:none;margin:8px 0px 0 0;float:right}
+.GuestBoxtext{margin:15px 7px 0 0px;font:12px "微软雅黑";color:#FFFFFF;float:right;text-align:right}
+.Center{text-align:center;font:12px "微软雅黑";float:left;width:321px;color:#FFFFFF;display:inline;letter-spacing:1px;height:87px;background:url(http://static.sporttery.cn/info/football/info/images2/MatchBoxBg.gif) no-repeat;margin:14px 0 0 0px;line-height:28px;padding-top:10px}
+.Centers{font:12px "微软雅黑";color:#F6FF00}
+.HomeName{color:#F8FF00;font-size:18px;line-height:32px}
+.CenterTit{font-size:18px;}
+.jifenbang{width:179px}
+.jifentop{width:179px;height:30px;margin-bottom:2px; background:url(http://info.sporttery.cn/football/info/images/jifen.gif) no-repeat;}
+.jftb{width:179px;border:0px}
+.jftb tr, jftb td{border:0px;text-align:center} 
+.jfth{background:url(http://info.sporttery.cn/football/info/images/jifenth.gif) repeat-x;height:24px}
+.jftd{height:21px;background:url(http://info.sporttery.cn/football/info/images/jifentd.gif) repeat-x}
+.jftd2{height:21px; background-color:#FFF}
+/*对阵走势图*/
+.Box5-H{float:left;margin:10px 0 0 17px;display:inline;}
+.Home5Box{width:474px;border:1px #D8D8D8 solid;text-align:center;border-collapse:collapse;font-size:14px;letter-spacing:1px;}
+.Home5BoxTop{height:29px;background:url(http://static.sporttery.cn/info/football/info/images2/ZhuanJiaTop.gif) repeat-x;color:#0060B7;font:bold 14px "宋体";}
+/*历史交锋*/
+.date6{width:480px;border:1px #D8D8D8 solid; border-collapse:collapse;margin:10px auto 0 auto;text-align:center;font-size:14px;letter-spacing:1px;}
+.date6Tr1{height:29px;background:url(http://static.sporttery.cn/info/football/info/images2/1-2.jpg) repeat-x;color:#0060B7;font:bold 14px "宋体";}
+.Tr2{font:bold 14px "宋体";color:#0060B7;line-height:26px;}
+.Tr3{line-height:26px;background:#FFFFFF}
+.Tr3 td{border:1px #D4D4D4 solid;font-size:12px}
+.Tr4{line-height:26px;background:#A31916}
+.Tr4 td{border:0px solid;font-size:12px;color:#FFFFFF}
+.Tr5{line-height:26px;background:#165EA3}
+.Tr5 td{border:0px solid;font-size:12px;color:#FFFFFF}		
+.floatL{float:left}
+.floatR{float:right}		
+.ArrowUp{background:url(http://static.sporttery.cn/info/football/info/images2/ArrowUp.gif) no-repeat;width:100px;background-position:70px 7px;color:#FF7200}
+.ArrowDown{background:url(http://static.sporttery.cn/info/football/info/images2/ArrowDown.gif) no-repeat;width:100px;background-position:70px 7px;color:#0D8B00}
+.font12{font:normal 12px "宋体";color:#000000;text-align:right;margin-right:10px;letter-spacing:1px;line-height:26px}
+.font122{font:normal 12px "宋体";color:#000000;text-align:right;margin-right:10px;letter-spacing:0px;}
+/*输赢走势图*/
+.zoushi{width:967px; border:1px solid #D8D8D8; float:left;margin:14px 0 0 17px; display:inline}
+.zstable{width:967px}
+.shuoming{padding-right:10px; text-align:right;color:#e2a816;font:bold 12px "宋体"}
+.shujulist{border-collapse:collapse}
+.titlebg{background-color:#b2d9ff;height:28px;border:1px solid #88b3e0;}
+.titlebg td{border:1px solid #73B1EC; border-collapse:collapse;}
+.noborder{border-left:none}
+.zqplbg{background-color:#EBF8FF;font-size:12px}
+.zqplbg td{border:1px solid #73B1EC;border-collapse:collapse;}
+.teamtxt{margin:0 auto;width:13px;word-wrap:break-word;white-space:normal;line-height:15px}
+.jjbg{font-size:12px;line-height:18px}
+.jjbg td{border:1px solid #73B1EC; border-collapse:collapse;}
+.jjbgborder{background-color:#ffa800;border:1px solid #73B1EC;border-collapse:collapse;color:#FFF;font-weight:bold}
+.jjbgborder_r{border-right:1px solid #73B1EC; border-collapse:collapse}
+.red{margin:0 auto;width:13px;word-wrap:break-word;white-space:normal;line-height:15px;color:#F00;font-weight:bold}
+.blue{margin:0 auto;width:13px;word-wrap:break-word;white-space:normal;line-height:15px;color:#0060b7;font-weight:bold}
+.redline{background:url(http://info.sporttery.cn/football/info/images/redline.gif) repeat-y bottom;}
+.blueline{background:url(http://info.sporttery.cn/football/info/images/blueline.gif) repeat-y bottom;}
+.blackline{background:url(http://info.sporttery.cn/football/info/images/blackline.gif) repeat-y bottom;}
+
+/*远近箭头*/
+.arrow{width:967px; margin:5px 0 5px 0; float:left;display:inline}
+.arrow_arr{width:884px; height:12px; background:url(http://info.sporttery.cn/football/info/images/arrow.gif) repeat-x;margin-right:10px; display:inline}
+.arrow_arr_w{width:11px; height:12px; background:url(http://info.sporttery.cn/football/info/images/arrow_w.gif) no-repeat; margin-left:10px; display:inline}
+.arrow_word{font:bold 12px "宋体"; color:#000;display:inline}

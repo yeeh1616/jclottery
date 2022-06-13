@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MergerOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MergerOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="storeid" property="storeid" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="issue" property="issue" jdbcType="VARCHAR" />
+    <result column="part_titile" property="partTitile" jdbcType="VARCHAR" />
+    <result column="part_detail" property="partDetail" jdbcType="VARCHAR" />
+    <result column="total_num" property="totalNum" jdbcType="INTEGER" />
+    <result column="launch_num" property="launchNum" jdbcType="INTEGER" />
+    <result column="show_level" property="showLevel" jdbcType="INTEGER" />
+    <result column="brokerage" property="brokerage" jdbcType="DOUBLE" />
+    <result column="ins_num" property="insNum" jdbcType="INTEGER" />
+    <result column="last_ins_num" property="lastInsNum" jdbcType="INTEGER" />
+    <result column="buy_num" property="buyNum" jdbcType="INTEGER" />
+    <result column="scope" property="scope" jdbcType="INTEGER" />
+    <result column="upload_type" property="uploadType" jdbcType="INTEGER" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+    <result column="order_date" property="orderDate" jdbcType="VARCHAR" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="bet_price" property="betPrice" jdbcType="INTEGER" />
+    <result column="play_type" property="playType" jdbcType="VARCHAR" />
+    <result column="fini_bonus" property="finiBonus" jdbcType="DOUBLE" />
+    <result column="bet_state" property="betState" jdbcType="VARCHAR" />
+    <result column="bet_type" property="betType" jdbcType="VARCHAR" />
+    <result column="multiple" property="multiple" jdbcType="INTEGER" />
+    <!-- <result column="ticketed_price" property="ticketedPrice" jdbcType="INTEGER" /> -->
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    id, userid, username, storeid, state, issue, part_titile, part_detail, total_num, 
+    launch_num, show_level, brokerage, ins_num, last_ins_num, buy_num,scope, upload_type, reserved1, reserved2, 
+    reserved3, reserved4, reserved5, reserved6, reserved7, reserved8, reserved9, reserved10
+  </sql>
+  
+  <sql id="Base_Column_List2" >
+    morder.id, morder.userid, morder.username, morder.storeid, morder.state, morder.issue, morder.part_titile, morder.part_detail, morder.total_num, 
+    morder.launch_num, morder.show_level, morder.brokerage, morder.ins_num, morder.last_ins_num, morder.buy_num,morder.scope, morder.upload_type, morder.reserved1, morder.reserved2, 
+    morder.reserved3, morder.reserved4, morder.reserved5, morder.reserved6, morder.reserved7, morder.reserved8, morder.reserved9, morder.reserved10,
+    lorder.license_id,lorder.bet_price,lorder.username, lorder.order_date, lorder.play_type,lorder.fini_bonus,lorder.bet_state, lorder.multiple, lorder.bet_type
+  </sql>
+  
+  <sql id="Base_Column_List3" >
+    morder.id, morder.userid, morder.username, morder.storeid, morder.state, morder.issue, morder.part_titile, morder.part_detail, morder.total_num, 
+    morder.launch_num, morder.show_level, morder.brokerage, morder.ins_num, morder.last_ins_num, morder.buy_num,morder.scope, morder.upload_type, morder.reserved1, morder.reserved2, 
+    morder.reserved3, member.reserved4, morder.reserved5, morder.reserved6, morder.reserved7, morder.reserved8, morder.reserved9, morder.reserved10,
+    lorder.license_id,lorder.bet_price,lorder.username, lorder.order_date, lorder.play_type,lorder.fini_bonus,lorder.bet_state
+  </sql>
+
+  <select id="getMergerOrderByObject" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List2" />
+	from merger_order morder
+	left join lottery_order lorder on lorder.partner_no = morder.id    
+    <where>
+    	lorder.bet_type = 3
+    	<if test="param.userid != null"> and morder.userid = #{param.userid,jdbcType=INTEGER}</if>
+    	<if test="param.id != null"> and morder.id = #{param.id,jdbcType=INTEGER}</if>
+	</where>  
+    
+  </select>
+
+  <select id="getIsLanucher" resultType="java.lang.Integer">
+    select count(*)
+	from merger_order morder
+	left join lottery_order lorder on lorder.partner_no = morder.id
+    where morder.userid = #{userId,jdbcType=INTEGER} and morder.id = #{orderId,jdbcType=INTEGER} and lorder.bet_type = 3 
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List2" />
+	from merger_order morder
+	left join lottery_order lorder on lorder.partner_no = morder.id
+    where morder.id = #{id,jdbcType=INTEGER} and lorder.bet_type = 3
+  </select>
+  
+  <select id="selectLastSeq" resultType="java.lang.Long">
+  	SELECT LAST_INSERT_ID()
+  </select>
+  
+  <update id="updateTotalNum" >
+  	update merger_order set state = #{param.state}, total_num = #{param.totalNum}, buy_num = #{param.buyNum}, upload_type = #{param.uploadType}, reserved2 = #{param.reserved2} where id = ${param.id}
+  </update>
+  
+ <!-- 根据彩种查询合买订单条目 --> 
+  <select id="selectByLicenseId" resultType="MergerOrder">
+  	select 
+  	<include refid="Base_Column_List2" />
+	from merger_order morder
+	left join lottery_order lorder on lorder.partner_no = morder.id
+	<where>
+	lorder.bet_type = 3
+		<if test="param.licenseId != null"> and lorder.license_id = #{param.licenseId}</if>
+	</where>
+  </select>
+ 
+ 
+  <!-- 根据彩种查询合买订单条目======================== --> 
+  <select id="selectMergerOrderCountByParamObject" resultType="java.lang.Integer">
+  	select count(*)
+	from merger_order 
+	left join lottery_order on lottery_order.partner_no = merger_order.id
+	<where>
+	lottery_order.bet_type = '3'  and merger_order.total_num >= merger_order.buy_num
+		<if test="param.licenseId != null"> and lottery_order.license_id = #{param.licenseId}</if>
+		<if test="param.licenseId != null and param.licenseId !=''"> and lottery_order.license_id = #{param.licenseId}</if>
+		<if test="param.state != null and param.state !=''"> and merger_order.state = #{param.state}</if>
+		<if test="param.userid != null "> and merger_order.userid = #{param.userid}</if>
+		<if test="param.storeid != null"> and merger_order.storeid = #{param.storeid} and lottery_order.storeid = #{param.storeid}</if>
+		<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (lottery_order.order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+      	</if>
+      	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and lottery_order.order_date between &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+      	</if>
+      	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and lottery_order.order_date between &lt; CONCAT(#{param.endTime}," 23:59:59") 
+      	</if>
+      	<if test="param.reserved3 != null and param.reserved3 != ''">
+			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+				<when test="param.reserved3 == 2">
+					and lottery_order.member_from = #{param.reserved4}
+				</when>
+				<otherwise>and lottery_order.member_from != #{param.reserved4}</otherwise>
+			</choose>
+		</if>
+	</where>  
+  </select>
+ 
+  <!-- 根据彩种查询合买记录============================ --> 
+  <select id="selectMergerOrderByParamObject" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List2" />
+	from merger_order morder
+	left join lottery_order lorder on lorder.partner_no = morder.id
+	<where>
+	lorder.bet_type = '3' and morder.total_num>=morder.buy_num
+		<if test="param.licenseId != null and param.licenseId !=''"> and lorder.license_id = #{param.licenseId}</if>
+		<if test="param.state != null and param.state !=''"> and morder.state = #{param.state}</if>
+		<if test="param.userid != null"> and morder.userid = #{param.userid}</if>
+		<if test="param.username != null and param.username !=''"> and morder.username = #{param.username}</if>
+		<if test="param.storeid != null"> and morder.storeid = #{param.storeid} and lorder.storeid = #{param.storeid}</if>
+		<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (lorder.order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+      	</if>
+      	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and lorder.order_date between &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+      	</if>
+      	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and lorder.order_date between &lt; CONCAT(#{param.endTime}," 23:59:59") 
+      	</if>
+      	<if test="param.reserved3 != null and param.reserved3 != ''"><!-- reserved3:1,网店；2营业厅 -->
+			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+				<when test="param.reserved3 == 2">
+					and lorder.member_from = #{param.reserved4}<!-- reserved4: 1，营业厅用户 -->
+				</when>
+				<otherwise>and lorder.member_from != #{param.reserved4}</otherwise>
+			</choose>
+		</if>
+	</where>
+	<if test="param.state == 1">
+	order by morder.buy_num/morder.total_num desc
+    </if>
+    <if test="param.state == 2">
+	order by morder.id desc
+    </if>
+    <if test="param.state == 3">
+	order by morder.id desc
+    </if>
+    <if test="param.state == null">
+	order by morder.id desc
+    </if>
+    <if test="pagination != null"><!-- pagination 传入null时，表示不需要分页，要查询所有数据 -->
+   	limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from merger_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MergerOrder" >
+    insert into merger_order (id, userid, username, 
+      storeid, state, issue, 
+      part_titile, part_detail, total_num, 
+      launch_num, show_level, brokerage, 
+      ins_num, last_ins_num, buy_num, scope,upload_type,
+      reserved1, reserved2, reserved3, 
+      reserved4, reserved5, reserved6, 
+      reserved7, reserved8, reserved9, 
+      reserved10) 
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{storeid,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
+      #{partTitile,jdbcType=VARCHAR}, #{partDetail,jdbcType=VARCHAR}, #{totalNum,jdbcType=INTEGER}, 
+      #{launchNum,jdbcType=INTEGER}, #{showLevel,jdbcType=INTEGER}, #{brokerage,jdbcType=DOUBLE}, 
+      #{insNum,jdbcType=INTEGER}, #{lastInsNum,jdbcType=INTEGER}, #{buyNum,jdbcType=INTEGER}, #{scope,jdbcType=INTEGER},#{uploadType,jdbcType=INTEGER},
+      #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, 
+      #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}, #{reserved6,jdbcType=VARCHAR}, 
+      #{reserved7,jdbcType=VARCHAR}, #{reserved8,jdbcType=VARCHAR}, #{reserved9,jdbcType=VARCHAR}, 
+      #{reserved10,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectWaitedTicketingOrder" resultMap="BaseResultMap" >
+  	select <include refid="Base_Column_List" /> from merger_order where state = '1'
+    <!--  select m.* from merger_order m, lottery_order l where m.id=l.partner_no and l.bet_type=3 and m.state in(1,2) and l.bet_state=1-->
+  </select>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.MergerOrder" >
+    update merger_order
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="storeid != null" >
+        storeid = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="issue != null" >
+        issue = #{issue,jdbcType=VARCHAR},
+      </if>
+      <if test="partTitile != null" >
+        part_titile = #{partTitile,jdbcType=VARCHAR},
+      </if>
+      <if test="partDetail != null" >
+        part_detail = #{partDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="totalNum != null" >
+        total_num = #{totalNum,jdbcType=INTEGER},
+      </if>
+      <if test="launchNum != null" >
+        launch_num = #{launchNum,jdbcType=INTEGER},
+      </if>
+      <if test="showLevel != null" >
+        show_level = #{showLevel,jdbcType=INTEGER},
+      </if>
+      <if test="brokerage != null" >
+        brokerage = #{brokerage,jdbcType=DOUBLE},
+      </if>
+      <if test="insNum != null" >
+        ins_num = #{insNum,jdbcType=INTEGER},
+      </if>
+      <if test="lastInsNum != null" >
+        last_ins_num = #{lastInsNum,jdbcType=INTEGER},
+      </if>
+      <if test="buyNum != null" >
+        buy_num = #{buyNum,jdbcType=INTEGER},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null" >
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null" >
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null" >
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null" >
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateBuyNumAndState">
+      update merger_order set state = #{state}, buy_num = #{buyNum} where id = #{id} and buy_num = #{oldBuyNum} and state = #{oldstate}
+  </update>
+  
+  <update id="updateState">
+      update merger_order set state = #{state} where id = #{id} and state = #{oldstate}
+  </update>
+  
+  <update id="updateNoUploadState">
+      update merger_order set state = #{state} where id = #{id} and upload_type = #{oldstate}
+  </update>
+  
+  <update id="updateStopTime">
+      update merger_order set reserved2 = #{param.reserved2} where id = #{param.id}
+  </update>
+  
+  <update id="updateInsNum">
+      update merger_order set ins_num = ins_num + #{param.insNum} where id = #{param.id} and state = '1'
+  </update>
+  
+  <!-- 根据彩种查询合买记录============================ --> 
+  <select id="selectMergerOrderByParamObject2" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List3" />
+	from merger_order morder
+	left join lottery_order lorder on lorder.partner_no = morder.id join member on morder.userid = member.id
+	<where>
+		lorder.bet_type = 3 and morder.total_num>=morder.buy_num
+		<if test="param.licenseId != null and param.licenseId !=''"> and lorder.license_id = #{param.licenseId}</if>
+		<if test="param.state != null and param.state !=''"> and morder.state = #{param.state}</if>
+		<if test="param.userid != null"> and morder.userid = #{param.userid}</if>
+		<if test="param.username != null and param.username !=''"> and morder.username = #{param.username}</if>
+		<if test="param.storeid != null"> and morder.storeid = #{param.storeid}</if>
+		<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (lorder.order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+      	</if>
+      	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and lorder.order_date between &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+      	</if>
+      	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and lorder.order_date between &lt; CONCAT(#{param.endTime}," 23:59:59") 
+      	</if>
+      	<if test="param.reserved3 != null and param.reserved3 != ''"><!-- reserved3:1,网店；2营业厅 -->
+			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+				<when test="param.reserved3 == 2">
+					and lorder.member_from = #{param.reserved4}<!-- reserved4: 1，营业厅用户 -->
+				</when>
+				<otherwise>and lorder.member_from != #{param.reserved4}</otherwise>
+			</choose>
+		</if>
+		<if test="memberObj.reserved4 != null and memberObj.reserved4 !=''">and member.reserved4 = #{memberObj.reserved4}</if>
+	</where>
+	<if test="param.state == 1">
+	order by morder.buy_num/morder.total_num desc
+    </if>
+    <if test="param.state == 2">
+	order by morder.id desc
+    </if>
+    <if test="param.state == 3">
+	order by morder.id desc
+    </if>
+    <if test="param.state == null">
+	order by morder.id desc
+    </if>
+    <if test="pagination != null"><!-- pagination 传入null时，表示不需要分页，要查询所有数据 -->
+   	limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>
+  </select>
+  
+   <!-- 根据彩种查询合买订单条目======================== --> 
+  <select id="selectMergerOrderCountByParamObject2" resultType="java.lang.Integer">
+  	select count(*)
+	from merger_order morder
+	left join lottery_order lorder on lorder.partner_no = morder.id join member on morder.userid = member.id
+	<where>
+	lorder.bet_type = 3  and morder.total_num >= morder.buy_num
+		<if test="param.licenseId != null and param.licenseId !=''"> and lorder.license_id = #{param.licenseId}</if>
+		<if test="param.state != null and param.state !=''"> and morder.state = #{param.state}</if>
+		<if test="param.userid != null"> and morder.userid = #{param.userid}</if>
+		<if test="param.username != null and param.username !=''"> and morder.username = #{param.username}</if>
+		<if test="param.storeid != null"> and morder.storeid = #{param.storeid}</if>
+		<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (lorder.order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+      	</if>
+      	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and lorder.order_date between &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+      	</if>
+      	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and lorder.order_date between &lt; CONCAT(#{param.endTime}," 23:59:59") 
+      	</if>
+      	<if test="param.reserved3 != null and param.reserved3 != ''"><!-- reserved3:1,网店；2营业厅 -->
+			<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+				<when test="param.reserved3 == 2">
+					and lorder.member_from = #{param.reserved4}<!-- reserved4: 1，营业厅用户 -->
+				</when>
+				<otherwise>and lorder.member_from != #{param.reserved4}</otherwise>
+			</choose>
+		</if>
+		<if test="memberObj.reserved4 != null and memberObj.reserved4 !=''">and member.reserved4 = #{memberObj.reserved4}</if>
+	</where>  
+  </select>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.LicenseMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.License" >
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="license_name" property="licenseName" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="DECIMAL" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    license_id, license_name, type, state
+  </sql>
+  <select id="selectAllLicense" resultMap="BaseResultMap">
+	select   <include refid="Base_Column_List" />
+	from license
+  </select>
+  <insert id="insert">
+    insert into license (license_id, license_name, type, 
+      state)
+    values
+    <foreach collection="licenseList" item="item" separator=",">
+     (#{item.licenseId,jdbcType=INTEGER}, #{item.licenseName,jdbcType=VARCHAR}, #{item.type,jdbcType=INTEGER}, 
+      #{item.state,jdbcType=INTEGER})
+      </foreach>
+  </insert>
+</mapper>

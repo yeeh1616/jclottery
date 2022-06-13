@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreMoneyLogMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreMoneyLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="category" property="category" jdbcType="INTEGER" />
+    <result column="category_detail" property="categoryDetail" jdbcType="INTEGER" />
+    <result column="relation_id" property="relationId" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="commont" property="commont" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="back_time" property="backTime" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, store_id, money, balance, type, category, category_detail, relation_id, state, 
+    operator, commont, create_time, back_time, reserved1, reserved2, reserved3, reserved4, 
+    reserved5, reserved6, reserved7, reserved8, reserved9, reserved10
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_money_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from store_money_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.StoreMoneyLog" >
+    insert into store_money_log (id, store_id, money, 
+      balance, type, category, 
+      category_detail, relation_id, state, 
+      operator, commont, create_time, 
+      back_time, reserved1, reserved2, 
+      reserved3, reserved4, reserved5, 
+      reserved6, reserved7, reserved8, 
+      reserved9, reserved10)
+    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, 
+      #{balance,jdbcType=DOUBLE}, #{type,jdbcType=INTEGER}, #{category,jdbcType=INTEGER}, 
+      #{categoryDetail,jdbcType=INTEGER}, #{relationId,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{operator,jdbcType=VARCHAR}, #{commont,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{backTime,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}, 
+      #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, #{reserved8,jdbcType=VARCHAR}, 
+      #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.StoreMoneyLog" >
+    update store_money_log
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="categoryDetail != null" >
+        category_detail = #{categoryDetail,jdbcType=INTEGER},
+      </if>
+      <if test="relationId != null" >
+        relation_id = #{relationId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="commont != null" >
+        commont = #{commont,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="backTime != null" >
+        back_time = #{backTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null" >
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null" >
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null" >
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null" >
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询店铺帐变记录 -->
+  <select id="selectByParamObj" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" /> from store_money_log
+    <where>
+    	<if test="param.storeId != null and param.storeId != '' ">store_id = #{param.storeId}</if>
+    	<if test="param.category != null and param.category != '' ">and category = #{param.category}</if>
+    	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and (create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+ 	</if>
+ 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 		and create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+ 	</if>
+ 	<if test="(param.createTimeBegin == null or param.createTimeBegin == '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+ 	</if>
+    </where>
+   order by id desc limit #{pagination.firstResult},#{pagination.pageSize} 
+  </select>
+  
+  <!-- 查询店铺帐变记录条目数 -->
+  <select id="selectWaitCountByParamObj" resultType="java.lang.Integer" >
+    select count(id) from store_money_log
+    <where>
+    	<if test="param.storeId != null and param.storeId != '' ">store_id = #{param.storeId}</if>
+    	<if test="param.category != null and param.category != '' ">and category = #{param.category}</if>
+    	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and (create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+ 	</if>
+ 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 		and create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+ 	</if>
+ 	<if test="(param.createTimeBegin == null or param.createTimeBegin == '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+ 	</if>
+    </where>
+  </select>
+  
+  <!-- 查询店铺资金流水记录 , ChenXin -->
+  <select id="getStoreMoneyLogByParam" resultMap="BaseResultMap" >
+    select 
+    store_money_log.id, store_money_log.store_id,store.store_name, store_money_log.money, store_money_log.balance, store_money_log.type, store_money_log.category, store_money_log.category_detail, store_money_log.relation_id, store_money_log.state, 
+    store_money_log.operator, store_money_log.commont, store_money_log.create_time, store_money_log.back_time, store_money_log.reserved1, store_money_log.reserved2, store_money_log.reserved3, store_money_log.reserved4, 
+    store_money_log.reserved5, store_money_log.reserved6, store_money_log.reserved7, store_money_log.reserved8, store_money_log.reserved9, store_money_log.reserved10
+	 from store_money_log 
+	 left join store on store.store_id = store_money_log.store_id
+    <where>
+    	<if test="param.storeId != null and param.storeId != '' ">store_money_log.store_id = #{param.storeId}</if>
+    	<if test="param.category != null and param.category != '' ">and store_money_log.category = #{param.category}</if>
+    	<if test="param.categoryDetail != null and param.categoryDetail != '' ">and store_money_log.category_detail = #{param.categoryDetail}</if>
+		<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and (store_money_log.create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+ 	</if>
+ 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 		and store_money_log.create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+ 	</if>
+ 	<if test="(param.createTimeBegin == null or param.createTimeBegin == '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and store_money_log.create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+ 	</if>
+    </where>
+   order by store_money_log.id DESC 
+   <if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if> 
+  </select>
+  
+  <!-- 查询店铺资金流水记录 总数, ChenXin -->
+  <select id="getStoreMoneyLogCountByParam" resultType="java.lang.Integer" >
+    select count(id) from store_money_log
+    <where>
+    	<if test="param.storeId != null and param.storeId != '' ">store_id = #{param.storeId}</if>
+    	<if test="param.category != null and param.category != '' ">and category = #{param.category}</if>
+		<if test="param.categoryDetail != null and param.categoryDetail != '' ">and store_money_log.category_detail = #{param.categoryDetail}</if>
+    	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and (create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+ 	</if>
+ 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 		and create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+ 	</if>
+ 	<if test="(param.createTimeBegin == null or param.createTimeBegin == '') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		and create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+ 	</if>
+    </where>
+  </select>
+  
+</mapper>

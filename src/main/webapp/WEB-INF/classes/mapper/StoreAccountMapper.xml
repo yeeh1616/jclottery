@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreAccount" >
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="serveice_account" property="serveiceAccount" jdbcType="DOUBLE" />
+    <result column="print_account" property="printAccount" jdbcType="DOUBLE" />
+    <result column="give_account" property="giveAccount" jdbcType="DOUBLE" />
+    <result column="frozen_account" property="frozenAccount" jdbcType="DOUBLE" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="close_time" property="closeTime" jdbcType="VARCHAR" />
+    <result column="vision" property="vision" jdbcType="INTEGER" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+    <result column="waitget_account" property="waitGetAccount" jdbcType="DOUBLE" />
+    <result column="canget_account" property="canGetAccount" jdbcType="DOUBLE" />
+    <result column="waitget_account_yp" property="waitGetAccountYp" jdbcType="DOUBLE" />
+    <result column="canget_account_yp" property="canGetAccountYp" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    store_id, store_name, serveice_account, print_account, give_account, frozen_account, 
+    state, create_time, close_time, vision, reserved1, reserved2, reserved3, reserved4, 
+    reserved5, reserved6, reserved7, reserved8, reserved9, reserved10,
+    waitget_account,canget_account,waitget_account_yp,canget_account_yp
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_account
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from store_account
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.StoreAccount" >
+    insert into store_account (store_id, store_name, serveice_account, 
+      print_account, give_account, frozen_account, 
+      state, create_time, close_time, 
+      vision, reserved1, reserved2, 
+      reserved3, reserved4, reserved5, 
+      reserved6, reserved7, reserved8, 
+      reserved9, reserved10)
+    values (#{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, #{serveiceAccount,jdbcType=DOUBLE}, 
+      #{printAccount,jdbcType=DOUBLE}, #{giveAccount,jdbcType=DOUBLE}, #{frozenAccount,jdbcType=DOUBLE}, 
+      #{state,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, #{closeTime,jdbcType=VARCHAR}, 
+      #{vision,jdbcType=INTEGER}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}, 
+      #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, #{reserved8,jdbcType=VARCHAR}, 
+      #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.StoreAccount" >
+    update store_account
+    <set >
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="serveiceAccount != null" >
+        serveice_account = #{serveiceAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="printAccount != null" >
+        print_account = #{printAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="giveAccount != null" >
+        give_account = #{giveAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="frozenAccount != null" >
+        frozen_account = #{frozenAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="closeTime != null" >
+        close_time = #{closeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="vision != null" >
+        vision = #{vision,jdbcType=INTEGER},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null" >
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null" >
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null" >
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null" >
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+ <!-- 根据店铺id和账户状态查询账户 -->
+ <select id="selectByParamObject" resultMap="BaseResultMap">
+ 	select <include refid="Base_Column_List" /> from store_account
+ 	<where>
+ 		<if test="param.storeId != null and param.storeId != ''">
+ 		 store_id = #{param.storeId}
+ 		</if>
+ 		<if test="param.state != null and param.state != ''">
+ 		and state = #{param.state}
+ 		</if>
+ 	</where>
+ </select>
+ <!-- 修改账户的冻结资金信息 -->
+ <update id="updateSAFAccount">
+ 	update store_account
+ 	<set>
+ 	 frozen_account = frozen_account+#{param.frozenAccount},vision = vision + 1
+ 	</set>
+ 	<where>
+ 	store_id = #{param.storeId} and vision = #{param.vision}
+ 	</where>
+ </update>
+ 
+  <!-- 修改账户的代打票资金信息 -->
+ <update id="updateSAPrintAccount">
+ 	update store_account
+ 	<set>
+ 	 print_account = print_account+#{param.printAccount},vision = vision + 1
+ 	</set>
+ 	<where>
+ 	store_id = #{param.storeId} and vision = #{param.vision}
+ 	</where>
+ </update>
+ 
+ <update id="updateStoreAccountByStoreIdAndVision">
+    update store_account
+    <set >
+      <if test="param1.storeName != null" >
+        store_name = #{param1.storeName},
+      </if>
+      <if test="param1.serveiceAccount != null" >
+        serveice_account = #{param1.serveiceAccount},
+      </if>
+      <if test="param1.printAccount != null" >
+        print_account = #{param1.printAccount},
+      </if>
+      <if test="param1.giveAccount != null" >
+        give_account = #{param1.giveAccount},
+      </if>
+      <if test="param1.frozenAccount != null" >
+        frozen_account = #{param1.frozenAccount},
+      </if>
+      <if test="param1.state != null" >
+        state = #{param1.state},
+      </if>
+      <if test="param1.createTime != null" >
+        create_time = #{param1.createTime},
+      </if>
+      <if test="param1.closeTime != null" >
+        close_time = #{param1.closeTime},
+      </if>
+      <if test="param1.vision != null" >
+        vision = #{param1.vision} + 1,
+      </if>
+      <if test="param1.reserved1 != null" >
+        reserved1 = #{param1.reserved1},
+      </if>
+      <if test="param1.reserved2 != null" >
+        reserved2 = #{param1.reserved2},
+      </if>
+      <if test="param1.reserved3 != null" >
+        reserved3 = #{param1.reserved3},
+      </if>
+      <if test="param1.reserved4 != null" >
+        reserved4 = #{param1.reserved4},
+      </if>
+      <if test="param1.reserved5 != null" >
+        reserved5 = #{param1.reserved5},
+      </if>
+      <if test="param1.reserved6 != null" >
+        reserved6 = #{param1.reserved6},
+      </if>
+      <if test="param1.reserved7 != null" >
+        reserved7 = #{param1.reserved7},
+      </if>
+      <if test="param1.reserved8 != null" >
+        reserved8 = #{param1.reserved8},
+      </if>
+      <if test="param1.reserved9 != null" >
+        reserved9 = #{param1.reserved9},
+      </if>
+      <if test="param1.reserved10 != null" >
+        reserved10 = #{param1.reserved10},
+      </if>
+    </set>
+    where store_id = #{param1.storeId} and vision = #{param1.vision}
+  </update>
+ 
+ <!-- 修改账户状态，ChenXin -->
+ <update id="updateStoreAccountStateByStoreId">
+    update store_account
+    <set >
+      <if test="param1.state != null" >
+        state = #{param.state}
+      </if>
+    </set>
+    where store_id = #{param.storeId}
+  </update>
+ 
+ <!-- 店铺金额 -->
+   <select id="getStoreAccount" resultMap="BaseResultMap" >
+	select store.store_name as reserved1,sum(print_account) as reserved3,store.store_id 
+	as reserved6 from store,store_account 
+	where store.store_id=store_account.store_id 
+	<if test="startTime != null and startTime != ''">and store_account.create_time &gt; #{startTime}</if>
+	<if test="printCenter != null and printCenter != ''">and store.reserved3=#{printCenter}</if>
+	<if test="endTime != null and endTime != ''">and store_account.close_time &lt; #{endTime}</if>
+	<if test="reserved4 != null and reserved4 != ''">and store.store_name=#{reserved4}</if>
+	 group by reserved6 having (store.store_name !='' or store.store_name !=null)
+	 <if test="reserved3 != null and reserved3 != ''">and reserved3 &gt; #{reserved3}</if>
+	 <if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>
+  </select>
+  
+  <!-- 汇总所有的店铺金额 -->
+   <select id="getStoreAccountTotal" resultMap="BaseResultMap" >
+	select sum(print_account) as reserved5 from store,store_account 
+	where store.store_id=store_account.store_id and (store.store_name !='' or store.store_name !=null)
+	<if test="startTime != null and startTime != ''">and store_account.create_time &gt; #{startTime}</if>
+	<if test="endTime != null and endTime != ''">and store_account.close_time &lt; #{endTime}</if>
+	<if test="reserved4 != null and reserved4 != ''">and store.store_name=#{reserved4}</if>
+	<if test="printCenter != null and printCenter != ''">and store.reserved3=#{printCenter}</if>
+  </select>
+  
+  <!-- 分页查询记录条数 -->	
+  <select id="getStoreAccountCount" resultType="java.lang.Integer">
+	 select count(reserved1) 
+	 from (select store.store_name as reserved1,sum(print_account) as reserved3, 
+	 store.store_id as reserved6 from store,store_account 
+	 where store.store_id=store_account.store_id 
+	<if test="startTime != null and startTime != ''">and store_account.create_time &gt; #{startTime}</if>
+	<if test="printCenter != null and printCenter != ''">and store.reserved3=#{printCenter}</if>	
+	<if test="endTime != null and endTime != ''">and store_account.close_time &lt; #{endTime}</if>
+	<if test="reserved4 != null and reserved4 != ''">and store.store_name=#{reserved4}</if>	
+	 group by reserved6 having (store.store_name !='' or store.store_name !=null)
+	 <if test="reserved3 != null and reserved3 != ''">and reserved3 &gt; #{reserved3}</if>)emp
+   </select>
+   
+  <!-- 店铺金额按店铺查询 -->
+   <select id="selectByStoredition3" resultMap="BaseResultMap">
+  	select distinct store.store_name as reserved4 from store  
+	where store_name !='' and store_id !='-1'
+	<if test="printCenter != null and printCenter != ''">and store.reserved3=#{printCenter}</if>	
+  </select>
+  
+  <!-- 更新店铺汇付宝可取的充值款 -->
+ <update id="updateCanGetAccount">
+ 	update store_account
+ 	<set>
+ 	 canget_account = canget_account+#{param.canGetAccount},vision = vision + 1
+ 	</set>
+ 	<where>
+ 	store_id = #{param.storeId} and vision = #{param.vision}
+ 	</where>
+ </update>
+ 
+ <update id="updateWaitGetAccount">
+ 	update store_account
+ 	<set>
+ 	 waitget_account = waitget_account+#{param.waitGetAccount},vision = vision + 1
+ 	</set>
+ 	<where>
+ 	store_id = #{param.storeId} and vision = #{param.vision}
+ 	</where>
+ </update>
+ 
+ <update id="updateWaitGetAndCanGetAccount">
+ 	update store_account
+ 	<set>
+ 	 canget_account = canget_account+#{param.canGetAccount},waitget_account = waitget_account+#{param.waitGetAccount},vision = vision + 1
+ 	</set>
+ 	<where>
+ 	store_id = #{param.storeId} and vision = #{param.vision}
+ 	</where>
+ </update>
+ 
+ <!-- 更新店铺易宝可取的充值款 -->
+ <update id="updateCanGetAccountYp">
+ 	update store_account
+ 	<set>
+ 	 canget_account_yp = canget_account_yp+#{param.canGetAccountYp},vision = vision + 1
+ 	</set>
+ 	<where>
+ 	store_id = #{param.storeId} and vision = #{param.vision}
+ 	</where>
+ </update>
+ 
+ <update id="updateWaitGetAccountYp">
+ 	update store_account
+ 	<set>
+ 	 waitget_account_yp = waitget_account_yp+#{param.waitGetAccountYp},vision = vision + 1
+ 	</set>
+ 	<where>
+ 	store_id = #{param.storeId} and vision = #{param.vision}
+ 	</where>
+ </update>
+ 
+ <update id="updateWaitGetAndCanGetAccountYp">
+ 	update store_account
+ 	<set>
+ 	 canget_account_yp = canget_account_yp+#{param.canGetAccountYp},
+ 	 waitget_account_yp = waitget_account_yp+#{param.waitGetAccountYp},vision = vision + 1
+ 	</set>
+ 	<where>
+ 	store_id = #{param.storeId} and vision = #{param.vision}
+ 	</where>
+ </update>
+ 
+</mapper>

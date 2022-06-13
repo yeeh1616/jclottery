@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.UserMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.UserMenu" >
+    <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    menu_id, user_id, role_id, reserved1, reserved2, reserved3, reserved4, reserved5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.UserMenuKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.jingc.busi.common.table.UserMenuKey" >
+    delete from user_menu
+    where sys_version = #{sysVersion,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.UserMenu" >
+    insert into user_menu (menu_id, user_id, role_id, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5)
+    values (#{menuId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.UserMenu" >
+    update user_menu
+    <set >
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  
+   <insert id="insertList" parameterType="java.util.List" >
+    insert into user_menu (menu_id, user_id, role_id, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5)
+    values 
+    <foreach collection="list" item="item" separator=",">
+    (#{item.menuId}, #{item.userId}, #{item.roleId}, #{item.reserved1}, 
+      #{item.reserved2}, #{item.reserved3}, #{item.reserved4}, 
+      #{item.reserved5})
+      </foreach>
+  </insert>
+  
+  <delete id="deleteUserMenuByRoleId" parameterType="java.lang.Integer" >
+    delete from user_menu
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 废弃
+  <select id="selectUserMenuByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_menu 
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </select>
+   -->
+   
+  <delete id="deleteUserMenuByMenuId" parameterType="java.lang.Integer" >
+    delete from user_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteUserMenuByUserId" parameterType="java.lang.Integer" >
+    delete from user_menu
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+</mapper>

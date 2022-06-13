@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MergerCustomMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MergerCustom" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="customized_member_id" property="customizedMemberId" jdbcType="INTEGER" />
+    <result column="customizing_member_id" property="customizingMemberId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="custom_mode" property="customMode" jdbcType="INTEGER" />
+    <result column="fixed_cus_money" property="fixedCusMoney" jdbcType="DOUBLE" />
+    <result column="cus_prop" property="cusProp" jdbcType="DOUBLE" />
+    <result column="per_num" property="perNum" jdbcType="INTEGER" />
+    <result column="appointed" property="appointed" jdbcType="INTEGER" />
+    <result column="cus_date" property="cusDate" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="cancel_date" property="cancelDate" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <!-- member表字段 -->
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMap2" type="com.jingc.busi.common.table.MergerCustom" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="customized_member_id" property="customizedMemberId" jdbcType="INTEGER" />
+    <result column="customizing_member_id" property="customizingMemberId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="custom_mode" property="customMode" jdbcType="INTEGER" />
+    <result column="fixed_cus_money" property="fixedCusMoney" jdbcType="DOUBLE" />
+    <result column="cus_prop" property="cusProp" jdbcType="DOUBLE" />
+    <result column="per_num" property="perNum" jdbcType="INTEGER" />
+    <result column="appointed" property="appointed" jdbcType="INTEGER" />
+    <result column="cus_date" property="cusDate" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="cancel_date" property="cancelDate" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <!-- member表字段 -->
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="customizing_member_name" property="customizingMemberName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, customized_member_id, customizing_member_id, store_id, license_id, custom_mode, 
+    fixed_cus_money, cus_prop, per_num, appointed, cus_date, state, cancel_date, reserved1, 
+    reserved2, reserved3, reserved4, reserved5
+  </sql>
+  
+  <sql id="Base_Column_List2" >
+    mc.id, mc.customized_member_id, mc.customizing_member_id, mc.store_id, mc.license_id, mc.custom_mode, 
+    mc.fixed_cus_money, mc.cus_prop, mc.per_num, mc.appointed, mc.cus_date, mc.state, mc.cancel_date, mc.reserved1, 
+    mc.reserved2, mc.reserved3, mc.reserved4, mc.reserved5,mem.member_name
+  </sql>
+  
+  <sql id="Base_Column_List_a" >
+    a.id as id, a.customized_member_id as customized_member_id, a.customizing_member_id as customizing_member_id, a.store_id as store_id, a.license_id as license_id, a.custom_mode as custom_mode, 
+    a.fixed_cus_money as fixed_cus_money, a.cus_prop as cus_prop, a.per_num as per_num, a.appointed as appointed, a.cus_date as cus_date, a.state as state, a.cancel_date as cancel_date, a.reserved1 as reserved1, 
+    a.reserved2 as reserved2, a.reserved3 as reserved3, a.reserved4 as reserved4, a.reserved5 as reserved5,b.member_name as member_name
+  </sql>
+  
+  <sql id="Base_Column_List_b" >
+    c.id as id, c.customized_member_id as customized_member_id, c.customizing_member_id as customizing_member_id, c.store_id as store_id, c.license_id as license_id, c.custom_mode as custom_mode, 
+    c.fixed_cus_money as fixed_cus_money, c.cus_prop as cus_prop, c.per_num as per_num, c.appointed as appointed, c.cus_date as cus_date, c.state as state, c.cancel_date as cancel_date, c.reserved1 as reserved1, 
+    c.reserved2 as reserved2, c.reserved3 as reserved3, c.reserved4 as reserved4, c.reserved5 as reserved5,c.member_name as member_name,d.member_name as customizing_member_name
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from merger_custom
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 根据传入的参数对象查询购跟单记录 (开始)-->
+  <select id="selectMergerCustomCountByParamObject" resultType="java.lang.Integer">
+    select count(*)
+    from merger_custom
+    <where>
+    	state = '1'
+		<if test="param.customizedMemberId != null and param.customizedMemberId !=''"> and customized_member_id = #{param.customizedMemberId,jdbcType=INTEGER}</if>
+    	<if test="param.customizingMemberId != null and param.customizingMemberId !=''"> and customizing_member_id = #{param.customizingMemberId,jdbcType=INTEGER}</if>
+		<if test="param.licenseId !=null and param.licenseId !=''"> and license_id = #{param.licenseId,jdbcType=INTEGER}</if>
+  	</where>
+  </select>
+  
+  <select id="selectCountByParamObject" resultType="java.lang.Integer">
+    select count(*)
+    from merger_custom mc 
+    left join member mem
+    on mc.customized_member_id = mem.id
+    <include refid="sByPConditionSQL"/>
+  </select>
+  
+  <select id="selectByParamObject" resultMap="BaseResultMap2">
+    select <include refid="Base_Column_List_b" /> from 
+    (select <include refid="Base_Column_List_a" />
+    from merger_custom a
+    left join member b
+    on a.customized_member_id = b.id
+    <where>
+    	a.state = '1'
+    	<if test="param.customizedMemberId != null and param.customizedMemberId !=''"> and a.customized_member_id = #{param.customizedMemberId,jdbcType=INTEGER}</if>
+    	<if test="param.customizingMemberId != null and param.customizingMemberId !=''"> and a.customizing_member_id = #{param.customizingMemberId,jdbcType=INTEGER}</if>
+		<if test="param.licenseId !=null and param.licenseId !=''"> and a.license_id = #{param.licenseId,jdbcType=INTEGER}</if>
+    </where>) c
+    left join member d
+    on c.customizing_member_id = d.id
+    order by cus_date desc
+  </select>
+  
+  <select id="selectByParamObjectz" resultMap="BaseResultMap2">
+    select <include refid="Base_Column_List_b" /> from 
+    (select <include refid="Base_Column_List_a" />
+    from merger_custom a
+    left join member b
+    on a.customized_member_id = b.id
+    <where>
+    	a.state = '1'
+		and (cancel_date is null or cancel_date='')
+    	<if test="param.customizedMemberId != null and param.customizedMemberId !=''"> and a.customized_member_id = #{param.customizedMemberId,jdbcType=INTEGER}</if>
+    	<if test="param.customizingMemberId != null and param.customizingMemberId !=''"> and a.customizing_member_id = #{param.customizingMemberId,jdbcType=INTEGER}</if>
+		<if test="param.licenseId !=null and param.licenseId !=''"> and a.license_id = #{param.licenseId,jdbcType=INTEGER}</if>
+		<if test="(param.cusDate != null and param.cusDate !='') and (param.cancelDate != null and param.cancelDate !='')">
+			and (a.cus_date between CONCAT(#{param.cusDate}," 00:00:00") and CONCAT(#{param.cancelDate}," 23:59:59"))
+		</if>
+		<if test="(param.cusDate != null and param.cusDate !='') and (param.cancelDate == null or param.cancelDate =='')">
+			 and a.cus_date &gt; CONCAT(#{param.cusDate}," 00:00:00")
+		</if>
+		<if test="(param.cusDate == null or param.cusDate =='') and (param.cancelDate != null and param.cancelDate !='')">
+			 and a.cus_date &lt; CONCAT(#{param.cusDate}," 23:59:59")
+		</if>
+	</where>) c
+    left join member d
+    on c.customizing_member_id = d.id
+    order by cus_date desc
+    <if test="pagination != null">
+    	limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>
+  </select>
+  
+  <sql id="sByPConditionSQL">
+    <where>
+    	mc.state = '1'
+    	<if test="param.customizedMemberId != null and param.customizedMemberId !=''"> and mc.customized_member_id = #{param.customizedMemberId,jdbcType=INTEGER}</if>
+    	<if test="param.customizingMemberId != null and param.customizingMemberId !=''"> and mc.customizing_member_id = #{param.customizingMemberId,jdbcType=INTEGER}</if>
+		<if test="param.licenseId !=null and param.licenseId !=''"> and mc.license_id = #{param.licenseId,jdbcType=INTEGER}</if>
+    </where>
+  </sql>
+  <!-- 根据传入的参数对象查询购跟单记录 (结束)-->
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from merger_custom
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MergerCustom" >
+    insert into merger_custom (id, customized_member_id, customizing_member_id, 
+      store_id, license_id, custom_mode, 
+      fixed_cus_money, cus_prop, per_num, 
+      appointed, cus_date, state, 
+      cancel_date, reserved1, reserved2, 
+      reserved3, reserved4, reserved5
+      )
+    values (#{id,jdbcType=INTEGER}, #{customizedMemberId,jdbcType=INTEGER}, #{customizingMemberId,jdbcType=INTEGER}, 
+      #{storeId,jdbcType=INTEGER}, #{licenseId,jdbcType=INTEGER}, #{customMode,jdbcType=INTEGER}, 
+      #{fixedCusMoney,jdbcType=DOUBLE}, #{cusProp,jdbcType=DOUBLE}, #{perNum,jdbcType=INTEGER}, 
+      #{appointed,jdbcType=INTEGER}, #{cusDate,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{cancelDate,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="updateMergerCustomState">
+  update merger_custom
+  <set>
+  	<if test="state != null">state = #{state},</if>
+  	<if test="cancelDate != null">cancel_date = #{cancelDate},</if>
+  </set>
+  <where>
+  	<if test="id != null">and id = #{id}</if>
+  </where>
+  </update>  
+  
+  <select id="selectList2Order" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from merger_custom where customized_member_id = #{memberId} and license_id = #{licenseId} and state = 1 order by appointed, cus_date asc
+  </select>
+</mapper>

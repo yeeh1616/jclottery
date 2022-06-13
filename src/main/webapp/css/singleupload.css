@@ -1,0 +1,64 @@
+.sc {
+	min-height:260px;
+	padding-top:20px;
+	background-color:#fff;
+	border-left:1px solid #d1d0d0;
+	border-right:1px solid #d1d0d0;
+}
+.sc-bg {
+	width:626px;
+	height:40px;
+	margin-left:40px;
+	background-color:#f3f3f3;
+}
+.sg {
+	margin-top:10px;
+	float:left;
+	margin-left:30px;
+}
+.yangb {
+	float: left;
+	margin-top: 20px;
+	line-height: 28px;
+	margin-left: 20px;
+}
+.yangb a {
+	color:#097fbb;
+}
+.yangb a:hover {
+	color:#900;
+}
+.both {
+	clear:both;
+}
+.xz {
+	margin-top:40px;
+	margin-left:60px;
+	line-height:22px;
+	color:#615049;
+}
+.xz span {
+	font-weight:bold;
+	margin-bottom:5px;
+}
+.buy {
+	float:left;
+	margin-top:20px;
+	margin-left:60px;
+}
+.buy a {
+	width:98px;
+	height:28px;
+	background-color:#3ea9e0;
+	border:1px solid #247ba8;
+	color:#FFF;
+	cursor:pointer;
+	display:block;
+	text-align:center;
+	line-height:28px;
+}
+.buy a:hover {
+	background-color:#c33;
+	border:1px solid #993232;
+	text-decoration:none;
+}

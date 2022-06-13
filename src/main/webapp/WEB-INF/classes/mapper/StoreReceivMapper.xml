@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreReceivMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreReceiv" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="account_user_name" property="accountUserName" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="usefor" property="usefor" jdbcType="INTEGER" />
+    <result column="ask_date" property="askDate" jdbcType="VARCHAR" />
+    <result column="answer_date" property="answerDate" jdbcType="VARCHAR" />
+    <result column="commons" property="commons" jdbcType="VARCHAR" />
+    <result column="operator_userName" property="operatorStoreName" jdbcType="VARCHAR" />
+    <result column="operator_storeName" property="operatorUserName" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, store_id, type, account_name, account_user_name, account, state, usefor, ask_date, answer_date, commons, 
+    operator_userName,operator_storeName ,reserved1, reserved2, 
+    reserved3, reserved4, reserved5, reserved6, reserved7, reserved8, reserved9, reserved10
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_receiv
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from store_receiv
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.jingc.busi.common.table.StoreReceiv" useGeneratedKeys="true" keyProperty="id">
+    insert into store_receiv (id, store_id, type, 
+      account_name, account_user_name, account, 
+      state,usefor, ask_date, answer_date, commons, operator_userName,operator_storeName, 
+      reserved1, reserved2, 
+      reserved3, reserved4, reserved5, 
+      reserved6, reserved7, reserved8, 
+      reserved9, reserved10)
+    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{accountName,jdbcType=VARCHAR}, #{accountUserName,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER},#{usefor,jdbcType=INTEGER}, 
+      #{askDate,jdbcType=VARCHAR},#{answerDate,jdbcType=VARCHAR},#{commons,jdbcType=VARCHAR},
+      #{operatorStoreName,jdbcType=VARCHAR},#{operatorUserName,jdbcType=VARCHAR},
+      #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}, 
+      #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, #{reserved8,jdbcType=VARCHAR}, 
+      #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR})
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.StoreReceiv" >
+    update store_receiv
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountUserName != null" >
+        account_user_name = #{accountUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="usefor != null" >
+        state = #{usefor,jdbcType=INTEGER},
+      </if>
+      <if test="askDate != null" >
+        ask_date = #{askDate,jdbcType=VARCHAR},
+      </if>
+      <if test="answerDate != null" >
+        answer_date = #{answerDate,jdbcType=VARCHAR},
+      </if>
+      <if test="commons != null" >
+        commons = #{commons,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorStoreName != null" >
+        operator_userName = #{operatorStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorUserName != null" >
+        operator_storeName = #{operatorUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null" >
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null" >
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null" >
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null" >
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByParam" parameterType="com.jingc.busi.common.table.StoreReceiv">
+    update store_receiv
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountUserName != null" >
+        account_user_name = #{accountUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="usefor != null" >
+        state = #{usefor,jdbcType=INTEGER},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ <!-- 查询店铺下的收款方式——收款银行 -->
+ <select id="selectByParamObject" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" /> from store_receiv
+    <where>
+    	<if test="param.storeId != null and param.storeId !=''">store_id = #{param.storeId}</if>
+    	<if test="param.type != null and param.type !=''"> and type = #{param.type}</if>
+    	<if test="param.state != null and param.state !=''"> and state = #{param.state}</if>
+    	<if test="param.usefor != null and param.usefor !=''"> and usefor = #{param.usefor}</if>
+    </where>
+    <if test="pagination != null and pagination != ''"><!-- pagination 为空时表示不需要分页 -->
+    limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>    
+  </select>
+  
+  <!-- 查询店铺下的收款方式条目数——收款银行 -->
+ <select id="selectWaitCountByParamObject" resultType="java.lang.Integer" >
+    select count(*) from store_receiv
+    <where>
+    	<if test="param.storeId != null and param.storeId !=''">store_id = #{param.storeId}</if>
+    	<if test="param.type != null and param.type !=''"> and type = #{param.type}</if>
+    	<if test="param.state != null and param.state !=''"> and state = #{param.state}</if>
+    	<if test="param.usefor != null and param.usefor !=''"> and usefor = #{param.usefor}</if>
+    </where>
+  </select>
+</mapper>

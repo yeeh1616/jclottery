@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreUserMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreUser" >
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <id column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="true_name" property="trueName" jdbcType="VARCHAR" />
+    <result column="login_pass" property="loginPass" jdbcType="VARCHAR" />
+    <result column="account_pass" property="accountPass" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="close_time" property="closeTime" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    store_user.store_id, store_user.user_id, store_user.user_name, store_user.true_name, store_user.login_pass, store_user.account_pass, 
+    store_user.mobile, store_user.email, store_user.state,store_user.role_id, store_user.create_time, store_user.close_time, store_user.reserved1,
+    store_user.reserved2, store_user.reserved3, store_user.reserved4, store_user.reserved5, 
+    store_user.reserved6, store_user.reserved7, store_user.reserved8, store_user.reserved9, store_user.reserved10
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.StoreUserKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_user
+    where store_id = #{storeId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.jingc.busi.common.table.StoreUserKey" >
+    delete from store_user
+    where store_id = #{storeId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.jingc.busi.common.table.StoreUser" useGeneratedKeys="true" keyProperty="userId">
+    insert into store_user (store_id, user_id, user_name, 
+      true_name, login_pass, account_pass, 
+      mobile, email, state, role_id,
+      create_time, close_time, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5, reserved6, reserved7, 
+      reserved8, reserved9, reserved10
+      )
+    values (#{storeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{trueName,jdbcType=VARCHAR}, #{loginPass,jdbcType=VARCHAR}, #{accountPass,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=VARCHAR}, #{closeTime,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR}, #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, 
+      #{reserved8,jdbcType=VARCHAR}, #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="updateOnlineStatus">
+  	update store_user set reserved1 = #{status} where store_id = #{storeId} and user_id = #{userId}
+  </update>
+  
+  <!-- 修改密码 -->
+  <update id="updatePass">
+    update store_user
+    <set>
+    	<if test="param.loginPass != null and param.loginPass != ''">login_pass = #{param.loginPass},</if>
+    	<if test="param.accountPass != null and param.accountPass != ''">account_pass = #{param.accountPass},</if>
+    </set>
+    <where>
+    	 user_id = #{param.userId} and store_id = #{param.storeId}
+    </where>
+    </update>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.StoreUser" >
+    update store_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="trueName != null" >
+        true_name = #{trueName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPass != null" >
+        login_pass = #{loginPass,jdbcType=VARCHAR},
+      </if>
+      <if test="accountPass != null" >
+        account_pass = #{accountPass,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="closeTime != null" >
+        close_time = #{closeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null" >
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null" >
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null" >
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null" >
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据参数查询职员信息——店主店员登陆用 -->
+  <select id="selectByPOStoreLogin" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" />,(select store_name from store where store_id = store_user.store_id) store_name from store_user 
+    <where>
+    	<if test="param.state != null and param.state !=''"> state = #{param.state}</if>
+    	<if test="param.userName != null and param.userName !=''"> and user_name = #{param.userName}</if>
+    	<if test="param.loginPass != null and param.loginPass !=''"> and UPPER(login_pass) = UPPER(#{param.loginPass})</if>
+    	and store_id != '-1'
+    </where>
+  </select>
+  
+  <!-- 根据参数查询职员信息——店主店员登陆用(这里只判断用户名是否存在) -->
+  <select id="selectByPOStoreLogin2" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" />,(select store_name from store where store_id = store_user.store_id) store_name from store_user 
+    <where>
+    	<if test="param.state != null and param.state !=''"> state = #{param.state}</if>
+    	<if test="param.userName != null and param.userName !=''"> and user_name = #{param.userName}</if>
+    	and store_id != '-1'
+    </where>
+  </select>
+  
+  <!-- 根据参数查询职员信息——运维系统人员登陆用 -->
+  <select id="selectByParamObjectLogin" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" />, store_name from store_user , store
+    <where>
+    	<if test="param.state != null and param.state !=''"> store_user.state = #{param.state}</if>
+    	<if test="param.userName != null and param.userName !=''"> and store_user.user_name = #{param.userName}</if>
+    	<if test="param.loginPass != null and param.loginPass !=''"> and UPPER(login_pass) = UPPER(#{param.loginPass})</if>
+    	and store.store_id = store_user.store_id and store.level&lt;&gt;4
+    </where>
+  </select>
+  
+  <!-- 根据参数查询所有的职员信息 -->
+  <select id="selectByParamObject" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" /> from store_user <include refid="conSQL"/>
+     <if test="pin != null">limit #{pin.firstResult},#{pin.pageSize}</if> <!--pin为null时表示不要分页 -->
+  </select>
+  <!-- 根据参数查询所有的职员信息的条目数 -->
+   <select id="selectWaitCountByParamObject" resultType="java.lang.Integer" >
+    select count(*) from store_user <include refid="conSQL"/>	 
+  </select>
+  
+  <select id="selectByUsername" resultType="java.lang.Integer">
+  	select count(*) from store_user where user_name=#{userName} 
+  </select>
+  
+  <select id="selectStoreIdByUserNameAndLoginPass" resultType = "java.lang.Integer">
+  	select <include refid = "Base_Column_List" /> from store_user where user_name = #{ userName } and login_pass = #{ loginPass }
+  </select>
+  
+  <sql id="conSQL">
+  	<where>
+    	<if test="param.state != null"> state = #{param.state}</if>
+    	<if test="param.storeId != null"> and store_id = #{param.storeId}</if>
+    	<if test="param.userName != null and param.userName !=''"> and user_name = #{param.userName}</if>
+    	<if test="param.loginPass != null and param.loginPass !=''"> and login_pass = #{param.loginPass}</if>
+    	<if test="param.reserved1 != null"> and reserved1 = #{param.reserved1}</if>
+    	<if test="param.roleId != null"> and role_id = #{param.roleId}</if>
+    </where>
+  </sql>
+</mapper>

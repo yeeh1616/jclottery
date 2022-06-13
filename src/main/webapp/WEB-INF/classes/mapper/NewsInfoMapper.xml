@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.NewsInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.NewsInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="close_time" property="closeTime" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, type, store_id, user_id, user_name, title, summary, content, create_time, close_time, 
+    reserved1, reserved2, reserved3, reserved4, reserved5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from news_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from news_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.NewsInfo" useGeneratedKeys="true" keyProperty="id">
+    insert into news_info (id, type, store_id, 
+      user_id, user_name, title, 
+      summary, content, create_time, 
+      close_time, reserved1, reserved2, 
+      reserved3, reserved4, reserved5
+      )
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{summary,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{closeTime,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+ <!-- 批量插入新闻 --> 
+ <insert id="batchNewsdata" useGeneratedKeys="true" parameterType="java.util.List">  
+    <selectKey resultType="long" keyProperty="id" order="AFTER">  
+        SELECT  
+        LAST_INSERT_ID()  
+    </selectKey>  
+    insert  ignore into news_info (id, type, store_id, 
+      user_id, user_name, title, 
+      summary, content, create_time, 
+      close_time, reserved1, reserved2, 
+      reserved3, reserved4, reserved5
+      )   
+    values  
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.id,jdbcType=INTEGER}, #{item.type,jdbcType=INTEGER}, #{item.storeId,jdbcType=INTEGER}, 
+      #{item.userId,jdbcType=INTEGER}, #{item.userName,jdbcType=VARCHAR}, #{item.title,jdbcType=VARCHAR}, 
+      #{item.summary,jdbcType=VARCHAR}, #{item.content,jdbcType=VARCHAR}, #{item.createTime,jdbcType=VARCHAR}, 
+      #{item.closeTime,jdbcType=VARCHAR}, #{item.reserved1,jdbcType=VARCHAR}, #{item.reserved2,jdbcType=VARCHAR}, 
+      #{item.reserved3,jdbcType=VARCHAR}, #{item.reserved4,jdbcType=VARCHAR}, #{item.reserved5,jdbcType=VARCHAR}
+      )  
+    </foreach>  
+</insert>   
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.NewsInfo" >
+    update news_info
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="closeTime != null" >
+        close_time = #{closeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 根据参数对象条件查询新闻资讯——参数对象包含店铺id、类型、标题、开始时间、结束时间  -->
+  <select id="selectNewsInfoByParamObject" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> from news_info
+  <where>
+     (close_time is null or close_time='')
+  	<if test="param.storeId != null and param.storeId !=''"> and store_id = #{param.storeId}</if>
+  	<!-- <choose>
+  		<when test="param.type != null and param.type !=''"> and type = #{param.type}</when>
+  		<otherwise> and type &lt; '100'</otherwise>
+  	</choose> -->
+  	<if test="param.storeNewsTypeList != null and param.storeNewsTypeList.size() > 0"> 
+ 		and type in 
+ 		<foreach collection="param.storeNewsTypeList" item="item" index="index" open="(" close=")" separator=",">
+ 		 #{item}
+ 		</foreach>
+ 	</if>
+ 	<if test="param.title != null and param.title !=''"> and title like CONCAT("%",#{param.title},"%")</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+		and (create_time between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59"))
+	</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')">
+  		 and create_time &gt; CONCAT(#{param.beginTime}," 00:00:00")
+  	</if>
+  	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+  		 and create_time &lt; CONCAT(#{param.endTime}," 23:59:59")
+  	</if>
+  </where>
+  order by create_time desc limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+  <!-- 根据参数对象条件查询资讯条目数——参数对象包含店铺id、类型、标题、开始时间、结束时间  -->
+  <select id="selectNewsWaitCount" resultType="java.lang.Integer">
+  select count(*) from news_info
+  <where>
+  	(close_time is null or close_time='')
+  	<if test="param.storeId != null and param.storeId !=''"> and store_id = #{param.storeId}</if>
+  	<!-- <choose>
+  		<when test="param.type != null and param.type !=''"> and type = #{param.type}</when>
+  		<otherwise> and type &lt; '100'</otherwise>
+  	</choose> -->
+    <if test="param.storeNewsTypeList != null and param.storeNewsTypeList.size() > 0"> 
+ 		and type in 
+ 		<foreach collection="param.storeNewsTypeList" item="item" index="index" open="(" close=")" separator=",">
+ 		 #{item}
+ 		</foreach>
+ 	</if>
+  	<if test="param.title != null and param.title !=''"> and title like CONCAT("%",#{param.title},"%")</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+		and (create_time between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59"))
+	</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')">
+  		 and create_time &gt; CONCAT(#{param.beginTime}," 00:00:00")
+  	</if>
+  	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+  		 and create_time &lt; CONCAT(#{param.endTime}," 23:59:59")
+  	</if>
+  </where>
+  </select>
+  
+  <!-- 根据参数对象条件查询推荐——参数对象包含店铺id、类型、标题、开始时间、结束时间  -->
+  <select id="selectRecomByParamObject" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> from news_info
+  <where>
+     (close_time is null or close_time='')
+  	<if test="param.storeId != null and param.storeId !=''"> and store_id = #{param.storeId}</if>
+  	<if test="param.storeIdList != null and param.storeIdList.size() > 0"> 
+		and store_id in 
+		<foreach collection="param.storeIdList" item="item" index="index" open="(" close=")" separator=",">
+		 #{item}
+		</foreach>
+		</if>
+  	<choose>
+  		<when test="param.type != null and param.type !=''"> and type = #{param.type}</when>
+  		<otherwise> </otherwise>
+  	</choose>
+  	<if test="param.recomTypeList != null and param.recomTypeList.size() > 0"> 
+ 		and type in 
+ 		<foreach collection="param.recomTypeList" item="item" index="index" open="(" close=")" separator=",">
+ 		 #{item}
+ 		</foreach>
+ 	</if>
+  	<if test="param.title != null and param.title !=''"> and title like CONCAT("%",#{param.title},"%")</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+		and (create_time between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59"))
+	</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')">
+  		 and create_time &gt; CONCAT(#{param.beginTime}," 00:00:00")
+  	</if>
+  	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+  		 and create_time &lt; CONCAT(#{param.endTime}," 23:59:59")
+  	</if>
+  </where>
+  order by store_id desc , create_time desc limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+  <!-- 根据参数对象条件查询推荐条目数——参数对象包含店铺id、类型、标题、开始时间、结束时间  -->
+  <select id="selectRecomWaitCount" resultType="java.lang.Integer">
+  select count(*) from news_info
+  <where>
+  	(close_time is null or close_time='')
+  	<if test="param.storeId != null and param.storeId !=''"> and store_id = #{param.storeId}</if>
+  	<choose>
+  		<when test="param.type != null and param.type !=''"> and type = #{param.type}</when>
+  		<otherwise></otherwise>
+  	</choose>
+   	<if test="param.recomTypeList != null and param.recomTypeList.size() > 0"> 
+   		and type in 
+   		<foreach collection="param.recomTypeList" item="item" index="index" open="(" close=")" separator=",">
+   		 #{item}
+   		</foreach>
+   	</if>
+  	<if test="param.title != null and param.title !=''"> and title like CONCAT("%",#{param.title},"%")</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+		and (create_time between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59"))
+	</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')">
+  		 and create_time &gt; CONCAT(#{param.beginTime}," 00:00:00")
+  	</if>
+  	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+  		 and create_time &lt; CONCAT(#{param.endTime}," 23:59:59")
+  	</if>
+  </where>
+  </select>
+  
+  
+  <!-- 类别带in字句的查寻-->
+  <select id="selectByParamObjectByStoreList" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> from news_info
+  <where>
+     (close_time is null or close_time='')
+  	<if test="param.storeIdList != null and param.storeIdList.size() > 0"> 
+			and store_id in 
+				<foreach collection="param.storeIdList" item="item" index="index" open="(" close=")" separator=",">
+				 #{item}
+				</foreach>
+		</if>
+  	<if test="param.type != null and param.type !=''"> and type = #{param.type}</if>
+  	<if test="param.title != null and param.title !=''"> and title like CONCAT("%",#{param.title},"%")</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+		and (create_time between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59"))
+	</if>
+  	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')">
+  		 and create_time &gt; CONCAT(#{param.beginTime}," 00:00:00")
+  	</if>
+  	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+  		 and create_time &lt; CONCAT(#{param.endTime}," 23:59:59")
+  	</if>
+  </where>
+  order by create_time desc limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+  <!-- 按类型取最新的num条数据 -->
+  <select id="selectLatestByType" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> from news_info 
+  where type = #{type} and (store_id = #{storeId} or store_id = -1) order by store_id DESC,create_time DESC limit #{num}
+  </select>
+  
+  <!-- 按类型取最新的num条数据 -->
+  <select id="selectLatestByTypeList" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> from news_info 
+  <where>
+  	<if test="typeList != null and typeList.size() > 0"> 
+		type in 
+		<foreach collection="typeList" item="item" index="index" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</if>
+	and (close_time is null or close_time = '') and (store_id = #{storeId} or store_id = -1) order by store_id DESC,create_time DESC limit #{num}
+  </where>
+   
+  </select>
+</mapper>

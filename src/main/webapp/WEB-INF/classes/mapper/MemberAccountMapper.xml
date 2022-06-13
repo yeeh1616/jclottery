@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MemberAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MemberAccount" >
+    <id column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="can_drawals_account" property="canDrawalsAccount" jdbcType="DOUBLE" />
+    <result column="money_account" property="moneyAccount" jdbcType="DOUBLE" />
+    <result column="bonus_account" property="bonusAccount" jdbcType="DOUBLE" />
+    <result column="given_account" property="givenAccount" jdbcType="DOUBLE" />
+    <result column="frozen_account" property="frozenAccount" jdbcType="DOUBLE" />
+    <result column="score_account" property="scoreAccount" jdbcType="DOUBLE" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="close_time" property="closeTime" jdbcType="VARCHAR" />
+    <result column="vision" property="vision" jdbcType="INTEGER" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    member_id, store_id,can_drawals_account, money_account, bonus_account, given_account, frozen_account, score_account, 
+    state, create_time, close_time, vision, reserved1, reserved2, reserved3, reserved4, 
+    reserved5, reserved6, reserved7, reserved8, reserved9, reserved10
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_account
+    where member_id = #{memberId,jdbcType=INTEGER}
+  </select>
+
+  
+  <update id="updateMoneyAccount" parameterType="com.jingc.busi.common.table.MemberAccount">
+  	update member_account set money_account = money_account + #{moneyAccount},
+  	  vision = vision + 1 where member_id = #{memberId} and vision = #{vision}
+  </update>
+  
+  <update id="updateMoneyAccountNew" parameterType="com.jingc.busi.common.table.MemberAccount">
+  	update member_account set money_account = money_account + #{moneyAccount},can_drawals_account = can_drawals_account + #{canDrawalsAccount},  
+  	  vision = vision + 1 where member_id = #{memberId} and vision = #{vision}
+  </update>
+  
+  <update id="updateAccount2Revaction" >
+  	update member_account set money_account = money_account + #{moneyAccount},
+  	  vision = vision + 1 where member_id = #{memberId}
+  </update>
+  
+  <!-- 修改红包账户 -->
+  <update id="updateGivenAccount" parameterType="com.jingc.busi.common.table.MemberAccount">
+  	update member_account set given_account = given_account + #{givenAccount},
+  	  vision = vision + 1 where member_id = #{memberId} and vision = #{vision}
+  </update>
+  
+  <!--用户取款-->
+  <update id="memberGetMoney" parameterType="com.jingc.busi.common.table.MemberAccount">
+  	update member_account set frozen_account = frozen_account + #{frozenAccount},
+  	  vision = vision + 1 where member_id = #{memberId} and vision = #{vision}
+  </update>
+  
+  <!-- 提款处理时用  bonus_account = bonus_account - #{bonusAccount},-->
+  <update id="updateCBFAccount" parameterType="com.jingc.busi.common.table.MemberAccount">
+  	update member_account set money_account = money_account - #{moneyAccount},frozen_account = frozen_account - #{frozenAccount},
+  	vision = vision + 1 where member_id = #{memberId} and vision = #{vision}
+  </update>
+  
+  <!-- 扣款处理时用 bonus_account = bonus_account - #{bonusAccount},-->
+  <update id="updateMCBAccount" parameterType="com.jingc.busi.common.table.MemberAccount">
+  	update member_account set money_account = money_account - #{moneyAccount},can_drawals_account = can_drawals_account - #{canDrawalsAccount},
+  	vision = vision + 1 where member_id = #{memberId} and vision = #{vision}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_account
+    where member_id = #{memberId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MemberAccount" >
+    insert into member_account (member_id, store_id,can_drawals_account, money_account, bonus_account,
+      given_account, frozen_account, score_account, 
+      state, create_time, close_time, 
+      vision, reserved1, reserved2, 
+      reserved3, reserved4, reserved5, 
+      reserved6, reserved7, reserved8, 
+      reserved9, reserved10)
+    values (#{memberId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{canDrawalsAccount,jdbcType=DOUBLE}, #{moneyAccount,jdbcType=DOUBLE}, #{bonusAccount,jdbcType=DOUBLE}, 
+      #{givenAccount,jdbcType=DOUBLE}, #{frozenAccount,jdbcType=DOUBLE}, #{scoreAccount,jdbcType=DOUBLE}, 
+      #{state,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, #{closeTime,jdbcType=VARCHAR}, 
+      #{vision,jdbcType=INTEGER}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}, 
+      #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, #{reserved8,jdbcType=VARCHAR}, 
+      #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR})
+  </insert>
+ 
+ <!--bonus_account = bonus_account - #{bonusAccount}, -->
+  <update id="updateAccount2Bet" parameterType="com.jingc.busi.common.table.MemberAccount">
+  	update member_account set money_account = money_account - #{moneyAccount}, given_account = given_account - #{givenAccount},
+  	  can_drawals_account = can_drawals_account - #{canDrawalsAccount}, vision = vision + 1 where member_id = #{memberId} and vision = #{vision}
+  </update>
+  
+  <update id="updateVision" parameterType="com.jingc.busi.common.table.MemberAccount">
+  	update member_account set vision = vision + 1 where member_id = #{memberId} and vision = #{vision}
+  </update>
+  
+  <!-- 启用和注销营业厅用户账户 -->
+  <update id="endisableAccount">
+  update member_account set money_account = #{param.moneyAccount},score_account=#{param.scoreAccount},state = #{param.state},
+  	  vision = vision + 1 where member_id = #{param.memberId} and vision = #{param.vision}
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.MemberAccount" >
+    update member_account
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="canDrawalsAccount != null" >
+        can_drawals_account = #{canDrawalsAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="moneyAccount != null" >
+        money_account = #{moneyAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="givenAccount != null" >
+        given_account = #{givenAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="frozenAccount != null" >
+        frozen_account = #{frozenAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="scoreAccount != null" >
+        score_account = #{scoreAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="closeTime != null" >
+        close_time = #{closeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="vision != null" >
+        vision = #{vision,jdbcType=INTEGER},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null" >
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null" >
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null" >
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null" >
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where member_id = #{memberId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询彩民账户信息——彩民用户ID、状态 -->
+  <select id="selectByParamObject" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from member_account
+  	<where>
+  	 <if test="param.memberId != null and param.memberId !=''"> member_id = #{param.memberId,jdbcType=INTEGER}</if>
+  	 <if test="param.state != null and param.state !=''"> state = #{param.state,jdbcType=INTEGER}</if>
+  	</where>
+     limit #{pagination.pageNo},#{pagination.pageSize}	
+  </select>
+  
+  <!-- 查询彩民账户信息条目数——彩民用户ID、状态 -->
+  <select id="selectWaitCountByParamObject" resultType="java.lang.Integer">
+  	select count(*) from member_account
+  	<where>
+  	 <if test="param.memberId != null and param.memberId !=''"> member_id = #{param.memberId,jdbcType=INTEGER}</if>
+  	 <if test="param.state != null and param.state !=''"> state = #{param.state,jdbcType=INTEGER}</if>
+  	</where>	
+  </select>
+  
+  <!--店铺彩民可用余额汇总-->
+  <select id="sumCanUserMoneyByStore" resultType="com.jingc.busi.common.table.query.MemberStatObject"> 
+  	select sum(can_drawals_account+money_account+bonus_account+given_account-frozen_account) as buy
+		from member_account ,member where member.id = member_account.member_id and member.store_id=#{storeid}
+  </select>
+  
+   <!-- 集团彩民的所有下线彩民 -->
+  <select id="selectByAgent" resultMap="BaseResultMap">
+  	select member_account.* from member,member_account where member.id=member_account.member_id and member.reserved3=0 and member.reserved4=#{agentId}
+  </select>
+  
+  <!-- 修改账户信息 -->
+  <update id="updateAccount">
+    update member_account
+    <set>
+      <if test="param.canDrawalsAccount != null" >
+        can_drawals_account = can_drawals_account+#{param.canDrawalsAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="param.moneyAccount != null" >
+        money_account = money_account+#{param.moneyAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="param.givenAccount != null" >
+        given_account = given_account+#{param.givenAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="param.frozenAccount != null" >
+        frozen_account = frozen_account+#{param.frozenAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="param.scoreAccount != null" >
+        score_account = score_account+#{param.scoreAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="param.vision != null" >
+        vision = 1+#{param.vision,jdbcType=INTEGER},
+      </if>
+    </set>
+    <where>
+    	<if test="param.memberId != null">member_id =#{param.memberId,jdbcType=INTEGER}</if>
+    	<if test="param.storeId != null"> and store_id =  #{param.storeId,jdbcType=INTEGER}</if>
+    	<if test="param.state != null"> and state =  #{param.state,jdbcType=INTEGER}</if>
+    	<if test="param.vision != null"> and vision =  #{param.vision,jdbcType=INTEGER}</if>
+    </where>
+  </update>
+</mapper>

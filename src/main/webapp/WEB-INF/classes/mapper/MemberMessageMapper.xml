@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MemberMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MemberMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="send_user_id" property="sendUserId" jdbcType="INTEGER" />
+    <result column="accept_user_id" property="acceptUserId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="sent_time" property="sentTime" jdbcType="VARCHAR" />
+    <result column="read_time" property="readTime" jdbcType="VARCHAR" />
+    <result column="remove_time" property="removeTime" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, store_id, send_user_id, accept_user_id, title, content, type, state, sent_time, 
+    read_time, remove_time, reserved1, reserved2, reserved3, reserved4, reserved5
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 删除(单个或是批量) -->
+  <update id="deleteOneOrBatch">
+    update member_message
+    <set>
+    	<if test="param.reserved1 != null and param.reserved1 != ''">
+    		reserved1 = #{param.reserved1,jdbcType=VARCHAR},
+    	</if>
+    	<if test="param.reserved3 != null and param.reserved3 != ''">
+    		reserved3 = #{param.reserved3,jdbcType=VARCHAR},
+    	</if>    	
+    </set>
+    <where>
+    	<if test="param.id != null and param.id != ''">
+    		id = #{param.id,jdbcType=INTEGER}
+    	</if>
+    	<if test="param.idList != null and param.idList.size() > 0">
+    		id in
+    		<foreach collection="param.idList" item="item" open="(" separator="," close=")">#{item}</foreach>
+    	</if>
+    </where>
+  </update>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MemberMessage" >
+    insert into member_message (id, store_id, send_user_id, 
+      accept_user_id, title, content, 
+      type, state, sent_time, 
+      read_time, remove_time, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5)
+    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{sendUserId,jdbcType=INTEGER}, 
+      #{acceptUserId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{sentTime,jdbcType=VARCHAR}, 
+      #{readTime,jdbcType=VARCHAR}, #{removeTime,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- 批量插入 -->
+  <insert id="insertBatch">
+    insert into member_message (id, store_id, send_user_id, 
+      accept_user_id, title, content, 
+      type, state, sent_time, 
+      read_time, remove_time, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5)
+    values 
+    <foreach collection="param.acceptUserIdList" item="item" separator=",">
+    (#{param.id,jdbcType=INTEGER}, #{param.storeId,jdbcType=INTEGER}, #{param.sendUserId,jdbcType=INTEGER}, 
+      #{item,jdbcType=INTEGER}, #{param.title,jdbcType=VARCHAR}, #{param.content,jdbcType=VARCHAR}, 
+      #{param.type,jdbcType=INTEGER}, #{param.state,jdbcType=INTEGER}, #{param.sentTime,jdbcType=VARCHAR}, 
+      #{param.readTime,jdbcType=VARCHAR}, #{param.removeTime,jdbcType=VARCHAR}, #{param.reserved1,jdbcType=VARCHAR}, 
+      #{param.reserved2,jdbcType=VARCHAR}, #{param.reserved3,jdbcType=VARCHAR}, #{param.reserved4,jdbcType=VARCHAR}, 
+      #{param.reserved5,jdbcType=VARCHAR})
+    </foreach>   
+  </insert>
+  
+  <!-- 店员查询收件箱 -->
+  <select id="selectByParam" resultMap="BaseResultMap">
+   select <include refid="Base_Column_List" /> from member_message
+   <where>
+   	<if test="param.sendUserId != null and param.sendUserId != ''">
+   	send_user_id = #{param.sendUserId}
+   	</if>
+   	<if test="param.reserved1 != null and param.reserved1 != ''">
+   	and reserved1 = #{param.reserved1}
+   	</if>
+   	<if test="param.acceptUserId != null and param.acceptUserId != ''">
+   	and accept_user_id = #{param.acceptUserId}
+   	</if>
+   	<if test="(param.sendTimeBegin != null and param.sendTimeBegin != '') and (param.sendTimeEnd != null and param.sendTimeEnd != '')">
+   	and (sent_time between CONCAT(#{param.sendTimeBegin}," 00:00:00") and CONCAT(#{param.sendTimeEnd}," 23:59:59"))
+   	</if>
+   	<if test="(param.sendTimeBegin != null and param.sendTimeBegin != '') and (param.sendTimeEnd == null or param.sendTimeEnd == '')">
+   		and sent_time &gt; CONCAT(#{param.sendTimeBegin}," 00:00:00")
+   	</if>
+   	<if test="(param.sendTimeBegin == null or param.sendTimeBegin == '') and (param.sendTimeEnd != null and param.sendTimeEnd != '')">
+   		and sent_time &lt; CONCAT(#{param.sendTimeEnd}," 23:59:59")
+   	</if>
+   </where>
+   order by sent_time desc limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+  <!-- 店员查询收件箱 -->
+  <select id="selectWCountByParam" resultType="java.lang.Integer">
+   select count(*) from member_message
+   <where>
+   	<if test="param.sendUserId != null and param.sendUserId != ''">
+   	send_user_id = #{param.sendUserId}
+   	</if>
+   	<if test="param.reserved1 != null and param.reserved1 != ''">
+   	and reserved1 = #{param.reserved1}
+   	</if>
+   	<if test="param.acceptUserId != null and param.acceptUserId != ''">
+   	and accept_user_id = #{param.acceptUserId}
+   	</if>
+   	<if test="(param.sendTimeBegin != null and param.sendTimeBegin != '') and (param.sendTimeEnd != null and param.sendTimeEnd != '')">
+   	and (sent_time between CONCAT(#{param.sendTimeBegin}," 00:00:00") and CONCAT(#{param.sendTimeEnd}," 23:59:59"))
+   	</if>
+   	<if test="(param.sendTimeBegin != null and param.sendTimeBegin != '') and (param.sendTimeEnd == null or param.sendTimeEnd == '')">
+   		and sent_time &gt; CONCAT(#{param.sendTimeBegin}," 00:00:00")
+   	</if>
+   	<if test="(param.sendTimeBegin == null or param.sendTimeBegin == '') and (param.sendTimeEnd != null and param.sendTimeEnd != '')">
+   		and sent_time &lt; CONCAT(#{param.sendTimeEnd}," 23:59:59")
+   	</if>
+   </where>
+  </select>
+  
+  <!-- 彩民站内信总数 -->
+  <select id="selectWCountByParamZNX" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select count(*) from member_message where	
+   	state = 1 and accept_user_id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.MemberMessage" >
+    update member_message 
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="sendUserId != null" >
+        send_user_id = #{sendUserId,jdbcType=INTEGER},
+      </if>
+      <if test="acceptUserId != null" >
+        accept_user_id = #{acceptUserId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="sentTime != null" >
+        sent_time = #{sentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="readTime != null" >
+        read_time = #{readTime,jdbcType=VARCHAR},
+      </if>
+      <if test="removeTime != null" >
+        remove_time = #{removeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ 
+</mapper>

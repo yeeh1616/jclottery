@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- 完成请求和注解POJO的映射 -->
+	<mvc:annotation-driven >
+		<mvc:message-converters>
+            <!--bean class="org.springframework.http.converter.FormHttpMessageConverter" />  
+            <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />  
+	        <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>  
+	        <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/-->
+	        <!--bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" /-->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            	<property name="writeAcceptCharset" value="false"/>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>  
+        </mvc:message-converters>  
+	</mvc:annotation-driven>
+
+	<!--
+	    注意：该拦截器只能拦截经过Spring Dispatcher转发的请求；
+	    注意：mvc:mapping path中的*为同级的目录或文件通配符，**为多级的目录通配符；该path应当相对于RequestMapping注解中value的值；
+	    cacheSeconds：缓存过期时间，正数表示需要缓存，负数表示不做任何事情；
+	    useExpiresHeader：是否使用HTTP1.0协议过期响应头，Expires；
+	    useCacheControlHeader：是否使用HTTP1.1协议的缓存控制响应头，Cache-Control；
+	    useCacheControlNoStore：是否使用HTTP 1.1协议的缓存控制响应头，Cache-Control中的no-store。
+	-->
+	<!-- 访问控制 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+		    <mvc:mapping path="/memberCenterNew/*"/>
+		    <bean class="com.jingc.busi.intercepter.SessionInterceptor" />
+	    </mvc:interceptor>
+	    <mvc:interceptor>
+		    <mvc:mapping path="/memberCenterCustomNew/*"/>
+		    <bean class="com.jingc.busi.intercepter.SessionInterceptor" />
+	    </mvc:interceptor>
+	</mvc:interceptors>
+	<mvc:interceptors>  
+      	<bean class="com.jingc.busi.intercepter.DomainInterceptor" />  
+    </mvc:interceptors> 
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 10 * 1024* 1024=10M-->  
+        <property name="maxUploadSize" value="10485760"/>  
+        <!--resolveLazily属性启用是为了推迟文件解析，以便在Controller 中捕获文件大小异常-->  
+        <property name="resolveLazily" value="true"/>    
+    </bean>  
+    
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="prefix" value="/WEB-INF/view/" />
+    	<property name="suffix" value=".jsp" />
+    </bean>
+</beans>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.PlayMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.Play" >
+    <result column="play_id" property="playId" jdbcType="INTEGER" />
+    <result column="play_name" property="playName" jdbcType="VARCHAR" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="license_name" property="licenseName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    play_id, play_name, license_id, license_name
+  </sql>
+  <select id="selectAllPlay" resultMap="BaseResultMap">
+	select   <include refid="Base_Column_List" />
+	from play
+  </select>
+  <insert id="insert">
+    insert into play (play_id, play_name, license_id, 
+      license_name)
+    values
+    <foreach collection="playList" item="item" separator=",">
+     (#{item.playId,jdbcType=INTEGER}, #{item.playName,jdbcType=VARCHAR}, #{item.licenseId,jdbcType=INTEGER}, 
+      #{item.licenseName,jdbcType=VARCHAR})
+      </foreach>
+  </insert>
+</mapper>

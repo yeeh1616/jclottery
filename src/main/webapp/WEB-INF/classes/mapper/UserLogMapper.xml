@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.UserLogMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.UserLog" >
+    <id column="log_id" property="logId" jdbcType="INTEGER" />
+    <result column="log_name" property="logName" jdbcType="VARCHAR" />
+    <result column="log_des" property="logDes" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="opera_time" property="operaTime" jdbcType="VARCHAR" />
+    <result column="opera_mac" property="operaMac" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    log_id, log_name, log_des, user_id, user_name, store_id, opera_time, opera_mac, reserved1, 
+    reserved2, reserved3, reserved4, reserved5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.UserLog" >
+    insert into user_log (log_id, log_name, log_des, 
+      user_id, user_name, store_id, 
+      opera_time, opera_mac, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5)
+    values (#{logId,jdbcType=INTEGER}, #{logName,jdbcType=VARCHAR}, #{logDes,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, 
+      #{operaTime,jdbcType=VARCHAR}, #{operaMac,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR})
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.UserLog" >
+    update user_log
+    <set >
+      <if test="logName != null" >
+        log_name = #{logName,jdbcType=VARCHAR},
+      </if>
+      <if test="logDes != null" >
+        log_des = #{logDes,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="operaTime != null" >
+        opera_time = #{operaTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operaMac != null" >
+        opera_mac = #{operaMac,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <!-- 根据查询参数对象查询店员操作日志 -->
+  <select id="selectByParamObject" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_log 
+    <where>
+    	<if test="param.userId != null and param.userId !=''"> user_id = #{param.userId}</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	and (opera_time between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+    	</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')">
+    	and opera_time &gt;CONCAT(#{param.beginTime}," 00:00:00")
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	and opera_time &lt; CONCAT(#{param.endTime}," 23:59:59")
+    	</if>
+    </where>
+    order by opera_time desc
+    <if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if> <!--pagination为null时表示不要分页 -->    
+  </select>
+  
+  <!-- 根据查询参数对象查询店员操作日志条目数-->
+  <select id="selectWaitCountByParamObject" resultType="java.lang.Integer" >
+    select count(*) from user_log 
+    <where>
+    	<if test="param.userId != null and param.userId !=''"> user_id = #{param.userId}</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	and (opera_time between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+    	</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')">
+    	and opera_time &gt;CONCAT(#{param.beginTime}," 00:00:00")
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	and opera_time &lt; CONCAT(#{param.endTime}," 23:59:59")
+    	</if>
+    </where>
+  </select>
+</mapper>

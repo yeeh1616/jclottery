@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MergerCustomLogMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MergerCustomLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="custom_id" property="customId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="issue" property="issue" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="ord_date" property="ordDate" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, custom_id, member_id, order_id, store_id, license_id, issue, money, ord_date, 
+    state, memo
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from merger_custom_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from merger_custom_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MergerCustomLog" >
+    insert into merger_custom_log (id, custom_id, member_id, 
+      order_id, store_id, license_id, 
+      issue, money, ord_date, 
+      state, memo)
+    values (#{id,jdbcType=INTEGER}, #{customId,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, 
+      #{orderId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{licenseId,jdbcType=INTEGER}, 
+      #{issue,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, #{ordDate,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{memo,jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- zh -->
+  <select id="getMergerCustomLogCountBonus"  resultType="java.lang.Integer">
+  	select count(*) from merger_custom_log where member_id = #{param.id}
+  </select>
+  
+  <!-- zh -->
+  <select id="selectMergerCustomLogByMergerId"  resultMap="BaseResultMap">
+   select <include refid="Base_Column_List"/>
+   from merger_custom_log where member_id = #{param.id}
+    order by ord_date desc
+    <if test="pagination != null">
+    	limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>     
+  </select>
+  
+</mapper>

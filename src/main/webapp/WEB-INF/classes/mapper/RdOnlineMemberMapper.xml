@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.RdOnlineMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.RdOnlineMember" >
+    <id column="session_id" property="sessionId" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="login_type" property="loginType" jdbcType="CHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    session_id, member_id, member_name, store_id, store_name, login_type, creat_time
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rd_online_member
+    where session_id = #{sessionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from rd_online_member
+    where session_id = #{sessionId,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteByParam">
+    delete from rd_online_member
+    <where>
+    <if test="param.sessionId != null" >session_id = #{param.sessionId,jdbcType=VARCHAR}</if>
+    <if test="param.memberId != null" >and member_id = #{param.memberId,jdbcType=INTEGER}</if>
+      <if test="param.memberName != null" >and member_name = #{param.memberName,jdbcType=VARCHAR}</if>
+      <if test="param.storeId != null" >and store_id = #{param.storeId,jdbcType=INTEGER}</if>
+      <if test="param.storeName != null" >and store_name = #{param.storeName,jdbcType=VARCHAR}</if>
+      <if test="param.loginType != null" >and login_type = #{param.loginType,jdbcType=CHAR}</if>
+      <if test="param.creatTime != null" >and creat_time = #{param.creatTime,jdbcType=VARCHAR}</if>
+      </where>
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.RdOnlineMember" >
+    insert into rd_online_member (session_id, member_id, member_name, 
+      store_id, store_name, login_type, 
+      creat_time)
+    values (#{sessionId,jdbcType=VARCHAR}, #{memberId,jdbcType=INTEGER}, #{memberName,jdbcType=VARCHAR}, 
+      #{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, #{loginType,jdbcType=CHAR}, 
+      #{creatTime,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.RdOnlineMember" >
+    update rd_online_member
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginType != null" >
+        login_type = #{loginType,jdbcType=CHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where session_id = #{sessionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jingc.busi.common.table.RdOnlineMember" >
+    update rd_online_member
+    set member_id = #{memberId,jdbcType=INTEGER},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      login_type = #{loginType,jdbcType=CHAR},
+      creat_time = #{creatTime,jdbcType=VARCHAR}
+    where session_id = #{sessionId,jdbcType=VARCHAR}
+  </update>
+</mapper>

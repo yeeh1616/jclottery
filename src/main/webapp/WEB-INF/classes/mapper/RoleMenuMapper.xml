@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.RoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.RoleMenu" >
+    <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <id column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    menu_id, role_id, reserved1, reserved2, reserved3, reserved4, reserved5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.RoleMenuKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+      and role_id = #{roleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.jingc.busi.common.table.RoleMenuKey" >
+    delete from role_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+      and role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.RoleMenu" >
+    insert into role_menu (menu_id, role_id, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5)
+    values (#{menuId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- 批量插入 -->
+  <insert id="insertBatch">
+    insert into role_menu (menu_id, role_id, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5)
+    values 
+    <if test="list != null and list.size() > 0">
+    	<foreach collection="list" separator="," item="item">
+    	(#{item.menuId,jdbcType=INTEGER}, #{item.roleId,jdbcType=INTEGER}, #{item.reserved1,jdbcType=VARCHAR}, 
+      #{item.reserved2,jdbcType=VARCHAR}, #{item.reserved3,jdbcType=VARCHAR}, #{item.reserved4,jdbcType=VARCHAR}, 
+      #{item.reserved5,jdbcType=VARCHAR})
+    	</foreach>
+    </if>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.RoleMenu" >
+    update role_menu
+    <set >
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=INTEGER}
+      and role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="deleteByRoleId" parameterType="java.lang.Integer" >
+    delete from role_menu
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="getRoleMenuList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role_menu
+    order by role_id asc
+  </select>
+  
+  <delete id="deleteByMenuId" parameterType="java.lang.Integer" >
+    delete from role_menu
+    where menu_id = #{menuId,jdbcType=INTEGER}
+  </delete>
+</mapper>

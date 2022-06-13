@@ -1,0 +1,118 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>彩游天下-我们的优势</title>
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/slide.css">
+<link rel="stylesheet" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/banner.css">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/slide.js"></script>
+</head>
+
+<body>
+<header>
+    <div class="container">
+      <div class="logo"> <a href=""><img src="images/logo.png" width="134" height="50"> </a> </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="profile.html">公司简介</a></li>
+          <li><a href="businesses.html">主营业务</a></li>
+          <li><a class="cur" href="superiority.html">我们的优势</a></li>
+          <li><a href="cooperation.html">合作彩站</a></li>
+          <li><a href="contact.html">联系我们</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+<div class="wrap">
+  
+ <!---->
+
+ <section class="common"> 
+ <div class="container">
+ <div class="col-lg-12 col-md-12 com-sm-12 col-xs-12" style=" margin-top:25px;">
+        <h3 class="title">我们的优势</h3>
+ </div>
+ <p>公司创始人均为彩票行业专家、数据学专家以及互联网行业的资深人士，并在相关行业领域取得过卓越的成绩，积累了丰富的行业资源，获得了良好的业界信誉。
+                        </p>  
+  <p>
+核心团队优势有：</p>
+<p>
+1、 技术核心人员的专业水准在同行业属于领先水平。</p>
+<p>2、 业务核心人员的业务水平在行业内属于资深水平。</p>
+<p>3、 市场核心人员的市场能力在行业内属于一流水平。</p>
+<p>4、 运营维护人员的服务水平在同行中属于上流水准。</p>
+<p>我们的团队在彩票投注站信息服务项目和产品上的经验已经有十几年了，产品不断地更新换代，对互联网技术在彩票行业应用现状和发展非常了解，对软硬件底层技术耳熟能详，所开发的产品技术含量和质量更是胜人一筹，一直处于行业的领先地位。</p>
+<p>我们用了很长的时间对市场与即开票终端产品相关的设计工艺、产品理念、生产价格、运营模式、交易模式、维护模式等诸多现存的问题进行大量的调研、分析和探讨，从中汲取了有价值的部分，包括技术、市场、运营等可以保留的内容外，对整个项目的各个环节进行了深入研究，重新为即开票自助销售系统提出了我们独到的设计思想和产品理念，对每一个环节进行了重新梳理、定义和设计，形成了一套全新的即开彩自助销售系统，使市场现有传统产品可以被新产品、新理念所取代。</p>  
+                         
+  <div class="mb_20"> 
+<div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">
+          <div class="row">
+            <div id="portfolio-carousel" class="portfolio-carousel slide">
+              <div class="carousel-inner">
+                <div class="item active">
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 web jquery item isotope-item">
+                    <div class="portfolio-item"> <a href="superiority.html" class="portfolio-item-link" data-rel="prettyPhoto"> <span class="portfolio-item-hover" style="opacity: 0;"></span><img src="images/portfolio-5.jpg" alt=" "> </a>
+                      <div class="portfolio-item-title"> <a href="superiority.html">技术优势</a>
+                        <p>技术核心人员的专业水准在同行业属于领先水平。</p>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 web jquery item isotope-item">
+                    <div class="portfolio-item"> <a href="superiority.html" class="portfolio-item-link" data-rel="prettyPhoto"> <span class="portfolio-item-hover" style="opacity: 0;"></span><img src="images/portfolio-4.jpg" alt=" "> </a>
+                      <div class="portfolio-item-title"> <a href="superiority.html">业务优势</a>
+                        <p> 业务核心人员的业务水平在行业内属于资深水平。</p>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 web jquery item isotope-item">
+                    <div class="portfolio-item"> <a href="superiority.html" class="portfolio-item-link" data-rel="prettyPhoto"> <span class="portfolio-item-hover" style="opacity: 0;"></span><img src="images/portfolio-3.jpg" alt=" "> </a>
+                      <div class="portfolio-item-title"> <a href="superiority.html">市场优势</a>
+                        <p>市场核心人员的市场能力在行业内属于一流水平。</p>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 web jquery item isotope-item">
+                    <div class="portfolio-item"> <a href="superiority.html" class="portfolio-item-link" data-rel="prettyPhoto"> <span class="portfolio-item-hover" style="opacity: 0;"></span><img src="images/portfolio-7.jpg" alt=" "> </a>
+                      <div class="portfolio-item-title"> <a href="superiority.html">运维优势</a>
+                        <p>运营维护人员的服务水平在同行中属于上流水准。</p>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+ </div>
+ </div>
+ 
+ </section>  
+  <!--footer-->
+  <footer>
+	<div class="container">
+  <ul>
+ <li>公司简介</li>
+ <li>主营业务</li>
+ <li>我们的优势</li>
+ <li>合作彩站</li>
+ <li>联系我们</li>
+  </ul>
+  <div>北京彩游天下科技网络有限责任公司 版权所有 备案：京ICP备14053026号-1&nbsp;&nbsp;&nbsp;&nbsp; 服务热线：010-53383126</div>
+  <div>郑重提示：彩票有风险，购买要适度,禁止18岁以下的未成年人购买彩票。</div>
+  <div>Copyright © 2015.All rights reserved</div>
+  </div>
+	</footer>
+  <a class="scrollup" style="cursor: pointer; display: inline;"><i class="icon-angle-up"></i></a>
+</div>
+</body>
+</html>

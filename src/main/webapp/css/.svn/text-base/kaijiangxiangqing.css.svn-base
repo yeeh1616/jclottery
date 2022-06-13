@@ -1,0 +1,58 @@
+@charset "utf-8";
+/* CSS Document */
+.center{ width:996px; margin:0 auto; border:1px solid #d1d0d0;border-top:1px solid #024f7a;}
+.tit{ background:url(../images/bj.png) no-repeat; width:987px; height:34px; margin:10px 0 0 12px;}
+.tit ul{ margin-left:48px;}
+.tit ul li{ float:left; line-height:34px; margin-left:6px; color:#978c85;}
+.left_jiang{ float:left;}
+.zp{ font-size:14px; font-weight:bold; color:#52311a;}
+.tit ul li.dq{ color:#52311a;}
+.zp_a{ color:#d05e5e;}
+.right_jiang{ float:right;}
+.tit ol li{ float:left; line-height:34px; margin-right:20px; color:#978c85;}
+.select{ width:112px; height:24px; border:1px solid #bac1c4; color:#615049;}
+.jsleft{ margin:20px 0 0 80px;}
+.wdshop span{ color:#615049;}
+.wdshop span.yuan{ color:#d05e5e;}
+.bbbt { width:100px; height:30px; background:#3ea9e0; color:#fff; border:1px #247ba8 solid; font-size:14px; margin-left:20px;}
+.zo a { display:inline-block; margin:0px 8px; line-height:36px; color:#339acf;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.SysSupportedLicenseMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.SysSupportedLicense" >
+    <id column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="license_name" property="licenseName" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="state" property="state" jdbcType="CHAR" />
+  </resultMap>
+  
+	<sql id="Base_Column_List" >
+		license_id, license_name, type, state
+	</sql>
+   
+	<!-- 查询彩种列表 -->
+	<select id="getSupportedLicenseList" resultMap="BaseResultMap" >
+		select  <include refid="Base_Column_List" /> from sys_supported_license  <include refid="sByPConditionSQL"/>
+			order by license_id 
+   		<if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>
+	</select>
+	
+	<!-- 分页查询   计算总数  -->
+	<select id="getSupportedLicenseListCount" resultType="java.lang.Integer"  >
+		select  count(license_id)  from sys_supported_license  <include refid="sByPConditionSQL"/>
+	</select>
+	
+	<sql id="sByPConditionSQL">
+		<where>
+			<if test="param.licenseId != null">and license_id = #{param.licenseId,jdbcType=INTEGER}</if>
+			<if test="param.type != null and param.type  != ''">and type = #{param.type,jdbcType=CHAR}</if>
+			<if test="param.state != null and param.state != ''">and state = #{param.state,jdbcType=CHAR}</if>
+		</where>
+	</sql>
+	
+	<insert id="insert" >
+		insert into sys_supported_license (license_id, license_name, type,state)
+    		values (#{param.licenseId,jdbcType=INTEGER}, #{param.licenseName,jdbcType=VARCHAR}, #{param.type,jdbcType=CHAR}, #{param.state,jdbcType=CHAR})
+	</insert>
+  
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select 
+			<include refid="Base_Column_List" />
+		from sys_supported_license
+			where license_id = #{licenseId,jdbcType=INTEGER}
+	</select>
+  	
+  	<!-- 彩种修改 -->
+	<update id="update">
+		update sys_supported_license
+	    <set>
+			<if test="param.type != null and param.type  != ''">type = #{param.type,jdbcType=CHAR},</if>
+			<if test="param.state != null and param.state != ''">state = #{param.state,jdbcType=CHAR}</if>
+		</set>
+    	where license_id = #{param.licenseId,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 根据彩种Id删除彩种 -->
+	<delete id="deleteByPrimaryKey" parameterType="com.jingc.busi.common.table.SysSupportedLicense" >
+		delete from sys_supported_license  where license_id = #{param.licenseId,jdbcType=INTEGER}
+	</delete>
+	
+	<select id="getLicenseByType" resultMap="BaseResultMap" >
+		select distinct license_id,license_name,type from sys_supported_license 
+		 where type = #{machineType,jdbcType=CHAR} and state='1'
+			order by license_id 
+	</select>  
+  
+</mapper>

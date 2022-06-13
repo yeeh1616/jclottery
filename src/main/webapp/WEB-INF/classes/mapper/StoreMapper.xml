@@ -1,0 +1,503 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.Store" >
+     <id column="store_id" jdbcType="INTEGER" property="storeId" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="quali" jdbcType="VARCHAR" property="quali" />
+    <result column="boss_name" jdbcType="VARCHAR" property="bossName" />
+    <result column="store_phone" jdbcType="VARCHAR" property="storePhone" />
+    <result column="store_mobile" jdbcType="VARCHAR" property="storeMobile" />
+    <result column="store_qq" jdbcType="VARCHAR" property="storeQq" />
+    <result column="store_email" jdbcType="VARCHAR" property="storeEmail" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="net_url" jdbcType="VARCHAR" property="netUrl" />
+    <result column="split_mul" jdbcType="INTEGER" property="splitMul" />
+    <result column="consump_prop" jdbcType="DOUBLE" property="consumpProp" />
+    <result column="one_store_id" jdbcType="INTEGER" property="oneStoreId" />
+    <result column="one_store_name" jdbcType="VARCHAR" property="oneStoreName" />
+    <result column="two_store_id" jdbcType="INTEGER" property="twoStoreId" />
+    <result column="two_store_name" jdbcType="VARCHAR" property="twoStoreName" />
+    <result column="three_store_id" jdbcType="INTEGER" property="threeStoreId" />
+    <result column="three_store_name" jdbcType="VARCHAR" property="threeStoreName" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="close_time" jdbcType="VARCHAR" property="closeTime" />
+    <result column="reserved1" jdbcType="VARCHAR" property="reserved1" />
+    <result column="reserved2" jdbcType="VARCHAR" property="reserved2" />
+    <result column="reserved3" jdbcType="VARCHAR" property="reserved3" />
+    <result column="reserved4" jdbcType="VARCHAR" property="reserved4" />
+    <result column="reserved5" jdbcType="VARCHAR" property="reserved5" />
+    <result column="reserved6" jdbcType="VARCHAR" property="reserved6" />
+    <result column="reserved7" jdbcType="VARCHAR" property="reserved7" />
+    <result column="reserved8" jdbcType="VARCHAR" property="reserved8" />
+    <result column="reserved9" jdbcType="VARCHAR" property="reserved9" />
+    <result column="reserved10" jdbcType="VARCHAR" property="reserved10" />
+    <result column="ticket_mode" property="ticketMode" jdbcType="VARCHAR" />
+    <result column="lotteryPrice" jdbcType="DOUBLE" property="lotteryPrice" />
+    <result column="opening_state" property="openingState" jdbcType="CHAR" />
+    <result column="automatic_ticket_sign" property="automaticTicketSign" jdbcType="CHAR" />
+    <result column="member_number" jdbcType="INTEGER" property="memberNumber" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    store_id, store_name, province, city, address, quali, boss_name, store_phone, store_mobile, 
+    store_qq, store_email, level, state, net_url, split_mul, consump_prop, one_store_id, 
+    one_store_name, two_store_id, two_store_name, three_store_id, three_store_name, create_time, 
+    close_time, reserved1, reserved2, reserved3, reserved4, reserved5, reserved6, reserved7, 
+    reserved8, reserved9, reserved10,ticket_mode,opening_state,automatic_ticket_sign
+  </sql>
+  
+  <sql id="Base_Column_List2" >
+    store.store_id, store.store_name, store.province, store.city, store.address, store.quali, store.boss_name, store.store_phone, store.store_mobile, 
+    store.store_qq, store.store_email, store.level, store.state, store.net_url, store.split_mul, store.consump_prop, store.one_store_id, 
+    store.one_store_name, store.two_store_id, store.two_store_name, store.three_store_id, store.three_store_name, store.create_time, 
+    store.close_time, store.reserved1, store.reserved2, store.reserved3, store.reserved4, store.reserved5, store.reserved6, store.reserved7, 
+    store.reserved8, store.reserved9, store.reserved10,store.ticket_mode,store.opening_state,store.automatic_ticket_sign
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUrl" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from store
+    where net_url = #{url}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from store
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 查询指定中心下指定状态的所有店铺 -->
+  <select id="getStoreIdNameMapByCenterId" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> from store where reserved3 = #{centerId} and state = #{state}
+  </select>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.Store" useGeneratedKeys="true" keyProperty="storeId" >
+    insert into store (store_id, store_name, province, 
+      city, address, quali, 
+      boss_name, store_phone, store_mobile, 
+      store_qq, store_email, level, 
+      state, net_url, split_mul, 
+      consump_prop, one_store_id, one_store_name, 
+      two_store_id, two_store_name, three_store_id, 
+      three_store_name, create_time, close_time, 
+      reserved1, reserved2, reserved3, 
+      reserved4, reserved5, reserved6, 
+      reserved7, reserved8, reserved9, 
+      reserved10 ,ticket_mode, opening_state,automatic_ticket_sign)
+    values (#{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{quali,jdbcType=VARCHAR}, 
+      #{bossName,jdbcType=VARCHAR}, #{storePhone,jdbcType=VARCHAR}, #{storeMobile,jdbcType=VARCHAR}, 
+      #{storeQq,jdbcType=VARCHAR}, #{storeEmail,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{netUrl,jdbcType=VARCHAR}, #{splitMul,jdbcType=INTEGER}, 
+      #{consumpProp,jdbcType=DOUBLE}, #{oneStoreId,jdbcType=INTEGER}, #{oneStoreName,jdbcType=VARCHAR}, 
+      #{twoStoreId,jdbcType=INTEGER}, #{twoStoreName,jdbcType=VARCHAR}, #{threeStoreId,jdbcType=INTEGER}, 
+      #{threeStoreName,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{closeTime,jdbcType=VARCHAR}, 
+      #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, 
+      #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}, #{reserved6,jdbcType=VARCHAR}, 
+      #{reserved7,jdbcType=VARCHAR}, #{reserved8,jdbcType=VARCHAR}, #{reserved9,jdbcType=VARCHAR}, 
+      #{reserved10,jdbcType=VARCHAR},#{ticketMode,jdbcType=VARCHAR},#{openingState,jdbcType=CHAR},#{automaticTicketSign,jdbcType=CHAR})
+  </insert>
+  
+  <!-- 修改店铺出票模式 -->
+  <update id="updateTicketModel">
+  	update store
+  	<set>
+  		<if test="param.ticketMode != null and param.ticketMode != ''">
+  			ticket_mode = #{param.ticketMode}
+  		</if>
+  	</set>
+  	<where>
+  	 store_id = #{param.storeId}
+  	</where>
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.Store" >
+    update store
+    <set>
+      <if test="storeName != null">
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="quali != null">
+        quali = #{quali,jdbcType=VARCHAR},
+      </if>
+      <if test="bossName != null">
+        boss_name = #{bossName,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null">
+        store_phone = #{storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeMobile != null">
+        store_mobile = #{storeMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="storeQq != null">
+        store_qq = #{storeQq,jdbcType=VARCHAR},
+      </if>
+      <if test="storeEmail != null">
+        store_email = #{storeEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="netUrl != null">
+        net_url = #{netUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="oneStoreId != null">
+        one_store_id = #{oneStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="oneStoreName != null">
+        one_store_name = #{oneStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="twoStoreId != null">
+        two_store_id = #{twoStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="twoStoreName != null">
+        two_store_name = #{twoStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="threeStoreId != null">
+        three_store_id = #{threeStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="threeStoreName != null">
+        three_store_name = #{threeStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="closeTime != null">
+        close_time = #{closeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="splitMul != null">
+        split_mul = #{splitMul,jdbcType=VARCHAR},
+      </if>
+       <if test="consumpProp != null">
+        consump_prop = #{consumpProp,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null">
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null">
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null">
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null">
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null">
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null">
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null">
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null">
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketMode != null">
+        ticket_mode = #{ticketMode,jdbcType=VARCHAR},
+      </if>
+      <if test="openingState != null" >
+        opening_state = #{openingState,jdbcType=CHAR},
+      </if>
+      <if test="automaticTicketSign != null" >
+        automatic_ticket_sign = #{automaticTicketSign,jdbcType=CHAR},
+      </if>
+    </set>
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getAllStore" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from store 
+    order by store_id desc
+  </select>
+  
+  <select id="getAllStore2" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    	from store where level = 4 
+    	order by store_id desc
+  </select>
+  
+   <select id="getAllStore3" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    	from store where level = 4 or level = -1
+    	order by store_id desc
+  </select>
+  
+  <select id="getAllStoreByParam" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.Store">
+    select 
+    <include refid="Base_Column_List" />
+    from store 
+    <where>
+  	store.level=4
+		  <if test="reserved3 != null and reserved3 != ''">
+		   and reserved3 = #{reserved3,jdbcType=VARCHAR}
+		  </if>
+		</where>
+  </select>
+  
+  <select id="getStoreListByPage" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List2" />
+  ,(sum(case when (lottery_order.bet_state in ('4','5','7','8','9','10','11','12','13','14','15') and lottery_order.is_result_status = 0) then lottery_order.ticketed_price else 0 end ) + sum( case when (lottery_order.bet_state in ('8','9','10','11','12','13') and lottery_order.is_result_status = 1) then lottery_order.ticketed_price else 0 end)) as lotteryPrice
+  from store left join lottery_order on lottery_order.storeid = store.store_id
+  <where>
+  	store.level=4
+  <if test="param.province != null and param.province != ''">
+   and store.province = #{param.province}
+  </if>
+  <if test="param.reserved3 != null and param.reserved3 != ''">
+   and store.reserved3 = #{param.reserved3}
+  </if>
+  <if test="param.city != null and param.city != ''">
+  and store.city = #{param.city}
+  </if>
+  <if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+	and (store.create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59")) 
+  </if>
+  <if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')"> 
+	and store.create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00") 
+  </if>
+  <if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+	and store.create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59") 
+  </if>
+  <if test="param.storeName != null and param.storeName != ''">
+  	and store_name like '%${param.storeName}%'
+  </if>
+  </where>
+  group by store.store_id
+  <if test="param.orderBy == 'xse'">
+  order by store.state ASC,lotteryPrice DESC
+  </if>
+  <if test="param.orderBy == 'dpbh'">
+  order by store.store_id DESC
+  </if>
+  limit #{pagination.firstResult},#{pagination.pageSize}
+  </select>
+  
+  <select id="getStoreListByPage2" resultMap="BaseResultMap">
+  select 
+    <include refid="Base_Column_List" />
+    from store 
+  <where>
+  	store.level=4
+  <if test="param.province != null and param.province != ''">
+   and store.province = #{param.province}
+  </if>
+  <if test="param.reserved3 != null and param.reserved3 != ''">
+   and store.reserved3 = #{param.reserved3}
+  </if>
+  <if test="param.city != null and param.city != ''">
+  and store.city = #{param.city}
+  </if>
+  <if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+	and (store.create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59")) 
+  </if>
+  <if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')"> 
+	and store.create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00") 
+  </if>
+  <if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+	and store.create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59") 
+  </if>
+  <if test="param.storeName != null and param.storeName != ''">
+  	and store_name like '%${param.storeName}%'
+  </if>
+  </where>
+  <!--group by store.store_id
+  <if test="param.orderBy == 'xse'">
+  order by store.state ASC,lotteryPrice DESC
+  </if>
+  <if test="param.orderBy == 'dpbh'">
+  order by store.store_id DESC
+  </if>-->
+   order by store.store_id DESC
+   <if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>
+  </select>
+  
+  <select id="getStoreListCount" resultType="java.lang.Integer">
+  select count(store_id) 
+  from store 
+ <where>
+ store.level=4
+  <if test="param.province != null and param.province != ''">
+  and province = #{param.province}
+  </if>
+  <if test="param.reserved3 != null and param.reserved3 != ''">
+   and store.reserved3 = #{param.reserved3}
+  </if>
+  <if test="param.city != null and param.city != ''">
+  and city = #{param.city}
+  </if>
+  <if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+	and (create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59")) 
+  </if>
+  <if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')"> 
+	and create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00") 
+  </if>
+  <if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+	and create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59") 
+  </if>
+  <if test="param.storeName != null and param.storeName != ''">
+  	and store_name like '%${param.storeName}%'
+  </if>
+  </where>
+  </select>  
+
+ <!-- 出票中心-->
+  <select id="getAllPrintCenter" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from store 
+    <where>
+     store.level=2
+     <if test="param.province != null and param.province != ''">
+		  and province = #{param.province}
+		  </if>
+    </where>
+    order by store_id desc
+    <if test="pagination != null">
+      limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>   
+  </select>
+  
+  <select id="getPrintCenterCount" resultType="java.lang.Integer">
+  select count(store_id) 
+  from store 
+  <where>
+     store.level=2
+     <if test="param.province != null and param.province != ''">
+		  and province = #{param.province}
+		  </if>
+    </where>
+  </select>
+  
+  <!-- 查询所有店铺，父级店铺名称不等于空的数据 -->
+  <select id="selectAllReserved4NotNull" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from store where reserved4 is not null
+  </select>  
+  
+  <select id="checkRepeat" resultType="java.lang.Integer">
+  	select count(store_id) from store 
+ 	<where>
+ 		<if test="netUrl != null and netUrl != ''"> net_url = #{netUrl}</if>
+ 		<if test="reserved8 != null and reserved8 != ''"> reserved8 = #{reserved8}</if>
+ 	</where>
+ </select>
+ 
+ <!-- 查询店铺开店状态 -->
+ <select id="selectOpenStateBySID" parameterType="java.lang.Integer" resultType="java.lang.String">
+ 	select opening_state from store where store_id = #{storeId}
+ </select>
+ <!-- 修改店铺开店状态 -->
+ <update id="updateOpenState">
+ 	update store set opening_state = #{openingState,jdbcType=CHAR} where store_id = #{storeId}
+ </update>
+ 
+ <!-- 查询店铺是否自动店内出票状态 -->
+ <select id="selectAutoTicketSignBySID" parameterType="java.lang.Integer" resultType="java.lang.String">
+ 	select automatic_ticket_sign from store where store_id = #{storeId}
+ </select>
+ <!-- 修改店铺是否自动店内出票状态 -->
+ <update id="updateAutomaticTicketSign">
+ 	update store set automatic_ticket_sign = #{automaticTicketSign,jdbcType=CHAR} where store_id = #{storeId}
+ </update>
+ 
+ <!-- 店铺网站在线人数统计列表总条目 -->
+ <select id="getStoreMemberOnlinestatisticsCount" resultType="java.lang.Integer">
+	select  count(store_id)
+		from store 
+		  <where>
+		  	store.level=4
+		  <if test="param.storeId != null and param.storeId != ''">
+		   and store.store_id = #{param.storeId}
+		  </if>
+		  <if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+			and (store.create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59")) 
+		  </if>
+		  <if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')"> 
+			and store.create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00") 
+		  </if>
+		  <if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+			and store.create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59") 
+		  </if>
+		  <if test="param.storeName != null and param.storeName != ''">
+		  	and store_name like '%${param.storeName}%'
+		  </if>
+		  </where>
+ </select>
+ 
+ <!-- 店铺网站在线人数统计列表分页查询 -->
+ <select id="getStoreMemberOnlinestatisticsList" resultMap="BaseResultMap">
+	select  <include refid="Base_Column_List" />, (SELECT COUNT(id) FROM member WHERE member.store_id = store.store_id ) member_number 
+		from store 
+		  <where>
+		  	store.level=4
+		  <if test="param.storeId != null and param.storeId != ''">
+		   and store.store_id = #{param.storeId}
+		  </if>
+		  <if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+			and (store.create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59")) 
+		  </if>
+		  <if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')"> 
+			and store.create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00") 
+		  </if>
+		  <if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+			and store.create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59") 
+		  </if>
+		  <if test="param.storeName != null and param.storeName != ''">
+		  	and store_name like '%${param.storeName}%'
+		  </if>
+		  </where>
+		   order by store.store_id DESC
+		   <if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>
+ </select>
+ 
+  <select id="getShzxStoreList" resultMap="BaseResultMap">
+    select store.store_id,store.store_name,store_account.print_account reserved1,store.reserved3 reserved3 from store,store_account where store.store_id=store_account.store_id 
+     <if test="reserved3 != null and reserved3 != ''">
+		  	and store.reserved3=#{reserved3} 
+		  </if>
+     <if test="reserved5 != null and reserved5 != ''">
+		  	and store.reserved5=#{reserved5} 
+		  </if>
+    order by print_account desc
+  </select>
+  
+  <select id="selectAllByParam" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> from store
+  </select>
+  
+</mapper>
+  

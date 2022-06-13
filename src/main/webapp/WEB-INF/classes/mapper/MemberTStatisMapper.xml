@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MemberTStatisMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MemberTStatis" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="sales" property="sales" jdbcType="DOUBLE" />
+    <result column="recharge" property="recharge" jdbcType="DOUBLE" />
+    <result column="draw" property="draw" jdbcType="DOUBLE" />
+    <result column="arrears" property="arrears" jdbcType="DOUBLE" />
+    <result column="repayment" property="repayment" jdbcType="DOUBLE" />
+    <result column="cash" property="cash" jdbcType="DOUBLE" />
+    <result column="day" property="day" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, member_id, sales, recharge, draw, arrears, repayment, cash, day
+  </sql>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MemberTStatis" >
+    insert into member_t_statis (id, member_id, sales, 
+      recharge, draw, arrears, 
+      repayment, cash, day)
+    values (#{id,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{sales,jdbcType=DOUBLE}, 
+      #{recharge,jdbcType=DOUBLE}, #{draw,jdbcType=DOUBLE}, #{arrears,jdbcType=DOUBLE}, 
+      #{repayment,jdbcType=DOUBLE}, #{cash,jdbcType=DOUBLE}, #{day,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectMemberTStatis" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_t_statis
+    where member_id = #{memberId} and day = #{day}
+  </select>
+  
+  <select id="selectTotalMemberStatis" resultMap="BaseResultMap" >
+    select sum(IFNULL(sales,0)) as sales
+    from member_t_statis
+    where member_id = #{memberId} 
+  </select>
+ 
+</mapper>

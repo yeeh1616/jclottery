@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.GuessFootballStatisMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.GuessFootballStatis" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="CHAR" />
+    <result column="snum" property="snum" jdbcType="INTEGER" />
+    <result column="pnum" property="pnum" jdbcType="INTEGER" />
+    <result column="fnum" property="fnum" jdbcType="INTEGER" />
+    <result column="rsnum" property="rsnum" jdbcType="INTEGER" />
+    <result column="rpnum" property="rpnum" jdbcType="INTEGER" />
+    <result column="rfnum" property="rfnum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sid, snum, pnum, fnum, rsnum, rpnum, rfnum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from guess_football_statis
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from guess_football_statis
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jingc.busi.common.table.GuessFootballStatis" >
+    insert into guess_football_statis (id, sid, snum, pnum, 
+      fnum, rsnum, rpnum, 
+      rfnum)
+    values (#{id,jdbcType=INTEGER}, #{sid,jdbcType=CHAR}, #{snum,jdbcType=INTEGER}, #{pnum,jdbcType=INTEGER}, 
+      #{fnum,jdbcType=INTEGER}, #{rsnum,jdbcType=INTEGER}, #{rpnum,jdbcType=INTEGER}, 
+      #{rfnum,jdbcType=INTEGER})
+  </insert>
+  <select id="selectByIndex" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from guess_football_statis
+    where sid = #{sid}
+  </select>
+  <update id="updateParam">
+  	update guess_football_statis set snum = snum + #{param.snum},pnum = pnum + #{param.pnum},fnum = fnum + #{param.fnum},rsnum = rsnum + #{param.rsnum},rpnum = rpnum + #{param.rpnum},rfnum = rfnum + #{param.rfnum} where sid = #{param.sid}
+  </update>
+</mapper>

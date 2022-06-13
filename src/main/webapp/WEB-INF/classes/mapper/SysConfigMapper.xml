@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.SysConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.SysConfig" >
+    <result column="ticket_interval" property="ticketInterval" jdbcType="INTEGER" />
+    <result column="digital_interval" property="digitalInterval" jdbcType="INTEGER" />
+    <result column="enter_interval" property="enterInterval" jdbcType="INTEGER" />
+    <result column="dynamic_interval_min" property="dynamicIntervalMin" jdbcType="INTEGER" />
+    <result column="dynamic_interval_max" property="dynamicIntervalMax" jdbcType="INTEGER" />
+    <result column="big_ticket_amount" property="bigTicketAmount" jdbcType="INTEGER" />
+    <result column="sys_pass" property="sysPass" jdbcType="VARCHAR" />
+    <result column="is_auto_ticket" property="isAutoTicket" jdbcType="INTEGER" />
+    <result column="is_continuous_ticket" property="isContinuousTicket" jdbcType="INTEGER" />
+    <result column="is_automatic_feedback" property="isAutomaticFeedback" jdbcType="INTEGER" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    ticket_interval, digital_interval, enter_interval, dynamic_interval_min, dynamic_interval_max, 
+    big_ticket_amount, sys_pass, is_auto_ticket, is_continuous_ticket, is_automatic_feedback
+  </sql>
+  <insert id="insert" parameterType="com.jingc.busi.common.table.SysConfig" >
+    insert into sys_config (ticket_interval, digital_interval, 
+      enter_interval, dynamic_interval_min, dynamic_interval_max, 
+      big_ticket_amount, sys_pass, is_auto_ticket, 
+      is_continuous_ticket, is_automatic_feedback
+      )
+    values (#{ticketInterval,jdbcType=INTEGER}, #{digitalInterval,jdbcType=INTEGER}, 
+      #{enterInterval,jdbcType=INTEGER}, #{dynamicIntervalMin,jdbcType=INTEGER}, #{dynamicIntervalMax,jdbcType=INTEGER}, 
+      #{bigTicketAmount,jdbcType=INTEGER}, #{sysPass,jdbcType=VARCHAR}, #{isAutoTicket,jdbcType=INTEGER}, 
+      #{isContinuousTicket,jdbcType=INTEGER}, #{isAutomaticFeedback,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <select id="selectAllSysConfig" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from sys_config
+  </select>
+</mapper>

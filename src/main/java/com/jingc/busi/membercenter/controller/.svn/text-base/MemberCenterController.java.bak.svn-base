@@ -1,0 +1,2598 @@
+/**
+ * 
+ */
+package com.jingc.busi.membercenter.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.fastjson.JSON;
+import com.alipay.config.AlipayConfig;
+import com.alipay.services.AlipayService;
+import com.alipay.util.AlipayNotify;
+import com.jingc.afc.exception.BaseException;
+import com.jingc.afc.pagination.CommonTag;
+import com.jingc.afc.pagination.Pagination;
+import com.jingc.afc.util.Constants;
+import com.jingc.afc.util.DateUtil;
+import com.jingc.busi.chasing.service.ChasingService;
+import com.jingc.busi.common.table.ChasingOrder;
+import com.jingc.busi.common.table.Debit;
+import com.jingc.busi.common.table.LotteryOrder;
+import com.jingc.busi.common.table.Member;
+import com.jingc.busi.common.table.MemberAccount;
+import com.jingc.busi.common.table.MemberDrow;
+import com.jingc.busi.common.table.MemberMessage;
+import com.jingc.busi.common.table.MemberMoneyLog;
+import com.jingc.busi.common.table.MemberPayLog;
+import com.jingc.busi.common.table.MemberWithdraw;
+import com.jingc.busi.common.table.MergerJoin;
+import com.jingc.busi.common.table.Store;
+import com.jingc.busi.common.table.StoreLicense;
+import com.jingc.busi.common.table.StoreReceiv;
+import com.jingc.busi.login.service.LoginService;
+import com.jingc.busi.membercenter.service.MemberCenterService;
+import com.jingc.busi.merger.service.CustomService;
+import com.jingc.busi.merger.service.MergerQueryService;
+import com.jingc.busi.order.service.OrderService;
+import com.jingc.busi.order.service.OrderService.GuessOrder;
+import com.jingc.busi.order.service.OrderService.TraditionOrder;
+import com.jingc.busi.order.service.OrderService.TraditionOrderchasing;
+import com.jingc.busi.util.member.LotteryOrderState;
+import com.jingc.busi.util.member.MemberUtil;
+import com.jingc.busi.util.member.MessageStateType;
+import com.jingc.busi.util.member.StoreReceivTypeState;
+import com.jingc.constant.util.GameUtil;
+import com.llpay.client.config.PartnerConfig;
+import com.llpay.client.service.GfbService;
+import com.llpay.client.utils.LLPayUtil;
+import com.llpay.client.vo.OrderInfo;
+import com.llpay.client.vo.PayDataBean;
+import com.llpay.client.vo.RetBean;
+import com.sft.api.SharingResponse40;
+import com.sft.form.ReturnForm;
+import com.sft.service.AgreementInfo;
+import com.sft.service.SftQueryOrderService;
+import com.sft.service.SftService;
+
+/**
+ * <p>
+ * File: MemberCenterController.java
+ * </p>
+ * <p>
+ * Desc: 个人中心Controller
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2013
+ * </p>
+ * <p>
+ * Company: 北京中科易达科技发展有限责任公司
+ * </p>
+ * 
+ * @author luochang
+ * @version 1.0 2014-3-4
+ *          <p>
+ *          修改者姓名 修改内容说明
+ *          </p>
+ * @see 参考类1
+ */
+@Controller
+// @RequestMapping("/memberCenter/")
+public class MemberCenterController {
+	@Resource
+	private MemberCenterService memberCenterService;
+	@Resource
+	private OrderService orderservice;
+	@Resource
+	private LoginService loginService;
+
+	@Resource
+	private ChasingService chasingService;
+	
+	@Resource
+	private MergerQueryService mergerQueryService;
+	
+	@Resource
+	private CustomService customService;
+
+	/*
+	 * 账户中心首页
+	 */
+	@RequestMapping("/memberCenter/index.jhtml")
+	// @ResponseBody
+	public ModelAndView centerIndex(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		Double[] mones = this.loginService.getAccount(mb.getId());
+		// 用户资金详情数组[现金账户，赠金账户，冻结总额，账户可用资金]
+		mv.addObject("mones", mones);
+		// 身份证，银行卡，手机
+		String[] veriMessage = new String[3];
+		veriMessage[0] = mb.getCertiNumber();// 身份证号码
+		veriMessage[1] = mb.getBankAccount();// 银行卡号码
+		veriMessage[2] = mb.getPhone() + "";// 手机信息
+		mv.addObject("veriMessage", veriMessage);
+
+		mv.setViewName("membercenter/index");
+		return mv;
+	}
+	/*
+	 * 取款信息
+	 */
+	@RequestMapping("/memberCenter/drawinfo.jhtml")
+	// @ResponseBody
+	public ModelAndView drawinfo(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		List<MemberWithdraw> list=this.memberCenterService.drawInfo(mb.getId());
+		mv.addObject("list",list);
+		mv.setViewName("membercenter/drawinfo");
+		return mv;
+	}
+	/*
+	 * 查询取款账户
+	 */
+	@RequestMapping("/memberCenter/changeAccount.jhtml")
+	// @ResponseBody
+	public ModelAndView changeAccount(HttpSession session,HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		int id=Integer.parseInt(request.getParameter("id"));
+		MemberWithdraw withdraw=this.memberCenterService.drawInfoById(id);
+		String accountType=withdraw.getAccountType();
+		//int i=accountType.length();
+		String zhihang=accountType.substring(accountType.indexOf('|')+1,accountType.length());
+		mv.addObject("withdraw",withdraw);
+		mv.addObject("zhihang", zhihang);
+		mv.setViewName("membercenter/bankCard");
+		return mv;
+	}
+	/*
+	 * 修改取款账户
+	 */
+	@RequestMapping("/memberCenter/updateAccount.jhtml")
+	// @ResponseBody
+	public ModelAndView updateAccount(HttpServletRequest request,HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		int id=Integer.parseInt(request.getParameter("id"));
+		String accountType=request.getParameter("accountType");
+		String card=request.getParameter("bankId");
+		String zhihang=request.getParameter("subBankName");
+		accountType +="|";
+		accountType +=zhihang;
+		//MemberWithdraw memberWithdraw=new MemberWithdraw();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String time=df.format(new Date());// new Date()为获取当前系统时间
+		this.memberCenterService.updateWithdrawById(id, accountType, card,time);
+		//memberWithdraw.set
+		//MemberWithdraw withdraw=this.memberCenterService.drawInfoById(id);
+		Member mb = (Member) session.getAttribute("member");
+		List<MemberWithdraw> list=this.memberCenterService.drawInfo(mb.getId());
+		mv.addObject("list",list);
+		mv.setViewName("membercenter/drawinfo");
+		return mv;
+	}
+	/*
+	 * 修改账户状态
+	 */
+	@RequestMapping("/memberCenter/updateDrawstate.jhtml")
+	// @ResponseBody
+	public ModelAndView updateDrawstate(HttpSession session,HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		int id=Integer.parseInt(request.getParameter("id"));
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String time=df.format(new Date());// new Date()为获取当前系统时间
+		this.memberCenterService.updateDrawstate(id,time);
+		List<MemberWithdraw> list=this.memberCenterService.drawInfo(mb.getId());
+		mv.addObject("list",list);
+		mv.setViewName("membercenter/drawinfo");
+		return mv;
+	}
+	/**
+	 * 代购记录
+	 */
+	@RequestMapping("/memberCenter/purchasList.jhtml")
+	public ModelAndView purchasList(HttpSession session, Integer pageNo,
+			Integer pageSize, Integer type, String beginTime, String endTime,
+			LotteryOrder param) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		if (CommonTag.isEmpty(beginTime).equals("true")
+				|| CommonTag.isEmpty(endTime).equals("true")) {
+			beginTime = DateUtil.getDayBefore(DateUtil.getDateFORMAT0Stirng(),
+					7);
+			endTime = DateUtil.getDateFormat0();
+		}
+		Integer userId = mb.getId();
+		Integer storeId = mb.getStoreId();
+		param.setUserid(userId);
+		param.setBeginTime(beginTime);
+		param.setEndTime(endTime);
+		param.setBetType(LotteryOrderState.BET_TYPE_BUY);
+		Pagination pagination = null;
+		// 营业厅彩民
+		if (mb.getMemberFrom() == 5) {
+			Member currMember = this.memberCenterService.getOneMember(userId);
+			param.setReserved1(currMember.getReserved1());
+			pagination = this.memberCenterService
+					.getYYTOrderByMemberAndGameType(param, pageNo, pageSize);
+		} else
+			pagination = this.memberCenterService.getOrderByMemberAndGameType(
+					param, pageNo, pageSize);
+
+		// 取到彩票种类列别
+		List<StoreLicense> lotteryTypes = this.memberCenterService
+				.getStoreLicenseList(storeId);
+
+		mv.addObject("lotteryTypes", lotteryTypes);
+		mv.addObject("pagination", pagination);
+		mv.setViewName("membercenter/purchasList");
+		return mv;
+	}
+
+	
+
+	/****
+	 * 营业厅会员提交方案出票
+	 * 
+	 * @param session
+	 * @param pageNo
+	 * @param pageSize
+	 * @param type
+	 * @param beginTime
+	 * @param endTime
+	 * @param param
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/changeOrderState.jhtml")
+	public String changeOrderState(HttpSession session,
+			HttpServletRequest request) {
+		Member mb = (Member) session.getAttribute("member");
+		String[] orderIds = request.getParameterValues("orderId");
+		for (String orderId : orderIds) {
+			this.memberCenterService.updateLotteryOrderState(Integer
+					.parseInt(orderId), mb.getId());
+		}
+		return "redirect:/memberCenter/purchasList.jhtml";
+	}
+
+	/***
+	 * 营业厅用户删除方案
+	 * 
+	 * @param session
+	 * @param orderId
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/deleteOrder.do")
+	@ResponseBody
+	public String deleteOrder(HttpSession session, Integer orderId) {
+		if (this.memberCenterService.deleteLotteryOrder(orderId) > 0)
+			return "1";
+		else
+			return "0";
+	}
+
+	/**
+	 * 中奖记录
+	 */
+	@RequestMapping("/memberCenter/prizeList.jhtml")
+	public ModelAndView prizeList(HttpSession session, Integer pageNo,
+			Integer pageSize, Integer type, String beginTime, String endTime,
+			LotteryOrder param) {
+		ModelAndView mv = new ModelAndView();
+		if (CommonTag.isEmpty(beginTime).equals("true")
+				|| CommonTag.isEmpty(endTime).equals("true")) {
+			beginTime = DateUtil.getDayBefore(DateUtil.getDateFORMAT0Stirng(),
+					7);
+			endTime = DateUtil.getDateFormat0();
+		}
+		Member mb = (Member) session.getAttribute("member");
+		Integer userId = mb.getId();
+		Integer storeId = mb.getStoreId();
+		param.setUserid(userId);
+		param.setBeginTime(beginTime);
+		param.setEndTime(endTime);
+		// param.setBetState(LotteryOrderState.LOTTERY_ORDER_STATE_COMPLETE_WIN
+		// + "");
+		Pagination pagination = null;
+		if (mb.getMemberFrom() == 5) {
+			Member currMember = this.memberCenterService.getOneMember(userId);
+			param.setReserved1(currMember.getReserved1());
+			pagination = this.memberCenterService.getMemberOrderListBonus(
+					param, pageNo, pageSize);
+		} else
+			pagination = this.memberCenterService.getMemberOrderListBonus(
+					param, pageNo, pageSize);
+
+		// Pagination pagination =
+		// this.memberCenterService.getMemberOrderListBonus(param, pageNo,
+		// pageSize);
+
+		// 取到彩票种类列别
+		List<StoreLicense> lotteryTypes = this.memberCenterService
+				.getStoreLicenseList(storeId);
+
+		mv.addObject("lotteryTypes", lotteryTypes);
+		mv.addObject("pagination", pagination);
+		mv.setViewName("membercenter/prizeList");
+		return mv;
+	}
+	
+	
+	/**
+	 * 在线充值
+	 */
+	@RequestMapping("/memberCenter/putMoney.jhtml")
+	public String putMoney(HttpSession session) {
+		//ModelAndView mv = new ModelAndView();
+		//return "redirect:/memberCenter/purchasList.jhtml";
+		//Store storeRecord = (Store) session.getAttribute("domain");
+		Member mb = (Member) session.getAttribute("member");
+		Store storeRecord = this.memberCenterService.getOneStore(new Integer(mb.getStoreId()));
+		String zfbAccount = storeRecord.getReserved6();//支付宝账户
+		String gfbAccount = storeRecord.getReserved7();//国付宝（连连）账户
+		String sftAccount = storeRecord.getReserved8();//盛付通账户
+		if(zfbAccount == null)zfbAccount="";
+		if(gfbAccount == null)gfbAccount="";
+		if(sftAccount == null)sftAccount="";
+		if(sftAccount.length() > 0){
+			return "redirect:/memberCenter/putMoneySFT.jhtml";
+		}else if(gfbAccount.length() > 0){
+			return "redirect:/memberCenter/putMoneyQuick.jhtml";
+		}else if(zfbAccount.length() > 0){
+			return "redirect:/memberCenter/putMoneyZfb.jhtml";
+		}else{
+			return "redirect:/memberCenter/putMoneyOutLine.jhtml";
+		}
+		//mv.setViewName("membercenter/putMoney");
+		//return mv;
+	}
+    /***************************************************************************************************
+     * ********************盛付通充值************************************************************
+     ****************************************************************************************************/
+	@RequestMapping("/memberCenter/putMoneySFT.jhtml")
+	public ModelAndView putMoneySFT(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/putMoney");
+		return mv;
+	}
+	@RequestMapping("/memberCenter/putMoneySFTZ.jhtml")
+	public ModelAndView putMoneySFTZ(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/putMoneyZ");
+		return mv;
+	}
+	/***
+	 * 盛付通在线充值确认
+	 * @param session
+	 * @param channel 通道 类型，网银-1；快捷-2
+	 * @param payBank 银行编码
+	 * @param payType 卡片类型     CR-信用卡 ；DR-储蓄卡
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/memberCenter/putMoneySure.jhtml")
+	public ModelAndView putMoneySure(HttpSession session,String channel,
+									 String payBank , String payType)  throws Exception{
+		ModelAndView mv = new ModelAndView();
+		if(channel == null)
+			channel = "1";
+		if(channel.equals("1")){
+			mv.setViewName("membercenter/putMoneySure");//网银确认页
+		}else{
+			session.setAttribute("sftOrderId", "");//进入盛付通快捷页面，清除session订单
+			session.setAttribute("cpoMap", null);
+			mv.addObject("payType", payType);
+			
+			String payTypeName = "未定类型";
+			String crdisplay = "display:none";
+			if("CR".equals(payType)){
+				payTypeName = "信用卡";
+				crdisplay = "";
+			}else{
+				payTypeName = "储蓄卡";
+			}
+			mv.addObject("payTypeName", payTypeName);
+			mv.addObject("crdisplay", crdisplay);
+			
+			//协议查询，同一人同一张卡的多次消费 ,或者是同一个人有多张同行卡片
+			Member mb = (Member) session.getAttribute("member");
+			HashMap<String, Object> Qmap = new SftService().queryAgreement(mb.getId() + "",payBank,payType);
+			String returnCode = (String)Qmap.get("returnCode");
+			List<AgreementInfo> AgreementInfoList = (List<AgreementInfo>)Qmap.get("AgreementInfoList");
+			//成功反馈，并且已经成功使用过该行卡
+			if("SUCCESS".equals(returnCode) && AgreementInfoList != null){
+				 //AgreementInfoList = (List<AgreementInfo>)Qmap.get("AgreementInfoList");
+				 mv.addObject("AgreementInfoList", AgreementInfoList);
+				 mv.setViewName("membercenter/putMoneySureKjT");//快捷确认页,彩民不用再次录入银行卡信息，直接可以申请校验码
+			}else{
+				mv.setViewName("membercenter/putMoneySureKj");//快捷确认页
+			}
+		}
+		return mv;
+	}
+
+	/***
+	 * 盛付通网银在线充值入库
+	 * 
+	 * @param session
+	 * @param currMoney
+	 *            当前交易额
+	 * @param payBank
+	 *            充值方式
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/doPutMoneySure.jhtml")
+	public void doPutMoneySure(HttpSession session, HttpServletRequest request,
+			HttpServletResponse response, Double currMoney, String payBank)
+			throws IOException {
+		Member mb = (Member) session.getAttribute("member");
+		Store storeRecord = (Store) session.getAttribute("domain");
+		String storeName = storeRecord.getStoreName();//店铺名称
+		// 充值日志
+		int orderId = this.memberCenterService.doPutMoney(mb, currMoney,
+				payBank, MemberUtil.MEMBER_PAY_TYPE.SFT_PAY);
+
+		String result = "";
+		StringBuffer url = request.getRequestURL();
+		String contextUrl = url.delete(
+				url.length() - request.getRequestURI().length(), url.length())
+				.append("/").toString();
+		result = czSft(orderId + "", currMoney, payBank,
+				getCurrUserIP(request), contextUrl,storeName);
+		PrintWriter out = response.getWriter();
+		out.print(result);
+	}
+
+	/**
+	 * 盛付通网银充值调用
+	 * 
+	 * @param httpSession
+	 * @param pay_money
+	 * @param pay_bank ,sftMoneyTable---到盛付通的收款台
+	 * @param rIp
+	 * @return
+	 */
+	private String czSft(String orderId, double payMoney, String payBank,
+			String rIp, String contextUrl,String storeName) {
+
+		return new SftService().createPayForm(orderId, payMoney, rIp, payBank,
+				contextUrl,storeName);
+	}
+
+	
+	/**
+	 * 盛付通快捷在线充值入库
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @param currMoney 交易金额
+	 * @param payBank   银行编码
+	 * @param bankCardNo  银行卡号
+	 * @param realName  持卡人名称
+	 * @param idNo    身份证
+	 * @param mobileNo 银行留存手机号
+	 * @param validThru 信用卡有效期
+	 * @param cvv2   信用卡后三位
+	 * @param payType  银行卡类型 银行卡类型 DR--借记卡   CR--贷记卡
+	 * @param agreementNo 协议编号
+	 * @throws IOException
+	 */
+	@SuppressWarnings("unchecked")
+	//支付前的预校验
+	@RequestMapping("/memberCenter/checkPay.json")
+	@ResponseBody
+	public String checkPay(HttpSession session, 
+			 HttpServletRequest request,
+			 HttpServletResponse response, 
+			 Double currMoney, 
+			 String payBank,
+			 String bankCardNo,
+			 String realName,
+			 String idNo,
+			 String mobileNo,
+			 String validThru,
+			 String cvv2,
+			 String payType,
+			 String agreementNo) throws Exception{
+		if(agreementNo == null)
+			agreementNo = "";
+		
+		String backMessage = "OK";
+		boolean allowNext = false;//创建订单----->支付预校验==================>订单支付
+		Member mb = (Member) session.getAttribute("member");
+		
+		StringBuffer url = request.getRequestURL();
+		String contextUrl = url.delete(
+				url.length() - request.getRequestURI().length(), url.length())
+				.append("/").toString();
+		
+		String sftOrderId = (String)session.getAttribute("sftOrderId");
+		HashMap<String, Object> cpoMap = (HashMap<String, Object>)session.getAttribute("cpoMap");
+		if(sftOrderId == null) sftOrderId = "";
+		if(sftOrderId.length() == 0){
+			sftOrderId = this.memberCenterService.doPutMoney(mb, currMoney,payBank, 
+                    MemberUtil.MEMBER_PAY_TYPE.SFT_PAY) + "";// + 1000000 + "";
+			
+			cpoMap = new SftService().createPayOrder(sftOrderId, currMoney + "", contextUrl);
+			
+			session.setAttribute("cpoMap", cpoMap);//用一个订单会有多次校验
+			session.setAttribute("sftOrderId", sftOrderId);//设置session，会有多次异步校验
+		}
+		
+		//int orderId = this.memberCenterService.doPutMoney(mb, currMoney,payBank, 
+				                                         // MemberUtil.MEMBER_PAY_TYPE.SFT_PAY);
+		//创建订单，返回盛付通结果
+		//HashMap<String, String> cpoMap = new SftService().createPayOrder(sftOrderId, currMoney + "");
+		
+		String returnCode = (String)cpoMap.get("returnCode");//状态码
+		String returnMessage = (String)cpoMap.get("returnMessage");//描述
+		String sessionToken = (String)cpoMap.get("sessionToken");//支付token
+		if("SUCCESS".equals(returnCode)){
+			allowNext = true;
+		}else{
+			backMessage = returnMessage;
+		}
+		
+		//支付预校验
+		if(allowNext){
+			HashMap<String, Object> preckMap = new SftService().preCheck(currMoney + "", 
+					                                                    sessionToken, agreementNo, 
+					                                                    "false", mb.getId() + "", 
+					                                                    payBank, payType, 
+					                                                    bankCardNo, realName, 
+					                                                    idNo, "IC", 
+					                                                    mobileNo, cvv2, 
+					                                                    validThru, getCurrUserIP(request),
+					                                                    mb);
+			returnCode = (String)preckMap.get("returnCode");//状态码 ，预校验成功与协议已经存在
+			returnMessage = (String)preckMap.get("returnMessage");//描述
+			if("SUCCESS".equals(returnCode)/* ||
+					"BUSINESS_EXCEPTION".equals(returnCode)*/){
+				allowNext = true;
+				session.setAttribute("sessionToken", sessionToken);
+			}else{
+				session.setAttribute("sessionToken", "");
+				backMessage = returnMessage;//描述;
+			}
+		}
+		/*//订单确认支付
+		if(allowNext){
+			
+		}*/
+		return backMessage;
+	}
+	
+	/**
+	 * 订单确认支付
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @param validateCode 手机验证码
+	 * @throws IOException
+	 */
+	@RequestMapping("/memberCenter/doPutMoneyKjSure.jhtml")
+	public ModelAndView doPutMoneyKjSure(HttpSession session, 
+								 HttpServletRequest request,
+								 HttpServletResponse response,
+								 String validateCode
+								)
+			throws Exception {
+		Member mb = (Member) session.getAttribute("member");
+		Store storeRecord = (Store) session.getAttribute("domain");
+		String sessionToken = (String)session.getAttribute("sessionToken");
+		if(sessionToken == null) sessionToken = "";
+		if(sessionToken.length() == 0){
+			throw new BaseException("[支付订单异常，请返回上一级页面重新发起充值]");
+		}
+		HashMap<String, Object> returnMap = new SftService().confirmPay(sessionToken, validateCode, mb.getId() + "", 
+																		getCurrUserIP(request),"false");          
+		//本地逻辑部分
+		String returnCode = (String)returnMap.get("returnCode");
+		String signStatus = (String)returnMap.get("signStatus");
+		String paymentStatus = (String)returnMap.get("paymentStatus");
+		String returnMessage = (String)returnMap.get("returnMessage");
+		String merchantOrderNo = (String)returnMap.get("merchantOrderNo");
+		String orderAmount = returnMap.get("orderAmount").toString();//反馈的金额是豪，10000豪==1元
+		String sftOrderNo = (String)returnMap.get("sftOrderNo");
+		//成功的支付
+		if("SUCCESS".equals(returnCode)){// && "S".equals(signStatus)
+			if("01".equals(paymentStatus)){
+				// 根据店铺号获得分账账户
+				String account = storeRecord.getReserved8();
+				MemberPayLog payLogRecord = this.memberCenterService.getOneMemberPayLog(new Integer(merchantOrderNo));
+				// 订单金额
+				double paytoAmount = payLogRecord.getMoney().doubleValue();
+				// 比较支付金额是否与订单金额相等,相等调用分账接口
+				if (paytoAmount == (Double.parseDouble(orderAmount) / 10000)) {
+					// 更改数据库状态
+					payLogRecord.setPayId(sftOrderNo);
+					payLogRecord.setState(MemberUtil.STATE.MEMBER_PAY_LOG_STATE_PROCESSED);
+					payLogRecord.setBackTime(new SimpleDateFormat(
+									"yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+					payLogRecord.setReserved3(returnCode + "," + returnMessage);
+					payLogRecord.setReserved4("快捷支付");
+					
+					if (this.memberCenterService.setState(payLogRecord) > 0) {
+						// 修改会员帐户余额,写资金日志
+						this.memberCenterService.putMoneyToMemberAccount(
+								payLogRecord.getMemberId(),storeRecord, payLogRecord.getMoney(),
+								MemberUtil.MEMBER_PAY_TYPE.SFT_PAY,payLogRecord.getId()+"");
+						// 发送充值消息
+						// MemberMessage message = new MemberMessage();
+					}
+					/*******************************************************************************
+					 ********************************分润********************************************
+					 ********************************************************************************/
+					// account = "13439144084";
+					// 创建分账表单并提交
+					try {
+						System.out.println("===分润开始===="+sftOrderNo);
+						
+						//构造分润需要的对象参数
+						ReturnForm rForm = new ReturnForm();
+						rForm.setTransNo(sftOrderNo);
+						rForm.setOrderNo(merchantOrderNo);
+						rForm.setTransType("PT021");
+						rForm.setTransAmount(orderAmount);
+						
+						StringBuffer url = request.getRequestURL();
+						String contextUrl = url
+								.delete(url.length() - request.getRequestURI().length(), url.length())
+								.append("/").toString();
+						new SftService().submitSharingForm(rForm, account, contextUrl);
+						
+						System.out.println("===分润结束==="+sftOrderNo);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				returnMessage = "交易成功！";
+			}
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("returnMessage", returnMessage);
+		mv.setViewName("membercenter/putMoneySuccKJ");
+		return mv;
+	}
+	
+	/**
+	 * 盛付通在线充值返回,展示页
+	 * @param mv
+	 * @param httpSession
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/cz/sft/return.jhtml", method = RequestMethod.POST)
+	public ModelAndView sftReturn(ModelAndView mv, HttpServletRequest request) {
+		String returnMessage = "";
+		SftService sftService = new SftService();
+		// 获取盛付通反馈信息
+		ReturnForm rForm = sftService.getReturnForm(request);
+		MemberPayLog payLogRecord = this.memberCenterService.getOneMemberPayLog(new Integer(rForm.getOrderNo()));
+		payLogRecord.setPayId(rForm.getTransNo());//盛付通订单号
+		payLogRecord.setBackTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+		// 计算得出通知验证结果
+		if (sftService.checkReturnForm(rForm)) {
+			if ("01".equals(rForm.getTransStatus())) {// 交易成功
+				// 根据店铺号获得分账账户
+				Store storeRecord = this.memberCenterService
+						.getOneStore(new Integer(payLogRecord.getStoreId()));
+				String account = storeRecord.getReserved8();
+				
+				// 订单金额
+				double paytoAmount = payLogRecord.getMoney().doubleValue();
+				// 比较支付金额是否与订单金额相等,相等调用分账接口
+				if (paytoAmount == Double.parseDouble(rForm.getTransAmount())) {
+					// 更改数据库状态
+					//payLogRecord.setPayId(rForm.getTransNo());
+					payLogRecord.setState(MemberUtil.STATE.MEMBER_PAY_LOG_STATE_PROCESSED);
+					/*payLogRecord
+							.setBackTime(new SimpleDateFormat(
+									"yyyy-MM-dd HH:mm:ss").format(new Date()
+									.getTime()));*/
+					payLogRecord.setReserved2(rForm.getTransType() + "," + rForm.getBankSerialNo() + "," + account);
+					payLogRecord.setReserved3(rForm.getErrorCode() + "," + rForm.getErrorMsg());
+					
+					if (this.memberCenterService.setState(payLogRecord) > 0) {
+						// 修改会员帐户余额,写资金日志
+						this.memberCenterService.putMoneyToMemberAccount(
+								payLogRecord.getMemberId(),storeRecord, payLogRecord.getMoney(),
+								MemberUtil.MEMBER_PAY_TYPE.SFT_PAY,payLogRecord.getId()+"");
+						// 发送充值消息
+						// MemberMessage message = new MemberMessage();
+					}
+					/*******************************************************************************
+					 ********************************分润********************************************
+					 ********************************************************************************/
+					// account = "13439144084";
+					// 创建分账表单并提交
+					try {
+						System.out.println("===分润开始===="+rForm.getOrderNo());
+						StringBuffer url = request.getRequestURL();
+						String contextUrl = url
+								.delete(
+										url.length()
+												- request.getRequestURI()
+														.length(), url.length())
+								.append("/").toString();
+						sftService
+								.submitSharingForm(rForm, account, contextUrl);
+						System.out.println("===分润结束==="+rForm.getOrderNo());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				returnMessage = "交易成功！";
+			}
+		} else {
+			this.memberCenterService.setState(payLogRecord);
+			returnMessage = "定单异常或者订单已被处理！";
+		}
+		mv.addObject("returnMessage", returnMessage);
+		mv.setViewName("membercenter/putMoneySucc");
+		return mv;
+	}
+
+	/**
+	 * 在线充值返回,点对点通讯,不需要展示
+	 * 
+	 * @param mv
+	 * @param httpSession
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/cz/sft/notify.jhtml", method = RequestMethod.POST)
+	@ResponseBody
+	public String sftNotify(HttpServletRequest request) {
+		String returnMessage = "fail";
+		SftService sftService = new SftService();
+		// 获取盛付通反馈信息
+		ReturnForm rForm = sftService.getReturnForm(request);
+		// 获得支付信息
+		MemberPayLog payLogRecord = this.memberCenterService.getOneMemberPayLog(new Integer(rForm.getOrderNo()));
+		payLogRecord.setPayId(rForm.getTransNo());//盛付通订单号
+		payLogRecord.setBackTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+		// 计算得出通知验证结果
+		if (sftService.checkReturnForm(rForm)) {
+			if ("01".equals(rForm.getTransStatus())) {// 交易成功
+				// 根据店铺号获得分账账户
+				Store storeRecord = this.memberCenterService
+						.getOneStore(new Integer(payLogRecord.getStoreId()));
+				String account = storeRecord.getReserved8();
+				// 订单金额
+				double paytoAmount = payLogRecord.getMoney().doubleValue();
+				// 比较支付金额是否与订单金额相等,相等调用分账接口
+				if (paytoAmount == Double.parseDouble(rForm.getTransAmount())) {
+					// 更改数据库状态
+					//payLogRecord.setPayId(rForm.getTransNo());
+					payLogRecord.setState(MemberUtil.STATE.MEMBER_PAY_LOG_STATE_PROCESSED);
+					/*payLogRecord
+							.setBackTime(new SimpleDateFormat(
+									"yyyy-MM-dd HH:mm:ss").format(new Date()
+									.getTime()));*/
+					payLogRecord.setReserved2(rForm.getTransType() + "," + rForm.getBankSerialNo() + "," + account);
+					payLogRecord.setReserved3(rForm.getErrorCode() + "," + rForm.getErrorMsg());
+					if (this.memberCenterService.setState(payLogRecord) > 0) {
+						// 修改会员帐户余额,写资金日志
+						this.memberCenterService.putMoneyToMemberAccount(
+								payLogRecord.getMemberId(), storeRecord, payLogRecord.getMoney(),
+								MemberUtil.MEMBER_PAY_TYPE.SFT_PAY,payLogRecord.getId()+"");
+						/* 发送充值消息 */
+						// MemberMessage message = new MemberMessage();
+					}
+					/*******************************************************************************
+					 ********************************分润********************************************
+					 ********************************************************************************/
+					// account = "13439144084";
+					// 创建分账表单并提交
+					try {
+						System.out.println("===分润开始===="+rForm.getOrderNo());
+						StringBuffer url = request.getRequestURL();
+						String contextUrl = url
+								.delete(
+										url.length()
+												- request.getRequestURI()
+														.length(), url.length())
+								.append("/").toString();
+						sftService
+								.submitSharingForm(rForm, account, contextUrl);
+						System.out.println("===分润结束==="+rForm.getOrderNo());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				returnMessage = "OK";
+			} else {
+				/*payLogRecord
+						.setState(MemberUtil.STATE.MEMBER_PAY_LOG_STATE_FAIL);
+				payLogRecord.setBackTime(new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+				this.memberCenterService.setState(payLogRecord);*/
+			}
+		}else{
+			this.memberCenterService.setState(payLogRecord);
+		}
+		return returnMessage;
+	}
+
+	/**
+	 * 在线充值分账返回,点对点通讯,不需要展示
+	 * 
+	 * @param mv
+	 * @param httpSession
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/cz/sft/sharingnotify.jhtml", method = RequestMethod.POST)
+	@ResponseBody
+	public String sftSharingNotify(HttpServletRequest request) {
+		String returnMessage = "fail";
+		SftService sftService = new SftService();
+		// 获取盛付通反馈信息,封装
+		SharingResponse40 response40 = sftService.getReturnSharingForm(request);
+		// 验证是否盛付通返回
+		if (sftService.checkSharingResponse(response40)) {
+			if ("S".equals(response40.getStatus())) {
+				returnMessage = "OK";
+			} else if ("F".equals(response40.getStatus())) {
+			}
+			
+			//更新支付记录状态
+			MemberPayLog payLogRecord = this.memberCenterService.getOneMemberPayLog(new Integer(response40.getPaymentOrderNo()));
+			payLogRecord.setReserved4(response40.getItems().get(0).getPayeeId() 
+									  + "," + response40.getStatus() 
+									  + "," + response40.getReturnInfo().getErrorCode()
+									  + "," + response40.getReturnInfo().getErrorMsg());
+			
+			//payLogRecord.setState(MemberUtil.STATE.MEMBER_PAY_LOG_STATE_FAIL);//不是失败状态
+			
+			this.memberCenterService.updateMemberPayLog(payLogRecord);
+		}
+		return returnMessage;
+	}
+
+	/**
+	 * 在线充值记录
+	 */
+	@RequestMapping("/memberCenter/putMoneyList.jhtml")
+	public ModelAndView putMoneyList(HttpSession session, Integer pageNo,
+			Integer pageSize, Integer state, String beginTime, String endTime,
+			MemberPayLog param) {
+		ModelAndView mv = new ModelAndView();
+		if (CommonTag.isEmpty(beginTime).equals("true")
+				|| CommonTag.isEmpty(endTime).equals("true")) {
+			beginTime = DateUtil.getDayBefore(DateUtil.getDateFORMAT0Stirng(),
+					7);
+			endTime = DateUtil.getDateFormat0();
+		}
+		// 取款单状态
+		Map<Integer, String> memberPayLogStates = MemberUtil.STATE.MEMBERPAYLOGSTATENAMES;
+
+		Integer memberId = ((Member) session.getAttribute("member")).getId();
+		param.setMemberId(memberId);
+		param.setCreateTimeBegin(beginTime);
+		param.setCreateTimeEnd(endTime);
+		param.setState(state);
+		Pagination pagination = this.memberCenterService.getMemberPutMoney(
+				param, pageNo, pageSize);
+
+		mv.addObject("memberPayLogStates", memberPayLogStates);// 取款单状态
+		mv.addObject("pagination", pagination);// 分页记录
+
+		mv.setViewName("membercenter/putMoneyList");
+		return mv;
+	}
+
+	/**
+	 * 转账充值
+	 */
+	@RequestMapping("/memberCenter/putMoneyOutLine.jhtml")
+	public ModelAndView putMoneyOutLine(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		Integer storeId = mb.getStoreId();
+		StoreReceiv param = new StoreReceiv();
+		param.setStoreId(storeId);
+		param.setUsefor(StoreReceivTypeState.USEFOR.RECEIVABLES);
+		param.setState(StoreReceivTypeState.STATE.AVAILABLE);
+		List<StoreReceiv> storeBanklist = this.memberCenterService
+				.getStoreReceivAccount(param, new Pagination());
+		Store store = this.memberCenterService.getOneStore(mb.getStoreId());
+
+		mv.addObject("storeBanklist", storeBanklist);// 店铺设置的收款
+		mv.addObject("store", store);// 店铺信息
+		mv.setViewName("membercenter/putMoneyOutLine");
+		return mv;
+	}
+
+	/**
+	 * 提款
+	 */
+	@RequestMapping("/memberCenter/getMoney.jhtml")
+	public ModelAndView getMoney(HttpSession session) {
+		/*ModelAndView mv = new ModelAndView();
+		// 先校验真实名称和银行卡
+		Member mb = (Member) session.getAttribute("member");
+		mb = this.memberCenterService.getOneMember(mb.getId());
+
+		//Double[] mones = this.loginService.getAccount(mb.getId());
+		// 用户资金详情数组[现金账户，赠金账户，冻结总额，账户可用资金]
+		//mv.addObject("mones", mones);
+		Double sumConsume = 0.0;//所有购彩
+		Double sumPut = 0.0;//所有充值
+		Double sumBonus = 0.0;//所有中奖
+		Double sumGet = 0.0;//所有取款
+		Double sumDebit = 0.0;//未归还的欠款单
+		Double sumWaitGet = 0.0;//未处理的取款单
+		Double pointer = 0.0;//店铺充值款的最低消费比例
+		
+		Double[] allMoney = this.memberCenterService.allowGetMoney(mb.getId());
+		if(allMoney != null && allMoney.length == 6){
+			 sumPut = allMoney[0];//所有充值
+			 sumBonus = allMoney[1];//所有中奖
+			 sumConsume = allMoney[2];//所有购彩
+			 sumGet = allMoney[3];//所有取款
+			 sumDebit = allMoney[4];//未归还的欠款单
+			 sumWaitGet = allMoney[5];//未处理的取款单
+		}
+		Store storeRecord = (Store) session.getAttribute("domain");
+		pointer = storeRecord.getConsumpProp();
+		
+		//可提款金额 = (总充值*(1-消费比例))+总中奖-总购彩-总提款 - 未还款欠款充值 -未处理的取款单
+		//Double allowGet = sumPut * (1-pointer) + sumBonus - sumConsume - sumGet - sumDebit - sumWaitGet;
+		//可提款金额 = ((总充值-未还款欠款充值)*(1-消费比例))+总中奖                  -总提款  -未处理的取款单-总购彩
+		Double allowGet = (sumPut - sumDebit) * (1-pointer) + sumBonus  - sumGet - sumWaitGet - sumConsume;
+		if(allowGet.doubleValue() < 0){
+			allowGet = 0.0;
+		}
+		mv.addObject("allowGet", allowGet);
+		//展示给彩民的取款辅助信息String[]{店铺的消费比例,总充值,总兑奖,总提款,未还款欠款充值,未处理的取款单,总购彩}
+		mv.addObject("auxMessage",new String[]{pointer+"",sumPut+"",sumBonus+"",sumGet+"",sumDebit+"",sumWaitGet+"",sumConsume+""} );
+		mv.addObject("mb", mb);
+		// 没有实名验证,未绑定银行卡
+		if (CommonTag.isEmpty(mb.getCertiName()).equals("true")
+				|| CommonTag.isEmpty(mb.getBankAccount()).equals("true")) {
+			mv.setViewName("membercenter/getMoneyPrepare");
+		} else {
+			mv.setViewName("membercenter/getMoney");
+			// mv.setViewName("membercenter/getMoneyPrepare");
+		}
+		return mv;*/
+		ModelAndView mv = new ModelAndView();
+		// 先校验真实名称和银行卡
+		Member mb = (Member) session.getAttribute("member");
+		mb = this.memberCenterService.getOneMember(mb.getId());
+
+		Double[] mones = this.loginService.getAccount(mb.getId());
+		// 用户资金详情数组[现金账户，赠金账户，冻结总额，账户可用资金]
+		mv.addObject("mones", mones);
+
+		mv.addObject("mb", mb);
+		// 没有实名验证,未绑定银行卡
+		if (CommonTag.isEmpty(mb.getCertiName()).equals("true")
+				|| CommonTag.isEmpty(mb.getBankAccount()).equals("true")) {
+			mv.setViewName("membercenter/getMoneyPrepare");
+		} else {
+			mv.setViewName("membercenter/getMoney");
+			// mv.setViewName("membercenter/getMoneyPrepare");
+		}
+		return mv;
+	}
+
+	/***
+	 * 取款单入库
+	 * 
+	 * @param session
+	 * @param currMoney
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/doGetMoney.jhtml")
+	public String doGetMoney(HttpSession session, Double currMoney) {
+		Member mb = (Member) session.getAttribute("member");
+		/*Double[] money = this.loginService.getAccount(mb.getId());
+		//最后一道防线，账户表的可取款金额 与 当前的申请取款额 对比
+		if(money[4] < currMoney){
+			throw new BaseException("彩民取款单失败，账户资金异常");
+		}*/
+		
+		MemberAccount getMemberAccount = this.loginService.getMemberAccount(mb.getId());
+		double amountUsedGetMoney = getMemberAccount.getMoneyAccount() - getMemberAccount.getFrozenAccount();//可提款账户
+		if(amountUsedGetMoney < currMoney){
+			throw new BaseException("彩民取款单失败，账户资金异常");
+		}
+		
+		this.memberCenterService.doGetMoney(mb, currMoney , getMemberAccount , "" , "");
+		return "redirect:/memberCenter/getMoneySucc.jhtml";
+	}
+
+	/***
+	 * 取款单入库后url重定向，防止重复订单
+	 */
+	@RequestMapping("/memberCenter/getMoneySucc.jhtml")
+	public ModelAndView getMoneySucc(HttpSession session) {
+		// Member mb = (Member)session.getAttribute("member");
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/getMoneySucc");
+		return mv;
+	}
+
+	/**
+	 * 提款记录
+	 */
+	@RequestMapping("/memberCenter/getMoneyList.jhtml")
+	public ModelAndView getMoneyList(HttpSession session, Integer pageNo,
+			Integer pageSize, Integer state, String beginTime, String endTime,
+			MemberDrow param) {
+		ModelAndView mv = new ModelAndView();
+		if (CommonTag.isEmpty(beginTime).equals("true")
+				|| CommonTag.isEmpty(endTime).equals("true")) {
+			beginTime = DateUtil.getDayBefore(DateUtil.getDateFORMAT0Stirng(),
+					7);
+			endTime = DateUtil.getDateFormat0();
+		}
+		// 取款单状态
+		Map<Integer, String> memberDrowStates = MemberUtil.STATE.MEMBERDROWSTATENAMES;
+
+		Integer memberId = ((Member) session.getAttribute("member")).getId();
+		param.setMemberId(memberId);
+		param.setBeginCreateTime(beginTime);
+		param.setEndCreateTime(endTime);
+		param.setState(state);
+		Pagination pagination = this.memberCenterService.getMemberGetMoney(
+				param, pageNo, pageSize);
+
+		mv.addObject("memberDrowStates", memberDrowStates);// 取款单状态
+		mv.addObject("pagination", pagination);// 分页记录
+		mv.setViewName("membercenter/getMoneyList");
+		return mv;
+	}
+
+	/**
+	 * 账户明细
+	 */
+	@RequestMapping("/memberCenter/accountDetail.jhtml")
+	public ModelAndView accountDetail(HttpSession session, Integer pageNo,
+			Integer pageSize, Integer category, String beginTime,
+			String endTime, MemberMoneyLog param) {
+		ModelAndView mv = new ModelAndView();
+		if (CommonTag.isEmpty(beginTime).equals("true")
+				|| CommonTag.isEmpty(endTime).equals("true")) {
+			beginTime = DateUtil.getDayBefore(DateUtil.getDateFORMAT0Stirng(),7);
+			endTime = DateUtil.getDateFormat0();
+		}
+		// 取款单状态
+		Map<Integer, String> memberMoneyType = MemberUtil.MEMBER_ACCOUNT_CHANGE_TYPE_MAP;
+
+		Integer memberId = ((Member) session.getAttribute("member")).getId();
+		param.setMemberId(memberId);
+		param.setCreateBeginTime(beginTime);
+		param.setCreateEndTime(endTime);
+		param.setCategory(category);
+		Pagination pagination = this.memberCenterService.getMemberMoneyLog(
+				param, pageNo, pageSize);
+
+		//Double[] mones = this.loginService.getAccount(memberId);
+
+		// 用户资金详情数组[现金账户，赠金账户，冻结总额，账户可用资金]
+		//mv.addObject("mones", mones);
+		mv.addObject("memberMoneyType", memberMoneyType);// 取款单状态
+		mv.addObject("pagination", pagination);// 分页记录
+		mv.setViewName("membercenter/accountDetail");
+		return mv;
+	}
+
+	/**
+	 * 欠款单明细
+	 */
+	@RequestMapping("/memberCenter/debitList.jhtml")
+	public ModelAndView debitList(HttpSession session, Integer pageNo,
+			Integer pageSize, Integer state, String beginTime, String endTime,
+			Debit param) {
+		ModelAndView mv = new ModelAndView();
+		if (CommonTag.isEmpty(beginTime).equals("true")
+				|| CommonTag.isEmpty(endTime).equals("true")) {
+			beginTime = DateUtil.getDayBefore(DateUtil.getDateFORMAT0Stirng(),
+					7);
+			endTime = DateUtil.getDateFormat0();
+		}
+		// 欠款单状态
+		Map<Integer, String> debitState = MemberUtil.STATE.DEBITSTATEMAP;
+
+		Integer memberId = ((Member) session.getAttribute("member")).getId();
+		param.setObligorId(memberId);
+		param.setCreateTimeBegin(beginTime);
+		param.setCreateTimeEnd(endTime);
+		param.setState(state);
+		Pagination pagination = this.memberCenterService.getMemberDebitLog(
+				param, pageNo, pageSize);
+
+		mv.addObject("debitState", debitState);// 欠款单状态
+		mv.addObject("pagination", pagination);// 分页记录
+		mv.setViewName("membercenter/debitList");
+		return mv;
+	}
+
+	/**
+	 * 安全首页
+	 */
+	@RequestMapping("/memberCenter/safeIndex.jhtml")
+	public ModelAndView safeIndex(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		mb = this.memberCenterService.getOneMember(mb.getId());
+		mv.addObject("mb", mb);
+		mv.setViewName("membercenter/safeIndex");
+		return mv;
+	}
+
+	/**
+	 * 个人信息
+	 */
+	@RequestMapping("/memberCenter/personDatum.jhtml")
+	public ModelAndView personDatum(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		Member sessionMb = (Member) session.getAttribute("member");
+		Member mb = this.memberCenterService.getOneMember(sessionMb.getId());
+		mv.addObject("mb", mb);
+		mv.setViewName("membercenter/personDatum");
+		return mv;
+	}
+
+	/**
+	 * 个人信息修改入库
+	 */
+	@RequestMapping("/memberCenter/doPersonDatum.jhtml")
+	public ModelAndView doPersonDatum(HttpSession session, Integer gender,
+			String province, String city, Integer qq, String phone, String email) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		mb.setGender(gender);
+		mb.setProvince(province);
+		mb.setCity(city);
+		mb.setQq(qq + "");
+		mb.setPhone(phone);
+		mb.setEmail(email);
+
+		this.memberCenterService.updateMemberMessage(mb);
+		mb = this.memberCenterService.getOneMember(mb.getId());
+		mv.addObject("mb", mb);
+
+		mv.setViewName("membercenter/personDatumSucc");
+		return mv;
+	}
+
+	/**
+	 * 修改登陆密码
+	 */
+	@RequestMapping("/memberCenter/changePass.jhtml")
+	public ModelAndView changePass(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/changePass");
+		return mv;
+	}
+
+	/**
+	 * 校验老登录密码是否正确
+	 * 
+	 * @param session
+	 * @param loginPass
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/checkOldLoginPass.do")
+	@ResponseBody
+	public String checkOldLoginPass(HttpSession session, String loginPass) {
+		Member mb = (Member) session.getAttribute("member");
+		String newMd5LoginPass = com.jingc.afc.util.MD5.toMD5WithJDK(loginPass);
+
+		if (mb.getLoginPass().toUpperCase().equalsIgnoreCase(
+				newMd5LoginPass.toUpperCase())) {
+			return "1";// 校验成功
+		} else {
+			return "0";// 校验失败
+		}
+	}
+
+	/**
+	 * 登录密码修改入库
+	 * 
+	 * @param session
+	 * @param loginPass
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/doChangePass.jhtml")
+	public ModelAndView doChangePass(HttpSession session, String loginPass) {
+		Member mb = (Member) session.getAttribute("member");
+		mb.setLoginPass(com.jingc.afc.util.MD5.toMD5WithJDK(loginPass)
+				.toUpperCase());
+		this.memberCenterService.updateMemberMessage(mb);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/changePassSucc");
+		return mv;
+	}
+
+	/**
+	 * 修改财务密码
+	 */
+	@RequestMapping("/memberCenter/changeAccountPass.jhtml")
+	public ModelAndView changeAccountPass(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/changeAccountPass");
+		return mv;
+	}
+
+	/**
+	 * 校验老登录密码是否正确
+	 * 
+	 * @param session
+	 * @param loginPass
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/checkOldAccountPass.do")
+	@ResponseBody
+	public String checkOldAccountPass(HttpSession session, String accountPass) {
+		Member mb = (Member) session.getAttribute("member");
+		String newMd5AccountPass = com.jingc.afc.util.MD5
+				.toMD5WithJDK(accountPass);
+		if (mb.getAccountPass().equals(newMd5AccountPass.toUpperCase()))
+			return "1";// 校验成功
+		else
+			return "0";// 校验失败
+	}
+
+	/**
+	 * 财务密码修改入库
+	 * 
+	 * @param session
+	 * @param accountPass
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/doChangeAccountPass.jhtml")
+	public ModelAndView doChangeAccountPass(HttpSession session,
+			String accountPass) {
+		Member mb = (Member) session.getAttribute("member");
+		mb.setAccountPass(com.jingc.afc.util.MD5.toMD5WithJDK(accountPass)
+				.toUpperCase());
+		this.memberCenterService.updateMemberMessage(mb);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/changePassSucc");
+		return mv;
+	}
+
+	/**
+	 * 密码保护
+	 */
+	@RequestMapping("/memberCenter/passProtect.jhtml")
+	public ModelAndView passProtect(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		mb = this.memberCenterService.getOneMember(mb.getId());
+		mv.addObject("mb", mb);
+
+		mv.setViewName("membercenter/passProtect");
+		return mv;
+	}
+
+	/***
+	 * 修改密保问题
+	 * 
+	 * @param session
+	 * @param passQuestion
+	 * @param passAnswer
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/doPassProtect.jhtml")
+	public ModelAndView doPassProtect(HttpSession session, String passQuestion,
+			String passAnswer) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		mb.setPassQuestion(passQuestion);
+		mb.setPassAnswer(passAnswer);
+		this.memberCenterService.updateMemberMessage(mb);
+
+		mv.setViewName("membercenter/passProtectSucc");
+		return mv;
+	}
+
+	/**
+	 * 实名认证
+	 */
+	@RequestMapping("/memberCenter/authenticat.jhtml")
+	public ModelAndView authenticat(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		mb = this.memberCenterService.getOneMember(mb.getId());
+		// 已实名验证
+		if (CommonTag.isEmpty(mb.getCertiName()).equals("false")) {
+			mv.addObject("mb", mb);
+			mv.setViewName("membercenter/unAuthenticat");
+		}
+		// 没有实名验证
+		else{
+			mv.addObject("mb",mb);
+			mv.setViewName("membercenter/authenticat");
+		}
+		return mv;
+	}
+
+	/***
+	 * 实名认证确认
+	 * 
+	 * @param session
+	 * @param certiName
+	 *            证件名称
+	 * @param certiNumber
+	 *            证件号码
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/authenticatSure.jhtml")
+	public ModelAndView authenticatSure() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/authenticatSure");
+		return mv;
+	}
+
+	/***
+	 * 实名认证入库
+	 * 
+	 * @param session
+	 * @param certiName
+	 *            证件名称
+	 * @param certiNumber
+	 *            证件号码
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/doAuthenticat.jhtml")
+	public ModelAndView doAuthenticat(HttpSession session, String certiName,
+			String certiNumber,String phone) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		mb.setCertiName(certiName);
+		mb.setCertiNumber(certiNumber);
+		mb.setPhone(phone);
+		this.memberCenterService.updateMemberMessage(mb);
+
+		mb = this.memberCenterService.getOneMember(mb.getId());
+		mv.addObject("mb", mb);
+		mv.setViewName("membercenter/authenticatSucc");
+		return mv;
+	}
+
+	/**
+	 * 银行卡绑定
+	 */
+	@RequestMapping("/memberCenter/bankCard.jhtml")
+	public ModelAndView bankCard(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		mb = this.memberCenterService.getOneMember(mb.getId());
+		// 已经绑定银行卡
+		if (CommonTag.isEmpty(mb.getBankAccount()).equals("false")) {
+			mv.addObject("mb", mb);
+			mv.setViewName("membercenter/unBankCard");
+		} else {// 未绑定银行卡
+			// 获取店铺接受付款的银行信息
+			Integer storeId = mb.getStoreId();
+			StoreReceiv param = new StoreReceiv();
+			param.setStoreId(storeId);
+			List<StoreReceiv> storeBanklist = this.memberCenterService
+					.getStoreReceivAccount(param, new Pagination());
+			mv.addObject("storeBanklist", storeBanklist);
+			mv.setViewName("membercenter/bankCard");
+		}
+		return mv;
+	}
+
+	/**
+	 * 编辑银行卡信息
+	 * 
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/changeBankCard.jhtml")
+	public ModelAndView changeBankCard(HttpSession session,HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		// 获取店铺接受付款的银行信息
+		Member mb = (Member) session.getAttribute("member");
+		Integer storeId = mb.getStoreId();
+		StoreReceiv param = new StoreReceiv();
+		param.setStoreId(storeId);
+		List<StoreReceiv> storeBanklist = this.memberCenterService
+				.getStoreReceivAccount(param, new Pagination());
+		mv.addObject("storeBanklist", storeBanklist);
+		mv.setViewName("membercenter/bankCard");
+		return mv;
+	}
+
+	/**
+	 * 银行卡绑定
+	 */
+	@RequestMapping("/memberCenter/bankCardSure.jhtml")
+	public ModelAndView bankCardSure(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/bankCardSure");
+		return mv;
+	}
+
+	/**
+	 * 银行卡信息入库
+	 * 
+	 * @param session
+	 * @param bankUserName
+	 *            开户人
+	 * @param bankName
+	 *            银行名称
+	 * @param bankAccount
+	 *            账户
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/doBankCard.jhtml")
+	public ModelAndView doBankCard(HttpSession session, String subBankName,
+			String bankName, String bankAccount) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		mb.setBankName(bankName);
+		mb.setBankUserName(subBankName);
+		mb.setBankAccount(bankAccount);
+
+		this.memberCenterService.updateMemberMessage(mb);
+
+		mb = this.memberCenterService.getOneMember(mb.getId());
+		mv.addObject("mb", mb);
+		mv.setViewName("membercenter/bankCardSucc");
+		return mv;
+	}
+
+	/**
+	 * 站内信
+	 */
+	@RequestMapping("/memberCenter/message.jhtml")
+	public ModelAndView message(HttpSession session, Integer pageNo,
+			Integer pageSize, Integer state, String beginTime, String endTime,
+			MemberMessage param) {
+		ModelAndView mv = new ModelAndView();
+		if (CommonTag.isEmpty(beginTime).equals("true")
+				|| CommonTag.isEmpty(endTime).equals("true")) {
+			beginTime = DateUtil.getDayBefore(DateUtil.getDateFORMAT0Stirng(),
+					7);
+			endTime = DateUtil.getDateFormat0();
+		}
+		// 站内信状态
+		Map<Integer, String> memberMessageState = MessageStateType.READ_STATE_MAP;
+
+		Integer memberId = ((Member) session.getAttribute("member")).getId();
+		param.setAcceptUserId(memberId);
+		param.setSendTimeBegin(beginTime);
+		param.setSendTimeEnd(endTime);
+		param.setState(state);
+		Pagination pagination = this.memberCenterService.getMemberMessageList(
+				param, pageNo, pageSize);
+
+		mv.addObject("memberMessageState", memberMessageState);// 欠款单状态
+		mv.addObject("pagination", pagination);// 分页记录
+		mv.setViewName("membercenter/message");
+		return mv;
+	}
+
+	/**
+	 * 校验老登录密码是否正确
+	 * 
+	 * @param session
+	 * @param loginPass
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/setMessageRead.do")
+	@ResponseBody
+	public String setMessageRead(HttpSession session, Integer messageId) {
+
+		MemberMessage message = this.memberCenterService
+				.getOneMessage(messageId);
+		message.setState(MessageStateType.READ_STATE.READ);
+
+		if (this.memberCenterService.updateMessage(message) > 0)
+			return "1";// 状态更新成功
+		else
+			return "0";//
+	}
+
+	/***
+	 * 方案详请，分为三种展示方式：竞彩，足彩，数字彩
+	 * 
+	 * @param session
+	 * @param pageNo
+	 * @param pageSize
+	 * @param orderId
+	 *            订单编号
+	 * @param LicenseId
+	 *            彩种类别
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/orderDetail.jhtml")
+	public ModelAndView orderDetail(HttpSession session, Integer pageNo,
+			Integer pageSize, Integer orderId, Integer LicenseId) {
+		LotteryOrder orderRecord = this.orderservice.findLotteryOrder(orderId);
+		
+		if ( "1".equals(orderRecord.getReserved17()) 
+				&& !"9".equals(orderRecord.getBetState())
+				&& !"10".equals(orderRecord.getBetState())
+				&& !"11".equals(orderRecord.getBetState())
+				&& !"12".equals(orderRecord.getBetState())
+				&& !"13".equals(orderRecord.getBetState())) {
+			throw new BaseException("方案是复制方案，开奖之后才能查看");
+		}
+
+		ModelAndView mv = null;
+		if ((LicenseId == GameUtil.GAMEIDJCZQ
+				&& !"8".equals(orderRecord.getPlayType()) && !"9"
+				.equals(orderRecord.getPlayType()))
+				|| LicenseId == GameUtil.GAMEIDJCLQ || LicenseId == Constants.LICENSE_BJDC || LicenseId == Constants.LICENSE_SFGG) {
+			// 竞彩
+			GuessOrder guessorder = this.orderservice.findGuessOrder(orderId,
+					pageNo, pageSize);
+			mv = new ModelAndView("/membercenter/order_detail_jc",
+					"guessorder", guessorder);
+		} else if (LicenseId == GameUtil.GAMEIDSFC
+				|| LicenseId == GameUtil.GAMEIDRXJ
+				|| LicenseId == GameUtil.GAMEIDBQC
+				|| LicenseId == GameUtil.GAMEIDJQC) {
+			// 足彩
+			TraditionOrder zcorder = this.orderservice.findZcOrder(orderId,
+					pageNo, pageSize);
+			mv = new ModelAndView("/membercenter/order_detail_zc", "zcorder",
+					zcorder);
+		} else {
+			// 数字彩
+			TraditionOrder mathorder = this.orderservice.findMathOrder(orderId,
+					pageNo, pageSize);
+			mv = new ModelAndView("/membercenter/order_detail_math",
+					"mathorder", mathorder);
+		}
+
+		return mv;
+	}
+
+	/**
+	 * 获取访问者IP 在一般情况下使用Request.getRemoteAddr()即可，但是经过nginx等反向代理软件后，这个方法会失效。
+	 * 本方法先从Header中获取X-Real-IP，如果不存在再从X-Forwarded-For获得第一个IP(用,分割)，
+	 * 如果还不存在则调用Request .getRemoteAddr()。
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public String getCurrUserIP(HttpServletRequest request) {
+		String ip = request.getHeader("X-Real-IP");
+		if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+			return ip;
+		}
+		ip = request.getHeader("X-Forwarded-For");
+		if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+			// 多次反向代理后会有多个IP值，第一个为真实IP。
+			int index = ip.indexOf(',');
+			if (index != -1) {
+				return ip.substring(0, index);
+			} else {
+				return ip;
+			}
+		}
+		ip = request.getHeader("Proxy-Client-IP");
+		if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+			return ip;
+		}
+		ip = request.getHeader("WL-Proxy-Client-IP");
+		if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+			return ip;
+		}
+		ip = request.getHeader("HTTP_CLIENT_IP");
+		if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+			return ip;
+		}
+		ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+		if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+			return ip;
+		} else {
+			return request.getRemoteAddr();
+		}
+	}
+	
+	
+	/**
+	 * 追号记录
+	 */
+	@RequestMapping("/memberCenter/chaseList.jhtml")
+	public ModelAndView chaseList(HttpSession session, Integer pageNo,
+			Integer pageSize, Integer type, String beginTime, String endTime,
+			ChasingOrder param) {
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		if (CommonTag.isEmpty(beginTime).equals("true")
+				|| CommonTag.isEmpty(endTime).equals("true")) {
+			beginTime = DateUtil.getDayBefore(DateUtil.getDateFORMAT0Stirng(),
+					7);
+			endTime = DateUtil.getDateFormat0();
+		}
+		Integer userId = mb.getId();
+		Integer storeId = mb.getStoreId();
+		param.setUserid(userId);
+		param.setBeginTime(beginTime);
+		param.setEndTime(endTime);
+
+		Pagination pagination = this.memberCenterService.getChaseMemberRecord(
+				param, pageNo, pageSize);
+
+		// 取到彩票种类类别
+		List<StoreLicense> lotteryTypes = this.memberCenterService
+				.getStoreLicenseList(storeId);
+
+		mv.addObject("lotteryTypes", lotteryTypes);
+		mv.addObject("pagination", pagination);
+		mv.setViewName("membercenter/ChaseNumberRecord");
+
+		return mv;
+	}
+	
+	
+
+	/***
+	 * 追号方案详请，展示方式：数字彩
+	 * 
+	 * @param session
+	 * @param pageNo
+	 * @param pageSize
+	 * @param orderId
+	 *            追号编号和和追号表id
+	 * @param LicenseId
+	 *            彩种类别
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/DescriptionChase.jhtml")
+	public ModelAndView DescriptionChase(HttpSession session, Integer pageNo,
+			Integer pageSize, Integer orderId, Integer LicenseId) {
+		TraditionOrderchasing mathorder = this.orderservice.findMathOrderchase(
+				orderId, pageNo, pageSize );
+		ModelAndView mv = new ModelAndView("/membercenter/DescriptionChase",
+				"mathorder", mathorder);
+		return mv;
+	}
+
+	/**
+	 * 追号取消操作
+	 * 
+	 * @param session
+	 *@param orderId
+	 *            订单编号
+	 */
+
+	@RequestMapping("/memberCenter/colse.do")
+	@ResponseBody
+	public String orderColse(HttpSession session, Integer orderId) {
+
+		this.chasingService.cancelOneIssueChasing(orderId);
+		return "已取消";
+
+	}
+	
+	/**********************合买开始******************************/
+	
+	/**
+	 * 合买记录
+	 */
+	@RequestMapping("/memberCenter/mergerJoinList.jhtml")
+	public ModelAndView mergerJoinList(HttpSession session, Integer pageNo,
+			Integer pageSize, MergerJoin param){
+		ModelAndView mv = new ModelAndView();
+		Member mb = (Member) session.getAttribute("member");
+		Integer userId = mb.getId();
+		Integer storeId = mb.getStoreId();
+		param.setJoinUserid(userId);
+		param.setStoreid(storeId);
+		Pagination pin = this.mergerQueryService.getMergerJoinRecord(pageNo, pageSize, param);
+		// 取到彩票种类类别
+		List<StoreLicense> types = this.memberCenterService.getStoreLicenseList(storeId);
+		mv.addObject("ltype", types);
+		mv.addObject("pin", pin);
+		mv.setViewName("membercenter/mergerRecord");
+		return mv;
+	}
+	/**********************合买结束******************************/
+	
+	/***
+	 * 营业厅用户删除跟单
+	 * 
+	 * @param session
+	 * @param orderId
+	 * @return
+	 */
+	@RequestMapping("/memberCenter/deleteCustom.do")
+	@ResponseBody
+	public String deleteCustom(HttpSession session, Integer customId) {
+		if (this.memberCenterService.deleteMergerCustom(customId) > 0)
+			return "1";
+		else
+			return "0";
+	}
+	/*@RequestMapping("/memberCenter/prepareGetmoney.do")
+	@ResponseBody
+	public String prepareGetmoney(HttpSession session,Double getMoney) {
+		String allowGetMoney = "0";//默认不允许取款
+		Member mb = (Member) session.getAttribute("member");
+		Integer memberId = mb.getId();
+		Double sumConsume = 0.0;//所有购彩
+		Double sumPut = 0.0;//所有充值
+		Double sumBonus = 0.0;//所有中奖
+		Double sumGet = 0.0;//所有取款
+		Double sumDebit = 0.0;//未归还的欠款单
+		Double sumWaitGet = 0.0;//未处理的取款单
+		Double pointer = 0.0;//店铺充值款的最低消费比例
+		
+		Double[] allMoney = this.memberCenterService.allowGetMoney(memberId);
+		if(allMoney != null && allMoney.length == 6){
+			 sumConsume = allMoney[0];//所有购彩
+			 sumPut = allMoney[1];//所有充值
+			 sumBonus = allMoney[2];//所有中奖
+			 sumGet = allMoney[3];//所有取款
+			 sumDebit = allMoney[4];//未归还的欠款单
+			 sumWaitGet = allMoney[5];//未处理的取款单
+		}
+		Store storeRecord = (Store) session.getAttribute("domain");
+		pointer = storeRecord.getConsumpProp();
+		
+		//可提款金额 = (总充值*(1-消费比例))+总中奖-总购彩-总提款 - 未还款欠款充值 -未处理的取款单
+		Double allowGet = sumPut * (1-pointer) + sumBonus - sumConsume - sumGet - sumDebit - sumWaitGet;
+		if(allowGet - getMoney >= 0){
+			allowGetMoney = "1";
+		}
+		
+		return allowGetMoney;
+	}*/
+	
+	/*******************************************************************
+	 * ************************投注**********************************
+	 *******************************************************************/
+	/*
+	 * @RequestMapping("/bet.jhtml") public ModelAndView bet(HttpSession
+	 * session, LotteryOrder order, ModelMap modelmap) { //ModelAndView mv = new
+	 * ModelAndView(); Member mb = (Member)session.getAttribute("member");
+	 * 
+	 * order.setMemberFrom(mb.getMemberFrom()); // 彩民来源
+	 * 
+	 * if ( mb.getMemberFrom() == 5 ) { // 营业厅用户默认取票 order.setFetchFlag("0"); }
+	 * order.setFetchFlag("1"); //如果是营业厅用户，方案暂存； wangheping 0529
+	 * order.setBetState
+	 * (mb.getMemberFrom()==5?LotteryOrderState.LOTTERY_ORDER_STATE_TEMPORARY +
+	 * "":LotteryOrderState.LOTTERY_ORDER_STATE_WAITFORCONFIRMATION + "");
+	 * //如果是营业厅用户，存入彩民的唯一标识码 order.setReserved1(mb.getReserved1());
+	 * 
+	 * order.setUserid(mb.getId()); order.setUsername(mb.getMemberName());
+	 * order.setStoreid(((Store)session.getAttribute("domain")).getStoreId());
+	 * // 赔率存储 if ( null != order.getOrderOdds() &&
+	 * !"".equals(order.getOrderOdds()) && (order.getLicenseId() ==
+	 * Constants.LICENSE_JCZQ || order.getLicenseId() == Constants.LICENSE_JCLQ)
+	 * ) { Map<String, Map<String, String>> oMap = new Hashtable<String,
+	 * Map<String, String>>(); Map<String, String> rMap = new Hashtable<String,
+	 * String>();
+	 * 
+	 * String[] odds = order.getOrderOdds().split("\\|"); for ( String odd :
+	 * odds ) { String[] oddInfo = odd.split(":"); Map<String, String> map = new
+	 * Hashtable<String, String>(); String[] os = oddInfo[1].split(","); for (
+	 * String o : os ) { String[] oInfo = o.split("@"); map.put(oInfo[0],
+	 * oInfo[1]); }
+	 * 
+	 * oMap.put(oddInfo[0], map); rMap.put(oddInfo[0], oddInfo[2]); }
+	 * order.setOddsMap(oMap); order.setRqMap(rMap);
+	 * 
+	 * } if ( null != order.getReserved8() && !"".equals(order.getReserved8())
+	 * && (order.getLicenseId() == Constants.LICENSE_JCZQ ||
+	 * order.getLicenseId() == Constants.LICENSE_JCLQ) ) { Map<String, String>
+	 * stopTimeMap = new Hashtable<String, String>();// 截止时间 String[] stopTimes
+	 * = order.getReserved8().split("\\|"); // 第一场时间是否截止 String stTime =
+	 * stopTimes[0].split("`")[1]; if ( stTime.length() == 16 ) { stTime +=
+	 * ":00"; } else if ( stTime.length() == 15 ) { String[] ssT =
+	 * stTime.split(":"); stTime = ssT[0] + ":0" + ssT[1]+":00"; } Date date =
+	 * DateUtil.getDate(stTime, "yyyy-MM-dd HH:mm:ss"); if ( date.before(new
+	 * Date()) ) { throw new BaseException("存在过期对阵，请您刷新页面之后继续投注"); }
+	 * 
+	 * for ( String stopTime : stopTimes ) { String[] tInfo =
+	 * stopTime.split("`"); stopTimeMap.put(tInfo[0], tInfo[1]); }
+	 * order.setStopTimeMap(stopTimeMap);
+	 * 
+	 * order.setReserved8(null); } this.lotteryService.bet(order);
+	 * //mv.addObject("order", order);
+	 * 
+	 * modelmap.put("username", order.getUsername()); modelmap.put("id",
+	 * order.getId()); modelmap.put("betPrice", order.getBetPrice());
+	 * modelmap.put("reserved10", order.getReserved10());
+	 * modelmap.put("licenseId", order.getLicenseId());
+	 * 
+	 * //mv.setView(new RedirectView("/lottery/success.jhtml"),modelmap);
+	 * //return new ModelAndView(new
+	 * RedirectView("/lottery/success.jhtml"),modelmap); //wang he ping edit!
+	 * return new ModelAndView(new
+	 * RedirectView("/memberCenter/success.jhtml"),modelmap); //return mv; }
+	 * 
+	 * @RequestMapping("/success.jhtml") public ModelAndView
+	 * lotteryBuy(ModelAndView mv, String username, Integer id, Integer
+	 * betPrice, String reserved10, Integer licenseId) { // 到投注成功页面 LotteryOrder
+	 * order = new LotteryOrder(); order.setId(id); order.setBetPrice(betPrice);
+	 * order.setReserved10(reserved10); order.setLicenseId(licenseId); try {
+	 * username = new String(username.getBytes("iso-8859-1"), "utf-8"); } catch
+	 * (UnsupportedEncodingException e) { } order.setUsername(username);
+	 * mv.addObject("order", order); mv.setViewName("/lottery/bet"); return mv;
+	 * }
+	 */
+	
+	/*public static void main(String[] args){
+		Double a = -2.5;
+		if(a.doubleValue() < 0){
+			System.out.println("---");
+		}
+	}*/
+	
+	/****************************************************************************
+	 * **************************快捷支付，调用连连支付************************
+	 *****************************************************************************/
+	/**
+	 * 在线充值
+	 */
+	@RequestMapping("/memberCenter/putMoneyQuick.jhtml")
+	public ModelAndView putMoneyQuick(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/putMoneyQuick");
+		return mv;
+	}
+
+	/**
+	 * 在线充值确认
+	 */
+	@RequestMapping("/memberCenter/putMoneyQuickSure.jhtml")
+	public ModelAndView putMoneyQuickSure(HttpSession session,String payBank) {
+		ModelAndView mv = new ModelAndView();
+		String bankLogo = MemberUtil.GFBBANKMAP.get(payBank);
+		if(bankLogo == null)
+			bankLogo = "GFB";
+		
+		mv.addObject("bankLogo", bankLogo);
+		mv.setViewName("membercenter/putMoneyQuickSure");
+		return mv;
+	}
+
+	/***
+	 * 连连在线充值入库
+	 * @param session
+	 * @param currMoney
+	 *            当前交易额
+	 * @param payBank
+	 *            充值方式
+	 */
+	@RequestMapping("/memberCenter/doPutMoneyQuickSure.jhtml")
+	public void doPutMoneyQuickSure(HttpSession session, 
+									HttpServletRequest request,
+									HttpServletResponse response, 
+									Double currMoney, 
+									String payBank,
+									String payType,
+									String channel)
+			throws IOException {
+		double dCurrMoney = new BigDecimal(currMoney+"").setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+		Member mb = (Member) session.getAttribute("member");
+		//Store storeRecord = (Store) session.getAttribute("domain");
+		Store storeRecord = this.memberCenterService.getOneStore(new Integer(mb.getStoreId()));
+		String storeName = storeRecord.getStoreName();//店铺名称
+		// 充值日志
+		int orderId = this.memberCenterService.doPutMoney(mb, dCurrMoney,
+				payBank, MemberUtil.MEMBER_PAY_TYPE.GFB_PAY);
+
+		String result = "";
+		StringBuffer url = request.getRequestURL();
+		String contextUrl = url.delete(
+				url.length() - request.getRequestURI().length(), url.length())
+				.append("/").toString();
+		GfbService gfbService = new GfbService();
+		OrderInfo order = gfbService.createOrder(orderId+"", dCurrMoney+"","凤凰微彩-"+storeName+"-彩民充值");
+		result = gfbService.czGFB(orderId + "", dCurrMoney, payBank,
+								  getCurrUserIP(request), contextUrl,storeName,order,
+								  storeRecord.getReserved7(),payType,mb,channel);
+		PrintWriter out = response.getWriter();
+		out.print(result);
+	}
+    
+    /**
+	 * 国付宝在线充值返回,展示页
+	 * 
+	 * @param mv
+	 * @param httpSession
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/cz/gfb/return.jhtml", method = RequestMethod.POST)
+	public ModelAndView gfbReturn(ModelAndView mv, HttpServletRequest request) {
+		String returnMessage = "";
+		if ("SUCCESS".equals(request.getParameterValues("result_pay"))){
+			returnMessage = "交易成功";
+		}
+		mv.addObject("returnMessage", returnMessage);
+		mv.setViewName("membercenter/putMoneySucc");
+		return mv;
+	}
+
+	/**
+	 * 国付宝在线充值返回,点对点通讯,不需要展示
+	 * 
+	 * @param mv
+	 * @param httpSession
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/cz/gfb/notify.jhtml", method = RequestMethod.POST)
+	@ResponseBody
+	public void gfbNotify(HttpServletRequest request,HttpServletResponse response) {
+		RetBean retBean = new RetBean();
+        String reqStr = LLPayUtil.readReqStr(request);
+        PayDataBean payDataBean = JSON.parseObject(reqStr, PayDataBean.class);
+		// 获得支付信息
+		MemberPayLog payLogRecord = this.memberCenterService
+				.getOneMemberPayLog(new Integer(payDataBean.getNo_order()));
+		// 计算得出通知验证结果
+		if (LLPayUtil.checkSign(reqStr, PartnerConfig.YT_PUB_KEY,PartnerConfig.MD5_KEY)) {
+			if ("SUCCESS".equals(payDataBean.getResult_pay())) {// 交易成功
+				// 根据店铺号获得分账账户
+				Store storeRecord = this.memberCenterService
+						.getOneStore(new Integer(payLogRecord.getStoreId()));
+				String account = storeRecord.getReserved8();
+				// 订单金额
+				double paytoAmount = payLogRecord.getMoney().doubleValue();
+				// 比较支付金额是否与订单金额相等
+				if (paytoAmount == Double.parseDouble(payDataBean.getMoney_order())) {
+					// 更改数据库状态
+					payLogRecord.setPayId(payDataBean.getOid_paybill());
+					payLogRecord.setState(MemberUtil.STATE.MEMBER_PAY_LOG_STATE_PROCESSED);
+					payLogRecord.setBackTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+					payLogRecord.setReserved2(payDataBean.getPay_type() + ",-," + account);
+					payLogRecord.setReserved4(payDataBean.getBank_code() + "," + payDataBean.getId_type()+ "," + payDataBean.getId_no()+ "," + payDataBean.getAcct_name());
+					if (this.memberCenterService.setState(payLogRecord) > 0) {
+						// 修改会员帐户余额,写资金日志
+						this.memberCenterService.putMoneyToMemberAccount(
+								payLogRecord.getMemberId(), storeRecord, payLogRecord.getMoney(),
+								MemberUtil.MEMBER_PAY_TYPE.GFB_PAY,payLogRecord.getId()+"");
+						/* 发送充值消息 */
+						// MemberMessage message = new MemberMessage();
+					}
+				}
+				try{
+					retBean.setRet_code("0000");
+			        retBean.setRet_msg("交易成功");
+			        response.getWriter().write(JSON.toJSONString(retBean));
+			        response.getWriter().flush();
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				
+			} else {
+				//donothing
+			}
+		}
+	}
+	
+	/*******************************************************************************************
+	 * **************************支付宝支付******************************************************
+	 *******************************************************************************************/
+	/**
+	 * 在线充值
+	 */
+	@RequestMapping("/memberCenter/putMoneyZfb.jhtml")
+	public ModelAndView putMoneyZfb(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/putMoneyZfb");
+		return mv;
+	}
+
+	/**
+	 * 在线充值确认
+	 */
+	@RequestMapping("/memberCenter/putMoneyZfbSure.jhtml")
+	public ModelAndView putMoneyZfbSure(HttpSession session,String payBank) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("membercenter/putMoneyZfbSure");
+		return mv;
+	}
+	/**
+	 * 支付宝充值，生成订单
+	 * @param mv
+	 * @param httpSession
+	 * @param response
+	 * @param money
+	 * @param pay_bank
+	 * @throws IOException 
+	 */
+	@RequestMapping("/memberCenter/doPutMoneyZFBSure.jhtml")
+	public void doPutMoneyZFBSure (HttpServletRequest request,
+			HttpSession httpSession,
+			HttpServletResponse response,
+			Double currMoney, 
+			String payBank){
+		try{
+			String result = czAlipay(request,httpSession, currMoney, payBank);
+			response.setContentType("text/html;charset=gbk");  
+			PrintWriter out = response.getWriter();
+			out.print(result);//将form表单字符串写到页面，有字符串中的js函数自动提交表单跳转到支付宝页面
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	private String czAlipay(HttpServletRequest request,
+							HttpSession httpSession,
+							Double pay_money,
+							String payBank) throws Exception{
+		String result = "";
+		//Store storeRecord = (Store) httpSession.getAttribute("domain");
+		Member mb = (Member) httpSession.getAttribute("member");
+		Store storeRecord = this.memberCenterService.getOneStore(new Integer(mb.getStoreId()));
+		// 充值日志
+		int orderId = this.memberCenterService.doPutMoney(mb, pay_money,
+				payBank, MemberUtil.MEMBER_PAY_TYPE.ALIPAY_PAY);
+
+		StringBuffer url = request.getRequestURL();
+		String contextUrl = url.delete(
+				url.length() - request.getRequestURI().length(), url.length()).append("/").toString();
+		if (!(orderId + "").equals("-1")) {
+			// 必填参数//
+			// 请与贵网站订单系统中的唯一订单号匹配
+			String out_trade_no = orderId + "";// UtilDate.getOrderNum();
+			// 订单名称，显示在支付宝收银台里的“商品名称”里，显示在支付宝的交易管理的“商品名称”的列表里。
+			//String srcSubject = "凤凰微彩-"+storeName+"-彩民充值";
+			String srcSubject = storeRecord.getNetUrl() + "--CHONGZHI";
+			//byte[] temp = srcSubject.getBytes("utf-8");//这里写原编码方式
+           // byte[] newtemp = new String(temp,"utf-8").getBytes("gbk");//这里写转换后的编码方式
+            //String subject = new String(newtemp,"gbk");//这里写转换后的编码方式
+
+			// 订单描述、订单详细、订单备注，显示在支付宝收银台里的“商品描述”里
+			String body = "";
+			// 订单总金额，显示在支付宝收银台里的“应付总额”里
+			String total_fee = pay_money + "";
+			// 扩展功能参数——默认支付方式//
+			// 默认支付方式，取值见“纯网关接口”技术文档中的请求参数列表
+			String paymethod = "";
+			// 默认网银代号，代号列表见“纯网关接口”技术文档“附录”→“银行列表”
+			String defaultbank = "";
+
+			if (payBank.equals("directPay")) {
+				paymethod = "directPay";
+			} else {
+				paymethod = "bankPay";
+				defaultbank = payBank;
+			}
+			String anti_phishing_key = "";
+			// 获取客户端的IP地址，建议：编写获取客户端IP地址的程序
+			String exter_invoke_ip = "";
+			String extra_common_param = mb.getStoreId() + "_" + paymethod;//用于分润接口区分费率
+			// 默认买家支付宝账号
+			String buyer_email = "";
+			String seller_email = "";// 签约支付宝账号或卖家收款支付宝帐户
+			// 商品展示地址，要用http:// 格式的完整路径，不允许加?id=123这类自定义参数
+			String show_url = storeRecord.getNetUrl();//"http://www.cp020.com";
+			/** 扩展参数 */
+			String notify_url = "cz/zfb/notify.jhtml";//show_url + "/accountS/notify.jhtml";
+			String return_url = "cz/zfb/return.jhtml";//show_url + "/accountS/czfh.jhtml";
+
+			// 提成类型，该值为固定值：10，不需要修改
+			String royalty_type = "10";
+			// 提成信息集
+			String royaltyAccount = storeRecord.getReserved6();
+			if(royaltyAccount == null) royaltyAccount = "";
+			/*if(royaltyAccount.length() == 0){
+				royaltyAccount = "13979962272";//TODO
+			}*/
+			String royaltyMoney = "";
+			String royalty_parameters = "";//13979962272^0.99^cp020-161-royalty
+			//获取分润
+			double rMoney = pay_money * AlipayConfig.rateDE;
+			double f1 = new BigDecimal(rMoney+"").setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+			if(f1 == 0)
+				f1 = 0.01;
+		    //royaltyMoney = (pay_money - f1 ) + "";
+			royaltyMoney = new BigDecimal(pay_money - f1+"").setScale(2, BigDecimal.ROUND_HALF_DOWN)+"";
+		    //成功以后分账
+			royalty_parameters = royaltyAccount + "^" + royaltyMoney + "^cp020-" + mb.getMemberName() + "-royalty" ; 
+			
+			// 把请求参数打包成数组
+			Map<String, String> sParaTemp = new HashMap<String, String>();
+			sParaTemp.put("payment_type", "1");
+			sParaTemp.put("out_trade_no", out_trade_no);
+			sParaTemp.put("subject", srcSubject);
+			sParaTemp.put("body", body);
+			sParaTemp.put("total_fee", total_fee);
+			sParaTemp.put("show_url", show_url);
+			sParaTemp.put("paymethod", paymethod);
+			sParaTemp.put("defaultbank", defaultbank);
+			sParaTemp.put("anti_phishing_key", anti_phishing_key);
+			sParaTemp.put("exter_invoke_ip", exter_invoke_ip);
+			sParaTemp.put("extra_common_param", extra_common_param);
+			sParaTemp.put("buyer_email", buyer_email);
+			sParaTemp.put("royalty_type", royalty_type);
+			sParaTemp.put("royalty_parameters", royalty_parameters);
+			sParaTemp.put("seller_email", seller_email);
+
+			sParaTemp.put("notify_url", contextUrl + notify_url);
+			sParaTemp.put("return_url", contextUrl +return_url);
+			// 构造函数，生成请求URL
+			result = AlipayService.create_direct_pay_by_user(sParaTemp);//form表单字符串
+		} else {
+			// 系统错误，增加支付日志异常
+		}
+		return result;
+	}
+	
+	/**
+	 * 在线充值返回,展示页
+	 * @param mv
+	 * @param httpSession
+	 * @param request
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/cz/zfb/return.jhtml")
+	public ModelAndView zfbReturn(
+			ModelAndView mv,
+			HttpSession httpSession,
+			HttpServletRequest request) {
+			String returnMessage = "";
+		try{
+			// 接受的参数
+			String orderid = request.getParameter("out_trade_no");
+			if (orderid == null)
+				orderid = "";
+			String price = request.getParameter("total_fee");
+			if (price == null)
+				price = "";
+			//String s_order_money = "";// 订单金额
+			int result = 0;
+			
+			// 获取支付宝GET过来反馈信息
+			Map<String, String> params = new HashMap<String, String>();
+			Map requestParams = request.getParameterMap();
+			for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+				String name = (String) iter.next();
+				String[] values = (String[]) requestParams.get(name);
+				String valueStr = "";
+				for (int i = 0; i < values.length; i++) {
+					valueStr = (i == values.length - 1) ? valueStr + values[i]
+							: valueStr + values[i] + ",";
+				}
+				// 乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
+				valueStr = new String(valueStr.getBytes("ISO-8859-1"), "gbk");
+				params.put(name, valueStr);
+			}
+
+			// 获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以下仅供参考)
+			//String paymethod = "directPay";//资金类型，默认来自支付宝账户  bankPay--银行
+			String extra_common_param = request.getParameter("extra_common_param");
+			if(extra_common_param == null) extra_common_param = "";
+			if(extra_common_param.length() > 0 ){
+				String[] extra_ = extra_common_param.split("_");
+				if(extra_.length == 2){
+					extra_common_param = extra_[0];
+					//paymethod = extra_[1];
+				}
+			}
+			String trade_no = request.getParameter("trade_no"); // 支付宝交易号
+			String trade_status = request.getParameter("trade_status"); // 交易状态
+			// 获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以上仅供参考)//
+			// 计算得出通知验证结果
+			MemberPayLog payLogRecord = this.memberCenterService.getOneMemberPayLog(new Integer(orderid));
+			payLogRecord.setPayId(trade_no);
+			payLogRecord.setState(MemberUtil.STATE.MEMBER_PAY_LOG_STATE_PROCESSED);
+			payLogRecord.setBackTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+			payLogRecord.setReserved2("");
+			payLogRecord.setReserved3(trade_status);
+			
+			boolean verify_result = AlipayNotify.verify(params);
+			if (verify_result && 
+					(trade_status.equals("TRADE_FINISHED") 
+							|| trade_status.equals("TRADE_SUCCESS"))) {
+				boolean be_equ_money = false;
+				double d_alipay_money = Double.parseDouble(price);
+				if (payLogRecord.getMoney().doubleValue() == d_alipay_money)
+					be_equ_money = true;
+				
+				if(this.memberCenterService.setState(payLogRecord) > 0){
+					if(be_equ_money){
+						this.memberCenterService.putMoneyToMemberAccount(
+								payLogRecord.getMemberId(), 
+								this.memberCenterService.getOneStore(new Integer(payLogRecord.getStoreId())),
+								payLogRecord.getMoney(),
+								MemberUtil.MEMBER_PAY_TYPE.ALIPAY_PAY,
+								payLogRecord.getId()+"");
+						result = 1;
+					}
+				} else {
+					result = 3;// 订单重复
+				}
+			} else {
+				result = 4;// 失败 不存在的交易订单
+			}
+			if (result == 0)
+				returnMessage = "操作失败！";
+			if (result == 1)
+				returnMessage = "交易成功！";
+			if (result == 2)
+				returnMessage = "交易失败！";
+			if (result == 3)
+				// returnMessage = "订单重复,订单已被处理！";
+				returnMessage = "交易成功.";
+			if (result == 4)
+				returnMessage = "定单异常或者订单已被处理！";
+			// mv.addObject("", "");
+			// mv.setViewName("/account/czfh");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		mv.addObject("returnMessage", returnMessage);
+		mv.setViewName("membercenter/putMoneySucc");
+		
+		return mv;
+	}
+	
+	/**
+	 * 在线充值返回,点对点通讯,不需要展示
+	 * @param mv
+	 * @param httpSession
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/cz/zfb/notify.jhtml")
+	@ResponseBody
+	public void zfbNotify(
+			ModelAndView mv,
+			HttpSession httpSession,
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		try{
+			PrintWriter out = response.getWriter();
+			String s_temp_money = "";
+			//String s_memberid = "";
+			double temp_money = 0;
+			String orderid = request.getParameter("out_trade_no");
+			Map<String, String> params = new HashMap<String, String>();
+			Map requestParams = request.getParameterMap();
+			for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+				String name = (String) iter.next();
+				String[] values = (String[]) requestParams.get(name);
+				String valueStr = "";
+				for (int i = 0; i < values.length; i++) {
+					valueStr = (i == values.length - 1) ? valueStr + values[i]
+							: valueStr + values[i] + ",";
+				}
+				// 乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
+				valueStr = new String(valueStr.getBytes("ISO-8859-1"), "gbk");
+				params.put(name, valueStr);
+			}
+			// 获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以下仅供参考)//
+			//String paymethod = "directPay";//资金类型，默认来自支付宝账户
+			String extra_common_param = request.getParameter("extra_common_param");
+			if(extra_common_param == null) extra_common_param = "";
+			if(extra_common_param.length() > 0 ){
+				String[] extra_ = extra_common_param.split("_");
+				if(extra_.length == 2){
+					extra_common_param = extra_[0];
+					//paymethod = extra_[1];
+				}
+			}
+			String trade_no = request.getParameter("trade_no"); // 支付宝交易号
+			String trade_status = request.getParameter("trade_status"); // 交易状态
+			String alipay_money = (String) params.get("total_fee");// 支付宝返回的金额
+			//DEBIT_EXPRESS|BALANCE-支付渠道,1.00|1.00-支付金额,null-实际渠道,null-是否扫描
+			String out_channel_type = request.getParameter("out_channel_type");//支付渠道组合信息
+			String out_channel_amount = request.getParameter("out_channel_amount");//支付金额组合信息
+			
+			boolean verify_result = AlipayNotify.verify(params);
+			MemberPayLog payLogRecord = this.memberCenterService.getOneMemberPayLog(new Integer(orderid));
+			payLogRecord.setState(MemberUtil.STATE.MEMBER_PAY_LOG_STATE_PROCESSED);
+			payLogRecord.setBackTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+			payLogRecord.setPayId(trade_no);
+			payLogRecord.setReserved2(out_channel_type + "-支付渠道," +
+									  out_channel_amount + "-支付金额," +
+									  request.getParameter("out_channel_inst") + "-实际渠道," + 
+									  request.getParameter("business_scene") + "-是否扫描");
+			/*payLogRecord.setReserved3(rForm.getErrorCode() + "," + rForm.getErrorMsg());*/
+			System.out.println("membercontroller.2271======="+verify_result + ";" + trade_status + ";" + trade_status);
+			if (verify_result && 
+					 (trade_status.equals("TRADE_FINISHED") || trade_status.equals("TRADE_SUCCESS"))) {
+				s_temp_money = payLogRecord.getMoney() +"";// 本地金额
+				if (s_temp_money == null)
+					s_temp_money = "";
+				boolean be_equ_money = false;
+				temp_money = Double.parseDouble(s_temp_money);
+
+				if (alipay_money == null)
+					alipay_money = "";
+				double d_alipay_money = Double.parseDouble(alipay_money);
+				if (temp_money == d_alipay_money)
+					be_equ_money = true;
+				if(this.memberCenterService.setState(payLogRecord) > 0){// 订单状态校验 0 成功 1 交易中 2 交易失败
+					if (be_equ_money) {
+						// 本地操作
+						this.memberCenterService.putMoneyToMemberAccount(
+															payLogRecord.getMemberId(),
+															this.memberCenterService.getOneStore(new Integer(payLogRecord.getStoreId())), 
+															payLogRecord.getMoney(),
+															MemberUtil.MEMBER_PAY_TYPE.ALIPAY_PAY,
+															payLogRecord.getId()+"");
+/*						
+						try{
+							*//***分润功能*//*
+							//接受分润的账户
+							Store storeRecord = this.memberCenterService.getOneStore(payLogRecord.getStoreId());
+							String royaltyAccount = storeRecord.getReserved6();
+							if(royaltyAccount == null) royaltyAccount = "";
+							//计算分账金额
+							String royaltyMoney = "0.00";//分账金额
+							if(out_channel_type==null)out_channel_type="";
+							if(out_channel_amount==null)out_channel_amount="";
+							if(!"".equals(out_channel_type)){
+								String[] out_channel_types = out_channel_type.split("\\|");
+								String[] out_channel_amounts = out_channel_amount.split("\\|");
+								int index = -1;//计算信用卡支付通道的下标
+								if(out_channel_type.indexOf("CREDIT")>-1 || out_channel_type.indexOf("VISA")>-1
+								|| out_channel_type.indexOf("MOTO")>-1){
+									if(out_channel_types != null && out_channel_types.length > 0){
+										for(int i=0 ; i<out_channel_types.length; i++){
+											if(out_channel_types[i].indexOf("CREDIT")>-1 || out_channel_types[i].indexOf("VISA")>-1
+												|| out_channel_types[i].indexOf("MOTO")>-1){
+												index = i;
+												
+												break;
+											}
+										}
+									}
+									//需要按大额信用卡扣除手续费的金额
+									String creditAmount = out_channel_amounts[index];
+									double DcreditAmount = Double.parseDouble(creditAmount);
+									double OAmount = payLogRecord.getMoney() - DcreditAmount;
+									
+									double rMoney = DcreditAmount * AlipayConfig.rateDE;
+									double f1 = new BigDecimal(rMoney+"").setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+									if(f1 == 0)
+										f1 = 0.01;
+									
+									double rMoney2 = OAmount * AlipayConfig.rate;
+									double f2 = new BigDecimal(rMoney2+"").setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+									if(f2 == 0)
+										f2 = 0.01;
+									
+								    royaltyMoney = (payLogRecord.getMoney() - f1 - f2 ) + "";
+								    
+								}else{//不含信用卡大额的
+									double rMoney = payLogRecord.getMoney() * AlipayConfig.rate;
+									double f1 = new BigDecimal(rMoney+"").setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+									if(f1 == 0)
+										f1 = 0.01;
+								    royaltyMoney = (payLogRecord.getMoney() - f1 ) + "";
+								}
+							}
+							Member currMember = this.memberCenterService.getOneMember(payLogRecord.getMemberId());
+							String royalty_parameters = royaltyAccount + "^" + royaltyMoney + "^cp020-" + currMember.getMemberName() + "-royalty" ; 
+							String ropaltyResult = AlipayService.royalty(currMember.getId() + "_" + orderid, trade_no, orderid, royalty_parameters);
+						    System.out.println("========"+royalty_parameters);
+						    System.out.println("++++++++"+ropaltyResult);
+							//分账失败报警
+							if(ropaltyResult == null) ropaltyResult = "";
+							if("FAIL".equals(ropaltyResult)){
+								CCPRestSmsSDK restAPI = new CCPRestSmsSDK();
+								restAPI.init("app.cloopen.com", "8883");
+								restAPI.setAccount("8a48b5514a61a814014a756cdc3d0bde", "d6e42ce58fd641e1bbdf445ccf9c0bb3");
+								restAPI.setAppId("aaf98f894c49ea4f014c558af44608fb");
+								restAPI.sendTemplateSMS("13439144084","15675" ,new String[]{ropaltyResult,"2"});
+							}
+							
+						}catch(Exception e){
+							e.printStackTrace();
+						}*/
+					    
+						out.println("success");
+					} else {
+						out.println("fail");
+						//result = 2;// 失败
+					}
+					out.println("success");
+				} else {
+					out.println("success");
+				}
+			} else {
+				//result = 4;// 失败 不存在的交易订单
+				out.println("fail");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		//return mv;
+	}
+	
+/*	*//***
+	 * 账户分润，用户到账后分润到彩店支付宝账户
+	 * @param WIDout_bill_no    分润号
+	 * @param WIDout_trade_no   订单号
+	 * @param WIDtrade_no       支付宝交易号
+	 * @param WIDroyalty_parameters  提成信息集
+	 * @return String  ，分润成功返回T，否则返回错误代码
+	 *//*
+	//@RequestMapping("/accountS/royalty.jhtml")
+	//@ResponseBody
+	@SuppressWarnings("unchecked")
+	public String royalty(String WIDout_bill_no,String WIDout_trade_no,
+						  String WIDtrade_no,String WIDroyalty_parameters) {
+		String royaltyResult = "";
+		try {
+			// 该次分润的分润号
+			String out_bill_no = WIDout_bill_no;//new String(WIDout_bill_no.getBytes("ISO-8859-1"), "gbk");
+			// 必填，保证其唯一性
+			// 商户订单号
+			String out_trade_no = WIDout_trade_no;//new String(WIDout_trade_no.getBytes("ISO-8859-1"), "gbk");
+			// 商户网站已经付款完成的商户网站订单号，out_trade_no、trade_no须至少填写一项
+			// 支付宝交易号
+			String trade_no = WIDtrade_no;//new String(WIDtrade_no.getBytes("ISO-8859-1"), "UTF-8");
+			// 已经付款完成的支付宝交易号，与商户网站订单号out_trade_no相对应
+			// 提成信息集
+			String royalty_parameters = WIDroyalty_parameters;//new String(WIDroyalty_parameters.getBytes("ISO-8859-1"), "gbk");
+			// 必填，格式设置参见接口技术文档
+
+			// ////////////////////////////////////////////////////////////////////////////////
+
+			// 把请求参数打包成数组
+			Map<String, String> sParaTemp = new HashMap<String, String>();
+			sParaTemp.put("service", "create_direct_pay_by_user");//distribute_royalty
+			sParaTemp.put("partner", AlipayConfig.partner);
+			sParaTemp.put("_input_charset", AlipayConfig.input_charset);
+			sParaTemp.put("out_bill_no", out_bill_no);
+			sParaTemp.put("out_trade_no", out_trade_no);
+			sParaTemp.put("trade_no", trade_no);
+			sParaTemp.put("royalty_parameters", royalty_parameters);
+			sParaTemp.put("royalty_type", "10");
+			// 建立请求
+			// String sHtmlText = AlipaySubmit.buildRequest("", "", sParaTemp);
+			final String ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do?";
+
+			String sHtmlText = AlipaySubmit.sendPostInfo(sParaTemp,ALIPAY_GATEWAY_NEW);//支付宝返回的xml结果字符串
+			
+			System.out.println(sHtmlText);
+			//解析结果
+			Document doc = DocumentHelper.parseText(sHtmlText);// 将字符串转为XML
+			Element rootElt = doc.getRootElement(); // 获取根节点
+			Iterator iter1 = rootElt.elementIterator("is_success");
+			Iterator iter2 = rootElt.elementIterator("error");
+			String is_success = "";
+			String error = "";
+			while (iter1.hasNext()) {
+				Element recordEle = (Element) iter1.next();
+				is_success = recordEle.getText();
+			}
+			while (iter2.hasNext()) {
+				Element recordEle = (Element) iter2.next();
+				error = recordEle.getText();
+			}
+			if ("T".equals(is_success)) {
+				royaltyResult = is_success;
+			} else {
+				royaltyResult = error;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return royaltyResult;
+	}*/
+	
+	/***
+	 * 盛付通对账处理，成功只能处理平台余额，不能分账(不能获取充值类型来定义分账费率)，需要手工分账
+	 */
+	@RequestMapping("/memberCenter/querySFTOrder.jhtml")
+	public String querySFTOrder(HttpServletRequest request,
+							  String memberPayId)
+							throws IOException {
+		String backMessage= "";
+		MemberPayLog payLogRecord = this.memberCenterService.getOneMemberPayLog(new Integer(memberPayId));
+		//盛付通非成功订单需要查询
+		if(payLogRecord != null &&
+		   payLogRecord.getType().intValue() == 7 &&
+		   payLogRecord.getState().intValue() != MemberUtil.STATE.MEMBER_PAY_LOG_STATE_PROCESSED.intValue()){
+			String sftTransNo = new SftQueryOrderService().queryOrder(payLogRecord.getId() + "",payLogRecord.getPayId());
+			if(sftTransNo == null) sftTransNo = "";
+			//如果是成功的订单
+			if(sftTransNo.length() > 0){
+				payLogRecord.setPayId(sftTransNo);//盛付通订单号
+				payLogRecord.setBackTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+				payLogRecord.setState(MemberUtil.STATE.MEMBER_PAY_LOG_STATE_PROCESSED);
+				payLogRecord.setReserved3("订单对账");
+				if (this.memberCenterService.setState(payLogRecord) > 0) {
+					// 修改会员帐户余额,写资金日志
+					this.memberCenterService.putMoneyToMemberAccount(
+							payLogRecord.getMemberId(),
+							this.memberCenterService.getOneStore(new Integer(payLogRecord.getStoreId())),
+							payLogRecord.getMoney(),
+							MemberUtil.MEMBER_PAY_TYPE.SFT_PAY,
+							payLogRecord.getId()+"");
+					//盛付通反馈回来的参数不足够支持分账
+				}else{
+					backMessage= "处理成功，彩民资金已入账，请联系平台人员分账";
+				}
+			}else{
+				backMessage= "订单未成功或对账失败";
+			}
+		}else{
+			//不是盛付通充值
+			backMessage= "此订单不需要处理";
+		}
+		return backMessage;
+	}
+	
+	public static void main(String[] args) throws Exception{        
+		/*//获取分润
+		double rMoney = 57.06 * AlipayConfig.rateDE;
+		double f1 = new BigDecimal(rMoney+"").setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+		if(f1 == 0)
+			f1 = 0.01;
+		String royaltyMoney = new BigDecimal(57.06 - f1+"").setScale(2, BigDecimal.ROUND_HALF_DOWN)+"";
+	    System.out.println(royaltyMoney);*/
+		double d1 = Double.parseDouble("1.14");
+		double d2 = Double.parseDouble("1.14");
+		System.out.println(d1==d2);
+   }
+	
+	/********************************************************************************
+	 * **************************utils test**********************************
+	 *************************************************************************/
+	public static String getUTF8StringFromGBKString(String gbkStr) {  
+        try {  
+            return new String(getUTF8BytesFromGBKString(gbkStr), "UTF-8");  
+        } catch (Exception e) {  
+            throw new InternalError();  
+        }  
+    }  
+      
+    public static byte[] getUTF8BytesFromGBKString(String gbkStr) {  
+        int n = gbkStr.length();  
+        byte[] utfBytes = new byte[3 * n];  
+        int k = 0;  
+        for (int i = 0; i < n; i++) {  
+            int m = gbkStr.charAt(i);  
+            if (m < 128 && m >= 0) {  
+                utfBytes[k++] = (byte) m;  
+                continue;  
+            }  
+            utfBytes[k++] = (byte) (0xe0 | (m >> 12));  
+            utfBytes[k++] = (byte) (0x80 | ((m >> 6) & 0x3f));  
+            utfBytes[k++] = (byte) (0x80 | (m & 0x3f));  
+        }  
+        if (k < utfBytes.length) {  
+            byte[] tmp = new byte[k];  
+            System.arraycopy(utfBytes, 0, tmp, 0, k);  
+            return tmp;  
+        }  
+        return utfBytes;  
+    }  
+}

@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.DebitMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.Debit" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="obligor_id" property="obligorId" jdbcType="INTEGER" />
+    <result column="creditor_id" property="creditorId" jdbcType="INTEGER" />
+    <result column="creditor_store_id" property="creditorStoreId" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="return_time" property="returnTime" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, type, obligor_id, creditor_id, creditor_store_id, money, state, create_time, 
+    return_time, memo, reserved1, reserved2, reserved3, reserved4, reserved5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from debit
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from debit
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 统计指定用户的欠款单数和欠款总额 -->
+  <select id="selectTotalByMemeberId" resultType="com.jingc.busi.common.table.SaleTotal">
+  select obligor_id as memberId,count(*) as licenseId,sum(money) as saleMoney from debit 
+  where obligor_id = #{memberId} and state = #{state}
+  </select>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.Debit" >
+    insert into debit (id, type, obligor_id, 
+      creditor_id, creditor_store_id, money, 
+      state, create_time, return_time, 
+      memo, reserved1, reserved2, 
+      reserved3, reserved4, reserved5
+      )
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{obligorId,jdbcType=INTEGER}, 
+      #{creditorId,jdbcType=INTEGER}, #{creditorStoreId,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, 
+      #{state,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, #{returnTime,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <!-- 插入店铺欠款信息，与欠款单表结构一样 -->
+  <insert id="insertStoreDebit" parameterType="com.jingc.busi.common.table.Debit" >
+    insert into store_debit (id, type, obligor_id, 
+      creditor_id, creditor_store_id, money, 
+      state, create_time, return_time, 
+      memo, reserved1, reserved2, 
+      reserved3, reserved4, reserved5
+      )
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{obligorId,jdbcType=INTEGER}, 
+      #{creditorId,jdbcType=INTEGER}, #{creditorStoreId,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, 
+      #{state,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, #{returnTime,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, #{reserved2,jdbcType=VARCHAR}, 
+      #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, #{reserved5,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <!-- 结清欠款操作 -->
+  <update id="settlementOfArrears">
+  update debit
+    <set >
+      <if test="param.state != null and param.state != ''" >
+        state = #{param.state,jdbcType=INTEGER},
+      </if>
+      <if test="param.returnTime != null and param.returnTime !=''" >
+        return_time = #{param.returnTime,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved1 != null and param.reserved1 != ''" >
+        reserved1 = #{param.reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved2 != null and param.reserved2 != ''" >
+        reserved2 = #{param.reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved3 != null and param.reserved3 !=''" >
+        reserved3 = #{param.reserved3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{param.id,jdbcType=INTEGER}
+  </update>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.Debit" >
+    update debit
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="obligorId != null" >
+        obligor_id = #{obligorId,jdbcType=INTEGER},
+      </if>
+      <if test="creditorId != null" >
+        creditor_id = #{creditorId,jdbcType=INTEGER},
+      </if>
+      <if test="creditorStoreId != null" >
+        creditor_store_id = #{creditorStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTime != null" >
+        return_time = #{returnTime,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ <!-- 根据参数对象查询对应的欠款单记录——包含用户名、欠款单开始结束时间、还款开始结束时间、状态、欠款单类别 -->
+ <select id="selectByParamObject" resultMap="BaseResultMap">
+ 	select <include refid="Base_Column_List" /> from debit <include refid="sbp_sql"/> 	 
+ 	<if test="(param.createTimeBegin != null and param.createTimeBegin != '') or (param.createTimeEnd != null and param.createTimeEnd != '')">
+ 	 order by create_time desc
+ 	</if>
+ 	<if test="(param.returnTimeBegin != null and param.returnTimeBegin != '') or (param.returnTimeEnd != null and param.returnTimeEnd != '')">
+ 	 order by return_time desc
+ 	</if>
+ 	<if test="pagination != null"> limit #{pagination.firstResult},#{pagination.pageSize} </if> 	 
+ </select>
+ <!-- 根据参数对象查询对应的欠款单记录条目数——包含用户名、欠款单开始结束时间、还款开始结束时间、状态、欠款单类别 -->
+ <select id="selectWaitCountByParamObject" resultType="java.lang.Integer">
+ 	select count(*) from debit <include refid="sbp_sql"/>
+ </select>
+ 
+ <sql id="sbp_sql">
+ 	<where>
+ 		<if test="param.type != null and param.type != ''"> type = #{param.type}</if>
+ 		<if test="param.creditorStoreId != null and param.creditorStoreId !=''"> and creditor_store_id = #{param.creditorStoreId}</if>
+ 		<if test="param.state != null and param.state !=''"> and state = #{param.state}</if>
+ 		<if test="param.obligorId != null and param.obligorId !=''"> and obligor_id = #{param.obligorId}</if>
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 			and (create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+ 		</if>
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 			and create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+ 		</if>
+ 		<if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		 	and create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and (return_time between CONCAT(#{param.returnTimeBegin}," 00:00:00") and CONCAT(#{param.returnTimeEnd}," 23:59:59"))
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd == null or param.returnTimeEnd =='')">
+ 			and return_time &gt; CONCAT(#{param.returnTimeBegin}," 00:00:00")
+ 		</if>
+ 		<if test="(param.returnTimeBegin == null or param.returnTimeBegin =='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and return_time &lt; CONCAT(#{param.returnTimeEnd}," 23:59:59")
+ 		</if>
+ 	</where>
+ </sql>
+ <!-- 根据店铺和时间统计欠款还款金额 -->
+ <select id="totalMoneyByParamObject" resultType="java.lang.Double">
+  	select sum(money) from debit 
+  	<where>
+  		<if test="param.type != null and param.type != ''">
+  			type = #{param.type}
+  		</if>
+  		<if test="param.creditorStoreId != null and param.creditorStoreId != ''">
+  			and creditor_store_id = #{param.creditorStoreId}
+  		</if>
+  		<if test="param.state != null and param.state != ''">
+  			and state = #{param.state}
+  		</if>
+  		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 			and (create_time between CONCAT(#{param.createTimeBegin}," 00:00:00") and CONCAT(#{param.createTimeEnd}," 23:59:59"))
+ 		</if>
+ 		<if test="(param.createTimeBegin != null and param.createTimeBegin !='') and (param.createTimeEnd == null or param.createTimeEnd =='')">
+ 			and create_time &gt; CONCAT(#{param.createTimeBegin}," 00:00:00")
+ 		</if>
+ 		<if test="(param.createTimeBegin == null or param.createTimeBegin =='') and (param.createTimeEnd != null and param.createTimeEnd !='')">
+ 		 	and create_time &lt; CONCAT(#{param.createTimeEnd}," 23:59:59")
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and (return_time between CONCAT(#{param.returnTimeBegin}," 00:00:00") and CONCAT(#{param.returnTimeEnd}," 23:59:59"))
+ 		</if>
+ 		<if test="(param.returnTimeBegin != null and param.returnTimeBegin !='') and (param.returnTimeEnd == null or param.returnTimeEnd =='')">
+ 			and return_time &gt; CONCAT(#{param.returnTimeBegin}," 00:00:00")
+ 		</if>
+ 		<if test="(param.returnTimeBegin == null or param.returnTimeBegin =='') and (param.returnTimeEnd != null and param.returnTimeEnd !='')">
+ 			and return_time &lt; CONCAT(#{param.returnTimeEnd}," 23:59:59")
+ 		</if>
+  	</where>
+  </select>
+  
+  <!--彩民取款单汇总-->
+  <select id="totalDebitMoneyByMemberState" resultType="java.lang.Double">
+  	select COALESCE(SUM(money),0) from debit where obligor_id = #{param.obligorId} and state = #{param.state}
+  </select>
+  
+  <select id="selectStoreDebit" resultType="com.jingc.busi.common.table.query.OneDayQueryObject"> 
+  	select sum(money) as money,substr(create_time,1,10) as day from debit where creditor_store_id=#{storeId} GROUP BY substr(create_time,1,10)
+  </select>
+  <select id="selectStoreRepayment" resultType="com.jingc.busi.common.table.query.OneDayQueryObject"> 
+  	select sum(money) as money,substr(return_time,1,10) as day from debit where creditor_store_id=#{storeId} and state=2 GROUP BY substr(return_time,1,10)
+  </select>
+  <select id="selectOneStoreDebit" resultType="com.jingc.busi.common.table.query.OneDayQueryObject"> 
+  	select sum(IFNULL(money,0)) as money from debit where creditor_store_id=#{storeId} and create_time like #{day}
+  </select>
+  <select id="selectOneStoreRepayment" resultType="com.jingc.busi.common.table.query.OneDayQueryObject"> 
+  	select sum(IFNULL(money,0)) as money from debit where creditor_store_id=#{storeId} and state=2 and return_time like #{day}
+  </select>
+</mapper>

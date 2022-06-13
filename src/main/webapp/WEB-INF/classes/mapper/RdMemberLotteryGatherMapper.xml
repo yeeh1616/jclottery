@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingc.busi.common.mapper.RdMemberLotteryGatherMapper">
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.RdMemberLotteryGather">
+    <id column="member_id" jdbcType="INTEGER" property="memberId" />
+    <id column="batch" jdbcType="VARCHAR" property="batch" />
+    <id column="store_id" jdbcType="INTEGER" property="storeId" />
+    <result column="member_name" jdbcType="VARCHAR" property="memberName" />
+    <result column="member_type" jdbcType="CHAR" property="memberType" />
+    <result column="login_type" jdbcType="CHAR" property="loginType" />
+    <result column="state" jdbcType="CHAR" property="state" />
+    <result column="not_order_num" jdbcType="INTEGER" property="notOrderNum" />
+    <result column="not_ticket_num" jdbcType="INTEGER" property="notTicketNum" />
+    <result column="not_price" jdbcType="INTEGER" property="notPrice" />
+    <result column="wait_order_num" jdbcType="INTEGER" property="waitOrderNum" />
+    <result column="wait_ticket_num" jdbcType="INTEGER" property="waitTicketNum" />
+    <result column="wait_price" jdbcType="INTEGER" property="waitPrice" />
+    <result column="print_order_num" jdbcType="INTEGER" property="printOrderNum" />
+    <result column="print_ticket_num" jdbcType="INTEGER" property="printTicketNum" />
+    <result column="print_price" jdbcType="INTEGER" property="printPrice" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="last_update_time" jdbcType="VARCHAR" property="lastUpdateTime" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    batch, member_id, store_id, member_name, member_type, login_type, state, not_order_num, 
+    not_ticket_num, not_price, wait_order_num, wait_ticket_num, wait_price, print_order_num, 
+    print_ticket_num, print_price, create_time, last_update_time, version
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rd_member_lottery_gather
+    where member_id = #{memberId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectPaginationByParam" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> from rd_member_lottery_gather
+  <where>
+  	<if test="param.memberId != null">member_id = #{param.memberId,jdbcType=INTEGER}</if>
+  	<if test="param.storeId != null"> and store_id = #{param.storeId,jdbcType=INTEGER}</if>
+  </where>
+  order by last_update_time DESC 
+  <if test="pin != null"><!-- pagination 传入null时，表示不需要分页，要查询所有数据 -->
+    	limit #{pin.firstResult},#{pin.pageSize}
+    </if>
+  </select>
+  
+  <select id="selectCountByParam" resultType="java.lang.Integer">
+  select count(*) from rd_member_lottery_gather
+  <where>
+  	<if test="param.memberId != null">member_id = #{param.memberId,jdbcType=INTEGER}</if>
+  	<if test="param.storeId != null"> and store_id = #{param.storeId,jdbcType=INTEGER}</if>
+  </where>
+  </select>
+  
+  <select id="selectBymIdState" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> from rd_member_lottery_gather
+  <where>
+  	<if test="mId != null">member_id = #{mId,jdbcType=INTEGER}</if>
+  	<if test="state != null"> and state = #{state}</if>
+  </where>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rd_member_lottery_gather
+    where member_id = #{memberId,jdbcType=INTEGER} and batch = #{batch,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteByParam">
+   delete from rd_member_lottery_gather
+   <where>
+   <if test="param.memberId != null">member_id = #{param.memberId,jdbcType=INTEGER}</if>
+  	<if test="param.version != null"> and version = #{param.version,jdbcType=INTEGER}</if>
+  	 <if test="param.batch != null">and batch = #{batch,jdbcType=VARCHAR}</if>
+  	 <if test="param.loginType != null" >and login_type = #{param.loginType,jdbcType=CHAR}</if>
+   </where>
+  </delete>
+  
+  <insert id="insert">
+    insert into rd_member_lottery_gather (member_id,batch,store_id, member_name, member_type, 
+      login_type, state, not_order_num, 
+      not_ticket_num, not_price, wait_order_num, wait_ticket_num, wait_price,
+       print_order_num, print_ticket_num, print_price,create_time, last_update_time
+      , version
+      )
+    values (#{param.memberId,jdbcType=INTEGER},#{param.batch,jdbcType=VARCHAR},#{param.storeId,jdbcType=INTEGER}, #{param.memberName,jdbcType=VARCHAR}, #{param.memberType,jdbcType=CHAR}, 
+      #{param.loginType,jdbcType=CHAR}, #{param.state,jdbcType=CHAR}, #{param.notOrderNum,jdbcType=INTEGER}, 
+      #{param.notTicketNum,jdbcType=INTEGER}, #{param.notPrice,jdbcType=INTEGER},
+       #{param.waitOrderNum,jdbcType=INTEGER}, #{param.waitTicketNum,jdbcType=INTEGER}, #{param.waitPrice,jdbcType=INTEGER},
+       #{param.printOrderNum,jdbcType=INTEGER}, #{param.printTicketNum,jdbcType=INTEGER}, #{param.printPrice,jdbcType=INTEGER},
+       #{param.createTime,jdbcType=VARCHAR}, #{param.lastUpdateTime,jdbcType=VARCHAR},
+        #{param.version,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <update id="updateInitValue">
+  	update rd_member_lottery_gather set not_order_num = not_order_num + #{param.notOrderNum},not_price = not_price + #{param.notPrice}, not_ticket_num = not_ticket_num + #{param.notTicketNum},version = version +1,
+  	 last_update_time = #{param.lastUpdateTime,jdbcType=VARCHAR}
+  	where member_id = #{param.memberId,jdbcType=INTEGER} 
+    and version = #{param.version,jdbcType=INTEGER} and batch = #{param.batch,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <update id="update">
+    update rd_member_lottery_gather
+    <set>
+      <if test="param.memberName != null">
+        member_name = #{param.memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="param.memberType != null">
+        member_type = #{param.memberType,jdbcType=CHAR},
+      </if>
+      <if test="param.loginType != null">
+        login_type = #{param.loginType,jdbcType=CHAR},
+      </if>
+      <if test="param.state != null">
+        state = #{param.state,jdbcType=CHAR},
+      </if>
+      <if test="param.notOrderNum != null">
+        not_order_num = #{param.notOrderNum,jdbcType=INTEGER},
+      </if>
+      <if test="param.notTicketNum != null">
+        not_ticket_num = #{param.notTicketNum,jdbcType=INTEGER},
+      </if>
+      <if test="param.notPrice != null">
+        not_price = #{param.notPrice,jdbcType=INTEGER},
+      </if>
+      <if test="param.waitOrderNum != null">
+        wait_order_num = #{param.waitOrderNum,jdbcType=INTEGER},
+      </if>
+      <if test="param.waitTicketNum != null">
+        wait_ticket_num = #{param.waitTicketNum,jdbcType=INTEGER},
+      </if>
+      <if test="param.waitPrice != null">
+        wait_price = #{param.waitPrice,jdbcType=INTEGER},
+      </if>
+      <if test="param.printOrderNum != null">
+        print_order_num = #{param.printOrderNum,jdbcType=INTEGER},
+      </if>
+      <if test="param.printTicketNum != null">
+        print_ticket_num = #{param.printTicketNum,jdbcType=INTEGER},
+      </if>
+      <if test="param.printPrice != null">
+        print_price = #{param.printPrice,jdbcType=INTEGER},
+      </if>
+      <if test="param.createTime != null">
+        create_time = #{param.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="param.lastUpdateTime != null">
+        last_update_time = #{param.lastUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="param.version != null">
+        version = version +1,
+      </if>
+    </set>
+    where member_id = #{param.memberId,jdbcType=INTEGER} 
+    and version = #{param.version,jdbcType=INTEGER} and batch = #{param.batch,jdbcType=VARCHAR}
+  </update>
+</mapper>

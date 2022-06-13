@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="images/top_logo.ico" />
+<title>为什么有的单子会逾期？会被撤销？</title>
+<link type="text/css" rel="stylesheet" href="../../css/base.css"/>
+<link type="text/css" rel="stylesheet" href="../../css/columns_blue2.css"/>
+<link type="text/css" rel="stylesheet" href="../../css/other.css"/>
+<script type="text/javascript" src="../../js/jquery-1.8.2.js"></script>
+<script type="text/javascript" src="../../js/include.js"></script>
+</head>
+
+<body>
+<!--顶部-->
+<div class="header_top">
+  <div class="top common_w">
+    <div class="top_left fl"><span>欢迎您来到凤凰微彩!</span><a class="openlogin" href="javascript:" onclick="return false;">请登录</a>|<a id="sigup_now"  href="javascript:" onclick="return false;">免费注册</a>|<a href="#">合作账户登录</a>
+      <div class="clear"></div>
+    </div>
+    <div class="top_right fr"><a href="#">收藏本站</a>|<a href="#">帮助中心</a>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+<!--顶部 end--> 
+<!--header-->
+<div class="header_bg second_head">
+  <div class=" common_w">
+    <div class="shop_name fl"> 微笑付款彩站
+      <div>www.cp020.com</div>
+    </div>
+    <div class="second_nav">
+      <ul>
+ 		<li><a href="index.html">首页</a></li>
+        <li><a href="lottery_hall.html">购彩</a></li>
+        <li id="navlist"><a href="together.html">合买<i></i></a></li>
+        <li><a href="#">开奖 </a></li>
+        <li><a href="#">走势</a></li>
+        <li><a href="#">比分</a></li>
+        <li><a class="cur"  href="recommend.html">推荐</a></li>
+        <li><a href="instruction.html">店铺</a></li>
+        <li><a href="#">手机</a></li>      </ul>
+    </div>
+    <div class="box" id="navbox" style="height:0px;opacity:0;overflow:hidden;">
+      <div class="cont" style="display:none;">
+        <div class="menu jingzu fl">
+          <div class="menu_l fl">
+            <div class="jingzu_img"></div>
+            <p><a href="#">竟足</a></p>
+          </div>
+          <div class="menu_r fl"><a class="red" href="#">胜平负</a><a href="#">让球胜平负</a> <a href="#">半全场</a> <a href="#">总进球</a> <a href="#">比分</a> <a href="#">混合过关</a> <a href="#">2选1</a><a class="red" href="#">单关足球</a><a href="#">开奖数据</a> </div>
+          <div class="clear"></div>
+        </div>
+        <div class="menu jinglan fl">
+          <div class="menu_l fl">
+            <div class="jinglan_img"></div>
+            <p><a href="#">竞篮</a></p>
+          </div>
+          <div class="menu_r fl"><a class="red" href="#">胜负</a><a href="#">让分胜负</a> <a href="#">胜分差</a><a href="#">大小分</a> <a href="#">混合过关</a><a class="red" href="#">单关篮球</a><a href="#">开奖数据</a> </div>
+          <div class="clear"></div>
+        </div>
+        <div class="menu zuqiu fl">
+          <div class="menu_l fl">
+            <div class="laozu_img"></div>
+            <p><a href="#">足球</a></p>
+          </div>
+          <div class="menu_r fl"><a href="#">胜负彩</a> <a href="#">任选九</a> <a href="#">半全场</a> <a href="#">进球彩</a> </div>
+          <div class="clear"></div>
+        </div>
+        <div class="menu ticai fl">
+          <div class="menu_l fl">
+            <div class="tic_img"></div>
+            <p><a href="#">体彩</a></p>
+          </div>
+          <div class="menu_r fl"><a href="#">排列三</a> <a href="#">排列五</a> <a href="#">七星彩</a> <a href="#">大乐透</a> </div>
+          <div class="clear"></div>
+        </div>
+        <div class="menu menu_last fl">
+          <div class="menu_l fl">
+            <div class="gao_img"></div>
+            <p><a href="#">高频</a></p>
+          </div>
+          <div class="menu_r fl"><span>用速度争取每一次机会</span> <a href="#">11运夺金</a> <a href="#">幸运赛车</a> </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <div class="second_kf"><a href="#">在线客服</a></div>
+    <div class="second_phone">客服电话：400-110-3310</div>
+    <div class="clear"></div>
+  </div>
+</div>
+<!--header end-->
+ <div class="layout">
+  <div class="hall-top">
+    <div class="sitepath fl"> 您当前的位置：<a href="#">首页</a> > 帮助中心 </div>
+  </div>
+  </div>
+<!--帮助中心开始-->
+<div class="help-list">
+<iframe src='../helpleft.html' class="help-listl" style="overflow:hidden; border:0px !important;"></iframe>
+<div class="help-listr">
+ <h1>半全场官方规则</h1>
+ <p><span>第一章 总 则</span></p>
+ <p>&nbsp;&nbsp;第一条 根据财政部《彩票发行与销售管理暂行规定》和国家体育总局《体育彩票发行与销售管理暂行办法》以及《计算机销售体育彩票管理暂行办法》，制定本游戏规则。</p>
+ <p>&nbsp;&nbsp;第二条 中国足球彩票单场竞猜单场半全场胜平负游戏（以下简称"半全场胜平负游戏"）由国家体育总局体育彩票管理中心（以下简称"中体彩中心"）负责组织管理工作。</p>
+ <p>&nbsp;&nbsp;第三条 "半全场胜平负游戏"实行自愿购买，凡购买该彩票者即被视为同意并遵守本规则。</p>
+  <p><span>第二章 游戏方法</span></p>
+ <p>&nbsp;&nbsp;第四条 半全场胜平负游戏以中体彩中心选定的足球比赛为游戏媒介，由购票人对指定的比赛在90分钟比赛（含伤情补时）主队与客队的半全场胜平负比赛结果进行投注。选择1场比赛为单场过关，选择多场比赛为多场过关。</p>
+ <p>&nbsp;&nbsp;第五条 半全场胜平负游戏竞猜的足球比赛，在意大利足球甲级联赛、英国足球超级联赛、西班牙足球甲级联赛、德国足球甲级联赛、法国足球甲级联赛以及世界重大足球比赛中选定。当期比赛赛程于第一场比赛开赛前7天在公开媒介上公告，公告4天后开始销售，每场比赛开赛前5-30分钟停止销售。</p>
+ <p>&nbsp;&nbsp;第八条 投注者可选择机选号码投注、自选号码投注。机选号码投注即由投注机随机产生投注号码进行投注，自选号码投注即将投注者选定的号码输入投注机进行投注。</p>
+ <p>&nbsp;&nbsp;第六条 每一场比赛共有9种预测结果： "3－3"：表示上半场主队胜，全场主队胜； "3－1"：表示上半场主队胜，全场主队平； "3－0"：表示上半场主队胜，全场主队负； "1－3"：表示上半场主队平，全场主队胜； "1－1"：表示上半场主队平，全场主队平； "1－0"：表示上半场主队平，全场主队负； "0－3"：表示上半场主队负，全场主队胜； "0－1"：表示上半场主队负，全场主队平； "0－0"：表示上半场主队负，全场主队负。</p>
+ <p>&nbsp;&nbsp;第七条 购票人投注时，对指定竞猜场次的比赛结果作两种或两种以上的选择，构成复式投注，单张彩票购买数量不得超过10000注。购买者可对"半全场胜平负游戏"的结果进行多倍投注。</p>
+  <p>&nbsp;&nbsp;第八条 半全场胜平负游戏每注2元。彩票不记名、不挂失，不返还本金，不流通使用。</p>
+  <p><span>第三章 投 注</span></p>
+ <p>&nbsp;&nbsp;第九条 购票人可以直接在"半全场胜平负游戏"销售终端直接投注，也可利用"半全场胜平负游戏"销售终端提供的投注单辅助投注。</p>
+ <p>&nbsp;&nbsp;第十条 投注单投注： （一）投注单有3个供购票人填写的独立区域，分别为"过关方式"区、"场次"区、"倍投"区。 "过关方式"区的格式为："选择竞猜场次数量 * 购买彩票注数"，购票人必须且只能选择1种过关方式，不选或多选均为无效投注。 "场次"区：购票人对所选择的竞猜场次的比赛结果进行预测，选择1个以上的结果即构成复式投注。所选择的场次数量应与"过关方式"区中所选择的竞猜场次数量一致，否则为无效投注。 "倍投"区：此区域如不做出选择即为没有加倍投注；选择"2"为2倍投注，选择"1"＋"30"为31倍投注，选择"9"＋"90"为99倍投注。 （二）销售人员按购票人填写的投注单确定投注数量和需缴纳金额，收款后打印彩票。</p>
+ <p>&nbsp;&nbsp;第十一条 销售终端打印出的彩票为半全场胜平负游戏唯一兑奖凭证。投注单只用于辅助购票者投注，不作为兑奖凭证，也不作为购票者投注结果的间接证明。</p>
+ <p>&nbsp;&nbsp;第十二条 销售过程中，如遇以下情形则特别规定如下： （一）在当期半全场胜平负游戏销售前，部分或全部场次因故发生变化，则更改相应变化场次。 （二）在当期半全场胜平负游戏销售后，如果部分场次因故提前进行，则该场比赛销售时间相应提前结束，其余场次销售时间不变；如果部分场次因故延期，超过原定开奖时间12小时，则该场比赛在过关投注中的所有选项均视为选中，SP值按1计算，单场投注按退票处理；未超过12小时的，按实际比赛结果计奖。</p>
+  <p><span>第四章 中 奖</span></p>
+ <p>&nbsp;&nbsp;第十三条 每期半全场胜平负游戏销售收入按以下比例分配：返奖奖金为销售总额的65%；公益金为销售总额的22%；发行经费为销售总额的13%。</p>
+ <p>&nbsp;&nbsp;第十四条 购票人投注结果与实际比赛结果相一致即为中奖。如遇特别情形，按第十二条规定处理。</p>
+ <p>&nbsp;&nbsp;第十五条 在竞猜半全场胜平负游戏时，每场比赛须计算出SP值，并以此为依据计算各竞猜场次的单注奖金。 SP=单场总投注金额/中奖彩票的总投注金额 在竞猜的n场比赛中，各场次SP值分别为SP1、SP2、SP3……SPn。</p>
+ <p>&nbsp;&nbsp;第十六条 奖金分配如下： （一）选择单场过关时，设一个奖级，为浮动奖。 单注奖金=2元×SP×65% （二）当选择2关及2关以上时，设一个奖级，为浮动奖： 单注奖金=2元×所选场次的SP值连乘×65%。</p>
+ <p>&nbsp;&nbsp;第十七条 单注彩票中奖奖金最高限额为500万元。</p>
+ <p>&nbsp;&nbsp;第十八条 在竞猜半全场胜平负游戏时，进行单场投注中，如中奖奖金低于投注本金时，按投注本金进行返奖，不足部分由调节基金补足，调节基金不足时由发行费列支。</p>
+ <p>&nbsp;&nbsp;第十九条 半全场胜平负游戏设立调节基金，由弃奖收入、浮动奖奖金取整后余额以及逾期未退票的票款等三部分组成，专项用于设置特别奖，支付不可预见情况下的奖金支出风险。</p>
+  <p><span>第五章 兑 奖</span></p>
+ <p>&nbsp;&nbsp;第二十条 "半全场胜平负游戏"兑奖当期有效。每期自计奖次日起28天为兑奖期，逾期未兑，视为弃奖。</p>
+ <p>&nbsp;&nbsp;第二十一条 单张彩票中奖金额5000元（含）以下的，在任意销售终端兑付；中奖金额5000元以上的，到彩票机构指定地点兑付。</p>
+ <p>&nbsp;&nbsp;第二十二条 兑奖机构有权查验中奖者的中奖彩票及有效身份证件，兑奖者应予配合。</p>
+ <p>&nbsp;&nbsp;第二十三条 凡伪造、涂改中奖彩票，冒领奖金者，送交司法机关追究法律责任。</p>
+  <p><span>第六章 附 则</span></p>
+ <p>&nbsp;&nbsp;第二十四条 本规则执行中，有关重大事项的通告将在彩票机构指定的报刊上登载，并在彩票销售终端予以公布，销售者不再承担直接通知购票人的责任，购票人须自行知晓。</p>
+ <p>&nbsp;&nbsp;第二十五条 本规则由中体彩中心解释。</p>
+ <p>&nbsp;&nbsp;特别备注：按照2009年正式实施的《彩票管理条例》有关要求，关于弃奖和兑奖期限的条款相应调整，其中弃奖进入公益金，兑奖期限为开奖之日起的60个自然日。</p>
+</div>
+<div class="clear"></div>
+</div>
+    
+
+<!--帮助中心结束-->
+<!--footer-->
+<div class="footer_bg">
+  <div class="footer_bangzhu"><img src="../../images/f_logo.png" width="85" height="104" />
+    <div class="footer_list">
+      <h1>新手上路</h1>
+      <ul>
+        <li> <a href="#"><i class="cube"></i>注册充值</a> </li>
+        <li> <a href="#"><i class="cube"></i>购彩流程</a> </li>
+        <li> <a href="#"><i class="cube"></i>领奖流程</a> </li>
+      </ul>
+    </div>
+    <div class="footer_list">
+      <h1>帮助中心</h1>
+      <ul>
+        <li> <a href="#"><i class="cube"></i>常见问题 </a> </li>
+        <li> <a href="#"><i class="cube"></i>功能指引</a> </li>
+        <li> <a href="#"><i class="cube"></i>彩种介绍</a> </li>
+      </ul>
+    </div>
+    <div class="footer_list">
+      <h1>支付方式 </h1>
+      <ul>
+        <li> <a href="#"><i class="cube"></i>支付宝支付 </a> </li>
+        <li> <a href="#"><i class="cube"></i>微信支付</a> </li>
+        <li> <a href="#"><i class="cube"></i>网银支付</a> </li>
+      </ul>
+    </div>
+    <div class="footer_list">
+      <h1>中奖福地 </h1>
+      <ul>
+        <li> <a href="#"><i class="cube"></i>大奖回顾 </a> </li>
+        <li> <a href="#"><i class="cube"></i>中奖英雄榜</a> </li>
+        <li> <a href="#"><i class="cube"></i>超级合买人</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer_bangzhub"> <a href="#"><img src="../../images/1.jpg" /></a> <a href="#"><img src="../../images/2.jpg" /></a> <a href="#"><img src="../../images/3.jpg" /></a> <a href="#"><img src="../../images/4.jpg" /></a> <a href="#"><img src="../../images/5.jpg" /></a>
+    <div class="clear"></div>
+    <div class="wenzicai">北京彩游天下网络科技有限责任公司 客服热线：400-110-3310 备案：京ICP备14043026号-3 </div>
+    <div class="wenzits"><span class="red">郑重提示：</span>彩票有风险,购买要适度,禁止18岁以下的未成年人购买彩票。 </div>
+  </div>
+  </div>
+<!--footer end-->
+</body>
+</html>

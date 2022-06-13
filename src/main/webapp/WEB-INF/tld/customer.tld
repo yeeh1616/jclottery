@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "web-jsptaglibrary_1_2.dtd" >  
+<taglib>  
+	<tlibversion>1.0</tlibversion>  <!-- 你自定义标签的版本数 -->  
+	<jsp-version>1.2</jsp-version>  <!-- 指定你的JSP版本，扩张标签是在JSP1.2之后兼容的 -->  
+	<shortname>jcTag</shortname> <!-- 标签的简写 -->  
+	  <!--分页-->
+  	<tag>  
+    	<name>paging</name><!-- 标签名字 -->  
+    	<tagclass>com.jingc.afc.pagination.PagingTagsWeb</tagclass><!-- 指定你的标签的类 -->
+	    <!-- 提交form的id -->
+	    <attribute>
+		    <name>formId</name><!--注意：这里给出，参数名称，就是实现类里的，setter方法的名-->
+		    <required>true</required><!--是否是必须的-->
+		    <description></description>
+		    <rtexprvalue>false</rtexprvalue><!-- 是否可以通过el表达式取值 -->
+		</attribute>
+		<!-- 记录总数 -->
+    	<attribute>
+	   		<name>count</name>
+	    	<required>true</required>
+	    	<description></description>
+	    	<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<!-- 当前页码 -->
+		<attribute>
+	    	<name>pageNo</name>
+	    	<required>true</required>
+	    	<description></description>
+	    	<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<!-- 每页记录数 -->
+		<attribute>
+	    	<name>pageSize</name>
+	    	<required>false</required>
+	    	<description></description>
+	    	<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<!-- 每页记录数 -->
+		<attribute>
+	    	<name>selectPageSize</name>
+	    	<required>false</required>
+	    	<description></description>
+	    	<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	 <!--判断对象的是否为空值，含null，空，字符串null-->
+	<function>
+	    <name>isEmpty</name>  
+	    <!-- 定义函数处理类 -->
+	    <function-class>com.jingc.afc.pagination.CommonTag</function-class>  
+	    <!-- 定义函数的对应方法 -->  
+	    <function-signature>  
+	        java.lang.String isEmpty(java.lang.Object)  
+	    </function-signature>
+	</function>
+</taglib>
+<!-- 标签库元素<taglib>属性:表格如下
+         <taglib>属性表格</taglib>
+属性	描述
+tlib-version	本标签库实现版本
+jsp-version	标签库依赖的JSP版本
+short-name	被JSP创作工具使用的一个短的默认名词
+uri	指定这个标签库的uri信息
+display-name	被工具使用的显示用的名字
+small-icon	被工具使用的小图标
+large-icon	被工具使用的大图标
+description	本标签的描述
+validator	TLD验证信息
+listener	实践监听器规范
+
+name	tag标签唯一的名称
+tag-class	tag标签的处理类
+tei-class	tag标签的TagExtraInfo类
+body-content	标签主体的内容
+display-name	显示的名称
+small-icon	被工具使用的小图标
+large-icon	被工具使用的大图标
+description	本标签的描述
+variable	脚本变量的信息
+attribute	标签属性的信息 -->

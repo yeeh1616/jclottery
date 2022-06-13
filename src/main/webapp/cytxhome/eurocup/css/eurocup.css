@@ -1,0 +1,466 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	width: 100%;
+	height: 874px;
+	background: url(../images/eor_bg.png) no-repeat;
+	display: block;
+	background-position: top center !important;
+}
+.euro_gogo {
+	height: 300px;
+}
+.common_w {
+	width: 980px;
+	margin: 0 auto;
+	background: #fff;
+}
+.euro_header {
+	width: 1100px;
+	margin: auto;
+	background: url(../images/nav_bg.png) no-repeat !important;
+	position: relative;
+	left: -36px;
+}
+.euro_header-top {
+	position: relative;
+	height: 139px;
+	background: #fff;
+	width: 980px;
+	margin: auto;
+}
+.euro {
+	width: 948px;
+	margin: 0 auto;
+	padding-top: 14px;
+	padding-right: 16px;
+}
+.euro_nav {
+	height: 38px;
+	line-height: 38px;
+	font-family: "微软雅黑";
+	font-size: 12px;
+	text-align: center;
+	color: #f67f8b;
+	margin-top: 6px;
+}
+.euro_nav a {
+	color: #fff;
+	font-size: 14px !important;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.euro_nav a:hover {
+	color: #fff !important;
+}
+/*导航结束*/
+/*对阵开始*/
+.euro_main {
+	width: 948px;
+	margin: 0 auto;
+	background: #fff;
+	padding-left: 16px;
+	padding-right: 16px;
+}
+.euro_tit1 {
+	width: 980px;
+	height: 57px;
+	line-height: 57px;
+	background: url(../images/ou_guan1.png) no-repeat;
+	color: #F7AD0E;
+	margin-top: 13px;
+	margin-bottom: 13px !important;
+	margin-left: 49px;
+}
+.euro_tit a {
+	float: right;
+	display: block;
+	width:126px;
+	height: 22px;
+	background:#f47a83;
+	text-align: center;
+	line-height: 22px;
+	color: #fff;
+	margin-top:19px;
+	margin-right:48px;
+	border-radius:16px;
+	font-weight:bold;
+}
+.euro_tit a:hover{background:#F05C67;color:#fff !important;}
+.euro_tit2 {
+	width: 980px;
+	height: 57px;
+	line-height: 57px;
+	background: url(../images/ou_guan2.png) no-repeat;
+	color: #F7AD0E;
+	margin-top: 13px;
+	margin-bottom: 13px !important;
+	margin-left: 49px;
+}
+.euro_tit_two {
+	width: 980px;
+	height: 57px;
+	line-height: 57px;
+	background: url(../images/ou_guan.png) no-repeat;
+	color: #F7AD0E;
+	margin-top: 10px;
+}
+.euro_tit h4 {
+	float: left;
+	padding-right: 15px;
+	font-size: 14px;
+}
+.euro_tit span {
+	float: left;
+}
+.column_conl {
+	width: 472px;
+	border-right: 1px dashed #000;
+	padding-right: 2px;
+}
+.column {
+	border: 1px solid #a6c9e2;
+	border-radius: 5px;
+}
+.column_conr {
+	width: 472px;
+}
+.against_one {
+	width: 472px;
+	color: #545454;
+}
+.against_one tr:hover {
+	background: #fcf881;
+}
+.against_one .active {
+	background: #ffb95e !important;
+}
+.against_one th {
+	background: #dbebfa;
+	font-weight: normal !important;
+	text-align: center;
+	height: 43px;
+	color: #2869bb;
+	border: none;
+	border-right: 1px solid #fff !important;
+}
+.against_one th a {
+	color: #2869bb;
+	display: block;
+	line-height: 38px;
+}
+.against_one td {
+	text-align: center;
+	height: 45px;
+	border: none;
+	border-right: 1px solid #fff !important;
+}
+.country {
+	display: block;
+	float: left;
+	width: 60px;
+	text-align: left;
+	line-height: 40px;
+}
+.country_men {
+	padding: 10px;
+	background: #f5f5f5;
+	padding-left: 15px !important;
+}
+.country_men li {
+	float: left;
+	width: 82px;
+	text-align: left;
+	line-height: 25px;
+}
+.euro_checkbox {
+	vertical-align: -3px;
+	margin-right: 3px;
+}
+/*进度条*/
+.bar {
+	width: 55px;
+	height: 10px;
+	border: 1px solid #ffa4ab;
+	background: #fff;
+	margin: auto;
+}
+.progress {
+	height: 10px;
+	background: #ef3f4c;
+	display: block;
+	float: left;
+}
+/*进度条结束*/
+/*投注结果*/
+.result {
+	text-align: center;
+}
+.all_choose {
+	display: block;
+	width: 57px;
+	height: 22px;
+	border: 1px solid #cdcdcd;
+	color: #747474;
+	text-align: center;
+	line-height: 22px;
+	margin: 10px auto;
+}
+.result-bottom {
+	line-height: 46px;
+	padding-left: 30px;
+	background: #e6f7fe;
+	color: #0076be;
+}
+.result-bottom li {
+	float: left;
+	margin-right: 30px;
+}
+.result-bottom i {
+	float: left;
+	font-style: normal;
+}
+.wcloose_toub {
+	width: 99px;
+	height: 23px;
+	border: 1px solid #bac1c4;
+	display: inline-block;
+	margin-right: 5px;
+	margin-top: 10px;
+	padding-left: 3px;
+	float: left;
+}
+.wcloose_toub a {
+	float: left;
+	width: 18px;
+	height: 17px;
+	border: 1px solid #bac1c4;
+	background: #e2e1e1;
+	text-align: center;
+	line-height: 17px;
+	margin-top: 2px;
+	font-size: 14px;
+}
+.wcloose_toub input {
+	float: left;
+	width: 54px;
+	height: 22px;
+	text-align: center;
+	border: none;
+}
+.tw_red {
+	color: #ef3c4f !important;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.euro_submit {
+	background: #ef3f4a;
+	width: 100px;
+	height: 30px;
+	display: inline-block;
+	color: #fff !important;
+	text-align: center;
+	line-height: 30px;
+	margin-top: 8px;
+	border-radius: 3px;
+	font-size: 15px;
+	margin-right: 19px;
+}
+.euro_submit:hover {
+	color: #fff !important;
+}
+.flag {
+	display: inline-block;
+	width: 31px;
+	height: 31px;
+	float: left;
+	margin-left: 23px;
+	margin-top: 7px;
+	margin-right: 20px;
+	background: url(../images/contry.png) no-repeat;
+}
+.sale {
+	color: #9e9e9e;
+}
+.flag_v {
+	display: inline-block;
+	width: 31px;
+	height: 31px;
+	float: left;
+	margin-left: 2px;
+	margin-top: 5px;
+	margin-right: 2px;
+	background: url(../images/contry.png) no-repeat;
+}
+.width_country {
+	width: 85px;
+	line-height: 40px;
+}
+.vs {
+	display: block;
+	line-height: 40px;
+	color: #ee404a;
+	font-size: 14px;
+}
+.footer {
+	height: 60px;
+	background: #ee3f4c;
+	text-align: center;
+	padding-top: 10px;
+	margin-top: 20px;
+}
+.footer p {
+	line-height: 30px;
+	color: #fff;
+}
+.weight {
+	color: #fff8ab !important;
+}
+/*投注结果*/
+/*赛程*/
+.col_cont {
+	height: 100px;
+}
+.fg {
+	background-position: 0 -290px;
+}
+.dg {
+	background-position: 0 -226px;
+}
+.xby {
+	background-position: 0 -651px;
+}
+.bls {
+	background-position: 0 -127px;
+}
+.ygl {
+	background-position: 0 -751px;
+}
+.pty {
+	background-position: 0 -422px;
+}
+.kldy {
+	background-position: 0 -356px;
+}
+.els {
+	background-position: 0 -257px;
+}
+.rs {
+	background-position: 0 -488px;
+}
+.wkl {
+	background-position: 0 -618px;
+}
+.bl {
+	background-position: 0 -192px;
+}
+.rd {
+	background-position: 0 -454px;
+}
+.teq {
+	background-position: 0 -553px;
+}
+.lmny {
+	background-position: 0 -388px;
+}
+.qt {
+	background-position: 0 -40px;
+}
+.ydl {
+	background-position: 0 -716px;
+}
+.odl {
+	background-position: 0 -65px;
+}
+.bl {
+	background-position: 0 -192px;
+}
+.jk {
+	background-position: 0 -322px;
+}
+.ael {
+	background-position: 0 -32px;
+}
+.slfk {
+	background-position: 0 -521px;
+}
+.wes {
+	background-position: 0 -585px;
+}
+.bd {
+	background-position: 0 -159px;
+}
+.xyl {
+	background-position: 0 -683px;
+}
+.arbny {
+	background-position: 0 1px;
+}
+.bael {
+	background-position: 0 -95px;
+}
+/*赛程结束*/
+/*浮动的小窗口*/
+.eurfly {
+	width: 273px;
+	height: 296px;
+	position: absolute;
+	right: 12px;
+	top: 353px;
+}
+.eurfly_header {
+	width: 100%;
+	height: 84px;
+}
+.zhuan {
+	width: 56px;
+	height: 56px;
+	background: url(../images/zhuan.png) no-repeat;
+	position: relative;
+	top: -294px;
+	left: 215px;
+}
+.eurfly_tit {
+	height: 36px;
+	line-height: 36px;
+	background: url(../images/eur_fly.png) no-repeat;
+	padding-left: 17px;
+	color: #fff;
+	font-weight: 800;
+	font-size: 14px;
+}
+.eurfly_result {
+	height: 34px;
+	line-height: 34px;
+	background: #ededed;
+	color: #0172b8;
+	padding-left: 17px;
+	width: 206px;
+}
+.eurfly_cont {
+	width: 223px;
+	height: 212px;
+	background: #fff;
+	overflow-y: auto;
+}
+.eurfly_cont_b {
+	width: 223px;
+}
+.eurfly_cont_b td {
+	color: #4c4c4c;
+	height: 34px;
+	text-align: center;
+}
+.eurfly_cont_b tr:hover {
+	background: #FCF881;
+}
+.eurfly_blue {
+	color: #008aff !important;
+}
+.eurfly_red {
+	color: #ac454c !important;
+}
+.eur_g {
+	margin-left: 118px;
+	color: #fff !important;
+}

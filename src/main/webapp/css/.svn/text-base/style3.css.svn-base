@@ -1,0 +1,153 @@
+@charset "utf-8";
+/* CSS Document */
+.con-top {
+	height: 37px;
+	background:#F6FAFC;
+	width: 794px;
+	line-height:37px;
+	border-top:1px solid #c1d1e5;
+	border-right:1px solid #c1d1e5;
+	border-left:1px solid #c1d1e5;
+	padding-left: 5px;
+	margin-top:10px;
+}
+.con-top_l {
+	float: left;
+	width: 220px;
+	color: #615049;
+	font-size: 12px;
+	font-family: "宋体";
+}
+.con-top_l span {
+	font-size: 14px;
+	color: #565656;
+	font-family: "宋体";
+	font-weight: bold;
+	margin-right: 32px;
+}
+.con-top_l img {
+	margin-left: 9px;
+	vertical-align: middle;
+}
+.con-top_r {
+	float: right;
+	width: 192px;
+	padding-top: 4px;
+}
+.con-top_r input {
+	width: 156px;
+	height: 23px;
+	border: 1px solid #268cc0;
+	border-right: none;
+	float: left;
+	padding-left: 5px;
+	color: #615049;
+}
+.con-top_r img {
+	float: left;
+}
+.paixu {
+	padding-left: 20px;
+	color: #615049;
+	font-size: 12px;
+	font-family: "宋体";
+	margin-bottom: 10px;
+}
+.paixu span {
+	text-decoration: underline;
+	margin-left: 9px;
+	margin-right: 16px;
+	padding-bottom: 4px;
+}
+.biaoge {
+	border-top: 1px solid #c1d1e5;
+	border-left: 1px solid #c1d1e5;
+	margin-bottom: 10px;
+}
+.biaoge td {
+	background: #fff;
+	border-right: 1px solid #c1d1e5;
+	border-bottom: 1px solid #c1d1e5;
+	height: 50px;
+	text-align: center;
+}
+.biaoge1 {
+	background-image: url(../images/goucai/images/xiaoiao_03.jpg);
+	background-color: #EEF5F9 !important;
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	color: #52311a;
+}
+.biaoge2 {
+	background: #ffffde;
+	border: 1px solid #ded6b2 !important;
+	border-left: none !important;
+	border-right: none !important;
+}
+
+.mrcont {
+	margin-left: 3px !important;
+}
+
+.text {
+	width: 28px;
+	height: 15px;
+	border: 1px solid #d0d0d0;
+	color: #615049;
+	font-size: 12px;
+	font-family: "宋体";
+	line-height: 15px;
+	text-align: center;
+	cursor: pointer;
+}
+.btn {
+	width: 42px;
+	border: 1px solid #d0d0d0;
+	color: #6a6a6a;
+	line-height: 15px;
+	font-size: 12px;
+	font-family: "宋体";
+	background: #f1f1f1;
+	cursor: pointer;
+}
+.color {
+	color: #0080c2 !important;
+}
+.biaoge5 {
+	background: #effaff;
+}
+.page2 {
+	padding-top: 13px;
+	padding-left: 175px;
+	padding-bottom: 18px;
+	color: #627f91!important;
+}
+.mbleft ul li a.ic06 {
+	background-image: url(../images/goucai/qianbiao.png) !important;
+	background-repeat: no-repeat !important;
+	background-position: 30px center;
+	font-weight: bold;
+	color: #1475a7 !important;
+	text-decoration: none;
+background:
+}
+.mbleft ul li a {
+	color: #615049 !important;
+	font-size: 14px;
+	font-family: "宋体";
+}
+.mbleft ul {
+	border-bottom: 0!important;
+	padding-bottom: 0!important;
+	padding-top: none !important;
+}
+.mbleft ul li a.ck {
+	color: #fff !important;
+}
+.mbleft h1 {
+	background-image: url(../images/goucai/images/toubiao_03.jpg) !important;
+}
+.dingdan {
+	width: 200px;
+	float: left;
+}

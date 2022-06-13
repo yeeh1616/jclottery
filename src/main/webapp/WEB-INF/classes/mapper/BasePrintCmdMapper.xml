@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.BasePrintCmdMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.BasePrintCmd" >
+    <id column="cmd_code" property="cmdCode" jdbcType="VARCHAR" />
+    <result column="cmd_type" property="cmdType" jdbcType="CHAR" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="license_name" property="licenseName" jdbcType="VARCHAR" />
+    <result column="play_id" property="playId" jdbcType="INTEGER" />
+    <result column="play_name" property="playName" jdbcType="VARCHAR" />
+    <result column="ggfs_dfs" property="ggfsDfs" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="start_flow" property="startFlow" jdbcType="VARCHAR" />
+    <result column="first_flow" property="firstFlow" jdbcType="VARCHAR" />
+    <result column="second_flow" property="secondFlow" jdbcType="VARCHAR" />
+    <result column="third_flow" property="thirdFlow" jdbcType="VARCHAR" />
+    <result column="fourth_flow" property="fourthFlow" jdbcType="VARCHAR" />
+    <result column="fifth_flow" property="fifthFlow" jdbcType="VARCHAR" />
+    <result column="large_pass_flow" property="largePassFlow" jdbcType="VARCHAR" />
+  </resultMap>
+  
+	<sql id="Base_Column_List" >
+		cmd_code, cmd_type, license_id, license_name, play_id, play_name, ggfs_dfs, description, 
+		start_flow, first_flow, second_flow, third_flow, fourth_flow, fifth_flow, large_pass_flow
+	</sql>
+  
+	<sql id="sByPConditionSQL">
+		<where>
+			<if test="param.cmdCode != null and param.cmdCode !=''"> and cmd_code like concat('%', #{param.cmdCode,jdbcType=VARCHAR}, '%')</if>
+		    <if test="param.cmdType != null and param.cmdType !=''"> and cmd_type = #{param.cmdType,jdbcType=CHAR}</if>
+		    <if test="param.licenseId != null"> and license_id = #{param.licenseId,jdbcType=INTEGER} </if>
+		    <if test="param.licenseName != null and param.licenseName !=''"> and license_name = #{param.licenseName,jdbcType=VARCHAR}</if>
+		    <if test="param.playId != null"> and play_id = #{param.playId,jdbcType=INTEGER}</if>
+		    <if test="param.playName != null and param.playName !=''"> and play_name  like concat('%', #{param.playName,jdbcType=VARCHAR}, '%')</if>
+		    <if test="param.ggfsDfs != null and param.ggfsDfs !=''"> and ggfs_dfs like concat('%', #{param.ggfsDfs,jdbcType=VARCHAR}, '%')</if>
+		    <if test="param.description != null and param.description !=''"> and description = #{param.description,jdbcType=VARCHAR}</if>
+		    <if test="param.startFlow != null and param.startFlow !=''"> and start_flow  like concat('%',  #{param.startFlow,jdbcType=VARCHAR}, '%')</if>
+		    <if test="param.firstFlow != null and param.firstFlow !=''"> and first_flow  like concat('%',  #{param.firstFlow,jdbcType=VARCHAR}, '%')</if>
+		    <if test="param.secondFlow != null and param.secondFlow !=''"> and second_flow  like concat('%',  #{param.secondFlow,jdbcType=VARCHAR}, '%')</if>
+		    <if test="param.thirdFlow != null and param.thirdFlow !=''"> and third_flow  like concat('%',  #{param.thirdFlow,jdbcType=VARCHAR}, '%')</if>
+		    <if test="param.fourthFlow != null and param.fourthFlow !=''"> and fourth_flow  like concat('%',  #{param.fourthFlow,jdbcType=VARCHAR}, '%')</if>
+		    <if test="param.fifthFlow != null and param.fifthFlow !=''"> and fifth_flow  like concat('%',  #{param.fifthFlow,jdbcType=VARCHAR}, '%')</if>
+		    <if test="param.largePassFlow != null and param.largePassFlow !=''"> and large_pass_flow  like concat('%',  #{param.largePassFlow,jdbcType=VARCHAR}, '%')</if>
+			
+		</where>
+	</sql>
+  
+	<!-- 分页查询   计算总数  -->
+	<select id="getBasePrintCmdListCount" resultType="java.lang.Integer"  >
+		select  count(cmd_code)  from base_print_cmd  <include refid="sByPConditionSQL"/>
+	</select>
+  	
+  	<!-- 基本命令列表 -->
+	<select id="getBasePrintCmdList" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.BasePrintCmd" >
+		select  <include refid="Base_Column_List" /> from base_print_cmd <include refid="sByPConditionSQL"/>
+			order by cmd_code,license_id 
+   		<if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>
+	</select>
+  
+  	
+  	<!-- 基本流程命令修改 -->
+	<update id="update" >
+		update base_print_cmd 
+	    <set>
+			<!--<if test="param.cmdCode != null and param.cmdCode !=''">cmd_code = #{param.cmdCode,jdbcType=VARCHAR},</if>
+		    <if test="param.cmdType != null and param.cmdType !=''">cmd_type = #{param.cmdType,jdbcType=CHAR},</if>
+		    <if test="param.licenseId != null">license_id = #{param.licenseId,jdbcType=INTEGER},</if>
+		    <if test="param.licenseName != null and param.licenseName !=''">license_name = #{param.licenseName,jdbcType=VARCHAR},</if>
+		    <if test="param.playId != null">play_id = #{param.playId,jdbcType=INTEGER},</if>
+		    <if test="param.playName != null and param.playName !=''">play_name = #{param.playName,jdbcType=VARCHAR},</if>
+		    <if test="param.ggfsDfs != null and param.ggfsDfs !=''"> ggfs_dfs = #{param.ggfsDfs,jdbcType=VARCHAR},</if>
+		    <if test="param.description != null and param.description !=''"> description = #{param.description,jdbcType=VARCHAR},</if>-->
+		    <if test="param.startFlow != null and param.startFlow !=''"> start_flow  = #{param.startFlow,jdbcType=VARCHAR},</if>
+		    <if test="param.firstFlow != null and param.firstFlow !=''"> first_flow = #{param.firstFlow,jdbcType=VARCHAR},</if>
+		    <if test="param.secondFlow != null and param.secondFlow !=''"> second_flow = #{param.secondFlow,jdbcType=VARCHAR},</if>
+		    <if test="param.thirdFlow != null and param.thirdFlow !=''"> third_flow = #{param.thirdFlow,jdbcType=VARCHAR},</if>
+		    <if test="param.fourthFlow != null and param.fourthFlow !=''"> fourth_flow = #{param.fourthFlow,jdbcType=VARCHAR},</if>
+		    <if test="param.fifthFlow != null and param.fifthFlow !=''">fifth_flow = #{param.fifthFlow,jdbcType=VARCHAR},</if>
+		    <if test="param.largePassFlow != null and param.largePassFlow !=''">large_pass_flow = #{param.largePassFlow,jdbcType=VARCHAR},</if>
+		</set>
+    	where cmd_code = #{cmdCodeOld,jdbcType=VARCHAR}
+	</update>
+  
+  
+  	<!-- 基本流程命令查询   根据cmdCode -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from base_print_cmd
+	    where cmd_code = #{cmdCode,jdbcType=VARCHAR}
+	</select>
+  
+	<insert id="insert" parameterType="com.jingc.busi.common.table.BasePrintCmd" >
+	    insert into base_print_cmd (cmd_code, cmd_type, license_id, 
+	      license_name, play_id, play_name, 
+	      ggfs_dfs, description, start_flow, 
+	      first_flow, second_flow, third_flow, 
+	      fourth_flow, fifth_flow, large_pass_flow
+	      )
+	    values (#{cmdCode,jdbcType=VARCHAR}, #{cmdType,jdbcType=CHAR}, #{licenseId,jdbcType=INTEGER}, 
+	      #{licenseName,jdbcType=VARCHAR}, #{playId,jdbcType=INTEGER}, #{playName,jdbcType=VARCHAR}, 
+	      #{ggfsDfs,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{startFlow,jdbcType=VARCHAR}, 
+	      #{firstFlow,jdbcType=VARCHAR}, #{secondFlow,jdbcType=VARCHAR}, #{thirdFlow,jdbcType=VARCHAR}, 
+	      #{fourthFlow,jdbcType=VARCHAR}, #{fifthFlow,jdbcType=VARCHAR}, #{largePassFlow,jdbcType=VARCHAR}
+	      )
+	</insert>
+	
+	<!-- 删除命令，根据主键 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+		delete from base_print_cmd  where cmd_code = #{cmdCode,jdbcType=VARCHAR}
+	</delete>
+	
+	<select id="selectAllBasePrintCmd" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from base_print_cmd
+  </select>
+</mapper>

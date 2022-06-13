@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreDailyStatsMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreDailyStats" >
+    <id column="date_str" property="dateStr" jdbcType="VARCHAR" />
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="orders_num" property="ordersNum" jdbcType="INTEGER" />
+    <result column="member_reg_num" property="memberRegNum" jdbcType="INTEGER" />
+    <result column="sale_money" property="saleMoney" jdbcType="INTEGER" />
+    <result column="center_ticket_money" property="centerTicketMoney" jdbcType="INTEGER" />
+    <result column="store_ticket_money" property="storeTicketMoney" jdbcType="INTEGER" />
+    <result column="cancel_money" property="cancelMoney" jdbcType="INTEGER" />
+    <result column="overdue_money" property="overdueMoney" jdbcType="INTEGER" />
+    <result column="center_withdrawal_money" property="centerWithdrawalMoney" jdbcType="DOUBLE" />
+    <result column="center_recharge_money" property="centerRechargeMoney" jdbcType="DOUBLE" />
+    <result column="offline_recharge_money" property="offlineRechargeMoney" jdbcType="DOUBLE" />
+    <result column="online_recharge_money" property="onlineRechargeMoney" jdbcType="DOUBLE" />
+    <result column="withdrawal_money" property="withdrawalMoney" jdbcType="DOUBLE" />
+    <result column="bonus_money" property="bonusMoney" jdbcType="DOUBLE" />
+    <result column="pl3_sale_money" property="pl3SaleMoney" jdbcType="INTEGER" />
+    <result column="pl5_sale_money" property="pl5SaleMoney" jdbcType="INTEGER" />
+    <result column="qxc_sale_money" property="qxcSaleMoney" jdbcType="INTEGER" />
+    <result column="dlt_sale_money" property="dltSaleMoney" jdbcType="INTEGER" />
+    <result column="sfc_sale_money" property="sfcSaleMoney" jdbcType="INTEGER" />
+    <result column="rx9_sale_money" property="rx9SaleMoney" jdbcType="INTEGER" />
+    <result column="bqc_sale_money" property="bqcSaleMoney" jdbcType="INTEGER" />
+    <result column="jqc_sale_money" property="jqcSaleMoney" jdbcType="INTEGER" />
+    <result column="jczq_sale_money" property="jczqSaleMoney" jdbcType="INTEGER" />
+    <result column="jclq_sale_money" property="jclqSaleMoney" jdbcType="INTEGER" />
+    <result column="ssq_sale_money" property="ssqSaleMoney" jdbcType="INTEGER" />
+    <result column="f3d_sale_money" property="f3dSaleMoney" jdbcType="INTEGER" />
+    <result column="qlc_sale_money" property="qlcSaleMoney" jdbcType="INTEGER" />
+    <result column="ljy_sale_money" property="ljySaleMoney" jdbcType="INTEGER" />
+    <result column="esx5_sale_money" property="esx5SaleMoney" jdbcType="INTEGER" />
+    <result column="bjdc_sale_money" property="bjdcSaleMoney" jdbcType="INTEGER" />
+    <result column="sfgg_sale_money" property="sfggSaleMoney" jdbcType="INTEGER" />
+    <result column="syx5_sale_money" property="syx5SaleMoney" jdbcType="INTEGER" />
+    <result column="pl3_bonus_money" property="pl3BonusMoney" jdbcType="DOUBLE" />
+    <result column="pl5_bonus_money" property="pl5BonusMoney" jdbcType="DOUBLE" />
+    <result column="qxc_bonus_money" property="qxcBonusMoney" jdbcType="DOUBLE" />
+    <result column="dlt_bonus_money" property="dltBonusMoney" jdbcType="DOUBLE" />
+    <result column="sfc_bonus_money" property="sfcBonusMoney" jdbcType="DOUBLE" />
+    <result column="rx9_bonus_money" property="rx9BonusMoney" jdbcType="DOUBLE" />
+    <result column="bqc_bonus_money" property="bqcBonusMoney" jdbcType="DOUBLE" />
+    <result column="jqc_bonus_money" property="jqcBonusMoney" jdbcType="DOUBLE" />
+    <result column="jczq_bonus_money" property="jczqBonusMoney" jdbcType="DOUBLE" />
+    <result column="jclq_bonus_money" property="jclqBonusMoney" jdbcType="DOUBLE" />
+    <result column="ssq_bonus_money" property="ssqBonusMoney" jdbcType="DOUBLE" />
+    <result column="f3d_bonus_money" property="f3dBonusMoney" jdbcType="DOUBLE" />
+    <result column="qlc_bonus_money" property="qlcBonusMoney" jdbcType="DOUBLE" />
+    <result column="ljy_bonus_money" property="ljyBonusMoney" jdbcType="DOUBLE" />
+    <result column="esx5_bonus_money" property="esx5BonusMoney" jdbcType="DOUBLE" />
+    <result column="bjdc_bonus_money" property="bjdcBonusMoney" jdbcType="DOUBLE" />
+    <result column="sfgg_bonus_money" property="sfggBonusMoney" jdbcType="DOUBLE" />
+    <result column="syx5_bonus_money" property="syx5BonusMoney" jdbcType="DOUBLE" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    date_str, store_id, store_name, orders_num, member_reg_num, sale_money, center_ticket_money, 
+    store_ticket_money, cancel_money, overdue_money, center_withdrawal_money, center_recharge_money, 
+    offline_recharge_money, online_recharge_money, withdrawal_money, bonus_money, pl3_sale_money, 
+    pl5_sale_money, qxc_sale_money, dlt_sale_money, sfc_sale_money, rx9_sale_money, bqc_sale_money, 
+    jqc_sale_money, jczq_sale_money, jclq_sale_money, ssq_sale_money, f3d_sale_money, 
+    qlc_sale_money, ljy_sale_money, esx5_sale_money, bjdc_sale_money, sfgg_sale_money, 
+    syx5_sale_money, pl3_bonus_money, pl5_bonus_money, qxc_bonus_money, dlt_bonus_money, 
+    sfc_bonus_money, rx9_bonus_money, bqc_bonus_money, jqc_bonus_money, jczq_bonus_money, 
+    jclq_bonus_money, ssq_bonus_money, f3d_bonus_money, qlc_bonus_money, ljy_bonus_money, 
+    esx5_bonus_money, bjdc_bonus_money, sfgg_bonus_money, syx5_bonus_money, type,version
+  </sql>
+  
+  <sql id="Base_Column_List2" >
+    DATE_FORMAT(date_str,'%y年%m月') as date_str, 
+    sum(orders_num) as orders_num, sum(member_reg_num) as member_reg_num, sum(sale_money) as sale_money, sum(center_ticket_money) as center_ticket_money, 
+    sum(store_ticket_money) as store_ticket_money, sum(cancel_money) as cancel_money,sum(overdue_money) as overdue_money,  
+    sum(center_withdrawal_money) as center_withdrawal_money,  sum(center_recharge_money) as center_recharge_money, 
+    sum(offline_recharge_money) as offline_recharge_money, sum(online_recharge_money) as online_recharge_money, sum(withdrawal_money) as withdrawal_money, 
+    sum(bonus_money) as bonus_money, sum(pl3_sale_money) as pl3_sale_money, sum(pl5_sale_money) as pl5_sale_money, sum(qxc_sale_money) as qxc_sale_money, 
+    sum(dlt_sale_money) as dlt_sale_money, sum(sfc_sale_money) as sfc_sale_money, sum(rx9_sale_money) as rx9_sale_money, 
+    sum(bqc_sale_money) as bqc_sale_money, sum(jqc_sale_money) as jqc_sale_money, sum(jczq_sale_money) as jczq_sale_money, 
+    sum(jclq_sale_money) as jclq_sale_money,sum(ssq_sale_money) as ssq_sale_money, sum(f3d_sale_money) as f3d_sale_money, 
+    sum(qlc_sale_money) as qlc_sale_money, sum(ljy_sale_money) as ljy_sale_money, sum(esx5_sale_money) as esx5_sale_money, 
+    sum(bjdc_sale_money) as bjdc_sale_money, sum(sfgg_sale_money) as sfgg_sale_money, sum(syx5_sale_money) as syx5_sale_money, 
+    sum(pl3_bonus_money) as pl3_bonus_money, sum(pl5_bonus_money) as pl5_bonus_money, sum(qxc_bonus_money) as qxc_bonus_money, 
+    sum(dlt_bonus_money) as dlt_bonus_money, sum(sfc_bonus_money) as sfc_bonus_money, sum(rx9_bonus_money) as rx9_bonus_money, 
+    sum(bqc_bonus_money) as bqc_bonus_money, sum(jqc_bonus_money) as jqc_bonus_money, sum(jczq_bonus_money) as jczq_bonus_money, 
+    sum(jclq_bonus_money) as jclq_bonus_money, sum(ssq_bonus_money) as ssq_bonus_money, sum(f3d_bonus_money) as f3d_bonus_money, 
+    sum(qlc_bonus_money) as qlc_bonus_money, sum(ljy_bonus_money) as ljy_bonus_money, sum(esx5_bonus_money) as esx5_bonus_money, 
+    sum(bjdc_bonus_money) as bjdc_bonus_money, sum(sfgg_bonus_money) as sfgg_bonus_money, sum(syx5_bonus_money) as syx5_bonus_money   
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from store_daily_stats
+    where date_str = #{dateStr,jdbcType=VARCHAR}
+      and store_id = #{sId,jdbcType=INTEGER}
+      and type = #{storeType,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.jingc.busi.common.table.StoreDailyStats">
+    delete from store_daily_stats
+    where date_str = #{dateStr,jdbcType=VARCHAR}
+      and store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert">
+    insert into store_daily_stats (date_str, store_id, store_name, 
+      orders_num, member_reg_num, sale_money, 
+      center_ticket_money, store_ticket_money, cancel_money, 
+      overdue_money, center_withdrawal_money, center_recharge_money, 
+      offline_recharge_money, online_recharge_money, 
+      withdrawal_money, bonus_money, pl3_sale_money, 
+      pl5_sale_money, qxc_sale_money, dlt_sale_money, 
+      sfc_sale_money, rx9_sale_money, bqc_sale_money, 
+      jqc_sale_money, jczq_sale_money, jclq_sale_money, 
+      ssq_sale_money, f3d_sale_money, qlc_sale_money, 
+      ljy_sale_money, esx5_sale_money, bjdc_sale_money, 
+      sfgg_sale_money, syx5_sale_money, pl3_bonus_money, 
+      pl5_bonus_money, qxc_bonus_money, dlt_bonus_money, 
+      sfc_bonus_money, rx9_bonus_money, bqc_bonus_money, 
+      jqc_bonus_money, jczq_bonus_money, jclq_bonus_money, 
+      ssq_bonus_money, f3d_bonus_money, qlc_bonus_money, 
+      ljy_bonus_money, esx5_bonus_money, bjdc_bonus_money, 
+      sfgg_bonus_money, syx5_bonus_money, type,version
+      )
+    values (#{param.dateStr,jdbcType=VARCHAR}, #{param.storeId,jdbcType=INTEGER}, #{param.storeName,jdbcType=VARCHAR}, 
+      #{param.ordersNum,jdbcType=INTEGER}, #{param.memberRegNum,jdbcType=INTEGER}, #{param.saleMoney,jdbcType=INTEGER}, 
+      #{param.centerTicketMoney,jdbcType=INTEGER}, #{param.storeTicketMoney,jdbcType=INTEGER}, #{param.cancelMoney,jdbcType=INTEGER}, 
+      #{param.overdueMoney,jdbcType=INTEGER}, #{param.centerWithdrawalMoney,jdbcType=DOUBLE}, #{param.centerRechargeMoney,jdbcType=DOUBLE}, 
+      #{param.offlineRechargeMoney,jdbcType=DOUBLE}, #{param.onlineRechargeMoney,jdbcType=DOUBLE}, 
+      #{param.withdrawalMoney,jdbcType=DOUBLE}, #{param.bonusMoney,jdbcType=DOUBLE}, #{param.pl3SaleMoney,jdbcType=INTEGER}, 
+      #{param.pl5SaleMoney,jdbcType=INTEGER}, #{param.qxcSaleMoney,jdbcType=INTEGER}, #{param.dltSaleMoney,jdbcType=INTEGER}, 
+      #{param.sfcSaleMoney,jdbcType=INTEGER}, #{param.rx9SaleMoney,jdbcType=INTEGER}, #{param.bqcSaleMoney,jdbcType=INTEGER}, 
+      #{param.jqcSaleMoney,jdbcType=INTEGER}, #{param.jczqSaleMoney,jdbcType=INTEGER}, #{param.jclqSaleMoney,jdbcType=INTEGER}, 
+      #{param.ssqSaleMoney,jdbcType=INTEGER}, #{param.f3dSaleMoney,jdbcType=INTEGER}, #{param.qlcSaleMoney,jdbcType=INTEGER}, 
+      #{param.ljySaleMoney,jdbcType=INTEGER}, #{param.esx5SaleMoney,jdbcType=INTEGER}, #{param.bjdcSaleMoney,jdbcType=INTEGER}, 
+      #{param.sfggSaleMoney,jdbcType=INTEGER}, #{param.syx5SaleMoney,jdbcType=INTEGER}, #{param.pl3BonusMoney,jdbcType=DOUBLE}, 
+      #{param.pl5BonusMoney,jdbcType=DOUBLE}, #{param.qxcBonusMoney,jdbcType=DOUBLE}, #{param.dltBonusMoney,jdbcType=DOUBLE}, 
+      #{param.sfcBonusMoney,jdbcType=DOUBLE}, #{param.rx9BonusMoney,jdbcType=DOUBLE}, #{param.bqcBonusMoney,jdbcType=DOUBLE}, 
+      #{param.jqcBonusMoney,jdbcType=DOUBLE}, #{param.jczqBonusMoney,jdbcType=DOUBLE}, #{param.jclqBonusMoney,jdbcType=DOUBLE}, 
+      #{param.ssqBonusMoney,jdbcType=DOUBLE}, #{param.f3dBonusMoney,jdbcType=DOUBLE}, #{param.qlcBonusMoney,jdbcType=DOUBLE}, 
+      #{param.ljyBonusMoney,jdbcType=DOUBLE}, #{param.esx5BonusMoney,jdbcType=DOUBLE}, #{param.bjdcBonusMoney,jdbcType=DOUBLE}, 
+      #{param.sfggBonusMoney,jdbcType=DOUBLE}, #{param.syx5BonusMoney,jdbcType=DOUBLE}, #{param.type,jdbcType=CHAR}, #{param.version,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective">
+    update store_daily_stats
+    <set>
+      <if test="param.storeName != null">
+        store_name = #{param.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="param.ordersNum != null">
+        orders_num = #{param.ordersNum,jdbcType=INTEGER},
+      </if>
+      <if test="param.memberRegNum != null">
+        member_reg_num = #{param.memberRegNum,jdbcType=INTEGER},
+      </if>
+      <if test="param.saleMoney != null">
+        sale_money = #{param.saleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.centerTicketMoney != null">
+        center_ticket_money = #{param.centerTicketMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.storeTicketMoney != null">
+        store_ticket_money = #{param.storeTicketMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.cancelMoney != null">
+        cancel_money = #{param.cancelMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.overdueMoney != null">
+        overdue_money = #{param.overdueMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.centerWithdrawalMoney != null">
+        center_withdrawal_money = #{param.centerWithdrawalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.centerRechargeMoney != null">
+        center_recharge_money = #{param.centerRechargeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.offlineRechargeMoney != null">
+        offline_recharge_money = #{param.offlineRechargeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.onlineRechargeMoney != null">
+        online_recharge_money = #{param.onlineRechargeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.withdrawalMoney != null">
+        withdrawal_money = #{param.withdrawalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.bonusMoney != null">
+        bonus_money = #{param.bonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.pl3SaleMoney != null">
+        pl3_sale_money = #{param.pl3SaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.pl5SaleMoney != null">
+        pl5_sale_money = #{param.pl5SaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.qxcSaleMoney != null">
+        qxc_sale_money = #{param.qxcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.dltSaleMoney != null">
+        dlt_sale_money = #{param.dltSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.sfcSaleMoney != null">
+        sfc_sale_money = #{param.sfcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.rx9SaleMoney != null">
+        rx9_sale_money = #{param.rx9SaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.bqcSaleMoney != null">
+        bqc_sale_money = #{param.bqcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jqcSaleMoney != null">
+        jqc_sale_money = #{param.jqcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jczqSaleMoney != null">
+        jczq_sale_money = #{param.jczqSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jclqSaleMoney != null">
+        jclq_sale_money = #{param.jclqSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.ssqSaleMoney != null">
+        ssq_sale_money = #{param.ssqSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.f3dSaleMoney != null">
+        f3d_sale_money = #{param.f3dSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.qlcSaleMoney != null">
+        qlc_sale_money = #{param.qlcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.ljySaleMoney != null">
+        ljy_sale_money = #{param.ljySaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.esx5SaleMoney != null">
+        esx5_sale_money = #{param.esx5SaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.bjdcSaleMoney != null">
+        bjdc_sale_money = #{param.bjdcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.sfggSaleMoney != null">
+        sfgg_sale_money = #{param.sfggSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.syx5SaleMoney != null">
+        syx5_sale_money = #{param.syx5SaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.pl3BonusMoney != null">
+        pl3_bonus_money = #{param.pl3BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.pl5BonusMoney != null">
+        pl5_bonus_money = #{param.pl5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.qxcBonusMoney != null">
+        qxc_bonus_money = #{param.qxcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.dltBonusMoney != null">
+        dlt_bonus_money = #{param.dltBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.sfcBonusMoney != null">
+        sfc_bonus_money = #{param.sfcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.rx9BonusMoney != null">
+        rx9_bonus_money = #{param.rx9BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.bqcBonusMoney != null">
+        bqc_bonus_money = #{param.bqcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jqcBonusMoney != null">
+        jqc_bonus_money = #{param.jqcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jczqBonusMoney != null">
+        jczq_bonus_money = #{param.jczqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jclqBonusMoney != null">
+        jclq_bonus_money = #{param.jclqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.ssqBonusMoney != null">
+        ssq_bonus_money = #{param.ssqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.f3dBonusMoney != null">
+        f3d_bonus_money = #{param.f3dBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.qlcBonusMoney != null">
+        qlc_bonus_money = #{param.qlcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.ljyBonusMoney != null">
+        ljy_bonus_money = #{param.ljyBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.esx5BonusMoney != null">
+        esx5_bonus_money = #{param.esx5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.bjdcBonusMoney != null">
+        bjdc_bonus_money = #{param.bjdcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.sfggBonusMoney != null">
+        sfgg_bonus_money = #{param.sfggBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.syx5BonusMoney != null">
+        syx5_bonus_money = #{param.syx5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.type != null">
+        type = #{param.type,jdbcType=CHAR},
+      </if>
+      <if test="param.version != null">
+        version = version +1,
+      </if>
+    </set>
+    where date_str = #{param.dateStr,jdbcType=VARCHAR}
+      and store_id = #{param.storeId,jdbcType=INTEGER}
+      and version = #{param.version,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 修改，参数中只带入变动值 -->
+  <update id="updateModified">
+    update store_daily_stats
+    <set>
+      <if test="param.memberRegNum != null and param.memberRegNum != 0">
+        member_reg_num = member_reg_num+#{param.memberRegNum,jdbcType=INTEGER},
+      </if>
+      <if test="param.saleMoney != null and param.saleMoney != 0">
+        sale_money = sale_money+#{param.saleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.centerTicketMoney != null and param.centerTicketMoney != 0">
+        center_ticket_money = center_ticket_money+#{param.centerTicketMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.storeTicketMoney != null and param.storeTicketMoney != 0">
+        store_ticket_money = store_ticket_money+#{param.storeTicketMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.cancelMoney != null and param.cancelMoney != 0">
+        cancel_money = cancel_money+#{param.cancelMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.overdueMoney != null and param.overdueMoney != 0">
+        overdue_money = overdue_money+#{param.overdueMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.centerWithdrawalMoney != null and param.centerWithdrawalMoney != 0">
+        center_withdrawal_money = center_withdrawal_money+#{param.centerWithdrawalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.centerRechargeMoney != null and param.centerRechargeMoney != 0">
+        center_recharge_money = center_recharge_money+#{param.centerRechargeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.offlineRechargeMoney != null and param.offlineRechargeMoney != 0">
+        offline_recharge_money = offline_recharge_money+#{param.offlineRechargeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.onlineRechargeMoney != null and param.onlineRechargeMoney != 0">
+        online_recharge_money = online_recharge_money+#{param.onlineRechargeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.withdrawalMoney != null and param.withdrawalMoney != 0">
+        withdrawal_money = withdrawal_money+#{param.withdrawalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.bonusMoney != null and param.bonusMoney != 0">
+        bonus_money = bonus_money+#{param.bonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.pl3SaleMoney != null and param.pl3SaleMoney != 0">
+        pl3_Sale_money = pl3_Sale_money+#{param.pl3SaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.pl5SaleMoney != null and param.pl5SaleMoney != 0">
+        pl5_Sale_money = pl5_Sale_money+#{param.pl5SaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.qxcSaleMoney != null and param.qxcSaleMoney != 0">
+        qxc_Sale_money = qxc_Sale_money+#{param.qxcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.dltSaleMoney != null and param.dltSaleMoney != 0">
+        dlt_Sale_money = dlt_Sale_money+#{param.dltSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.sfcSaleMoney != null and param.sfcSaleMoney != 0">
+        sfc_Sale_money = sfc_Sale_money+#{param.sfcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.rx9SaleMoney != null and param.rx9SaleMoney != 0">
+        rx9_Sale_money = rx9_Sale_money+#{param.rx9SaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.bqcSaleMoney != null and param.bqcSaleMoney != 0">
+        bqc_Sale_money = bqc_Sale_money+#{param.bqcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jqcSaleMoney != null and param.jqcSaleMoney != 0">
+        jqc_Sale_money = jqc_Sale_money+#{param.jqcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jczqSaleMoney != null and param.jczqSaleMoney != 0">
+        jczq_Sale_money = jczq_Sale_money+#{param.jczqSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jclqSaleMoney != null and param.jclqSaleMoney != 0">
+        jclq_Sale_money = jclq_Sale_money+#{param.jclqSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.ssqSaleMoney != null and param.ssqSaleMoney != 0">
+        ssq_Sale_money = ssq_Sale_money+#{param.ssqSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.f3dSaleMoney != null and param.f3dSaleMoney != 0">
+        f3d_Sale_money = f3d_Sale_money+#{param.f3dSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.qlcSaleMoney != null and param.qlcSaleMoney != 0">
+        qlc_Sale_money = qlc_Sale_money+#{param.qlcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.ljySaleMoney != null and param.ljySaleMoney != 0">
+        ljy_Sale_money = ljy_Sale_money+#{param.ljySaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.esx5SaleMoney != null and param.esx5SaleMoney != 0">
+        esx5_Sale_money = esx5_Sale_money+#{param.esx5SaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.bjdcSaleMoney != null and param.bjdcSaleMoney != 0">
+        bjdc_Sale_money = bjdc_Sale_money+#{param.bjdcSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.sfggSaleMoney != null and param.sfggSaleMoney != 0">
+        sfgg_Sale_money = sfgg_Sale_money+#{param.sfggSaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.syx5SaleMoney != null and param.syx5SaleMoney != 0">
+        syx5_Sale_money = syx5_Sale_money+#{param.syx5SaleMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.pl3BonusMoney != null and param.pl3BonusMoney != 0">
+        pl3_bonus_money = pl3_bonus_money+#{param.pl3BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.pl5BonusMoney != null and param.pl5BonusMoney != 0">
+        pl5_bonus_money = pl5_bonus_money+#{param.pl5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.qxcBonusMoney != null and param.qxcBonusMoney != 0">
+        qxc_bonus_money = qxc_bonus_money+#{param.qxcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.dltBonusMoney != null and param.dltBonusMoney != 0">
+        dlt_bonus_money = dlt_bonus_money+#{param.dltBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.sfcBonusMoney != null and param.sfcBonusMoney != 0">
+        sfc_bonus_money = sfc_bonus_money+#{param.sfcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.rx9BonusMoney != null and param.rx9BonusMoney != 0">
+        rx9_bonus_money = rx9_bonus_money+#{param.rx9BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.bqcBonusMoney != null and param.bqcBonusMoney != 0">
+        bqc_bonus_money = bqc_bonus_money+#{param.bqcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jqcBonusMoney != null and param.jqcBonusMoney != 0">
+        jqc_bonus_money = jqc_bonus_money+#{param.jqcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jczqBonusMoney != null and param.jczqBonusMoney != 0">
+        jczq_bonus_money = jczq_bonus_money+#{param.jczqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jclqBonusMoney != null and param.jclqBonusMoney != 0">
+        jclq_bonus_money = jclq_bonus_money+#{param.jclqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.ssqBonusMoney != null and param.ssqBonusMoney != 0">
+        ssq_bonus_money = ssq_bonus_money+#{param.ssqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.f3dBonusMoney != null and param.f3dBonusMoney != 0">
+        f3d_bonus_money = f3d_bonus_money+#{param.f3dBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.qlcBonusMoney != null and param.qlcBonusMoney != 0">
+        qlc_bonus_money = qlc_bonus_money+#{param.qlcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.ljyBonusMoney != null and param.ljyBonusMoney != 0">
+        ljy_bonus_money = ljy_bonus_money+#{param.ljyBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.esx5BonusMoney != null and param.esx5BonusMoney != 0">
+        esx5_bonus_money = esx5_bonus_money+#{param.esx5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.bjdcBonusMoney != null and param.bjdcBonusMoney != 0">
+        bjdc_bonus_money = bjdc_bonus_money+#{param.bjdcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.sfggBonusMoney != null and param.sfggBonusMoney != 0">
+        sfgg_bonus_money = sfgg_bonus_money+#{param.sfggBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.syx5BonusMoney != null and param.syx5BonusMoney != 0">
+        syx5_bonus_money = syx5_bonus_money+#{param.syx5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.version != null">
+        version = version +1,
+      </if>
+    </set>
+    where date_str = #{param.dateStr,jdbcType=VARCHAR}
+      and store_id = #{param.storeId,jdbcType=INTEGER}
+      and version = #{param.version,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询单个对象 -->
+  <select id="selectByParam" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from store_daily_stats
+  	<where>
+  		<if test="param.storeId != null"> AND store_id = #{param.storeId,jdbcType=INTEGER}</if>
+  		<if test="param.dateStr != null"> AND date_str = #{param.dateStr,jdbcType=INTEGER}</if>
+  		<if test="param.type!= null and param.type!='' "> AND type = #{param.type,jdbcType=INTEGER}</if>
+  		<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (date_str between DATE_FORMAT(#{param.beginTime},"%Y%m%d") and DATE_FORMAT(#{param.endTime},"%Y%m%d")) 
+    	 </if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and date_str &gt; DATE_FORMAT(#{param.beginTime},"%Y%m%d") 
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and date_str &lt; DATE_FORMAT(#{param.endTime},"%Y%m%d") 
+    	</if>
+  	</where>
+  </select>
+  
+  <!-- 统计对象查询 -->
+  <select id="selectSumByParam" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List2"/> from store_daily_stats
+  	<where>
+  		<if test="param.storeId != null"> AND store_id = #{param.storeId,jdbcType=INTEGER}</if>
+  		<if test="param.dateStr != null"> AND date_str = #{param.dateStr,jdbcType=INTEGER}</if>
+  		<if test="param.type!= null and param.type!='' "> AND type = #{param.type,jdbcType=INTEGER}</if>
+  		<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (date_str between DATE_FORMAT(#{param.beginTime},"%Y%m%d") and DATE_FORMAT(#{param.endTime},"%Y%m%d")) 
+    	</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and date_str &gt; DATE_FORMAT(#{param.beginTime},"%Y%m%d") 
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and date_str &lt; DATE_FORMAT(#{param.endTime},"%Y%m%d") 
+    	</if>
+  	</where>
+  </select>
+  
+  <!-- 时间段内的月销量查询 -->
+  <select id="selectMonthStatsByParam" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List2"/> from store_daily_stats
+  	<where>
+  		<if test="param.storeId != null"> AND store_id = #{param.storeId,jdbcType=INTEGER}</if>
+  		<if test="param.type!= null and param.type!='' "> AND type = #{param.type,jdbcType=INTEGER}</if>
+  		<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (date_str between DATE_FORMAT(#{param.beginTime},"%Y%m%d") and DATE_FORMAT(#{param.endTime},"%Y%m%d")) 
+    	</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and date_str &gt; DATE_FORMAT(#{param.beginTime},"%Y%m%d") 
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and date_str &lt; DATE_FORMAT(#{param.endTime},"%Y%m%d") 
+    	</if>
+    	GROUP BY DATE_FORMAT(date_str,'%Y%m') 
+  	</where>
+  </select>
+
+</mapper>

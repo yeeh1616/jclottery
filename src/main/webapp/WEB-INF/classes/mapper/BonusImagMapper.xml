@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.BonusImagMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.BonusImag" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="upload_time" property="uploadTime" jdbcType="VARCHAR" />
+    <result column="imag_path" property="imagPath" jdbcType="VARCHAR" />
+    <result column="imag_name" property="imagName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="del_time" property="delTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, store_id, upload_time, imag_path, imag_name, state, del_time
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bonus_imag
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.BonusImag" >
+    insert into bonus_imag (id, store_id, upload_time, 
+      imag_path, imag_name, state, 
+      del_time)
+    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{uploadTime,jdbcType=VARCHAR}, 
+      #{imagPath,jdbcType=VARCHAR}, #{imagName,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{delTime,jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- 查询图片列表 -->
+  <select id="selectByParam" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from bonus_imag <include refid="conditionSQL"/>
+  	<if test="pin != null"> limit #{pin.firstResult},#{pin.pageSize}</if>
+  </select>
+  <!-- 查询图片列表长度 -->
+  <select id="selectCountByParam" resultType="java.lang.Integer">
+  	select count(*) from bonus_imag <include refid="conditionSQL"/>
+  </select>
+  
+  <sql id="conditionSQL">
+  	<where>
+  		<if test="param.storeId != null">store_id = #{param.storeId}</if>
+  		<if test="param.imagPath != null and param.imagPath != ''">and imag_path = #{param.imagPath}</if>
+  		<if test="param.imagName != null and param.imagName != ''">and imag_name = #{param.imagName}</if>
+  		<if test="param.state != null">and state = #{param.state}</if>
+  		<if test="param.delTime != null and param.delTime != ''">and del_time = #{param.delTime}</if>
+  		<if test="(param.ubeginTime != null and param.ubeginTime !='') and (param.uendTime != null and param.uendTime !='')">
+    	 	and (upload_time between CONCAT(#{param.ubeginTime}," 00:00:00") and CONCAT(#{param.uendTime}," 23:59:59")) 
+    	 </if>
+    	<if test="(param.ubeginTime != null and param.ubeginTime !='') and (param.uendTime == null or param.uendTime =='')"> 
+    		and upload_time &gt; CONCAT(#{param.ubeginTime}," 00:00:00") 
+    	</if>
+    	<if test="(param.ubeginTime == null or param.ubeginTime =='') and (param.uendTime != null and param.uendTime !='')">
+    	 	and upload_time &lt; CONCAT(#{param.uendTime}," 23:59:59") 
+    	</if>
+  	</where>
+  </sql>
+ 
+  <update id="update" parameterType="com.jingc.busi.common.table.BonusImag" >
+    update bonus_imag
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="uploadTime != null" >
+        upload_time = #{uploadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="imagPath != null" >
+        imag_path = #{imagPath,jdbcType=VARCHAR},
+      </if>
+      <if test="imagName != null" >
+        imag_name = #{imagName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="delTime != null" >
+        del_time = #{delTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

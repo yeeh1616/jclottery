@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.StoreLicenseMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.StoreLicense" >
+    <id column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="buy_ahead_time" property="buyAheadTime" jdbcType="VARCHAR" />
+    <result column="coop_ahead_time" property="coopAheadTime" jdbcType="VARCHAR" />
+    <result column="print_ahead_time" property="printAheadTime" jdbcType="VARCHAR" />
+    <result column="timout_ahead_time" property="timoutAheadTime" jdbcType="VARCHAR" />
+    <result column="pre_print_machine" property="prePrintMachine" jdbcType="VARCHAR" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    license_id, store_id, buy_ahead_time, coop_ahead_time,print_ahead_time,timout_ahead_time, pre_print_machine, reserved1, 
+    reserved2, reserved3, reserved4, reserved5, reserved6, reserved7, reserved8, reserved9, 
+    reserved10
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.StoreLicenseKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_license
+    where license_id = #{licenseId,jdbcType=INTEGER}
+      and store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.jingc.busi.common.table.StoreLicenseKey" >
+    delete from store_license
+    where license_id = #{licenseId,jdbcType=INTEGER}
+      and store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.StoreLicense" >
+    insert into store_license (license_id, store_id, buy_ahead_time, 
+      coop_ahead_time, print_ahead_time,timout_ahead_time,pre_print_machine, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5, reserved6, reserved7, 
+      reserved8, reserved9, reserved10
+      )
+    values (#{licenseId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{buyAheadTime,jdbcType=VARCHAR}, 
+      #{coopAheadTime,jdbcType=VARCHAR},#{printAheadTime,jdbcType=VARCHAR},#{timoutAheadTime,jdbcType=VARCHAR},
+      #{prePrintMachine,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR}, #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, 
+      #{reserved8,jdbcType=VARCHAR}, #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective">
+    update store_license
+    <set >
+      <if test="param.buyAheadTime != null" >
+        buy_ahead_time = #{param.buyAheadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="param.coopAheadTime != null" >
+        coop_ahead_time = #{param.coopAheadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="param.printAheadTime != null" >
+        print_ahead_time = #{param.printAheadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="param.timoutAheadTime != null" >
+        timout_ahead_time = #{param.timoutAheadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="param.prePrintMachine != null" >
+        pre_print_machine = #{param.prePrintMachine,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved1 != null" >
+        reserved1 = #{param.reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved2 != null" >
+        reserved2 = #{param.reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved3 != null" >
+        reserved3 = #{param.reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved4 != null" >
+        reserved4 = #{param.reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved5 != null" >
+        reserved5 = #{param.reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved6 != null" >
+        reserved6 = #{param.reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved7 != null" >
+        reserved7 = #{param.reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved8 != null" >
+        reserved8 = #{param.reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved9 != null" >
+        reserved9 = #{param.reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="param.reserved10 != null" >
+        reserved10 = #{param.reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where store_id = #{param.storeId,jdbcType=INTEGER}
+    <if test="param.licenseId != null and param.licenseId != ''"> 
+    	and license_id = #{param.licenseId,jdbcType=INTEGER}
+    </if>	
+  </update>
+  
+   <select id="getStoreLicense" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_license
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getStoreLicenseWithAppointedNum" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select sl.license_id as licenseId,count(ma.license_id) as appointedNum
+    from store_license sl
+    left join (SELECT member_id,license_id
+		FROM merger_appoint
+		WHERE member_id = #{memberId,jdbcType=INTEGER}) ma
+    on sl.license_id = ma.license_id
+    where store_id = #{storeId,jdbcType=INTEGER}
+	<if test="licenseId !=null and licenseId !=''"> and sl.license_id = #{licenseId,jdbcType=INTEGER}</if>	
+    GROUP BY licenseId
+    HAVING count(sl.license_id)
+  </select>
+  
+  <delete id="deleteByStoreId" parameterType="java.lang.Integer" >
+    delete from store_license
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 切换数据源时使用，更新数据源采种提前时间 -->
+  <update id="refreshDSAheadTime">
+  update store_license set reserved2 = (case license_id
+  <foreach collection="paramMap" item="item" index="key">
+  when #{key} then #{item}
+  </foreach>
+  else reserved2 end)
+  <where>store_id = #{storeId}</where>
+  </update>
+</mapper>

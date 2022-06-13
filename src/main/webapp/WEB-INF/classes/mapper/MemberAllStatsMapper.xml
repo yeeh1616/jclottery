@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MemberAllStatsMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MemberAllStats" >
+    <id column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="consumption_money" property="consumptionMoney" jdbcType="INTEGER" />
+    <result column="wait_ticket_money" property="waitTicketMoney" jdbcType="INTEGER" />
+    <result column="succ_ticket_money" property="succTicketMoney" jdbcType="INTEGER" />
+    <result column="withdrawal_money" property="withdrawalMoney" jdbcType="DOUBLE" />
+    <result column="recharge_money" property="rechargeMoney" jdbcType="INTEGER" />
+    <result column="bonus_money" property="bonusMoney" jdbcType="DOUBLE" />
+    <result column="pl3_bet_money" property="pl3BetMoney" jdbcType="INTEGER" />
+    <result column="pl5_bet_money" property="pl5BetMoney" jdbcType="INTEGER" />
+    <result column="qxc_bet_money" property="qxcBetMoney" jdbcType="INTEGER" />
+    <result column="dlt_bet_money" property="dltBetMoney" jdbcType="INTEGER" />
+    <result column="sfc_bet_money" property="sfcBetMoney" jdbcType="INTEGER" />
+    <result column="rx9_bet_money" property="rx9BetMoney" jdbcType="INTEGER" />
+    <result column="bqc_bet_money" property="bqcBetMoney" jdbcType="INTEGER" />
+    <result column="jqc_bet_money" property="jqcBetMoney" jdbcType="INTEGER" />
+    <result column="jczq_bet_money" property="jczqBetMoney" jdbcType="INTEGER" />
+    <result column="jclq_bet_money" property="jclqBetMoney" jdbcType="INTEGER" />
+    <result column="ssq_bet_money" property="ssqBetMoney" jdbcType="INTEGER" />
+    <result column="f3d_bet_money" property="f3dBetMoney" jdbcType="INTEGER" />
+    <result column="qlc_bet_money" property="qlcBetMoney" jdbcType="INTEGER" />
+    <result column="ljy_bet_money" property="ljyBetMoney" jdbcType="INTEGER" />
+    <result column="esx5_bet_money" property="esx5BetMoney" jdbcType="INTEGER" />
+    <result column="bjdc_bet_money" property="bjdcBetMoney" jdbcType="INTEGER" />
+    <result column="sfgg_bet_money" property="sfggBetMoney" jdbcType="INTEGER" />
+    <result column="syx5_bet_money" property="syx5BetMoney" jdbcType="INTEGER" />
+    <result column="pl3_bonus_money" property="pl3BonusMoney" jdbcType="DOUBLE" />
+    <result column="pl5_bonus_money" property="pl5BonusMoney" jdbcType="DOUBLE" />
+    <result column="qxc_bonus_money" property="qxcBonusMoney" jdbcType="DOUBLE" />
+    <result column="dlt_bonus_money" property="dltBonusMoney" jdbcType="DOUBLE" />
+    <result column="sfc_bonus_money" property="sfcBonusMoney" jdbcType="DOUBLE" />
+    <result column="rx9_bonus_money" property="rx9BonusMoney" jdbcType="DOUBLE" />
+    <result column="bqc_bonus_money" property="bqcBonusMoney" jdbcType="DOUBLE" />
+    <result column="jqc_bonus_money" property="jqcBonusMoney" jdbcType="DOUBLE" />
+    <result column="jczq_bonus_money" property="jczqBonusMoney" jdbcType="DOUBLE" />
+    <result column="jclq_bonus_money" property="jclqBonusMoney" jdbcType="DOUBLE" />
+    <result column="ssq_bonus_money" property="ssqBonusMoney" jdbcType="DOUBLE" />
+    <result column="f3d_bonus_money" property="f3dBonusMoney" jdbcType="DOUBLE" />
+    <result column="qlc_bonus_money" property="qlcBonusMoney" jdbcType="DOUBLE" />
+    <result column="ljy_bonus_money" property="ljyBonusMoney" jdbcType="DOUBLE" />
+    <result column="esx5_bonus_money" property="esx5BonusMoney" jdbcType="DOUBLE" />
+    <result column="bjdc_bonus_money" property="bjdcBonusMoney" jdbcType="DOUBLE" />
+    <result column="sfgg_bonus_money" property="sfggBonusMoney" jdbcType="DOUBLE" />
+    <result column="syx5_bonus_money" property="syx5BonusMoney" jdbcType="DOUBLE" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    member_id, member_name, store_id, store_name, consumption_money, wait_ticket_money, 
+    succ_ticket_money, withdrawal_money, recharge_money, bonus_money, pl3_bet_money, 
+    pl5_bet_money, qxc_bet_money, dlt_bet_money, sfc_bet_money, rx9_bet_money, bqc_bet_money, 
+    jqc_bet_money, jczq_bet_money, jclq_bet_money, ssq_bet_money, f3d_bet_money, qlc_bet_money, 
+    ljy_bet_money, esx5_bet_money, bjdc_bet_money, sfgg_bet_money, syx5_bet_money, pl3_bonus_money, 
+    pl5_bonus_money, qxc_bonus_money, dlt_bonus_money, sfc_bonus_money, rx9_bonus_money, 
+    bqc_bonus_money, jqc_bonus_money, jczq_bonus_money, jclq_bonus_money, ssq_bonus_money, 
+    f3d_bonus_money, qlc_bonus_money, ljy_bonus_money, esx5_bonus_money, bjdc_bonus_money, 
+    sfgg_bonus_money, syx5_bonus_money,version
+  </sql>
+  
+  <!--<insert id="insertOrUpdate"></insert>
+  --><select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_all_stats
+    where member_id = #{mId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_all_stats
+    where member_id = #{memberId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert">
+    insert into member_all_stats (member_id, member_name, store_id, 
+      store_name, consumption_money, wait_ticket_money, 
+      succ_ticket_money, withdrawal_money, recharge_money, 
+      bonus_money, pl3_bet_money, pl5_bet_money, 
+      qxc_bet_money, dlt_bet_money, sfc_bet_money, 
+      rx9_bet_money, bqc_bet_money, jqc_bet_money, 
+      jczq_bet_money, jclq_bet_money, ssq_bet_money, 
+      f3d_bet_money, qlc_bet_money, ljy_bet_money, 
+      esx5_bet_money, bjdc_bet_money, sfgg_bet_money, 
+      syx5_bet_money, pl3_bonus_money, pl5_bonus_money, 
+      qxc_bonus_money, dlt_bonus_money, sfc_bonus_money, 
+      rx9_bonus_money, bqc_bonus_money, jqc_bonus_money, 
+      jczq_bonus_money, jclq_bonus_money, ssq_bonus_money, 
+      f3d_bonus_money, qlc_bonus_money, ljy_bonus_money, 
+      esx5_bonus_money, bjdc_bonus_money, sfgg_bonus_money, 
+      syx5_bonus_money,version)
+    values ( #{param.memberId,jdbcType=INTEGER}, #{param.memberName,jdbcType=VARCHAR}, 
+      #{param.storeId,jdbcType=INTEGER}, #{param.storeName,jdbcType=VARCHAR}, #{param.consumptionMoney,jdbcType=INTEGER}, 
+      #{param.waitTicketMoney,jdbcType=INTEGER}, #{param.succTicketMoney,jdbcType=INTEGER}, #{param.withdrawalMoney,jdbcType=DOUBLE}, 
+      #{param.rechargeMoney,jdbcType=INTEGER}, #{param.bonusMoney,jdbcType=DOUBLE}, #{param.pl3BetMoney,jdbcType=INTEGER}, 
+      #{param.pl5BetMoney,jdbcType=INTEGER}, #{param.qxcBetMoney,jdbcType=INTEGER}, #{param.dltBetMoney,jdbcType=INTEGER}, 
+      #{param.sfcBetMoney,jdbcType=INTEGER}, #{param.rx9BetMoney,jdbcType=INTEGER}, #{param.bqcBetMoney,jdbcType=INTEGER}, 
+      #{param.jqcBetMoney,jdbcType=INTEGER}, #{param.jczqBetMoney,jdbcType=INTEGER}, #{param.jclqBetMoney,jdbcType=INTEGER}, 
+      #{param.ssqBetMoney,jdbcType=INTEGER}, #{param.f3dBetMoney,jdbcType=INTEGER}, #{param.qlcBetMoney,jdbcType=INTEGER}, 
+      #{param.ljyBetMoney,jdbcType=INTEGER}, #{param.esx5BetMoney,jdbcType=INTEGER}, #{param.bjdcBetMoney,jdbcType=INTEGER}, 
+      #{param.sfggBetMoney,jdbcType=INTEGER}, #{param.syx5BetMoney,jdbcType=INTEGER}, #{param.pl3BonusMoney,jdbcType=DOUBLE}, 
+      #{param.pl5BonusMoney,jdbcType=DOUBLE}, #{param.qxcBonusMoney,jdbcType=DOUBLE}, #{param.dltBonusMoney,jdbcType=DOUBLE}, 
+      #{param.sfcBonusMoney,jdbcType=DOUBLE}, #{param.rx9BonusMoney,jdbcType=DOUBLE}, #{param.bqcBonusMoney,jdbcType=DOUBLE}, 
+      #{param.jqcBonusMoney,jdbcType=DOUBLE}, #{param.jczqBonusMoney,jdbcType=DOUBLE}, #{param.jclqBonusMoney,jdbcType=DOUBLE}, 
+      #{param.ssqBonusMoney,jdbcType=DOUBLE}, #{param.f3dBonusMoney,jdbcType=DOUBLE}, #{param.qlcBonusMoney,jdbcType=DOUBLE}, 
+      #{param.ljyBonusMoney,jdbcType=DOUBLE}, #{param.esx5BonusMoney,jdbcType=DOUBLE}, #{param.bjdcBonusMoney,jdbcType=DOUBLE}, 
+      #{param.sfggBonusMoney,jdbcType=DOUBLE}, #{param.syx5BonusMoney,jdbcType=DOUBLE}, #{param.version,jdbcType=INTEGER})
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective">
+    update member_all_stats
+    <set>
+      <if test="param.memberName != null">
+        member_name = #{param.memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="param.storeId != null">
+        store_id = #{param.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="param.storeName != null">
+        store_name = #{param.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="param.consumptionMoney != null">
+        consumption_money = #{param.consumptionMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.waitTicketMoney != null">
+        wait_ticket_money = #{param.waitTicketMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.succTicketMoney != null">
+        succ_ticket_money = #{param.succTicketMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.withdrawalMoney != null">
+        withdrawal_money = #{param.withdrawalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.rechargeMoney != null">
+        recharge_money = #{param.rechargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.bonusMoney != null">
+        bonus_money = #{param.bonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.pl3BetMoney != null">
+        pl3_bet_money = #{param.pl3BetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.pl5BetMoney != null">
+        pl5_bet_money = #{param.pl5BetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.qxcBetMoney != null">
+        qxc_bet_money = #{param.qxcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.dltBetMoney != null">
+        dlt_bet_money = #{param.dltBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.sfcBetMoney != null">
+        sfc_bet_money = #{param.sfcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.rx9BetMoney != null">
+        rx9_bet_money = #{param.rx9BetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.bqcBetMoney != null">
+        bqc_bet_money = #{param.bqcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jqcBetMoney != null">
+        jqc_bet_money = #{param.jqcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jczqBetMoney != null">
+        jczq_bet_money = #{param.jczqBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jclqBetMoney != null">
+        jclq_bet_money = #{param.jclqBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.ssqBetMoney != null">
+        ssq_bet_money = #{param.ssqBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.f3dBetMoney != null">
+        f3d_bet_money = #{param.f3dBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.qlcBetMoney != null">
+        qlc_bet_money = #{param.qlcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.ljyBetMoney != null">
+        ljy_bet_money = #{param.ljyBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.esx5BetMoney != null">
+        esx5_bet_money = #{param.esx5BetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.bjdcBetMoney != null">
+        bjdc_bet_money = #{param.bjdcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.sfggBetMoney != null">
+        sfgg_bet_money = #{param.sfggBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.syx5BetMoney != null">
+        syx5_bet_money = #{param.syx5BetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.pl3BonusMoney != null">
+        pl3_bonus_money = #{param.pl3BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.pl5BonusMoney != null">
+        pl5_bonus_money = #{param.pl5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.qxcBonusMoney != null">
+        qxc_bonus_money = #{param.qxcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.dltBonusMoney != null">
+        dlt_bonus_money = #{param.dltBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.sfcBonusMoney != null">
+        sfc_bonus_money = #{param.sfcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.rx9BonusMoney != null">
+        rx9_bonus_money = #{param.rx9BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.bqcBonusMoney != null">
+        bqc_bonus_money = #{param.bqcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jqcBonusMoney != null">
+        jqc_bonus_money = #{param.jqcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jczqBonusMoney != null">
+        jczq_bonus_money = #{param.jczqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jclqBonusMoney != null">
+        jclq_bonus_money = #{param.jclqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.ssqBonusMoney != null">
+        ssq_bonus_money = #{param.ssqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.f3dBonusMoney != null">
+        f3d_bonus_money = #{param.f3dBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.qlcBonusMoney != null">
+        qlc_bonus_money = #{param.qlcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.ljyBonusMoney != null">
+        ljy_bonus_money = #{param.ljyBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.esx5BonusMoney != null">
+        esx5_bonus_money = #{param.esx5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.bjdcBonusMoney != null">
+        bjdc_bonus_money = #{param.bjdcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.sfggBonusMoney != null">
+        sfgg_bonus_money = #{param.sfggBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.syx5BonusMoney != null">
+        syx5_bonus_money = #{param.syx5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.version != null">
+        version = version +1,
+      </if>
+    </set>
+    where member_id = #{param.memberId,jdbcType=INTEGER}
+    and version = #{param.version,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 修改，参数中只带入变动值 -->
+  <update id="updateModified">
+    update member_all_stats
+    <set>
+      <if test="param.consumptionMoney != null and param.consumptionMoney != 0">
+        consumption_money = consumption_money+#{param.consumptionMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.waitTicketMoney != null and param.waitTicketMoney != 0">
+        wait_ticket_money = wait_ticket_money+#{param.waitTicketMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.succTicketMoney != null and param.succTicketMoney != 0">
+        succ_ticket_money = succ_ticket_money+#{param.succTicketMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.withdrawalMoney != null and param.withdrawalMoney != 0">
+        withdrawal_money = withdrawal_money+#{param.withdrawalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.rechargeMoney != null and param.rechargeMoney != 0">
+        recharge_money = recharge_money+#{param.rechargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.bonusMoney != null and param.bonusMoney != 0">
+        bonus_money = bonus_money+#{param.bonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.pl3BetMoney != null and param.pl3BetMoney != 0">
+        pl3_bet_money = pl3_bet_money+#{param.pl3BetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.pl5BetMoney != null and param.pl5BetMoney != 0">
+        pl5_bet_money = pl5_bet_money+#{param.pl5BetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.qxcBetMoney != null and param.qxcBetMoney != 0">
+        qxc_bet_money = qxc_bet_money+#{param.qxcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.dltBetMoney != null and param.dltBetMoney != 0">
+        dlt_bet_money = dlt_bet_money+#{param.dltBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.sfcBetMoney != null and param.sfcBetMoney != 0">
+        sfc_bet_money = sfc_bet_money+#{param.sfcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.rx9BetMoney != null and param.rx9BetMoney != 0">
+        rx9_bet_money = rx9_bet_money+#{param.rx9BetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.bqcBetMoney != null and param.bqcBetMoney != 0">
+        bqc_bet_money = bqc_bet_money+#{param.bqcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jqcBetMoney != null and param.jqcBetMoney != 0">
+        jqc_bet_money = jqc_bet_money+#{param.jqcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jczqBetMoney != null and param.jczqBetMoney != 0">
+        jczq_bet_money = jczq_bet_money+#{param.jczqBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.jclqBetMoney != null and param.jclqBetMoney != 0">
+        jclq_bet_money = jclq_bet_money+#{param.jclqBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.ssqBetMoney != null and param.ssqBetMoney != 0">
+        ssq_bet_money = ssq_bet_money+#{param.ssqBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.f3dBetMoney != null and param.f3dBetMoney != 0">
+        f3d_bet_money = f3d_bet_money+#{param.f3dBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.qlcBetMoney != null and param.qlcBetMoney != 0">
+        qlc_bet_money = qlc_bet_money+#{param.qlcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.ljyBetMoney != null and param.ljyBetMoney != 0">
+        ljy_bet_money = ljy_bet_money+#{param.ljyBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.esx5BetMoney != null and param.esx5BetMoney != 0">
+        esx5_bet_money = esx5_bet_money+#{param.esx5BetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.bjdcBetMoney != null and param.bjdcBetMoney != 0">
+        bjdc_bet_money = bjdc_bet_money+#{param.bjdcBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.sfggBetMoney != null and param.sfggBetMoney != 0">
+        sfgg_bet_money = sfgg_bet_money+#{param.sfggBetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.syx5BetMoney != null and param.syx5BetMoney != 0">
+        syx5_bet_money = syx5_bet_money+#{param.syx5BetMoney,jdbcType=INTEGER},
+      </if>
+      <if test="param.pl3BonusMoney != null and param.pl3BonusMoney != 0">
+        pl3_bonus_money = pl3_bonus_money+#{param.pl3BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.pl5BonusMoney != null and param.pl5BonusMoney != 0">
+        pl5_bonus_money = pl5_bonus_money+#{param.pl5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.qxcBonusMoney != null and param.qxcBonusMoney != 0">
+        qxc_bonus_money = qxc_bonus_money+#{param.qxcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.dltBonusMoney != null and param.dltBonusMoney != 0">
+        dlt_bonus_money = dlt_bonus_money+#{param.dltBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.sfcBonusMoney != null and param.sfcBonusMoney != 0">
+        sfc_bonus_money = sfc_bonus_money+#{param.sfcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.rx9BonusMoney != null and param.rx9BonusMoney != 0">
+        rx9_bonus_money = rx9_bonus_money+#{param.rx9BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.bqcBonusMoney != null and param.bqcBonusMoney != 0">
+        bqc_bonus_money = bqc_bonus_money+#{param.bqcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jqcBonusMoney != null and param.jqcBonusMoney != 0">
+        jqc_bonus_money = jqc_bonus_money+#{param.jqcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jczqBonusMoney != null and param.jczqBonusMoney != 0">
+        jczq_bonus_money = jczq_bonus_money+#{param.jczqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.jclqBonusMoney != null and param.jclqBonusMoney != 0">
+        jclq_bonus_money = jclq_bonus_money+#{param.jclqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.ssqBonusMoney != null and param.ssqBonusMoney != 0">
+        ssq_bonus_money = ssq_bonus_money+#{param.ssqBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.f3dBonusMoney != null and param.f3dBonusMoney != 0">
+        f3d_bonus_money = f3d_bonus_money+#{param.f3dBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.qlcBonusMoney != null and param.qlcBonusMoney != 0">
+        qlc_bonus_money = qlc_bonus_money+#{param.qlcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.ljyBonusMoney != null and param.ljyBonusMoney != 0">
+        ljy_bonus_money = ljy_bonus_money+#{param.ljyBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.esx5BonusMoney != null and param.esx5BonusMoney != 0">
+        esx5_bonus_money = esx5_bonus_money+#{param.esx5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.bjdcBonusMoney != null and param.bjdcBonusMoney != 0">
+        bjdc_bonus_money = bjdc_bonus_money+#{param.bjdcBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.sfggBonusMoney != null and param.sfggBonusMoney != 0">
+        sfgg_bonus_money = sfgg_bonus_money+#{param.sfggBonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.syx5BonusMoney != null and param.syx5BonusMoney != 0">
+        syx5_bonus_money = syx5_bonus_money+#{param.syx5BonusMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="param.version != null">
+        version = version +1,
+      </if>
+    </set>
+    where member_id = #{param.memberId,jdbcType=INTEGER}
+    and  store_id = #{param.storeId,jdbcType=INTEGER}
+    and version = #{param.version,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询单个对象 -->
+  <select id="selectByParam" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from member_all_stats
+  	<where>
+  		<if test="param.storeId != null"> AND store_id = #{param.storeId,jdbcType=INTEGER}</if>
+  		<if test="param.memberId != null"> AND member_id = #{param.memberId,jdbcType=INTEGER}</if>
+  	</where>
+  </select>
+  
+  <!-- 彩民所有统计列表查询 -->
+  <select id="selectPaginationByParam" resultMap="BaseResultMap" >
+  	select <include refid="Base_Column_List"/> from member_all_stats
+  	<where>
+  		<if test="param.storeId != null"> AND store_id = #{param.storeId,jdbcType=INTEGER}</if>
+  		<if test="param.memberId != null"> AND member_id = #{param.memberId,jdbcType=INTEGER}</if>
+  		<if test="param.memberIdList != null and param.memberIdList.size() > 0"> 
+    		and member_id in 
+    		<foreach collection="param.memberIdList" item="item" index="index" open="(" close=")" separator=",">#{item}</foreach>
+    	</if>
+    	<if test="pin != null">limit #{pin.firstResult},#{pin.pageSize}</if>
+  	</where>
+  </select>
+  
+</mapper>

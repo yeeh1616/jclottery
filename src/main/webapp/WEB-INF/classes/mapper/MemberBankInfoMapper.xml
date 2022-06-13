@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.MemberBankInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.MemberBankInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="protocol_no" property="protocolNo" jdbcType="VARCHAR" />
+    <result column="card_no" property="cardNo" jdbcType="VARCHAR" />
+    <result column="holder_name" property="holderName" jdbcType="VARCHAR" />
+    <result column="id_no" property="idNo" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="reserve1" property="reserve1" jdbcType="VARCHAR" />
+    <result column="reserve2" property="reserve2" jdbcType="VARCHAR" />
+    <result column="reserve3" property="reserve3" jdbcType="VARCHAR" />
+    <result column="reserve4" property="reserve4" jdbcType="VARCHAR" />
+    <result column="reserve5" property="reserve5" jdbcType="VARCHAR" />
+    <result column="reserve6" property="reserve6" jdbcType="VARCHAR" />
+    <result column="reserve7" property="reserve7" jdbcType="VARCHAR" />
+    <result column="reserve8" property="reserve8" jdbcType="VARCHAR" />
+    <result column="reserve9" property="reserve9" jdbcType="VARCHAR" />
+    <result column="reserve10" property="reserve10" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, member_id, store_id, bank_name, protocol_no,card_no, holder_name, id_no,phone_number,reserve1, 
+    reserve2, reserve3, reserve4, reserve5, reserve6, reserve7, reserve8, reserve9, reserve10
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_bankinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member_bankinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.MemberBankInfo" >
+    insert into member_bankinfo 
+    (id, member_id, store_id, bank_name, protocol_no, card_no, holder_name, id_no, phone_number, reserve1, 
+    reserve2, reserve3, reserve4, reserve5, reserve6, reserve7, reserve8, reserve9, reserve10)
+    values 
+	(#{id,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{bankName,jdbcType=VARCHAR}, #{protocolNo,jdbcType=VARCHAR}, 
+   	#{cardNo,jdbcType=VARCHAR}, #{holderName,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR},  #{phoneNumber,jdbcType=VARCHAR}, #{reserve1,jdbcType=VARCHAR}, 
+    #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR}, #{reserve4,jdbcType=VARCHAR}, #{reserve5,jdbcType=VARCHAR}, #{reserve6,jdbcType=VARCHAR},
+    #{reserve7,jdbcType=VARCHAR}, #{reserve8,jdbcType=VARCHAR}, #{reserve9,jdbcType=VARCHAR}, #{reserve10,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectByMemberIdAndBankNoAndBankName" resultMap="BaseResultMap">
+   select 
+   <include refid="Base_Column_List"/>
+   from member_bankinfo 
+   where member_id = #{memberId} and bank_name = #{bankName} and reserve1 = #{cardType}
+  </select>
+  
+  <select id="selectMemberBankInfo" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List"/>
+   from member_bankinfo 
+   where member_id = #{param.memberId}
+   <if test="param.storeId != null"> and store_id = #{param.storeId}</if>
+   <if test="param.bankName != null"> and bank_name = #{param.bankName}</if>
+   <if test="param.protocolNo != null"> and protocol_no = #{param.protocolNo}</if>
+   <if test="param.cardNo != null"> and card_no = #{param.cardNo}</if>
+   <if test="param.holderName"> and holder_name = #{param.holderName}</if>
+   <if test="param.idNo != null"> and holder_name = #{param.holderName}</if>
+   <if test="param.phoneNumber"> and phone_number = #{param.phoneNumber}</if>
+   <if test="param.reserve1 != null"> and reserve1 = #{param.reserve1}</if>
+  </select>
+  
+  <update id="updMemberBankInfoById">
+  	update member_bankinfo set protocol_no = #{param.protocolNo} where id = #{param.id}
+  </update>
+</mapper>

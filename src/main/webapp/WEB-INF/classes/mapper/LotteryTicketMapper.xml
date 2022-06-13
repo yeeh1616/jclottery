@@ -1,0 +1,1034 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.LotteryTicketMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.LotteryTicket" >
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <id column="ticket_id" jdbcType="INTEGER" property="ticketId" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="storeid" jdbcType="INTEGER" property="storeid" />
+    <result column="license_id" jdbcType="INTEGER" property="licenseId" />
+    <result column="play_type" jdbcType="VARCHAR" property="playType" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="ticket_date" jdbcType="VARCHAR" property="ticketDate" />
+    <result column="bonus_date" jdbcType="VARCHAR" property="bonusDate" />
+    <result column="bet_code" jdbcType="VARCHAR" property="betCode" />
+    <result column="bet_num" jdbcType="INTEGER" property="betNum" />
+    <result column="multiple" jdbcType="INTEGER" property="multiple" />
+    <result column="bet_price" jdbcType="DOUBLE" property="betPrice" />
+    <result column="stop_time" jdbcType="VARCHAR" property="stopTime" />
+    <result column="ticket_state" jdbcType="VARCHAR" property="ticketState" />
+    <result column="issue" jdbcType="VARCHAR" property="issue" />
+    <result column="order_odds" jdbcType="VARCHAR" property="orderOdds" />
+    <result column="ticket_odds" jdbcType="VARCHAR" property="ticketOdds" />
+    <result column="order_rqs" jdbcType="VARCHAR" property="orderRqs" />
+    <result column="ticket_rqs" jdbcType="VARCHAR" property="ticketRqs" />
+    <result column="pre_print_machine" jdbcType="VARCHAR" property="prePrintMachine" />
+    <result column="true_print_store" jdbcType="VARCHAR" property="truePrintStore" />
+    <result column="true_print_machine" jdbcType="VARCHAR" property="truePrintMachine" />
+    <result column="result_status" jdbcType="VARCHAR" property="resultStatus" />
+    <result column="init_bonus" jdbcType="DOUBLE" property="initBonus" />
+    <result column="print_return_bonus" jdbcType="DOUBLE" property="printReturnBonus" />
+    <result column="fini_bonus" jdbcType="DOUBLE" property="finiBonus" />
+    <result column="fetch_flag" jdbcType="VARCHAR" property="fetchFlag" />
+    <result column="reserved1" jdbcType="VARCHAR" property="reserved1" />
+    <result column="reserved2" jdbcType="VARCHAR" property="reserved2" />
+    <result column="reserved3" jdbcType="VARCHAR" property="reserved3" />
+    <result column="reserved4" jdbcType="VARCHAR" property="reserved4" />
+    <result column="reserved5" jdbcType="VARCHAR" property="reserved5" />
+    <result column="reserved6" jdbcType="VARCHAR" property="reserved6" />
+    <result column="reserved7" jdbcType="VARCHAR" property="reserved7" />
+    <result column="reserved8" jdbcType="VARCHAR" property="reserved8" />
+    <result column="reserved9" jdbcType="VARCHAR" property="reserved9" />
+    <result column="reserved10" jdbcType="VARCHAR" property="reserved10" />
+    <result column="reserved11" jdbcType="VARCHAR" property="reserved11" />
+    <result column="reserved12" jdbcType="VARCHAR" property="reserved12" />
+    <result column="reserved13" jdbcType="VARCHAR" property="reserved13" />
+    <result column="reserved14" jdbcType="VARCHAR" property="reserved14" />
+    <result column="reserved15" jdbcType="VARCHAR" property="reserved15" />
+    <result column="reserved16" jdbcType="VARCHAR" property="reserved16" />
+    <result column="reserved17" jdbcType="VARCHAR" property="reserved17" />
+    <result column="reserved18" jdbcType="VARCHAR" property="reserved18" />
+    <result column="reserved19" jdbcType="VARCHAR" property="reserved19" />
+    <result column="reserved20" jdbcType="VARCHAR" property="reserved20" />
+    <result column="cancel_money" jdbcType="DOUBLE" property="cancelMoney" />
+  </resultMap>
+  
+  <resultMap id="SaleTotalMap" type="com.jingc.busi.common.table.SaleTotal" >
+  	<result column="userid" jdbcType="INTEGER" property="memberId" />
+  	<result column="license_id" jdbcType="INTEGER" property="licenseId" />
+  	<result column="saleMoney" jdbcType="DOUBLE" property="saleMoney" />
+  	<result column="bouns" jdbcType="DOUBLE" property="bouns" />
+  </resultMap>
+  
+  <resultMap type="com.jingc.busi.common.table.OverdueTicketInfo" id="oTicketInfo_Map">
+  	<result column="order_id" jdbcType="INTEGER" property="orderId" />
+  	<result column="license_id" jdbcType="INTEGER" property="licenseId" />
+  	<result column="ticket_num" jdbcType="INTEGER" property="ticketNum" />
+  	<result column="price" jdbcType="DOUBLE" property="price" />
+  	<result column="wMissNum" jdbcType="INTEGER" property="wMissNum" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    order_id, ticket_id, userid, username, storeid, license_id, play_type, create_date, 
+    ticket_date, bonus_date, bet_code, bet_num, multiple, bet_price, stop_time, ticket_state, 
+    issue, order_odds, ticket_odds, order_rqs, ticket_rqs, pre_print_machine, true_print_store, 
+    true_print_machine, result_status, init_bonus, print_return_bonus, fini_bonus, fetch_flag, 
+    reserved1, reserved2, reserved3, reserved4, reserved5, reserved6, reserved7, reserved8, 
+    reserved9, reserved10, reserved11, reserved12, reserved13, reserved14, reserved15, 
+    reserved16, reserved17, reserved18, reserved19, reserved20,cancel_money
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.LotteryTicketKey" >
+    select <include refid="Base_Column_List" /> from lottery_ticket
+    <where>
+    	<if test="orderId != null and orderId != ''">order_id = #{orderId,jdbcType=INTEGER}</if>
+    	<if test="ticketId != null and ticketId != ''">and ticket_id = #{ticketId,jdbcType=INTEGER}</if>
+    </where>
+  </select>
+  
+  <select id="selectByIndex" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" /> from lottery_ticket 
+    where reserved2 = #{ticketIndex}
+  </select>
+  
+  <select id="selectList2Calc" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.LotteryTicket" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_ticket
+    where issue = #{issue} and license_id = #{licenseId} and ticket_state = #{ticketState}
+  </select>
+  
+  <select id="selectList2Print" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_ticket
+    where storeid = #{storeId} and ticket_state = #{state} and result_status != '2' and stop_time > now() 
+     and license_id in
+    <foreach collection="licenses" item="item" index="index" open="(" close=")" separator=",">
+    		 #{item}
+    		</foreach>
+     order by order_id asc limit 0, #{maxNum}
+  </select>
+  
+  <select id="selectList2SimPrint" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_ticket
+    where storeid = #{storeId} and ticket_state = #{state} and result_status != '2' and stop_time > now() 
+     and order_id=(select id from lottery_order where storeid=#{storeId} and bet_state='3' order by id asc limit 0,1) 
+     and license_id in
+    <foreach collection="licenses" item="item" index="index" open="(" close=")" separator=",">
+    		 #{item}
+    		</foreach>
+     limit 0, #{maxNum}
+  </select>
+  
+  <select id="selectList2NewSimPrint" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_ticket
+    where storeid = #{storeId} and ticket_state = #{state} and result_status != 2
+     and order_id=#{orderId} and ticket_id between #{startPos} and #{endPos}  
+     <if test="play != null">
+     	and play_type like #{play} 
+     </if>
+     <if test="licenses != null">
+    	and license_id in
+    	<foreach collection="licenses" item="item" index="index" open="(" close=")" separator=",">
+    		 #{item}
+    	</foreach>
+    </if>     
+     limit 0, #{maxNum}
+  </select>
+  
+  <select id="selectNewWaitPrintNum" resultType="java.lang.Long" >
+    select count(*) from lottery_ticket where order_id = #{orderId} and ticket_state = '3' 
+    	and ticket_id between #{startPos} and #{endPos} 
+    	<if test="play != null">
+	     	and play_type like #{play} 
+	     </if> 
+  </select>
+  
+  <select id="selectList2CenterPrint" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_ticket
+    where reserved8 = #{partnerId} and ticket_state = #{state} and result_status = '2'
+     and license_id in
+    <foreach collection="licenses" item="item" index="index" open="(" close=")" separator=",">
+    		 #{item}
+    		</foreach>
+    limit 0, #{maxNum}
+  </select>
+  
+  <select id="selectList2CPC500Print" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_ticket
+    where  ticket_state = #{state} and result_status = '2' and reserved4=#{reserved4} and reserved8=#{reserved8} 
+     and license_id in (5,6,9) and reserved16 is null
+    limit 0, #{maxNum}
+  </select>
+  
+  <select id="selectList2CPC500Print2" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_ticket
+    where  ticket_state = #{state} and result_status = '2' and reserved4=#{reserved4} and reserved8=#{reserved8} 
+    <if test="licenseId != null">
+     and license_id = #{licenseId} 
+    </if>
+    limit 0, #{maxNum}
+  </select>
+  
+  <select id="selectList2CenterPrize" resultMap="BaseResultMap" >
+    select 
+    t.* 
+    from lottery_ticket t,lottery_order o 
+    where o.id = t.order_id and o.bet_state in('10','12','13') and t.reserved8 = #{partnerId} and t.ticket_state = '10' and t.result_status = '2' 
+     and t.license_id in
+    <foreach collection="licenses" item="item" index="index" open="(" close=")" separator=",">
+    		 #{item}
+    		</foreach>
+    limit 0, #{maxNum}
+  </select>
+  
+  <!--<select id="selectList2CenterPrint" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_ticket
+    where ticket_state = #{state} and result_status = 2 limit 0, #{maxNum}
+  </select>-->
+  
+  <update id="updateState2StateWithoutTicketId">
+  	update lottery_ticket set ticket_state = #{newState} where order_id = #{orderId} and ticket_state = #{oldState}
+  </update>
+  
+  <update id="updateState">
+  	update lottery_ticket set ticket_state = #{state} where order_id = #{orderId} and ticket_id = #{ticketId} and ticket_state != '15'
+  </update>
+  
+  <update id="updateState2State">
+  	update lottery_ticket set ticket_state = #{state} where order_id = #{orderId} and ticket_id = #{ticketId} and ticket_state = #{oldstate}
+  </update>
+  
+  <update id="updateState2State2Miss">
+  	update lottery_ticket set ticket_state = #{state}, reserved14 = #{reason} where order_id = #{orderId} and ticket_id = #{ticketId} and ticket_state = #{oldstate}
+  </update>
+  
+  <update id="updateState2Ticketing">
+  	update lottery_ticket set ticket_state = #{state}, reserved11=#{ticketNum}  where order_id = #{orderId} and ticket_id = #{ticketId}
+  </update>
+  
+  <update id="updateStateAndOdds">
+  	update lottery_ticket set result_status = #{resultStatus}, reserved5 = #{printNo}, reserved6 = #{passWord}, ticket_state = #{state}, ticket_odds = #{ticketOdds}, ticket_rqs = #{ticketRq}, ticket_date = #{printTime}, reserved3 = #{ticketInfo}  where order_id = #{orderId} and ticket_id = #{ticketId} and ticket_state != '15'
+  </update>
+  
+  <update id="updateStateAndOdds2">
+  	update lottery_ticket set result_status = #{resultStatus}, reserved5 = #{printNo}, reserved6 = #{passWord}, ticket_state = #{state}, ticket_odds = #{ticketOdds}, ticket_rqs = #{ticketRq}, ticket_date = #{printTime}, reserved3 = #{ticketInfo}  where order_id = #{orderId} and ticket_id = #{ticketId} and ticket_state = '4'
+  </update>
+  
+  <select id="selectByOrderId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_ticket
+    <where>
+    	<if test="orderId != null and orderId != ''">order_id = #{orderId}</if>
+    </where>
+    <if test="pagination != null and pagination != ''"><!-- pagination为null时表示不需要分页，查询订单下的所有彩票-->
+    	limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>
+  </select>
+  <select id="selectWaitCountByOrderId" resultType="java.lang.Integer" >
+    select count(*) from lottery_ticket where order_id = #{orderId}
+  </select>
+  
+  <select id="selectList2CalcGuess" resultMap="BaseResultMap" parameterType="com.jingc.busi.common.table.LotteryTicket" >
+    select 
+    <include refid="Base_Column_List" />
+    from lottery_ticket
+    where license_id = #{licenseId} and ticket_state = #{ticketState} and stop_time <![CDATA[<]]> now() order by order_id asc 
+  </select>
+  
+  <update id="updateTicketBonusAndState" parameterType="com.jingc.busi.common.table.LotteryTicket">
+  	update lottery_ticket set init_bonus = #{initBonus}, ticket_state = #{ticketState}, reserved10 = #{reserved10} where order_id = #{orderId,jdbcType=INTEGER}
+      and ticket_id = #{ticketId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 本地出票转手工出票修改彩票状态 -->
+  <update id="changeManualTicket">
+  update lottery_ticket set ticket_state = #{newState},result_status = #{resultStatus} where ticket_state = #{oldState} and order_id = #{orderId}
+  </update>
+  
+  <!-- 本地出票转手工出票修改彩票状态;2015-02-09新加流程：订单有错漏票的情况，把所有未出的彩票都转为漏票 -->
+  <update id="changeManualTicket2">
+  update lottery_ticket set ticket_state = #{newState},result_status = #{resultStatus}
+  <where>
+  	<if test="orderId != null">order_id = #{orderId}</if>
+  	<if test="oldStateList != null and oldStateList.size() > 0">
+  	and ticket_state in 
+  		<foreach collection="oldStateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  	</if>
+  </where>
+  </update>
+  <!-- 1、做选择出票方式时修改彩票的状态和打印状态；
+  		2、作出票确认时修改彩票的状态-->
+  <update id="updateStateTicketOp">
+  	update lottery_ticket 
+  	<set>
+  		<if test="param.ticketState != null and param.ticketState != ''">
+  			ticket_state = #{param.ticketState},
+  		</if>
+  		<if test="param.resultStatus != null and param.resultStatus != ''">
+  			result_status = #{param.resultStatus},
+  		</if>
+  		<if test="param.ticketDate != null and param.ticketDate != ''">
+  			ticket_date = #{param.ticketDate},
+  		</if>
+  		<if test="param.betCode != null and param.betCode != ''">
+  			bet_code = #{param.betCode},
+  		</if>
+  		<if test="param.reserved9 != null and param.reserved9 != ''">
+  			reserved9 = #{param.reserved9},
+  		</if>
+  		<if test="param.reserved10 != null and param.reserved10 != ''">
+  			reserved10 = #{param.reserved10},
+  		</if>
+  		<if test="param.cancelMoney != null">
+  			cancel_money = #{param.cancelMoney},
+  		</if>
+  	</set>
+  	<where>
+  	order_id = #{param.orderId}
+  	<!-- 如果OLDSTATE有值，则表示要把指定状态的彩票状态改为对象中的状态 -->
+  		<if test="oldState != null and oldState != ''"> and ticket_state = #{oldState}</if>
+  		<!-- 如果param.ticketId有值，则表示要确认单张彩票出票 -->
+  		<if test="param.ticketId != null and param.ticketId != ''"> and ticket_id = #{param.ticketId}</if>  
+  		<!-- 如果idList有值，则表示要确认多张彩票出票:id和idList只能其中一个有值 -->
+  		<if test="param.idList != null and param.idList.size() > 0"> and ticket_id in 
+  			<foreach collection="param.idList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  		</if>
+  		<if test="param.ticketStateList != null and param.ticketStateList.size() > 0">
+  				and ticket_state in
+  				<foreach collection="param.ticketStateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  		</if>	 
+  	</where>
+  </update>
+  
+  <!-- 修改彩票的出票方式 -->
+  <!-- 1、做选择出票方式时修改彩票的状态和打印状态；
+  		2、作出票确认时修改彩票的状态-->
+  <update id="UpdateTicketType">
+  	update lottery_ticket set ticket_state = #{ticketState},result_status = #{resultStatus}
+  	where order_id = #{orderId,jdbcType=INTEGER}
+  		<!--<if test="idList != null and idList.size() > 0"> and ticket_id in 
+  			<foreach collection="idList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  		</if>	-->   	
+  </update>
+  
+  <!-- 撤单处理-->
+  <update id="orderCancellation">
+  update lottery_ticket set ticket_state = #{ticketState} where order_id = #{orderId}
+  </update>
+  
+  <!-- 新加逾期处理流程，只撤票 ************开始************** -->
+  <select id="selectoTicketInfo" resultMap="oTicketInfo_Map">
+  select order_id,license_id,count(*) ticket_num,sum(bet_price - cancel_money) price,
+  sum(case ticket_state 
+  when 6 then 1
+  when 16 then 1
+  else 0 end  		
+  		) wMissNum from lottery_ticket 
+  <where>
+  	<if test="param.ticketStateList != null and param.ticketStateList.size() > 0">
+  	ticket_state in 
+  	<foreach collection="param.ticketStateList" item="item" open="(" separator="," close=")">#{item}</foreach>  	
+  	</if>
+  	<if test="param.stopTime != null and param.stopTime != ''">and stop_time &lt; #{param.stopTime}</if>
+  </where>
+  group by order_id,license_id
+  </select>
+  
+  <select id="selectOverdueTicket" resultMap="BaseResultMap">
+  	select order_id,ticket_id,ticket_state from lottery_ticket where ticket_state in('2','3','4','5','16') and stop_time &lt; #{overdueTime}
+  	<if test="storeId != null">
+  		and storeid = #{storeId} 
+  	</if>
+  	<if test="memberId != null">
+  		and userid = #{memberId} 
+  	</if>
+  	 limit 0,200
+  </select>
+  
+  <!-- 撤单处理-->
+  <update id="orderCancellation2">
+  update lottery_ticket set ticket_state = #{param.ticketState}
+  <where>
+  <if test="param.orderId != null">order_id = #{param.orderId}</if>
+  <if test="param.stopTime != null and param.stopTime != ''">and stop_time &lt; #{param.stopTime}</if>
+  <if test="param.ticketStateList != null and param.ticketStateList.size() > 0">
+	and ticket_state in 
+	<foreach collection="param.ticketStateList" item="item" open="(" separator="," close=")">#{item}</foreach>  	
+  </if>
+  </where>
+  </update>
+  
+  
+   <!-- 带着错漏票的竞彩票 -->
+  <select id="selectoTicketInfoWJC" resultMap="oTicketInfo_Map">
+  select order_id,license_id,count(*) ticket_num,sum(bet_price - cancel_money) price,
+  sum(case ticket_state 
+  when 6 then 1
+  when 16 then 1
+  else 0 end  		
+  		) wMissNum from lottery_ticket 
+  <where>
+  	license_id in (9,10)
+  	<if test="param.ticketStateList != null and param.ticketStateList.size() > 0">
+  	and ticket_state in 
+  	<foreach collection="param.ticketStateList" item="item" open="(" separator="," close=")">#{item}</foreach>  	
+  	</if>
+  	<if test="param.stopTime != null and param.stopTime != ''">and stop_time &lt; #{param.stopTime}</if>
+  </where>
+  group by order_id,license_id
+  </select>
+  <!-- 新加逾期处理流程，只撤票************结束************** -->
+  
+  <select id="selectBonusDoneSumNum" resultType="java.lang.Long" >
+    select IFNULL(sum(IFNULL(bet_price,0) - IFNULL(cancel_money,0)),0) from lottery_ticket where order_id = #{orderId} and ticket_state > 7
+  </select>
+  
+  <select id="selectTicketedDoneNum" resultType="java.lang.Long" >
+    select IFNULL(sum(IFNULL(bet_price,0) - IFNULL(cancel_money,0)),0) from lottery_ticket where order_id = #{orderId} and ticket_state in('7','8','9','10','11','15')
+  </select>
+  
+  <select id="selectTicketedDoneNum2" resultType="java.lang.Long" >
+    select IFNULL(sum(IFNULL(bet_price,0) - IFNULL(cancel_money,0)),0) from lottery_ticket where order_id = #{orderId} and ticket_state in('7','9','10','11')
+  </select>
+  
+  <select id="selectTicketedFailNum" resultType="java.lang.Long" >
+    select IFNULL(sum(IFNULL(bet_price,0) - IFNULL(cancel_money,0)),0) from lottery_ticket where order_id = #{orderId} and ticket_state in('8','15')
+  </select>
+  
+  <select id="selectWaitPrintNum" resultType="java.lang.Long" >
+    select IFNULL(sum(IFNULL(bet_price,0)),0) from lottery_ticket where order_id = #{orderId} and ticket_state = '3'
+  </select>
+  
+  <select id="selectSumBatchOrderTicket" resultType="java.lang.Long" >
+    select IFNULL(sum(IFNULL(bet_price,0)),0) from lottery_ticket where order_id = #{orderId} and ticket_id between #{startPos} and #{endPos}
+  </select>
+  
+  <update id="updateBatchOrderTicket">
+  	update lottery_ticket set ticket_state = #{state} where order_id = #{orderId} and ticket_id between #{startPos} and #{endPos} and ticket_state = '4'
+  </update>
+  
+  <!-- 查询指定彩票涉及到的金额 -->
+  <select id="selectSumBetPrice" resultType="java.lang.Long" >
+    select IFNULL(sum(IFNULL(bet_price,0) - IFNULL(cancel_money,0)),0) from lottery_ticket
+    <where>
+    	<if test="param.orderId != null"> order_id = #{param.orderId}</if>
+    	<if test="param.ticketId != null">and ticket_id = #{param.ticketId}</if>
+    	<!-- 如果idList有值，则表示要确认多张彩票出票:id和idList只能其中一个有值 -->
+  		<if test="param.idList != null and param.idList.size() > 0"> and ticket_id in 
+  			<foreach collection="param.idList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  		</if>
+    </where>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.jingc.busi.common.table.LotteryTicket" >
+    delete from lottery_ticket
+    where order_id = #{orderId,jdbcType=INTEGER}
+      and ticket_id = #{ticketId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.LotteryTicket" >
+    insert into lottery_ticket (order_id, ticket_id, userid, 
+      username, storeid, license_id, 
+      play_type, create_date, ticket_date, 
+      bonus_date, bet_code, bet_num, 
+      multiple, bet_price, stop_time, 
+      ticket_state, issue, order_odds, 
+      ticket_odds, order_rqs, ticket_rqs, 
+      pre_print_machine, true_print_store, true_print_machine, 
+      result_status, init_bonus, print_return_bonus, 
+      fini_bonus, fetch_flag, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5, reserved6, reserved7, 
+      reserved8, reserved9, reserved10, 
+      reserved11, reserved12, reserved13, 
+      reserved14, reserved15, reserved16, 
+      reserved17, reserved18, reserved19, 
+      reserved20,cancel_money
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{ticketId,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{username,jdbcType=VARCHAR}, #{storeid,jdbcType=INTEGER}, #{licenseId,jdbcType=INTEGER}, 
+      #{playType,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, #{ticketDate,jdbcType=VARCHAR}, 
+      #{bonusDate,jdbcType=VARCHAR}, #{betCode,jdbcType=VARCHAR}, #{betNum,jdbcType=INTEGER}, 
+      #{multiple,jdbcType=INTEGER}, #{betPrice,jdbcType=DOUBLE}, #{stopTime,jdbcType=VARCHAR}, 
+      #{ticketState,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, #{orderOdds,jdbcType=VARCHAR}, 
+      #{ticketOdds,jdbcType=VARCHAR}, #{orderRqs,jdbcType=VARCHAR}, #{ticketRqs,jdbcType=VARCHAR}, 
+      #{prePrintMachine,jdbcType=VARCHAR}, #{truePrintStore,jdbcType=VARCHAR}, #{truePrintMachine,jdbcType=VARCHAR}, 
+      #{resultStatus,jdbcType=VARCHAR}, #{initBonus,jdbcType=DOUBLE}, #{printReturnBonus,jdbcType=DOUBLE}, 
+      #{finiBonus,jdbcType=DOUBLE}, #{fetchFlag,jdbcType=VARCHAR}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR}, #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, 
+      #{reserved8,jdbcType=VARCHAR}, #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR}, 
+      #{reserved11,jdbcType=VARCHAR}, #{reserved12,jdbcType=VARCHAR}, #{reserved13,jdbcType=VARCHAR}, 
+      #{reserved14,jdbcType=VARCHAR}, #{reserved15,jdbcType=VARCHAR}, #{reserved16,jdbcType=VARCHAR}, 
+      #{reserved17,jdbcType=VARCHAR}, #{reserved18,jdbcType=VARCHAR}, #{reserved19,jdbcType=VARCHAR}, 
+      #{reserved20,jdbcType=VARCHAR},#{cancelMoney,jdbcType=DOUBLE}
+      )
+  </insert>
+  
+  <insert id="insertBatch">
+    insert into lottery_ticket (order_id, ticket_id, userid, 
+      username, storeid, license_id, 
+      play_type, create_date, ticket_date, 
+      bonus_date, bet_code, bet_num, 
+      multiple, bet_price, stop_time, 
+      ticket_state, issue, order_odds, 
+      ticket_odds, order_rqs, ticket_rqs, 
+      pre_print_machine, true_print_store, true_print_machine, 
+      result_status, init_bonus, print_return_bonus, 
+      fini_bonus, fetch_flag, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5, reserved6, reserved7, 
+      reserved8, reserved9, reserved10, 
+      reserved11, reserved12, reserved13, 
+      reserved14, reserved15, reserved16, 
+      reserved17, reserved18, reserved19, 
+      reserved20,cancel_money
+      )
+    values
+    <foreach collection="ltList" separator="," item="item">
+    (#{item.orderId,jdbcType=INTEGER}, #{item.ticketId,jdbcType=INTEGER}, #{item.userid,jdbcType=INTEGER}, 
+      #{item.username,jdbcType=VARCHAR}, #{item.storeid,jdbcType=INTEGER}, #{item.licenseId,jdbcType=INTEGER}, 
+      #{item.playType,jdbcType=VARCHAR}, #{item.createDate,jdbcType=VARCHAR}, #{item.ticketDate,jdbcType=VARCHAR}, 
+      #{item.bonusDate,jdbcType=VARCHAR}, #{item.betCode,jdbcType=VARCHAR}, #{item.betNum,jdbcType=INTEGER}, 
+      #{item.multiple,jdbcType=INTEGER}, #{item.betPrice,jdbcType=DOUBLE}, #{item.stopTime,jdbcType=VARCHAR}, 
+      #{item.ticketState,jdbcType=VARCHAR}, #{item.issue,jdbcType=VARCHAR}, #{item.orderOdds,jdbcType=VARCHAR}, 
+      #{item.ticketOdds,jdbcType=VARCHAR}, #{item.orderRqs,jdbcType=VARCHAR}, #{item.ticketRqs,jdbcType=VARCHAR}, 
+      #{item.prePrintMachine,jdbcType=VARCHAR}, #{item.truePrintStore,jdbcType=VARCHAR}, #{item.truePrintMachine,jdbcType=VARCHAR}, 
+      #{item.resultStatus,jdbcType=VARCHAR}, #{item.initBonus,jdbcType=DOUBLE}, #{item.printReturnBonus,jdbcType=DOUBLE}, 
+      #{item.finiBonus,jdbcType=DOUBLE}, #{item.fetchFlag,jdbcType=VARCHAR}, #{item.reserved1,jdbcType=VARCHAR}, 
+      #{item.reserved2,jdbcType=VARCHAR}, #{item.reserved3,jdbcType=VARCHAR}, #{item.reserved4,jdbcType=VARCHAR}, 
+      #{item.reserved5,jdbcType=VARCHAR}, #{item.reserved6,jdbcType=VARCHAR}, #{item.reserved7,jdbcType=VARCHAR}, 
+      #{item.reserved8,jdbcType=VARCHAR}, #{item.reserved9,jdbcType=VARCHAR}, #{item.reserved10,jdbcType=VARCHAR}, 
+      #{item.reserved11,jdbcType=VARCHAR}, #{item.reserved12,jdbcType=VARCHAR}, #{item.reserved13,jdbcType=VARCHAR}, 
+      #{item.reserved14,jdbcType=VARCHAR}, #{item.reserved15,jdbcType=VARCHAR}, #{item.reserved16,jdbcType=VARCHAR}, 
+      #{item.reserved17,jdbcType=VARCHAR}, #{item.reserved18,jdbcType=VARCHAR}, #{item.reserved19,jdbcType=VARCHAR}, 
+      #{item.reserved20,jdbcType=VARCHAR},#{item.cancelMoney,jdbcType=DOUBLE})
+    </foreach>
+  </insert>
+ 
+   <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.LotteryTicket">
+    update lottery_ticket
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="storeid != null">
+        storeid = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="licenseId != null">
+        license_id = #{licenseId,jdbcType=INTEGER},
+      </if>
+      <if test="playType != null">
+        play_type = #{playType,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketDate != null">
+        ticket_date = #{ticketDate,jdbcType=VARCHAR},
+      </if>
+      <if test="bonusDate != null">
+        bonus_date = #{bonusDate,jdbcType=VARCHAR},
+      </if>
+      <if test="betCode != null">
+        bet_code = #{betCode,jdbcType=VARCHAR},
+      </if>
+      <if test="betNum != null">
+        bet_num = #{betNum,jdbcType=INTEGER},
+      </if>
+      <if test="multiple != null">
+        multiple = #{multiple,jdbcType=INTEGER},
+      </if>
+      <if test="betPrice != null">
+        bet_price = #{betPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="stopTime != null">
+        stop_time = #{stopTime,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketState != null">
+        ticket_state = #{ticketState,jdbcType=VARCHAR},
+      </if>
+      <if test="issue != null">
+        issue = #{issue,jdbcType=VARCHAR},
+      </if>
+      <if test="orderOdds != null">
+        order_odds = #{orderOdds,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketOdds != null">
+        ticket_odds = #{ticketOdds,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketRqs != null">
+        ticket_rqs = #{ticketRqs,jdbcType=VARCHAR},
+      </if>
+      <if test="prePrintMachine != null">
+        pre_print_machine = #{prePrintMachine,jdbcType=VARCHAR},
+      </if>
+      <if test="truePrintStore != null">
+        true_print_store = #{truePrintStore,jdbcType=VARCHAR},
+      </if>
+      <if test="truePrintMachine != null">
+        true_print_machine = #{truePrintMachine,jdbcType=VARCHAR},
+      </if>
+      <if test="resultStatus != null">
+        result_status = #{resultStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="initBonus != null">
+        init_bonus = #{initBonus,jdbcType=DOUBLE},
+      </if>
+      <if test="printReturnBonus != null">
+        print_return_bonus = #{printReturnBonus,jdbcType=DOUBLE},
+      </if>
+      <if test="finiBonus != null">
+        fini_bonus = #{finiBonus,jdbcType=DOUBLE},
+      </if>
+      <if test="fetchFlag != null">
+        fetch_flag = #{fetchFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved1 != null">
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null">
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null">
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null">
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null">
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null">
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null">
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null">
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null">
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null">
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved19 != null">
+        reserved19 = #{reserved19,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved20 != null">
+        reserved20 = #{reserved20,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <where>
+    	<if test="orderId != null">order_id = #{orderId,jdbcType=INTEGER}</if>
+    	<if test="ticketId != null"> and ticket_id = #{ticketId,jdbcType=INTEGER}</if>
+    </where>      
+  </update>
+  <!-- 根据参数查询彩票记录——参数包括订单号、id、状态等(查询所有数据，不带分页) -->
+  <select id="selectByParamObject" resultMap="BaseResultMap">
+   		select <include refid="Base_Column_List" /> from lottery_ticket
+   		<where>
+   			<if test="param.orderId != null and param.orderId != ''">order_id = #{param.orderId}</if>
+   			<if test="param.ticketId != null and param.ticketId !=''"> and ticket_id=#{param.ticketId}</if>
+   			<if test="param.ticketState != null and param.ticketState !=''"> and ticket_state=#{param.ticketState}</if>
+   		</where>
+  </select>
+  
+  <!-- 根据参数查询彩票记录——参数包括订单号、id、状态等(查询所有数据，带分页) -->
+  <select id="selectByParamObject2" resultMap="BaseResultMap">
+   		select <include refid="Base_Column_List" /> from lottery_ticket <include refid="condition2sql"/>
+   		<if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>
+  </select>
+  
+  <!-- 根据参数查询彩票记录条目数——参数包括订单号、id、状态等(查询所有数据，带分页) -->
+  <select id="selectWaitCountByParamObject2" resultType="java.lang.Integer">
+   		select count(*) from lottery_ticket <include refid="condition2sql"/>   		
+  </select>
+  <sql id="condition2sql">
+  <where>
+   			<if test="param.orderId != null and param.orderId !=''">order_id = #{param.orderId}</if>
+   			<if test="param.ticketId != null and param.ticketId !=''"> and ticket_id=#{param.ticketId}</if>
+   			<if test="param.ticketState != null and param.ticketState !=''"> and ticket_state=#{param.ticketState}</if>
+   			<if test="param.ticketStateList != null and param.ticketStateList.size() > 0">
+  				and ticket_state in
+  				<foreach collection="param.ticketStateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  		</if>
+   		</where>
+  </sql>
+  
+  <!-- *************************************销售统计***************************************************** -->
+  <select id="selectSaleTotal" resultMap="SaleTotalMap">
+  	select license_id,IFNULL(sum(IFNULL(bet_price,0) - IFNULL(cancel_money,0)),0) as saleMoney,sum(init_bonus) as bouns from lottery_ticket
+  	<where>
+  		<if test="param.licenseId != null and param.licenseId != ''">
+  		license_id = #{param.licenseId}
+  		</if>
+  		<if test="param.ticketStateList != null and param.ticketStateList.size() > 0">
+  				and ticket_state in
+  				<foreach collection="param.ticketStateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  		</if>
+  		<if test="param.resultStateList != null and param.resultStateList.size() > 0">
+  				and result_status in
+  				<foreach collection="param.resultStateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  			</if>
+  		<if test="(param.createDateBeginTime != null and param.createDateBeginTime !='') and (param.createDateEndTime != null and param.createDateEndTime !='')">
+  				and (create_date between CONCAT(#{param.createDateBeginTime}," 00:00:00") and CONCAT(#{param.createDateEndTime}," 23:59:59"))
+  			</if>
+  			<if test="(param.createDateBeginTime != null and param.createDateBeginTime !='') and (param.createDateEndTime == null or param.createDateEndTime =='')">
+  				and create_date &gt; CONCAT(#{param.createDateBeginTime}," 00:00:00")
+  			</if>
+  			<if test="(param.createDateBeginTime == null or param.createDateBeginTime =='') and (param.createDateEndTime!= null and param.createDateEndTime !='')">
+  				and create_date &lt; CONCAT(#{param.createDateEndTime}," 23:59:59")
+  			</if>
+  			<if test="memberParam != null and memberParam != ''">
+  				and exists (select id from member
+  				<where>
+  					id=lottery_ticket.userid
+  					<if test="memberParam.storeId != null and memberParam.storeId != ''">and store_id=#{memberParam.storeId}</if>
+  					<if test="memberParam.state != null and memberParam.state != ''">and state=#{memberParam.state}</if>
+  					<if test="memberParam.storeType != null and memberParam.storeType != ''">
+  						<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+  							<when test="memberParam.storeType == 2">
+  				 				and member_from = #{memberParam.memberFrom})
+  							</when>
+  							<otherwise>and member_from != #{memberParam.memberFrom})</otherwise>
+  						</choose>
+  					</if>  			
+  			</where>
+  			</if>
+  	</where>
+  	group by license_id
+  </select>
+  
+  <select id="selectMemberBuyTotal" resultMap="SaleTotalMap">
+  	select userid,license_id,IFNULL(sum(IFNULL(bet_price,0) - IFNULL(cancel_money,0)),0) as saleMoney,sum(fini_bonus) as bouns from lottery_ticket
+  	<where>
+  		<if test="param.licenseId != null and param.licenseId != ''">
+  		license_id = #{param.licenseId}
+  		</if>
+  		<if test="param.userid != null and param.userid != ''">
+  		and userid = #{param.userid}
+  		</if>
+  		<if test="param.useridList != null and param.useridList.size() > 0">
+  				and userid in
+  				<foreach collection="param.useridList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  		</if>
+  		<if test="param.ticketStateList != null and param.ticketStateList.size() > 0">
+  				and ticket_state in
+  				<foreach collection="param.ticketStateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  		</if>
+  		<if test="(param.createDateBeginTime != null and param.createDateBeginTime !='') and (param.createDateEndTime != null and param.createDateEndTime !='')">
+  				and (create_date between CONCAT(#{param.createDateBeginTime}," 00:00:00") and CONCAT(#{param.createDateEndTime}," 23:59:59"))
+  			</if>
+  			<if test="(param.createDateBeginTime != null and param.createDateBeginTime !='') and (param.createDateEndTime == null or param.createDateEndTime =='')">
+  				and create_date &gt; CONCAT(#{param.createDateBeginTime}," 00:00:00")
+  			</if>
+  			<if test="(param.createDateBeginTime == null or param.createDateBeginTime =='') and (param.createDateEndTime!= null and param.createDateEndTime !='')">
+  				and create_date &lt; CONCAT(#{param.createDateEndTime}," 23:59:59")
+  			</if>
+  	</where>
+  	group by userid,license_id 
+  </select>
+  <!-- *************************************销售统计结束******************************************************* -->
+  
+  <!-- 统计对应的金额 -->
+  <select id="selectTotalMoney" resultType="java.lang.Double">
+  	select IFNULL(sum(IFNULL(bet_price,0) - IFNULL(cancel_money,0)),0) from lottery_ticket
+  		<where>
+  			<if test="param.orderId != null and param.orderId !=''"> order_id = #{param.orderId}</if>
+  			<if test="param.storeid != null and param.storeid !=''">and storeid=#{param.storeid}</if>
+  			<if test="param.ticketStateList != null and param.ticketStateList.size() > 0">
+  				and ticket_state in
+  				<foreach collection="param.ticketStateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  			</if>
+  			<if test="param.ticketId != null and param.ticketId !=''">
+  				and ticket_id = #{param.ticketId}
+  			</if>
+  			<if test="param.idList != null and param.idList.size() > 0">
+  				and ticket_id in
+  				<foreach collection="param.idList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  			</if>
+  			<if test="param.resultStateList != null and param.resultStateList.size() > 0">
+  				and result_status in
+  				<foreach collection="param.resultStateList" item="item" open="(" separator="," close=")">#{item}</foreach>
+  			</if>
+  			<if test="(param.createDateBeginTime != null and param.createDateBeginTime !='') and (param.createDateEndTime != null and param.createDateEndTime !='')">
+  				and (create_date between CONCAT(#{param.createDateBeginTime}," 00:00:00") and CONCAT(#{param.createDateEndTime}," 23:59:59"))
+  			</if>
+  			<if test="(param.createDateBeginTime != null and param.createDateBeginTime !='') and (param.createDateEndTime == null or param.createDateEndTime =='')">
+  				and create_date &gt; CONCAT(#{param.createDateBeginTime}," 00:00:00")
+  			</if>
+  			<if test="(param.createDateBeginTime == null or param.createDateBeginTime =='') and (param.createDateEndTime != null and param.createDateEndTime !='')">
+  				and create_date &lt; CONCAT(#{param.createDateEndTime}," 23:59:59")
+  			</if>
+  			<if test="(param.ticketDateBeginTime != null and param.ticketDateBeginTime !='') and (param.ticketDateEndTime != null and param.ticketDateEndTime !='')">
+  				and (ticket_date between CONCAT(#{param.ticketDateBeginTime}," 00:00:00") and CONCAT(#{param.ticketDateEndTime}," 23:59:59"))
+  			</if>
+  			<if test="(param.ticketDateBeginTime != null and param.ticketDateBeginTime !='') and (param.ticketDateEndTime == null or param.ticketDateEndTime =='')">
+  				and ticket_date &gt; CONCAT(#{param.ticketDateBeginTime}," 00:00:00")
+  			</if>
+  			<if test="(param.ticketDateBeginTime == null or param.ticketDateBeginTime =='') and (param.ticketDateEndTime != null and param.ticketDateEndTime !='')">
+  				and ticket_date &lt; CONCAT(#{param.ticketDateEndTime}," 23:59:59")
+  			</if>
+  			<if test="memberParam != null and memberParam != ''">
+  				and exists (select id from member
+  				<where>
+  					id=lottery_ticket.userid
+  					<if test="memberParam.storeId != null and memberParam.storeId != ''">and store_id=#{memberParam.storeId}</if>
+  					<if test="memberParam.state != null and memberParam.state != ''">and state=#{memberParam.state}</if>
+  					<if test="memberParam.storeType != null and memberParam.storeType != ''">
+  						<choose><!-- 此处需要注意的是，在构建参数的时候memberFrom始终设为营业厅用户 -->
+  							<when test="memberParam.storeType == 2">
+  				 				and member_from = #{memberParam.memberFrom})
+  							</when>
+  							<otherwise>and member_from != #{memberParam.memberFrom})</otherwise>
+  						</choose>
+  					</if>  			
+  			</where>
+  			</if>
+  		</where>
+  </select>
+  
+  <!-- 中心代出票彩票详情集合 -->
+  <select id="getLotteryTicketListByResultStatus" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from lottery_ticket
+    <where>
+    	<if test="param.orderId != null and param.orderId != ''">order_id = #{param.orderId}</if>
+    	<if test="param.resultStatus != null and param.resultStatus != ''">and result_status = #{param.resultStatus}</if>
+    	<!--在构建查询参数时，根据实际情况， betState和betStateList只能给其中一个赋值，否则最终SQL会不正确 -->
+	    <if test="param.ticketState != null and param.ticketState != ''"> and lottery_ticket.ticket_state = #{param.ticketState}</if>
+	    <if test="param.ticketStateList != null and param.ticketStateList.size() > 0"> 
+	    	and lottery_ticket.ticket_state in 
+	    	<foreach collection="param.ticketStateList" item="item" index="index" open="(" close=")" separator=",">
+	    		#{item}
+	    	</foreach>
+	    </if>
+    </where>
+    <if test="pagination != null and pagination != ''"><!-- pagination为null时表示不需要分页，查询订单下的所有彩票-->
+    	limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>
+  </select>
+  
+  <select id="getLotteryTicketListByResultStatusCount" resultType="java.lang.Integer" >
+    select count(ticket_id) from lottery_ticket
+    <where>
+    	<if test="param.orderId != null and param.orderId != ''">order_id = #{param.orderId}</if>
+    	<if test="param.resultStatus != null and param.resultStatus != ''">and result_status = #{param.resultStatus}</if>
+    	<!--在构建查询参数时，根据实际情况， ticketState和ticketStateList只能给其中一个赋值，否则最终SQL会不正确 -->
+	    <if test="param.ticketState != null and param.ticketState != ''"> and lottery_ticket.ticket_state = #{param.ticketState}</if>
+	    <if test="param.ticketStateList != null and param.ticketStateList.size() > 0"> 
+	    	and lottery_ticket.ticket_state in 
+	    	<foreach collection="param.ticketStateList" item="item" index="index" open="(" close=")" separator=",">
+	    		#{item}
+	    	</foreach>
+	    </if>
+    </where>
+  </select>
+  
+  <update id="updateStateByOrderId" >
+  	update lottery_ticket set ticket_state = #{state} where order_id = #{orderId}
+  </update>
+  
+  <update id="updateStateByOrderIdAndState">
+  	update lottery_ticket set ticket_state = #{state} where order_id = #{orderId} and ticket_state = '4' 
+  </update>
+  
+  <update id="updateStateAndTimeByOrderId" >
+  	update lottery_ticket set ticket_state = #{state}, result_status = #{resultStatus}, create_date = #{orderDate} where order_id = #{orderId}
+  </update>
+  
+  <update id="updateStateByOrderId2HighFreq" >
+  	update lottery_ticket set ticket_state = #{state}, result_status = '2' where order_id = #{orderId}
+  </update>
+  
+  <select id="selectTicketingNum" resultType="java.lang.Long" >
+    select count(*) from lottery_ticket where storeid = #{storeId} and ticket_state in('2','3')
+  </select>
+  
+  <!-- 查询店铺撤销的且已送到客户端的票 -->
+  <select id="selectRmvTickets" resultMap="BaseResultMap">
+  	select reserved2 from lottery_ticket where storeid = #{storeId} and ticket_state in('15') and reserved11='1' and reserved13 is null and stop_time>now()
+  </select>
+  
+  <!-- 更新撤销的彩票为已通知客户端 -->
+  <update id="updateRmvTicket2SndClt" >
+  	update lottery_ticket set reserved13 = '1' where reserved2 = #{orderId} and ticket_state in('15')
+  </update>
+  
+  <!-- 重新出票 -->
+  <update id="ticketAgain">
+  update lottery_ticket set ticket_state = '3' where order_id = #{ltk.orderId} and ticket_id = #{ltk.ticketId}
+  and ticket_state = '16'
+  </update>
+  
+  <!-- 重新出票 -->
+  <update id="allMissTicketAgain">
+  update lottery_ticket set ticket_state = '3' where order_id = #{orderId} and ticket_state = '16'
+  </update>
+  
+  <update id="updateTicketFrom13To10">
+  update lottery_ticket set ticket_state = '10' where order_id = #{orderId} and ticket_state = '13'
+  </update>
+  
+  <select id="getStoreCount" resultMap="BaseResultMap" >
+     select store_id,store_name as bet_code, 
+     sum(case date_format(ticket_date,'%d') when '01' then (bet_price) else 0 end) as reserved1,
+		 sum(case date_format(ticket_date,'%d') when '02' then (bet_price) else 0 end) as reserved2,
+		 sum(case date_format(ticket_date,'%d') when '03' then (bet_price) else 0 end) as reserved3,
+		 sum(case date_format(ticket_date,'%d') when '04' then (bet_price) else 0 end) as reserved4,
+		 sum(case date_format(ticket_date,'%d') when '05' then (bet_price) else 0 end) as reserved5,
+		 sum(case date_format(ticket_date,'%d') when '06' then (bet_price) else 0 end) as reserved6,
+		 sum(case date_format(ticket_date,'%d') when '07' then (bet_price) else 0 end) as reserved7,
+		 sum(case date_format(ticket_date,'%d') when '08' then (bet_price) else 0 end) as reserved8,
+		 sum(case date_format(ticket_date,'%d') when '09' then (bet_price) else 0 end) as reserved9,
+		 sum(case date_format(ticket_date,'%d') when '10' then (bet_price) else 0 end) as reserved10,
+		 sum(case date_format(ticket_date,'%d') when '11' then (bet_price) else 0 end) as reserved11,
+		 sum(case date_format(ticket_date,'%d') when '12' then (bet_price) else 0 end) as reserved12,
+		 sum(case date_format(ticket_date,'%d') when '13' then (bet_price) else 0 end) as reserved13,
+		 sum(case date_format(ticket_date,'%d') when '14' then (bet_price) else 0 end) as reserved14,
+		 sum(case date_format(ticket_date,'%d') when '15' then (bet_price) else 0 end) as reserved15,
+		 sum(case date_format(ticket_date,'%d') when '16' then (bet_price) else 0 end) as reserved16,
+		 sum(case date_format(ticket_date,'%d') when '17' then (bet_price) else 0 end) as reserved17,
+		 sum(case date_format(ticket_date,'%d') when '18' then (bet_price) else 0 end) as reserved18,
+		 sum(case date_format(ticket_date,'%d') when '19' then (bet_price) else 0 end) as reserved19,
+		 sum(case date_format(ticket_date,'%d') when '20' then (bet_price) else 0 end) as reserved20,
+		 sum(case date_format(ticket_date,'%d') when '21' then (bet_price) else 0 end) as order_odds,
+		 sum(case date_format(ticket_date,'%d') when '22' then (bet_price) else 0 end) as ticket_odds,
+		 sum(case date_format(ticket_date,'%d') when '23' then (bet_price) else 0 end) as order_rqs,
+		 sum(case date_format(ticket_date,'%d') when '24' then (bet_price) else 0 end) as ticket_rqs,
+		 sum(case date_format(ticket_date,'%d') when '25' then (bet_price) else 0 end) as pre_print_machine,
+		 sum(case date_format(ticket_date,'%d') when '26' then (bet_price) else 0 end) as true_print_store,
+		 sum(case date_format(ticket_date,'%d') when '27' then (bet_price) else 0 end) as true_print_machine,
+		 sum(case date_format(ticket_date,'%d') when '28' then (bet_price) else 0 end) as create_date,
+		 sum(case date_format(ticket_date,'%d') when '29' then (bet_price) else 0 end) as ticket_date,
+		 sum(case date_format(ticket_date,'%d') when '30' then (bet_price) else 0 end) as bonus_date,
+		 sum(case date_format(ticket_date,'%d') when '31' then (bet_price) else 0 end) as username,
+		 sum(bet_price - if(isnull(cancel_money),0,cancel_money)) as bet_price,
+		 sum(init_bonus) as init_bonus
+		 from lottery_ticket,store
+		 where store_id=storeid 
+		 <if test="reserved4 != null">and lottery_ticket.reserved4=#{reserved4}</if>
+		 and result_status=#{result_status}
+		 and ticket_date &gt;= #{startTime}
+		 and ticket_date &lt;= #{endTime}
+		 and ticket_state in('7','9','10','11','12','13')
+		 group by storeid,store_name
+		 order by storeid asc
+  </select>
+  
+  <select id="getStoreTwoCount" resultMap="BaseResultMap" >
+	select storeid as reserved1,store_name as reserved2,sum(bet_price)as reserved3,sum(init_bonus)as reserved4 from lottery_ticket,store
+		where storeid=store_id and result_status=3 and (length(ticket_odds)=0  || ticket_odds is null)
+		and ticket_state in('7','9','10','11','12','13')
+		<if test="startTime != null and startTime != ''">and ticket_date &gt; #{startTime}</if>
+		<if test="endTime != null and endTime != ''">and ticket_date  &lt; #{endTime}</if> 
+		group by reserved1,reserved2
+  </select>
+  
+  <!-- 出票汇总 -->
+   <select id="getTkSummary" resultMap="BaseResultMap" >
+	select store_name as reserved1,count(ticket_id) as reserved2,sum(bet_price) as reserved3 from store,lottery_ticket 
+	where storeid=store_id and result_status=2 and ticket_state in('7','9','10','11','12','13')
+	<if test="startTime != null and startTime != ''">and ticket_date &gt; #{startTime}</if>
+	<if test="endTime != null and endTime != ''">and ticket_date &lt; #{endTime}</if>
+	<if test="reserved4 != null and reserved4 != ''">and store.store_name=#{reserved4}</if>	
+	 group by storeid
+	<if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if> 
+  </select>
+  
+  <!-- 所有的票数和金额汇总 -->
+  <select id="getTkCount" resultMap="BaseResultMap" >
+	select count(ticket_id) as reserved5,sum(bet_price) as reserved6 from store,lottery_ticket 
+	where storeid=store_id and result_status=2 and ticket_state in('7','9','10','11','12','13')
+	<if test="startTime != null and startTime != ''">and ticket_date &gt; #{startTime}</if>
+	<if test="endTime != null and endTime != ''">and ticket_date &lt; #{endTime}</if>
+	<if test="reserved4 != null and reserved4 != ''">and store.store_name=#{reserved4}</if>	
+  </select>
+  
+  <select id="getTkSummaryCount" resultType="java.lang.Integer">
+	 select count(reserved1) 
+	 from (select store_name as reserved1,count(ticket_id) as reserved2,sum(bet_price) as reserved3 from store,lottery_ticket 
+	where storeid=store_id and result_status=2 and ticket_state in('7','9','10','11','12','13')
+	<if test="startTime != null and startTime != ''">and ticket_date &gt; #{startTime}</if>
+	<if test="endTime != null and endTime != ''">and ticket_date &lt; #{endTime}</if>
+	<if test="reserved4 != null and reserved4 != ''">and store.store_name=#{reserved4}</if>	
+	 group by storeid) store_acount
+   </select>
+  
+  <!-- 出票汇总按店铺查询 -->
+   <select id="selectByStoredition3" resultMap="BaseResultMap">
+  	select distinct store_name as reserved4 from store  
+	where store_name !='' and store_id !='-1'
+  </select>
+  
+  <!-- 获取票的投注号码 -->
+  <select id="getTktBetCodeByOrderid" resultMap="BaseResultMap">
+  		select ticket_id,play_type,bet_code FROM lottery_ticket where order_id = #{orderId} 
+  </select>
+  
+  <update id="updateToSended">
+    update lottery_ticket set reserved16 = #{state} where order_id = #{orderId} and ticket_id = #{ticketId}
+  </update>
+  
+  <!-- 中心出票，同一个方案已送票的理论奖金和-->
+   <select id="selectTheoryBonus" resultType="java.lang.Double" >
+    select IFNULL(sum(cast(reserved17 as signed)),0.00) from lottery_ticket
+    where order_id = #{orderId} and  ticket_state in('4','5','7') and result_status = '2' and reserved16='1' and reserved4=#{reserved4} and reserved8=#{reserved8}
+  </select>
+  
+  <select id="selectTheoryBonus2" resultType="java.lang.Double" >
+    select IFNULL(sum(cast(reserved17 as signed)),0.00) from lottery_ticket
+    where order_id = #{orderId}  and result_status = '3' and reserved4=#{reserved4} and reserved8=#{reserved8}
+  </select>
+  
+  <!--运维后台手工出票-->
+  <update id="doBetByPersion">
+  	update lottery_ticket set ticket_state = #{param.ticketState},result_status = '3',ticket_date=#{param.ticketDate} where order_id=#{param.orderId}
+  </update>
+  
+  <update id="redoBetByPersion">
+  	update lottery_ticket set ticket_state = #{param.ticketState},ticket_date=#{param.ticketDate} where order_id=#{param.orderId} and ticket_state=4
+  </update>
+  
+  <update id="returnByPersion">
+  	update lottery_ticket set ticket_state = #{param.ticketState},result_status = 'null',ticket_date=#{param.ticketDate} where order_id=#{param.orderId}
+  </update>
+  
+  <!--计算依据出票的彩票数与金额-->
+  <select id="gettickedMessage"  resultMap="BaseResultMap">
+  	select count(1) bet_num, IFNULL(sum(bet_price),0) as bet_price from lottery_ticket where ticket_state=7 and  order_id=#{orderId} 
+  </select>
+  
+  <!--全单作废-->
+  <update id="cancelBetByPersion">
+  	update lottery_ticket set ticket_state = #{param.ticketState},ticket_date=#{param.ticketDate} where order_id=#{param.orderId}
+  </update>
+  
+  <!--作废未出票的-->
+  <update id="cancelBetByPersion2">
+  	update lottery_ticket set ticket_state = #{param.ticketState},ticket_date=#{param.ticketDate} where order_id=#{param.orderId} and ticket_state &lt;6
+  </update>
+</mapper>

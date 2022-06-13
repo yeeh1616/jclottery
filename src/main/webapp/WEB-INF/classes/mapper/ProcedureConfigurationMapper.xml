@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.ProcedureConfigurationMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.ProcedureConfiguration" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="process_coding" property="processCoding" jdbcType="VARCHAR" />
+    <result column="process_type" property="processType" jdbcType="INTEGER" />
+    <result column="machine_id" property="machineId" jdbcType="INTEGER" />
+    <result column="machine_code" property="machineCode" jdbcType="VARCHAR" />
+    <result column="machine_name" property="machineName" jdbcType="VARCHAR" />
+    <result column="speed_sign" property="speedSign" jdbcType="INTEGER" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="license_name" property="licenseName" jdbcType="VARCHAR" />
+    <result column="play_id" property="playId" jdbcType="INTEGER" />
+    <result column="play_name" property="playName" jdbcType="VARCHAR" />
+    <result column="ggfs_dfs" property="ggfsDfs" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="start_flow" property="startFlow" jdbcType="VARCHAR" />
+    <result column="first_flow" property="firstFlow" jdbcType="VARCHAR" />
+    <result column="second_flow" property="secondFlow" jdbcType="VARCHAR" />
+    <result column="third_flow" property="thirdFlow" jdbcType="VARCHAR" />
+    <result column="fourth_flow" property="fourthFlow" jdbcType="VARCHAR" />
+    <result column="fifth_flow" property="fifthFlow" jdbcType="VARCHAR" />
+    <result column="large_pass_flow" property="largePassFlow" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    id, process_coding, process_type, machine_id, machine_code, machine_name, speed_sign, 
+    license_id, license_name, play_id, play_name, ggfs_dfs, description, start_flow, 
+    first_flow, second_flow, third_flow, fourth_flow, fifth_flow, large_pass_flow
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from procedure_configuration
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectAllProcedure" resultMap="BaseResultMap" >
+  	select <include refid="Base_Column_List" /> from procedure_configuration <where>
+	<if test="procedureConfiguration.machineCode != null and procedureConfiguration.machineCode != ''">
+		machine_code = #{procedureConfiguration.machineCode,jdbcType=VARCHAR}
+	</if>
+	<if test="procedureConfiguration.speedSign != null and procedureConfiguration.speedSign != ''">
+	    and speed_sign = #{procedureConfiguration.speedSign,jdbcType=INTEGER}
+	</if>
+	<if test="procedureConfiguration.licenseName != null and procedureConfiguration.licenseName != ''">  
+	and license_name = #{procedureConfiguration.licenseName,jdbcType=VARCHAR} 
+	</if>
+	</where>  order by procedure_configuration.id
+   <if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>
+  </select>
+  
+  <select id="getProcedureCount" resultType="java.lang.Integer">
+	 select count(id) 
+	 from procedure_configuration
+   </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from procedure_configuration
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.ProcedureConfiguration" >
+    insert into procedure_configuration (process_coding, process_type, 
+      machine_code, machine_name, 
+      speed_sign, license_name, 
+      play_name, ggfs_dfs, 
+      description, start_flow, first_flow, 
+      second_flow, third_flow, fourth_flow, 
+      fifth_flow, large_pass_flow)
+    values (#{processCoding,jdbcType=VARCHAR}, #{processType,jdbcType=INTEGER}, 
+      #{machineCode,jdbcType=VARCHAR}, #{machineName,jdbcType=VARCHAR}, 
+      #{speedSign,jdbcType=INTEGER}, #{licenseName,jdbcType=VARCHAR}, 
+      #{playName,jdbcType=VARCHAR}, #{ggfsDfs,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{startFlow,jdbcType=VARCHAR}, #{firstFlow,jdbcType=VARCHAR}, 
+      #{secondFlow,jdbcType=VARCHAR}, #{thirdFlow,jdbcType=VARCHAR}, #{fourthFlow,jdbcType=VARCHAR}, 
+      #{fifthFlow,jdbcType=VARCHAR}, #{largePassFlow,jdbcType=VARCHAR})
+  </insert>
+  
+ 
+  <update id="update" parameterType="com.jingc.busi.common.table.ProcedureConfiguration" >
+    update procedure_configuration
+    <set >
+      <if test="processCoding != null" >
+        process_coding = #{processCoding,jdbcType=VARCHAR},
+      </if>
+      <if test="processType != null" >
+        process_type = #{processType,jdbcType=INTEGER},
+      </if>
+      <if test="machineCode != null" >
+        machine_code = #{machineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="machineName != null" >
+        machine_name = #{machineName,jdbcType=VARCHAR},
+      </if>
+      <if test="speedSign != null" >
+        speed_sign = #{speedSign,jdbcType=INTEGER},
+      </if>
+      <if test="licenseName != null" >
+        license_name = #{licenseName,jdbcType=VARCHAR},
+      </if>
+      <if test="playName != null" >
+        play_name = #{playName,jdbcType=VARCHAR},
+      </if>
+      <if test="ggfsDfs != null" >
+        ggfs_dfs = #{ggfsDfs,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="startFlow != null" >
+        start_flow = #{startFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="firstFlow != null" >
+        first_flow = #{firstFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="secondFlow != null" >
+        second_flow = #{secondFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdFlow != null" >
+        third_flow = #{thirdFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="fourthFlow != null" >
+        fourth_flow = #{fourthFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="fifthFlow != null" >
+        fifth_flow = #{fifthFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="largePassFlow != null" >
+        large_pass_flow = #{largePassFlow,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ 
+   <select id="selectCondition1" resultMap="BaseResultMap" >
+  	select distinct machine_code from procedure_configuration
+  </select>
+   <select id="selectCondition2" resultMap="BaseResultMap" >
+  	select distinct speed_sign from procedure_configuration
+  </select>
+   <select id="selectCondition3" resultMap="BaseResultMap" >
+  	select distinct license_name from procedure_configuration
+  </select>
+  
+</mapper>

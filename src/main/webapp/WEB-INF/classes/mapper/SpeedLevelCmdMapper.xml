@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.SpeedLevelCmdMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.SpeedLevelCmd" >
+    <id column="cmd_code" property="cmdCode" jdbcType="VARCHAR" />
+    <id column="speed_level" property="speedLevel" jdbcType="CHAR" />
+    <result column="cmd_type" property="cmdType" jdbcType="CHAR" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="license_name" property="licenseName" jdbcType="VARCHAR" />
+    <result column="play_id" property="playId" jdbcType="INTEGER" />
+    <result column="play_name" property="playName" jdbcType="VARCHAR" />
+    <result column="ggfs_dfs" property="ggfsDfs" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="start_flow" property="startFlow" jdbcType="VARCHAR" />
+    <result column="first_flow" property="firstFlow" jdbcType="VARCHAR" />
+    <result column="second_flow" property="secondFlow" jdbcType="VARCHAR" />
+    <result column="third_flow" property="thirdFlow" jdbcType="VARCHAR" />
+    <result column="fourth_flow" property="fourthFlow" jdbcType="VARCHAR" />
+    <result column="fifth_flow" property="fifthFlow" jdbcType="VARCHAR" />
+    <result column="large_pass_flow" property="largePassFlow" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    cmd_code, speed_level, cmd_type, license_id, license_name, play_id, play_name, ggfs_dfs, 
+    description, start_flow, first_flow, second_flow, third_flow, fourth_flow, fifth_flow, 
+    large_pass_flow
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from speed_level_cmd
+    where cmd_code = #{cmdCode,jdbcType=VARCHAR}
+      and speed_level = #{speedLevel,jdbcType=CHAR}
+  </select>
+  
+  <insert id="insert" parameterType="com.jingc.busi.common.table.SpeedLevelCmd" >
+    insert into speed_level_cmd (cmd_code, speed_level, cmd_type, 
+      license_id, license_name, play_id, 
+      play_name, ggfs_dfs, description, 
+      start_flow, first_flow, second_flow, 
+      third_flow, fourth_flow, fifth_flow, 
+      large_pass_flow)
+    values (#{cmdCode,jdbcType=VARCHAR}, #{speedLevel,jdbcType=CHAR}, #{cmdType,jdbcType=CHAR}, 
+      #{licenseId,jdbcType=INTEGER}, #{licenseName,jdbcType=VARCHAR}, #{playId,jdbcType=INTEGER}, 
+      #{playName,jdbcType=VARCHAR}, #{ggfsDfs,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{startFlow,jdbcType=VARCHAR}, #{firstFlow,jdbcType=VARCHAR}, #{secondFlow,jdbcType=VARCHAR}, 
+      #{thirdFlow,jdbcType=VARCHAR}, #{fourthFlow,jdbcType=VARCHAR}, #{fifthFlow,jdbcType=VARCHAR}, 
+      #{largePassFlow,jdbcType=VARCHAR})
+  </insert>
+  
+   <select id="selectAllSpeedCmd" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from speed_level_cmd
+  </select>
+  
+  <select id="selectByParam" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from speed_level_cmd  <where>
+	<if test="speedLevelCmd.speedLevel != null and speedLevelCmd.speedLevel != ''">
+		speed_level = #{speedLevelCmd.speedLevel,jdbcType=CHAR}
+	</if>
+	<if test="speedLevelCmd.cmdCode != null and speedLevelCmd.cmdCode != ''">
+	    and cmd_code = #{speedLevelCmd.cmdCode,jdbcType=VARCHAR}
+	</if>
+	<if test="speedLevelCmd.licenseName != null and speedLevelCmd.licenseName != ''">  
+		and license_name = #{speedLevelCmd.licenseName,jdbcType=VARCHAR} 
+	</if>
+	</where>
+   <if test="pagination != null">limit #{pagination.firstResult},#{pagination.pageSize}</if>
+  </select>
+  
+   <select id="getSpeedCmdCount" resultType="java.lang.Integer">
+	 select count(cmd_code) 
+	 from speed_level_cmd
+   </select>
+   
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from speed_level_cmd
+    where speed_level = #{speedLevel,jdbcType=CHAR} and cmd_code = #{cmdCode,jdbcType=VARCHAR}
+  </delete>
+  
+  <update id="update" parameterType="com.jingc.busi.common.table.SpeedLevelCmd" >
+    update speed_level_cmd
+    <set >
+      <if test="cmdType != null" >
+        cmd_type = #{cmdType,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseId != null" >
+        license_id = #{licenseId,jdbcType=INTEGER},
+      </if>
+      <if test="licenseName != null" >
+        license_name = #{licenseName,jdbcType=VARCHAR},
+      </if>
+      <if test="playId != null" >
+       play_id = #{playId,jdbcType=INTEGER},
+      </if>
+	   <if test="playName != null" >
+       play_name = #{playName,jdbcType=VARCHAR},
+      </if>
+      <if test="ggfsDfs != null" >
+        ggfs_dfs = #{ggfsDfs,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="startFlow != null" >
+        start_flow = #{startFlow,jdbcType=VARCHAR},
+      </if>
+	  <if test="firstFlow != null" >
+        first_flow = #{firstFlow,jdbcType=VARCHAR},
+      </if>
+	  <if test="secondFlow != null" >
+        second_flow = #{secondFlow,jdbcType=VARCHAR},
+      </if>
+	  <if test="thirdFlow != null" >
+        third_flow = #{thirdFlow,jdbcType=INTEGER},
+      </if>
+	  <if test="fourthFlow != null" >
+        fourth_flow = #{fourthFlow,jdbcType=VARCHAR},
+      </if>
+	  <if test="fifthFlow != null" >
+        fifth_flow = #{fifthFlow,jdbcType=VARCHAR},
+      </if>
+	   <if test="largePassFlow != null" >
+        large_pass_flow = #{largePassFlow,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where speed_level = #{speedLevel,jdbcType=CHAR} and cmd_code = #{cmdCode,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByCmdCondition1" resultMap="BaseResultMap">
+  	select distinct speed_level from speed_level_cmd
+  </select>
+   <select id="selectByCmdCondition2" resultMap="BaseResultMap">
+  	select distinct cmd_code from speed_level_cmd
+  </select>
+   <select id="selectByCmdCondition3" resultMap="BaseResultMap">
+  	select distinct license_name from speed_level_cmd
+  </select>
+  
+  
+   <insert id="insertBatch">
+    insert into speed_level_cmd (cmd_code, speed_level, cmd_type, 
+      license_id, license_name, play_id, 
+      play_name, ggfs_dfs, description, 
+      start_flow, first_flow, second_flow, 
+      third_flow, fourth_flow, fifth_flow, 
+      large_pass_flow)	
+    values 
+	<foreach collection="ltList" separator="," item="item">
+	(#{item.cmdCode,jdbcType=VARCHAR}, #{item.speedLevel,jdbcType=CHAR}, #{item.cmdType,jdbcType=CHAR}, 
+      #{item.licenseId,jdbcType=INTEGER}, #{item.licenseName,jdbcType=VARCHAR}, #{item.playId,jdbcType=INTEGER}, 
+      #{item.playName,jdbcType=VARCHAR}, #{item.ggfsDfs,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
+      #{item.startFlow,jdbcType=VARCHAR}, #{item.firstFlow,jdbcType=VARCHAR}, #{item.secondFlow,jdbcType=VARCHAR}, 
+      #{item.thirdFlow,jdbcType=VARCHAR}, #{item.fourthFlow,jdbcType=VARCHAR}, #{item.fifthFlow,jdbcType=VARCHAR}, 
+      #{item.largePassFlow,jdbcType=VARCHAR})
+	  </foreach>
+  </insert>
+</mapper>

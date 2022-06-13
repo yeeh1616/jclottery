@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jingc.busi.common.mapper.ChasingOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.jingc.busi.common.table.ChasingOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="storeid" property="storeid" jdbcType="INTEGER" />
+    <result column="license_id" property="licenseId" jdbcType="INTEGER" />
+    <result column="play_type" property="playType" jdbcType="VARCHAR" />
+    <result column="single_flag" property="singleFlag" jdbcType="VARCHAR" />
+    <result column="order_date" property="orderDate" jdbcType="VARCHAR" />
+    <result column="bet_code" property="betCode" jdbcType="VARCHAR" />
+    <result column="bet_num" property="betNum" jdbcType="INTEGER" />
+    <result column="multiple" property="multiple" jdbcType="INTEGER" />
+    <result column="bet_price" property="betPrice" jdbcType="INTEGER" />
+    <result column="chasing_state" property="chasingState" jdbcType="VARCHAR" />
+    <result column="zj_flag" property="zjFlag" jdbcType="VARCHAR" />
+    <result column="total_issue" property="totalIssue" jdbcType="INTEGER" />
+    <result column="done_issue" property="doneIssue" jdbcType="INTEGER" />
+    <result column="cancel_issue" property="cancelIssue" jdbcType="INTEGER" />
+    <result column="issue_mult" property="issueMult" jdbcType="VARCHAR" />
+    <result column="stop_bonus" property="stopBonus" jdbcType="INTEGER" />
+    <result column="win_stop" property="winStop" jdbcType="DOUBLE" />
+    <result column="add_bonus" property="addBonus" jdbcType="DOUBLE" />
+    <result column="reserved1" property="reserved1" jdbcType="VARCHAR" />
+    <result column="reserved2" property="reserved2" jdbcType="VARCHAR" />
+    <result column="reserved3" property="reserved3" jdbcType="VARCHAR" />
+    <result column="reserved4" property="reserved4" jdbcType="VARCHAR" />
+    <result column="reserved5" property="reserved5" jdbcType="VARCHAR" />
+    <result column="reserved6" property="reserved6" jdbcType="VARCHAR" />
+    <result column="reserved7" property="reserved7" jdbcType="VARCHAR" />
+    <result column="reserved8" property="reserved8" jdbcType="VARCHAR" />
+    <result column="reserved9" property="reserved9" jdbcType="VARCHAR" />
+    <result column="reserved10" property="reserved10" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, userid, username, storeid, license_id, play_type, single_flag, order_date, bet_code, 
+    bet_num, multiple, bet_price, chasing_state, zj_flag, total_issue, done_issue, cancel_issue, 
+    issue_mult, stop_bonus, win_stop, stop_bonus,add_bonus, reserved1, reserved2, reserved3, reserved4, reserved5, 
+    reserved6, reserved7, reserved8, reserved9, reserved10
+  </sql>
+  
+  <sql id="Base_Column_List1" >
+    chasing_order.id, chasing_order.userid, chasing_order.username, chasing_order.storeid, chasing_order.license_id,
+	chasing_order.play_type, chasing_order.single_flag, chasing_order.order_date, chasing_order.bet_code, 
+    chasing_order.bet_num, chasing_order.multiple, chasing_order.bet_price, chasing_order.chasing_state, chasing_order.zj_flag,
+	chasing_order.total_issue, chasing_order.done_issue, chasing_order.cancel_issue, 
+    chasing_order.issue_mult, chasing_order.stop_bonus, chasing_order.win_stop, chasing_order.stop_bonus,chasing_order.add_bonus,
+	chasing_order.reserved1, chasing_order.reserved2, chasing_order.reserved3, member.reserved4, chasing_order.reserved5, 
+    chasing_order.reserved6, chasing_order.reserved7, chasing_order.reserved8, chasing_order.reserved9, chasing_order.reserved10
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from chasing_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from chasing_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.jingc.busi.common.table.ChasingOrder" >
+    insert into chasing_order (id, userid, username, 
+      storeid, license_id, play_type, 
+      single_flag, order_date, bet_code, 
+      bet_num, multiple, bet_price, 
+      chasing_state, zj_flag, total_issue, 
+      done_issue, cancel_issue, issue_mult, 
+      stop_bonus, win_stop,add_bonus, reserved1, 
+      reserved2, reserved3, reserved4, 
+      reserved5, reserved6, reserved7, 
+      reserved8, reserved9, reserved10
+      )
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{storeid,jdbcType=INTEGER}, #{licenseId,jdbcType=INTEGER}, #{playType,jdbcType=INTEGER}, 
+      #{singleFlag,jdbcType=VARCHAR}, #{orderDate,jdbcType=VARCHAR}, #{betCode,jdbcType=VARCHAR}, 
+      #{betNum,jdbcType=INTEGER}, #{multiple,jdbcType=INTEGER}, #{betPrice,jdbcType=INTEGER}, 
+      #{chasingState,jdbcType=VARCHAR}, #{zjFlag,jdbcType=VARCHAR}, #{totalIssue,jdbcType=INTEGER}, 
+      #{doneIssue,jdbcType=INTEGER}, #{cancelIssue,jdbcType=INTEGER}, #{issueMult,jdbcType=VARCHAR}, 
+      #{stopBonus,jdbcType=DOUBLE}, #{winStop,jdbcType=INTEGER}, #{addBonus,jdbcType=DOUBLE}, #{reserved1,jdbcType=VARCHAR}, 
+      #{reserved2,jdbcType=VARCHAR}, #{reserved3,jdbcType=VARCHAR}, #{reserved4,jdbcType=VARCHAR}, 
+      #{reserved5,jdbcType=VARCHAR}, #{reserved6,jdbcType=VARCHAR}, #{reserved7,jdbcType=VARCHAR}, 
+      #{reserved8,jdbcType=VARCHAR}, #{reserved9,jdbcType=VARCHAR}, #{reserved10,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <select id="selectLastSeq" resultType="java.lang.Long">
+  	SELECT LAST_INSERT_ID()
+  </select>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.jingc.busi.common.table.ChasingOrder" >
+    update chasing_order
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="storeid != null" >
+        storeid = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="licenseId != null" >
+        license_id = #{licenseId,jdbcType=INTEGER},
+      </if>
+      <if test="playType != null" >
+        play_type = #{playType,jdbcType=INTEGER},
+      </if>
+      <if test="singleFlag != null" >
+        single_flag = #{singleFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        order_date = #{orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="betCode != null" >
+        bet_code = #{betCode,jdbcType=VARCHAR},
+      </if>
+      <if test="betNum != null" >
+        bet_num = #{betNum,jdbcType=INTEGER},
+      </if>
+      <if test="multiple != null" >
+        multiple = #{multiple,jdbcType=INTEGER},
+      </if>
+      <if test="betPrice != null" >
+        bet_price = #{betPrice,jdbcType=INTEGER},
+      </if>
+      <if test="chasingState != null" >
+        chasing_state = #{chasingState,jdbcType=VARCHAR},
+      </if>
+      <if test="zjFlag != null" >
+        zj_flag = #{zjFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="totalIssue != null" >
+        total_issue = #{totalIssue,jdbcType=INTEGER},
+      </if>
+      <if test="doneIssue != null" >
+        done_issue = #{doneIssue,jdbcType=INTEGER},
+      </if>
+      <if test="cancelIssue != null" >
+        cancel_issue = #{cancelIssue,jdbcType=INTEGER},
+      </if>
+      <if test="issueMult != null" >
+        issue_mult = #{issueMult,jdbcType=VARCHAR},
+      </if>
+      <if test="stopBonus != null" >
+        stop_bonus = #{stopBonus,jdbcType=DOUBLE},
+      </if>
+      <if test="addBonus != null" >
+        add_bonus = #{addBonus,jdbcType=DOUBLE},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null" >
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null" >
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null" >
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null" >
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateTotalMoney" parameterType="com.jingc.busi.common.table.ChasingOrder" >
+    update chasing_order set total_issue = #{totalIssue}, bet_price = #{betPrice}, bet_num = #{betNum} where id = #{id}
+  </update>
+  
+  <!-- 期数、奖金等可以累加计算 -->
+  <update id="updateByPrimaryKeySelective2" parameterType="com.jingc.busi.common.table.ChasingOrder" >
+    update chasing_order
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="storeid != null" >
+        storeid = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="licenseId != null" >
+        license_id = #{licenseId,jdbcType=INTEGER},
+      </if>
+      <if test="playType != null" >
+        play_type = #{playType,jdbcType=INTEGER},
+      </if>
+      <if test="singleFlag != null" >
+        single_flag = #{singleFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        order_date = #{orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="betCode != null" >
+        bet_code = #{betCode,jdbcType=VARCHAR},
+      </if>
+      <if test="betNum != null" >
+        bet_num = #{betNum,jdbcType=INTEGER},
+      </if>
+      <if test="multiple != null" >
+        multiple = #{multiple,jdbcType=INTEGER},
+      </if>
+      <if test="betPrice != null" >
+        bet_price = #{betPrice,jdbcType=INTEGER},
+      </if>
+      <if test="chasingState != null" >
+        chasing_state = #{chasingState,jdbcType=VARCHAR},
+      </if>
+      <if test="zjFlag != null" >
+        zj_flag = #{zjFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="totalIssue != null" >
+        total_issue = #{totalIssue,jdbcType=INTEGER},
+      </if>
+      <if test="doneIssue != null" >
+        done_issue = done_issue + #{doneIssue,jdbcType=INTEGER},
+      </if>
+      <if test="cancelIssue != null" >
+        cancel_issue = cancel_issue + #{cancelIssue,jdbcType=INTEGER},
+      </if>
+      <if test="issueMult != null" >
+        issue_mult = #{issueMult,jdbcType=VARCHAR},
+      </if>
+      <if test="addBonus != null" >
+        add_bonus = add_bonus + #{addBonus,jdbcType=DOUBLE},
+      </if>
+      <if test="reserved1 != null" >
+        reserved1 = #{reserved1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved2 != null" >
+        reserved2 = #{reserved2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved3 != null" >
+        reserved3 = #{reserved3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved4 != null" >
+        reserved4 = #{reserved4,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved5 != null" >
+        reserved5 = #{reserved5,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved6 != null" >
+        reserved6 = #{reserved6,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved7 != null" >
+        reserved7 = #{reserved7,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved8 != null" >
+        reserved8 = #{reserved8,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved9 != null" >
+        reserved9 = #{reserved9,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved10 != null" >
+        reserved10 = #{reserved10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<!-- 根据条件查询追号订单信息——条件包含店铺ID、用户ID、开始时间、结束时间、排序方式 -->
+	<select id="selectByParamObject" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" /> from chasing_order <include refid="sbpc_sql"/>
+    <if test="param.sortType == 1"> order by userid desc</if>
+    <if test="param.sortType == 2"> order by licenseId desc</if>
+    limit #{pagination.pageNo},#{pagination.pageSize}
+  </select>
+  
+  <!-- 根据条件查询追号订单信息条目数——条件包含店铺ID、用户ID、开始时间、结束时间、排序方式 -->
+	<select id="selectWaitCountByParamObject" resultMap="BaseResultMap" >
+    select count(*) from chasing_order <include refid="sbpc_sql"/>
+    </select>
+  
+  <sql id="sbpc_sql">
+  <where>
+    	<if test="param.storeid != null">storeid = #{param.storeid}</if>
+    	<if test="param.userid != null and param.userid != ''"> and userid = #{param.userid}</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime != '')">
+    	 and (order_date between #{param.beginTime} and #{param.endTime})
+    	</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime == '')">
+    	 and order_date &gt; #{param.beginTime}
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime != '')">
+    	 and order_date &lt; #{param.endTime}
+    	</if>
+    </where>
+  </sql>
+  
+  
+  <!-- 追号查询,ChenSuibing -->
+  <select id="getMemberChaseListBonus"  resultMap="BaseResultMap">
+   select <include refid="Base_Column_List"/>
+   from chasing_order 
+    <where> 
+    	<if test="param.userid != null and param.userid != ''"> and userid = #{param.userid}</if>
+    	<if test="param.storeid != null and param.storeid != ''"> and storeid = #{param.storeid}</if>
+    	<if test="param.licenseId != null and param.licenseId != ''"> and license_id = #{param.licenseId}</if>
+    <!--    <if test="param.reserved1 != null and param.reserved1 != ''"> and reserved1 = #{param.reserved1}</if> -->
+    	<!--在构建查询参数时，根据实际情况， chasingState和chasingStateList只能给其中一个赋值，否则最终SQL会不正确 -->
+    	<if test="param.chasingState != null and param.chasingState != ''"> and chasing_state = #{param.chasingState}</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+    	 </if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and order_date &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and order_date &lt; CONCAT(#{param.endTime}," 23:59:59") 
+    	</if>
+    	
+    </where>
+    order by order_date desc
+    <if test="pagination != null"><!-- pagination 传入null时，表示不需要分页，要查询所有数据 -->
+    	limit #{pagination.firstResult},#{pagination.pageSize}
+    </if>     
+  </select>
+  
+  <!-- 追号查询,总共追了多少号方案,ChenSuibing -->
+  <select id="getMemberChaseCountBonus"  resultType="java.lang.Integer">
+  	select count(*) from chasing_order
+    <where>
+    	<if test="param.userid != null and param.userid != ''"> and userid = #{param.userid}</if>
+    	<if test="param.storeid != null and param.storeid != ''"> and storeid = #{param.storeid}</if>
+    	<if test="param.licenseId != null and param.licenseId != ''"> and license_id = #{param.licenseId}</if>
+        
+    	<!--在构建查询参数时，根据实际情况， chasingState和chasingStateList只能给其中一个赋值，否则最终SQL会不正确 -->
+    	<if test="param.chasingState != null and param.chasingState != ''"> and chasing_state = #{param.chasingState}</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+    	 </if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and order_date &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and order_date &lt; CONCAT(#{param.endTime}," 23:59:59") 
+    	</if>	
+    </where>
+	
+  </select>
+  
+  <!-- 修改累计奖金 -->
+  <update id="updateAddedBonus">
+      update chasing_order set add_bonus = add_bonus + #{param.addBonus,jdbcType=DOUBLE} where id = #{param.id}
+  </update>
+  
+   <sql id="Base_Column_List2" >
+    chasing_order.id, chasing_order.userid, chasing_order.username, chasing_order.storeid, chasing_order.license_id, 
+    chasing_order.play_type, chasing_order.single_flag, chasing_order.order_date, chasing_order.bet_code, 
+    chasing_order.bet_num, chasing_order.multiple, chasing_order.bet_price, chasing_order.chasing_state, 
+    chasing_order.zj_flag, chasing_order.total_issue, chasing_order.done_issue, chasing_order.cancel_issue, 
+    chasing_order.issue_mult, chasing_order.stop_bonus, chasing_order.win_stop, chasing_order.stop_bonus,chasing_order.add_bonus, 
+    chasing_order.reserved1, chasing_order.reserved2, chasing_order.reserved3, chasing_order.reserved4, chasing_order.reserved5, 
+    chasing_order.reserved6, chasing_order.reserved7, chasing_order.reserved8, chasing_order.reserved9, chasing_order.reserved10
+  </sql>
+  
+  
+  <!-- 我的团队追号记录-根据条件查询追号订单信息条目数——条件包含店铺ID、用户ID、开始时间、结束时间、排序方式 -->
+	<select id="getMyTeamChaseList" resultMap="BaseResultMap" >
+		SELECT <include refid="Base_Column_List2" />,member.member_name username  
+			FROM chasing_order,member 
+			WHERE chasing_order.userid = member.id
+			AND member.reserved4 = #{agent}
+	    	<if test="param.username != null and param.username != ''"> and member.member_name = #{param.username}</if>
+	    	<if test="param.licenseId != null" > and chasing_order.license_id = #{param.licenseId}</if>
+	    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime != '')">
+	    	 and (chasing_order.order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59"))
+	    	</if>
+	    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime == '')">
+	    	 and chasing_order.order_date &gt; CONCAT(#{param.beginTime}," 00:00:00")
+	    	</if>
+	    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime != '')">
+	    	 and chasing_order.order_date &lt; CONCAT(#{param.endTime}," 23:59:59")
+	    	</if>
+		    order by order_date desc 
+		    limit #{pagination.firstResult},#{pagination.pageSize}
+	</select>
+
+  <!-- 我的团队追号记录-总条目-->
+	<select id="getMyTeamChaseListCount" resultType="java.lang.Integer" >
+    	SELECT count(chasing_order.id) 
+			FROM chasing_order,member 
+			WHERE chasing_order.userid = member.id
+			AND member.reserved4 = #{agent}
+	    	<if test="param.username != null and param.username != ''"> and member.member_name = #{param.username}</if>
+	    	<if test="param.licenseId != null" > and chasing_order.license_id = #{param.licenseId}</if>
+	    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime != '')">
+	    	 and (chasing_order.order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59"))
+	    	</if>
+	    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime == '')">
+	    	 and chasing_order.order_date &gt; CONCAT(#{param.beginTime}," 00:00:00")
+	    	</if>
+	    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime != '')">
+	    	 and chasing_order.order_date &lt; CONCAT(#{param.endTime}," 23:59:59")
+	    	</if>
+	</select>
+	
+	<!-- 追号查询,关联查询member表 -->
+  <select id="getMemberChaseListBonus2"  resultMap="BaseResultMap">
+   select <include refid="Base_Column_List1"/>
+   from chasing_order,member
+    <where>
+		chasing_order.userid=member.id
+    	<if test="param.userid != null and param.userid != ''"> and userid = #{param.userid}</if>
+    	<if test="param.storeid != null and param.storeid != ''"> and storeid = #{param.storeid}</if>
+    	<if test="param.licenseId != null and param.licenseId != ''"> and license_id = #{param.licenseId}</if>
+    <!--    <if test="param.reserved1 != null and param.reserved1 != ''"> and reserved1 = #{param.reserved1}</if> -->
+    	<!--在构建查询参数时，根据实际情况， chasingState和chasingStateList只能给其中一个赋值，否则最终SQL会不正确 -->
+    	<if test="param.chasingState != null and param.chasingState != ''"> and chasing_state = #{param.chasingState}</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+    	 </if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and order_date &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and order_date &lt; CONCAT(#{param.endTime}," 23:59:59") 
+    	</if>
+		<if test="memberParam.reserved4 != null and memberParam.reserved4 !=''">
+    	 	and member.reserved4 = #{memberParam.reserved4} 
+    	</if>
+	</where>
+		order by order_date desc
+		<if test="pagination != null"><!-- pagination 传入null时，表示不需要分页，要查询所有数据 -->
+			limit #{pagination.firstResult},#{pagination.pageSize}
+		</if>  
+	</select>
+	
+	<!-- 追号查询,关联查询member表 -->
+  <select id="getMemberChaseCountBonus2" resultType="java.lang.Integer">
+   select count(chasing_order.userid)
+   from chasing_order,member
+    <where>
+		chasing_order.userid=member.id
+    	<if test="param.userid != null and param.userid != ''"> and userid = #{param.userid}</if>
+    	<if test="param.storeid != null and param.storeid != ''"> and storeid = #{param.storeid}</if>
+    	<if test="param.licenseId != null and param.licenseId != ''"> and license_id = #{param.licenseId}</if>
+    <!--    <if test="param.reserved1 != null and param.reserved1 != ''"> and reserved1 = #{param.reserved1}</if> -->
+    	<!--在构建查询参数时，根据实际情况， chasingState和chasingStateList只能给其中一个赋值，否则最终SQL会不正确 -->
+    	<if test="param.chasingState != null and param.chasingState != ''"> and chasing_state = #{param.chasingState}</if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime != null and param.endTime !='')">
+    	 	and (order_date between CONCAT(#{param.beginTime}," 00:00:00") and CONCAT(#{param.endTime}," 23:59:59")) 
+    	 </if>
+    	<if test="(param.beginTime != null and param.beginTime !='') and (param.endTime == null or param.endTime =='')"> 
+    		and order_date &gt; CONCAT(#{param.beginTime}," 00:00:00") 
+    	</if>
+    	<if test="(param.beginTime == null or param.beginTime =='') and (param.endTime != null and param.endTime !='')">
+    	 	and order_date &lt; CONCAT(#{param.endTime}," 23:59:59") 
+    	</if>
+		<if test="memberParam.reserved4 != null and memberParam.reserved4 !=''">
+    	 	and member.reserved4 = #{memberParam.reserved4} 
+    	</if>
+	</where>
+	</select>
+</mapper>

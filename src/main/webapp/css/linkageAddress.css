@@ -1,0 +1,12 @@
+@charset "utf-8";
+.linkage_box{ position:absolute; width:300px; left:0; top:27px; *top:35px; z-index:2; background:#fff; border:solid #7EA0B5 1px; clear:both; padding:0;}
+.linkage_box .close{ position:absolute; right:10px; top:7px; z-index:2; color:#666;}
+.linkage_box p{ display:block; width:290px; background:#fff9eb; height:32px; line-height:32px; padding-left:10px; position:relative; z-index:1;}
+.linkage_box ul{ display:block; padding:0 10px;}
+.linkage_box li{ display:table; width:100%; border-bottom:solid #e5e5e5 1px; line-height:30px;}
+.linkage_box li.last{ border:0;}
+.linkage_box a{ color:#7EA0B5; white-space:nowrap; cursor:pointer;}
+.linkage_box strong , .linkage_box a{ float:left; padding:0 5px;}
+/*.linkage_box{ position:absolute; left:0; top:27px; *top:35px; z-index:2; background:#fff; border:solid #ffa535 1px; clear:both; padding:0;}*/
+/*.linkage_boxa{color:#a7430f; white-space:nowrap; cursor:pointer;}*/
+

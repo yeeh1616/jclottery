@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* football lottery */
+.fb-warp{ width:998px; margin:0 auto; border:1px solid #d1d0d0; border-top:none; margin-top:0px;}
+.fb-title{ height:33px; line-height:33px; border-bottom:1px solid #d1d0d0; border-top:2px solid #1762a1; background:url(../images/sj01.png) no-repeat 0px 0px #f0faff;}
+.fb-title h3{ font-size:14px; font-weight:bold; color:#494e52; margin-left:20px;}
+.fb-title h3 em,.fb-title h3 span{ display:inline-block; vertical-align:middle;}
+.fb-title h3 em{ background:url(../images/iconsprites.png) no-repeat 0px 0px; width:20px; height:20px; margin:0px 7px 0px 0px;}
+
+.event-query{ float:right; margin-right:5px; display:inline;}
+.event-query .fb-tit{ display:inline-block; vertical-align:middle;}
+.fb-sel{ height:20px; line-height:20px; *height:22px; border:1px solid #bac1c4; color:#fd6d3c; vertical-align:middle;}
+
+/* table style 胜负过关 zh */
+.fb-tab01 tr .c0_s{ width:77px;}
+.fb-tab01 tr .c1_s{ width:154px;}
+.fb-tab01 tr .c2_s{ width:140px;}
+.fb-tab01 tr .c3_s{ width:170px;}
+.fb-tab01 tr .c4_s{ width:140px;}
+.fb-tab01 tr .c5_s{ width:170px;}
+.fb-tab01 tr .c6_s{ width:140px;}
+
+/* table style 北京单场 zh */
+.fb-tab01 tr .c0_b{ width:80px;}
+.fb-tab01 tr .c1_b{ width:130px;}
+.fb-tab01 tr .c2_b{ width:130px;}
+.fb-tab01 tr .c3_b{ width:130px;}
+.fb-tab01 tr .c4_b{ width:130px;}
+.fb-tab01 tr .c5_b{ width:130px;}
+.fb-tab01 tr .c6_b{ width:130px;}
+.fb-tab01 tr .c7_b{ width:130px;}
+
+/* table style */
+.fb-tab01{ width:978px; margin:10px auto;}
+.fb-tab01 tr th{ height:36px; border:1px solid #00427a; color:#fff; vertical-align:middle; background:url(../images/sj02.png) no-repeat right bottom #1762a1; line-height:14px; }
+.fb-tab01 tr .c0{ width:55px;}
+.fb-tab01 tr .c1{ width:70px;}
+.fb-tab01 tr .c2{ width:78px;}
+.fb-tab01 tr .c3{ width:95px;}
+.fb-tab01 tr .c4{ width:37px;}
+.fb-tab01 tr .c5{ width:95px;}
+.fb-tab01 tr .c6{ width:58px;}
+.fb-tab01 tr .c7{ width:116px;}
+.fb-tab01 tr .c8{ width:117px;}
+.fb-tab01 tr .c9{ width:117px;}
+.fb-tab01 tr .c10{ width:125px;}
+
+.fb-tab01 tr .v0,.fb-tab01 tr .v1{ display:inline-block; width:58px; text-align:center;}
+.fb-tab01 tr .v1{ width:57px;}
+
+.fb-tab01 tr td{ height:30px; border:1px solid #e3e3e3; text-align:center; color:#615049;}
+.fb-tab01 tr.even{ background:#f9f9f9;}
+.fb-tab01 tr .fb-green,.fb-tab01 tr .fb-blue,.fb-tab01 tr .fb-red{ background:url(../images/sj03.png) no-repeat right bottom ; _background:url(../images/sj03ie6.png) no-repeat right bottom #349866; color:#fff;}
+.fb-tab01 tr .fb-blue{ background-color:#2454a4;}
+.fb-tab01 tr .fb-red{ background-color:#a12a2a;}
+.fb-tab01 tr td .gray{ color:#a39e9d;}
+.fb-tab01 tr td .orange{ color:#fd6d3c;}

@@ -1,0 +1,159 @@
+/* CSS Document */
+a {color:#333;text-decoration:none;}
+a:hover, a:active, a:focus{color:#f00;text-decoration:underline;}
+img{border:0}
+body{margin:0px;font:12px "宋体";padding:0;background:url(../images/WebTopBg.gif) no-repeat top center;}
+.footer{width:1000px;line-height:22px;text-align:center;font-size:12px;color:#000000;margin-top:15px;}
+.wrap{width:1000px;margin:auto;}
+.Main{width:998px;border:1px #EEEEEE solid;border-top:none;border-bottom:none;background:#FAFBFD  repeat-x;background-position:top;float:left;padding-bottom:10px}
+ul{list-style-type:none}
+.floatL{float:left}
+.floatR{float:right}
+
+
+
+/*查看受注赛程*/
+.shouzhu{width:963px;height:31px;background:url(http://static.sporttery.cn/sinaimg/main/index_2010/topics/images/chakanshouzhu.gif) no-repeat;float:inherit;;margin:10px 0 0 6px;font:normal 14px "宋体";line-height:31px;padding-left:25px}
+
+/*页面顶部及导航*/
+.WebTopBox{height:104px;margin-bottom:8px}
+
+/*返回顶部*/
+.TopImg{margin:0 0 100px 1220px}
+
+/*大标题*/
+.MainTitleBox{width:981px;height:27px;background:#F9FCFD url(../images/MainTitleBox.gif) repeat-x;margin:6px 0 0 7px;border:1px #99CDDB solid;background-position:0 50%}
+.YourPosition{float:left;color:#296CBD;margin:6px 0 0 13px;display:inline}
+.YourPosition a{color:#296CBD}
+.YourPosition a:hover{color:#FF0000}
+.OtherMatch{float:right;margin:0px 6px 0 0px;font:normal 14px "宋体";color:#F00;line-height:27px;display:inline}
+.YourPositionB{font-weight:bold}
+
+/*功能区*/
+.Box{width:981px;margin:0 0 0 7px;border:1px #D4D4D4 solid;border-top:none;background:#FFFFFF;padding-bottom:7px;float:left;display:inline}
+.FunctionBox{width:970px;height:36px;margin:0 0 0 6px;border-bottom:1px #879FC9 solid;float:left;display:inline}
+.function{font:bold 14px "宋体";color:#0060B7;margin:10px 0 0 10px;display:inline}
+.FunctionBox div{float:left;display:inline}
+.FunctionBox input{height:31px;line-height:31px;padding:2px;margin:0 2px;display:inline}
+.FunctionBox div img{margin:6px 0 0 0;display:inline}
+.text{margin:10px 6px 0 6px;}
+.red{margin:10px 0 0 10px;}
+.red a{color:#FF0000;}
+.red a:hover{color:#A60000;}
+
+.ButtomBg1{width:57px;height:22px;text-align:center;line-height:22px;background:url(../images/buttombg.gif) no-repeat;margin:7px 0 0 8px;cursor:pointer}
+.ButtomBga{width:88px;height:22px;text-align:center;line-height:22px;background:url(../images/buttombga.gif) no-repeat;margin:7px 12px 0 0;cursor:pointer}
+.ButtomBgb{width:88px;height:22px;text-align:center;line-height:22px;background:url(../images/buttombgb.gif) no-repeat;margin:7px 12px 0 0;cursor:pointer}
+
+/*表格*/
+.TableBox{margin:1px 0 0 6px;float:left;display:inline}
+.Table{width:970px;text-align:center;border-collapse:collapse;}
+.Table th{background:#498FD0;font:bold 14px "宋体";background:#498FD0;color:#FFFFFF;border:1px #D4D4D4 solid;line-height:51px;border-top:1px #498FD0 solid}
+.Table tr{line-height:26px}
+.Table td{border:1px #D7D7D7 solid}
+.bifen{font:bold 18px "微软雅黑"}
+.sheng{background:#FEF9AD;}
+.ping{background:#D6E7F6;color:#0D8B00}
+.ping1{color:#0D8B00}
+.fu{background:#EEFFE2;color:#FF7200}
+.fu1{color:#FF7200}
+.ou a{color:#174574}
+.ya a{color:#CD2E2E}
+.xi a{color:#1E9608}
+.xun a{color:#FF7400}
+.tong a{color:#498FD0}
+.td1 span{margin:0 1px}
+.yellowcardbg{width:11px;height:13px;background:#FF3900;color:#FFFFFF;line-height:13px;text-align:center;;border:1px #B13B3B solid;margin:4px 5px 0 0;padding:1px 2px}
+.aochao{background:#004488;color:#FFFFFF}
+.meizhi{background:#660033;color:#FFFFFF}
+.ajia{background:#0CB9E4;color:#FFFFFF}
+
+/*赛事选择弹窗*/
+.SSDiv{width:454px; border:1px #5F85B2 solid;background:none repeat scroll 0 0 #EEEEEE; position:absolute; left:0px; top:30px;}
+.SSDivTit{width:100%;height:29px;background:url(../images/bgb.gif) repeat-x;font:bold 14px "宋体"; text-align:center; line-height:200%}
+.SSDivClose{position:absolute; right:5px; top:0px; cursor:pointer;}
+.SSDivTitT{float:left;margin:7px 0 0 190px;display:inline}
+
+.SSDivB{float:left;margin:5px 4px 5px 5px;display:inline}
+.SSDivBlock{width:135px;height:29px;border:1px #000000 solid;border-collapse:collapse;text-align:center;}
+
+.line{width:97%;height:1px;line-height:1px;font-size:0;background:#5E84B1;margin:4px 0 5px 6px;float:left;overflow:hidden;display:inline}
+.Bu{font:bold 12px "宋体";background:#E2F5FB;padding:3px 7px;float:left;border:1px #AEC6EC solid;color:#0265CA;cursor:pointer;margin:0 5px;display:inline;cursor:pointer;}
+.Bu a{color:#0265CA;}
+.Bu a:hover{color:#FF0000;}
+
+/*进球弹窗*/
+.GoalDiv {display:none;}
+.GoalDivTab{width:236px;border:1px #E4A6A6 solid;background:#FFEDED;border-collapse:collapse;}
+.GoalDivTab td{border:1px #E4A6A6 solid;text-align:center}
+.col1{color:#E50707}
+.col2{color:#000000}
+
+/*比赛数据*/
+.MatchDataDiv{width:564px;border:1px #5F85B2 solid;background:#FFFFFF;position:absolute;float:left;margin:15px 0 0 -282px;padding-bottom:20px}
+/*.MatchDataDiv2{width:376px;border:1px #5F85B2 solid;background:#FFFFFF;position:absolute;float:left;;margin:15px 0 0 -195px}*/
+.MatchDataDiv2{width:376px;border:1px #5F85B2 solid;background:#FFFFFF;position:absolute;float:left;}
+
+.SSDivTitT2{float:left;text-align:center; display:inline}
+
+.LogoBox{width:120px;}
+.DuiZhenBox{height:130px;margin:12px 8px;}
+.TeamBiFen{width:303px;height:96px;border:1px #7CB6DE solid;background:url(../images/TeamBiFenBg.gif) repeat-x}
+.TeamBiFen2{width:288px;height:55px;background:url(../images/TeamBiFenBg2.gif) no-repeat;margin:5px auto;text-align:center;color:#FFFFFF;padding-top:5px}
+.MatchTime{width:303px;height:30px;border:1px #7CB6DE solid;background:url(../images/MatchTimeBg.gif) repeat-x;margin:5px 0 0 0;text-align:center;line-height:30px}
+.TeamName{color:#2785C5;text-align:center;line-height:16px;margin:5px 0 0 0}
+.TeamLogo{margin:auto;text-align:center}
+.TeamLogo img{border:1px #000000 solid;}
+.BFSJ{margin-left:1px}
+.BiFenText{;font:normal 24px "微软雅黑";letter-spacing:12px}
+.BCBiFen{margin:9px 0 0 0;text-align:center}
+
+.HomePlayer{width:144px;height:316px;border:1px #B5CFEA solid;margin:0 8px;line-height:25px;display:inline}
+.HomeF{width:139px;font:bold 12px "宋体";color:#1F6AA3;line-height:30px;border-bottom:1px #B5CFEA solid;text-align:center;margin:auto}
+.HomePlayer1 div{width:129px;margin:auto;border-bottom:1px #B5CFEA solid;text-align:left;padding-left:10px}
+
+.TimeLine{width:240px;height:541px;line-height:28px;border:1px #A6D0E8 solid;border-collapse:collapse;text-align:center;color:#3B7DB1}
+.TimeLineTd1{background:#AF2120;width:31px;color:#FFFFFF}
+.TimeLineBF{font:bold 18px "微软雅黑";margin:0 10px}
+.TimeLine td{border:1px #A6D0E8 solid;line-height:24px}
+
+.HomePlayer2{width:144px;height:210px;border:1px #B5CFEA solid;margin:0 8px;line-height:25px;display:inline;margin:329px 0 0 -153px}
+.AwayPlayer2{width:144px;height:210px;border:1px #B5CFEA solid;margin:0 8px;line-height:25px;display:inline;margin:11px 8px 0 0px}
+
+.ChangePlayer{margin:0 0 0 12px}
+.ChangePlayer2{margin:0 0 0 48px}
+.ArrowUp{width:11px;height:11px;background:url(../images/ArrowUp.gif) no-repeat;margin:5px 20px 0 5px}
+.ArrowDown{width:11px;height:11px;background:url(../images/ArrowDown.gif) no-repeat;margin:5px 0 0 5px}
+.GoalPlayer{width:100%;height:10px;background:url(../images/tai.gif) no-repeat right;padding-right:15px}
+.YellowCard{width:100%;height:15px;background:url(../images/YellowCard.gif) no-repeat right;padding:2px 15px 1px 0;}
+.RedCard{width:100%;height:15px;background:url(../images/RedCard.gif) no-repeat right;padding:2px 15px 1px 0;}
+
+.TimeLine2{width:362px;line-height:28px;border-collapse:collapse;text-align:center;color:#3B7DB1;margin:3px 0 7px 7px;display:inline}
+.TimeLine2 td{border:1px #A6D0E8 solid;line-height:24px}
+.TimeLineTeamName{font:normal 12px "宋体";line-height:24px;margin:0 10px}
+
+/*窗口位置*/
+.LocationBox{width:100px;background:#FAFBFD;border:1px #D4D4D4 solid;position:absolute;float:left;margin:180px 0 0 173px;}
+.LocationBox ul{margin:5px 0 0 5px;padding:0}
+.LocationBox li{height:24px}
+
+/*进球声音*/
+.SoundBox{width:100px;background:#FAFBFD;border:1px #D4D4D4 solid;position:absolute;float:left;margin:180px 0 0 368px;}
+.SoundBox ul{margin:5px 0 0 5px;padding:0}
+.SoundBox li{height:24px}
+
+/*半全场*/
+.Blue14{font:bold 14px "宋体";color:#276DBD;line-height:40px;margin:0 67px 0 10px}
+.Blue15{font:bold 14px "宋体";color:#276DBD;line-height:40px;margin:-15px 8px 0 8px}
+.BlueLine{width:970px;height:6px;background:#879FC9;font:0;margin:2px 0 5px 6px}
+.zhengchang{text-decoration:underline}
+.youwucha{text-decoration:underline;color:#0C9EAD}
+.wuchada{text-decoration:underline;color:#FE0000}
+
+/*状态颜色*/
+.td_status {color: red}
+
+.OpenDivBox{width:290px;background:#A7D1F2;float:left;position:absolute}
+.OpenDivTop{width:100%;height:28px;background:url(../images/OpenDivBoxTop.gif) repeat-x;}
+.OpenDivMain{width:95%;height:95%;background:#FFFFFF;border:1px #E1F1FF solid;border-collapse:collapse;text-align:center;margin:0px auto 7px auto}
+.OpenDivMain td{border:1px #E1F1FF solid;line-height:24px}
